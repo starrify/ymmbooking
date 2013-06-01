@@ -11,9 +11,9 @@ app = bottle.Bottle()
 def index():
     return "well here i'm just a testing message"
 
-@app.route('/static/<filepath:path>')
-def static(filepath):   
-    return bottle.static_file(filepath, root=config.static_path)
+@app.route('/view/<filepath:path>')
+def view(filepath):   
+    return bottle.static_file(filepath, root=config.view_path)
 
 bottle.run(app, host='localhost', port=8080, debug=True)
 

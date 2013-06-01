@@ -9,7 +9,8 @@ class _config():
         parser.read(config_path)
 
         # the following parsings shall not fail
-        self.database_path = parser.get('Path', 'database_path')
-        self.static_path = parser.get('Path', 'static_path')
+        self.database_path  = parser.get('Path', 'database_path')
+        self.static_path    = parser.get('Path', 'static_path')
+        self.view_path      = parser.get('Path', 'view_path')
 
 config = _config()
