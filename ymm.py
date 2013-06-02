@@ -8,12 +8,15 @@ from config_parser import config
 app = bottle.Bottle()
 
 @app.route('/')
+@app.route('/index')
+@bottle.view(config.template_path + 'index.tpl')
 def index():
-    return "well here i'm just a testing message"
+    return {}
 
-@app.route('/view/<filepath:path>')
+# routes static files
+@app.route('/static/<filepath:path>')
 def view(filepath):   
-    return bottle.static_file(filepath, root=config.view_path)
+    return bottle.static_file(filepath, root=config.static_path)
 
 bottle.run(app, host='localhost', port=8080, debug=True)
 

@@ -12,5 +12,6 @@ class _config():
         self.database_path  = parser.get('Path', 'database_path')
         self.static_path    = parser.get('Path', 'static_path')
         self.view_path      = parser.get('Path', 'view_path')
+        self.template_path  = parser.get('Path', 'template_path')
 
 config = _config()
