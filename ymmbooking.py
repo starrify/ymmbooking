@@ -6,6 +6,7 @@ import bottle
 import json
 import sqlite3
 import sys
+import os
 
 if sys.version_info < (2,5):
     raise NotImplementedError("Well dude, we need Python 2.5+ or Python 3.x")
@@ -21,28 +22,49 @@ class Config():
         parser = configparser.ConfigParser()
         parser.read(config_path)
 
-        # the following parsings shall not fail
+        # to ensure all these entries are exising in the config file
+        # or at least one of the following parseings would fail 
         self.database_path  = parser.get('Path', 'database_path')
         self.db_schema_path = parser.get('Path', 'db_schema_path')
         self.static_path    = parser.get('Path', 'static_path')
         self.view_path      = parser.get('Path', 'view_path')
         self.template_path  = parser.get('Path', 'template_path')
+        self.debug  = parser.getboolean('Misc', 'debug')
 
 config = Config()
 
 class Database(object):
     def __init__(self, dbpath):
         self.conn = sqlite3.connect(config.database_path)
-    def respawn(self):
-        pass
-    pass
-
+    def __del__(self):
+        self.conn.close()
+    def reset(self):
+        self.conn.close()
+        os.remove(config.database_path)
+        self.conn = sqlite3.connect(config.database_path)
+        if True:
+            # well i shall try: and except: here..
+            f = open(config.db_schema_path, 'r')
+            script = f.read()
+            f.close()
+            self.conn.executescript(script)
+    
+            print('foo')
+            from ymmdb.flight_import import flight_import as fimport
+            fimport(config.database_path, "./ymmdb/fetched_flights")
+            del fimport
+            print('bar')
+            
 
 class App(object):
+    app = bottle.Bottle()
+    db = Database(config.database_path)
+    
     def __init__(self):
         #self.app = bottle.Bottle()
+        if config.debug:
+            self.db.reset()
         pass
-    app = bottle.Bottle()
 
     def auth_validate(func):
         def decorator(*args, **kwargs):

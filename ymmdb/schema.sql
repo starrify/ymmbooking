@@ -3,14 +3,15 @@
 /* Created on:     2013-6-3 21:02:14                            */
 /*==============================================================*/
 
-DROP DATABASE IF EXISTS ymm;
-CREATE DATABASE ymm;
-USE ymm;
+/* we don't need to deal with databases since we're using sqlite */
+--DROP DATABASE IF EXISTS ymm;
+--CREATE DATABASE ymm;
+--USE ymm;
 
 /*==============================================================*/
 /* Table: userAccount                                           */
 /*==============================================================*/
-//CREATE TABLE userAccount()
+--CREATE TABLE userAccount()
 
 /*==============================================================*/
 /* Table: flight                                                */
@@ -32,9 +33,9 @@ CREATE TABLE flight(
 /*==============================================================*/
 /* Table: hotel                                                 */
 /*==============================================================*/
-//CREATE TABLE hotel()
+--CREATE TABLE hotel()
 
 /*==============================================================*/
 /* Table: comment                                               */
 /*==============================================================*/
-//CREATE TABLE comment()
+--CREATE TABLE comment()
