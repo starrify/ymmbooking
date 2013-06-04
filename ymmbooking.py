@@ -50,8 +50,8 @@ class Database(object):
             self.conn.executescript(script)
     
             print('foo')
-            from ymmdb.flight_import import flight_import as fimport
-            fimport(config.database_path, "./ymmdb/fetched_flights")
+            from data.flight_import import flight_import as fimport
+            fimport(config.database_path, "./data/fetched_flights")
             del fimport
             print('bar')
             
