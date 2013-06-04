@@ -23,6 +23,7 @@ class Config():
 
         # the following parsings shall not fail
         self.database_path  = parser.get('Path', 'database_path')
+        self.db_schema_path = parser.get('Path', 'db_schema_path')
         self.static_path    = parser.get('Path', 'static_path')
         self.view_path      = parser.get('Path', 'view_path')
         self.template_path  = parser.get('Path', 'template_path')
