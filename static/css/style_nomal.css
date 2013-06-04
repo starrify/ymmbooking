@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+/*nomal CSS don't modify it!*/
+body{
+	color: #999999;
+	background-attachment: scroll;
+	background-image: url(/img/backgurand.jpg);
+	background-repeat: repeat;
+	background-position: center;
+	background-color: #f7fcf8;
+}
+ body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+
+.tail{
+text-align:center;
+}
