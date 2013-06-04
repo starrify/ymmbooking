@@ -40,7 +40,7 @@ class App():
             "dt2": "Datetime 2",
             "fn": "FlightNo",
         }
-        return {'flights': [d, d]}
+        return {'flights': {d, d}}
 
     @app.get('/flight/oneway_async')
     @bottle.view(config.template_path + 'flight/oneway_async.tpl')
