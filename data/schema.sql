@@ -137,8 +137,9 @@ DROP TABLE IF EXISTS airport;
 CREATE TABLE airport(
     code            VARCHAR(255)    not null,
     city            VARCHAR(255)    not null,
-    cn_name         VARCHAR(255)    not null,
-    PRIMARY KEY (code),
+    name_cn         VARCHAR(255)    not null,
+    name_en         VARCHAR(255)    not null,
+    domestic        BOOL            not null,
 );
 
 /*==============================================================*/
@@ -147,7 +148,8 @@ CREATE TABLE airport(
 DROP TABLE IF EXISTS airlines;
 CREATE TABLE airlines(
     code            VARCHAR(255)    not null,
-    cn_name         VARCHAR(255)    not null,
+    name_cn         VARCHAR(255)    not null,
+    name_en         VARCHAR(255)    not null,
     PRIMARY KEY (code),
 );
 
