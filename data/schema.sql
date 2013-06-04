@@ -129,3 +129,27 @@ CREATE TABLE hotelComment(
     PRIMARY KEY (c_id),
     FOREIGN KEY (h_id) REFERENCES hotel(h_id)
 );
+
+/*==============================================================*/
+/* Table: airport                                               */
+/*==============================================================*/
+DROP TABLE IF EXISTS airport;
+CREATE TABLE airport(
+    code            VARCHAR(255)    not null,
+    city            VARCHAR(255)    not null,
+    name_cn         VARCHAR(255)    not null,
+    name_en         VARCHAR(255)    not null,
+    domestic        BOOL            not null,
+);
+
+/*==============================================================*/
+/* Table: airlines                                              */
+/*==============================================================*/
+DROP TABLE IF EXISTS airlines;
+CREATE TABLE airlines(
+    code            VARCHAR(255)    not null,
+    name_cn         VARCHAR(255)    not null,
+    name_en         VARCHAR(255)    not null,
+    PRIMARY KEY (code),
+);
+
