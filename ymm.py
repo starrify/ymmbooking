@@ -4,9 +4,40 @@
 
 import bottle
 import json
-from config_parser import config
+import sqlite3
+import sys
 
-class App():
+if sys.version_info < (2,5):
+    raise NotImplementedError("Well dude, we need Python 2.5+ or Python 3.x")
+
+class Config():
+    def __init__(self, config_path='./config.cfg'): 
+        try:
+            # Python 3
+            import configparser
+        except:
+            # Python 2.5+
+            import ConfigParser as configparser
+        parser = configparser.ConfigParser()
+        parser.read(config_path)
+
+        # the following parsings shall not fail
+        self.database_path  = parser.get('Path', 'database_path')
+        self.static_path    = parser.get('Path', 'static_path')
+        self.view_path      = parser.get('Path', 'view_path')
+        self.template_path  = parser.get('Path', 'template_path')
+
+config = Config()
+
+class Database(object):
+    def __init__(self, dbpath):
+        self.conn = sqlite3.connect(config.database_path)
+    def respawn(self):
+        pass
+    pass
+
+
+class App(object):
     def __init__(self):
         #self.app = bottle.Bottle()
         pass
