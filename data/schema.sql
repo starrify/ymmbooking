@@ -139,7 +139,7 @@ CREATE TABLE airport(
     city            VARCHAR(255)    not null,
     name_cn         VARCHAR(255)    not null,
     name_en         VARCHAR(255)    not null,
-    domestic        BOOL            not null,
+    domestic        BOOL            not null
 );
 
 /*==============================================================*/
@@ -150,6 +150,6 @@ CREATE TABLE airlines(
     code            VARCHAR(255)    not null,
     name_cn         VARCHAR(255)    not null,
     name_en         VARCHAR(255)    not null,
-    PRIMARY KEY (code),
+    PRIMARY KEY (code)
 );
 

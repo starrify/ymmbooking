@@ -49,9 +49,10 @@ class Database(object):
             script = f.read()
             f.close()
             self.conn.executescript(script)
-            from data.flight_import import flight_import as fimport
-            fimport(config.database_path, "./data/fetched_flights")
-            del fimport
+            self.conn.commit()
+            from data.data_import import data_import as dimport
+            dimport(os.path.abspath(config.database_path))
+            del dimport
 
 class App(object):
     app = bottle.Bottle()
