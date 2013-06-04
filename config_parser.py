@@ -2,9 +2,18 @@
 # Source code by Pengyu CHEN (cpy.prefers.you[at]gmail.com)
 # COPYLEFT, ALL WRONGS RESERVED
 
+import sys
+if sys.version_info < (2,5):
+    raise NotImplementedError("Well, we need Python 2.5+ or Python 3.x")
+
 class _config():
     def __init__(self, config_path='./config.cfg'): 
-        import configparser
+        try:
+            # Python 3
+            import configparser
+        except:
+            # Python 2.5+
+            import ConfigParser as configparser
         parser = configparser.ConfigParser()
         parser.read(config_path)
 

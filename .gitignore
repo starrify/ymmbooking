@@ -1,2 +1,7 @@
 # ignore python caches
 __pycache__
+*.pyc
+
+# ignore temperary files by text editors like vim or gedit
+*~
+.*.swp
