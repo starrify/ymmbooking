@@ -22,7 +22,7 @@ class Config():
         parser = configparser.ConfigParser()
         parser.read(config_path)
 
-        # to ensure all these entries are exising in the config file
+        # to ensure all these entries are exising in the self.config.file
         # or at least one of the following parseings would fail 
         self.database_path  = parser.get('Path', 'database_path')
         self.db_schema_path = parser.get('Path', 'db_schema_path')
@@ -31,14 +31,15 @@ class Config():
         self.template_path  = parser.get('Path', 'template_path')
         self.debug  = parser.getboolean('Misc', 'debug')
 
-config = Config()
 
 class Database(object):
-    def __init__(self, dbpath):
+    def __init__(self, dbpath, config):
+        self.config = config
         self.conn = sqlite3.connect(config.database_path)
     def __del__(self):
         self.conn.close()
     def reset(self):
+        config = self.config
         self.conn.close()
         os.remove(config.database_path)
         self.conn = sqlite3.connect(config.database_path)
@@ -48,21 +49,19 @@ class Database(object):
             script = f.read()
             f.close()
             self.conn.executescript(script)
-    
-            print('foo')
-            from data.flight_import import flight_import as fimport
-            fimport(config.database_path, "./data/fetched_flights")
-            del fimport
-            print('bar')
-            
+            self.conn.commit()
+            from data.data_import import data_import as dimport
+            dimport(os.path.abspath(config.database_path))
+            del dimport
 
 class App(object):
     app = bottle.Bottle()
-    db = Database(config.database_path)
+    config = Config('./config.cfg')
+    db = Database(config.database_path, config)
     
     def __init__(self):
         #self.app = bottle.Bottle()
-        if config.debug:
+        if self.config.debug:
             self.db.reset()
         pass
 
@@ -72,10 +71,10 @@ class App(object):
             return func(*args, **kwargs)
         return decorator
 
-    # routes static files
-    @app.route('/static/<filepath:path>')
-    def static(filepath):   
-        return bottle.static_file(filepath, root=config.static_path)
+    # routes static css/img/js files
+    @app.route('/<category:re:(css|img|js)>/<filepath:path>')
+    def static_css_img_js(category, filepath):   
+        return bottle.static_file(category + "/" + filepath, root=self.config.static_path)
 
     @app.route('/')
     @app.route('/index')
@@ -83,6 +82,18 @@ class App(object):
     @auth_validate
     def index():
         return {}
+
+    @app.get('/flight/search')
+    @bottle.view(config.template_path + 'flight/search.tpl')
+    def flight_search():
+        return {}
+    
+    @app.get('/flight/search/async')
+    def flight_search_json():
+        departure_city = bottle.request.query.get('depature_city')
+        return { 'flight': [["A", "B", "C"], ["D", "E", "F"]] }
+
+    # following are samples of flight/oneway
 
     @app.get('/flight/oneway')
     @bottle.view(config.template_path + 'flight/oneway.tpl')
@@ -111,21 +122,6 @@ class App(object):
             "fn": "FlightNo",
             }
         return {"flight": [d,d]}#json.dumps(d)
-
-    @app.get('/flight/oneway_inter')
-    @bottle.view(config.template_path + 'flight/oneway_inter.tpl')
-    def oneway_inter_get():
-        return {}
-
-    @app.get('/flight/roundtrip')
-    @bottle.view(config.template_path + 'flight/roundtrip.tpl')
-    def roundtrip_get():
-        return {}
-
-    @app.get('/flight/roundtrip_inter')
-    @bottle.view(config.template_path + 'flight/roundtrip_inter.tpl')
-    def roundtrip_inter_get():
-        return {}
 
 if __name__ == '__main__':
     application = App()

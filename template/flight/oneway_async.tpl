@@ -4,7 +4,7 @@ Loading...
 </div>
 end of oneway flight~
 
-<script src="/static/js/jquery.js"></script>
+<script src="/js/jquery.js"></script>
 <script>
 jQuery.getJSON(
     "/flight/oneway_async_json",
