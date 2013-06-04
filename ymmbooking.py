@@ -22,7 +22,7 @@ class Config():
         parser = configparser.ConfigParser()
         parser.read(config_path)
 
-        # to ensure all these entries are exising in the self.config.file
+        # to ensure all these entries are exising in the config file
         # or at least one of the following parseings would fail 
         self.database_path  = parser.get('Path', 'database_path')
         self.db_schema_path = parser.get('Path', 'db_schema_path')
@@ -54,14 +54,15 @@ class Database(object):
             dimport(os.path.abspath(config.database_path))
             del dimport
 
+config = Config('./config.cfg')
+
 class App(object):
     app = bottle.Bottle()
-    config = Config('./config.cfg')
     db = Database(config.database_path, config)
     
     def __init__(self):
         #self.app = bottle.Bottle()
-        if self.config.debug:
+        if config.debug:
             self.db.reset()
         pass
 
@@ -74,7 +75,7 @@ class App(object):
     # routes static css/img/js files
     @app.route('/<category:re:(css|img|js)>/<filepath:path>')
     def static_css_img_js(category, filepath):   
-        return bottle.static_file(category + "/" + filepath, root=self.config.static_path)
+        return bottle.static_file(category + "/" + filepath, root=config.static_path)
 
     @app.route('/')
     @app.route('/index')
