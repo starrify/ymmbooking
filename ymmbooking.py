@@ -48,13 +48,9 @@ class Database(object):
             script = f.read()
             f.close()
             self.conn.executescript(script)
-    
-            print('foo')
             from data.flight_import import flight_import as fimport
             fimport(config.database_path, "./data/fetched_flights")
             del fimport
-            print('bar')
-            
 
 class App(object):
     app = bottle.Bottle()
@@ -72,10 +68,10 @@ class App(object):
             return func(*args, **kwargs)
         return decorator
 
-    # routes static files
-    @app.route('/static/<filepath:path>')
-    def static(filepath):   
-        return bottle.static_file(filepath, root=config.static_path)
+    # routes static css/img/js files
+    @app.route('/<category:re:(css|img|js)>/<filepath:path>')
+    def static_css_img_js(category, filepath):   
+        return bottle.static_file(category + "/" + filepath, root=config.static_path)
 
     @app.route('/')
     @app.route('/index')
@@ -111,21 +107,6 @@ class App(object):
             "fn": "FlightNo",
             }
         return {"flight": [d,d]}#json.dumps(d)
-
-    @app.get('/flight/oneway_inter')
-    @bottle.view(config.template_path + 'flight/oneway_inter.tpl')
-    def oneway_inter_get():
-        return {}
-
-    @app.get('/flight/roundtrip')
-    @bottle.view(config.template_path + 'flight/roundtrip.tpl')
-    def roundtrip_get():
-        return {}
-
-    @app.get('/flight/roundtrip_inter')
-    @bottle.view(config.template_path + 'flight/roundtrip_inter.tpl')
-    def roundtrip_inter_get():
-        return {}
 
 if __name__ == '__main__':
     application = App()
