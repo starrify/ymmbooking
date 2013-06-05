@@ -142,8 +142,9 @@ def flight_search_json():
             for flight in flights:
                 cur.execute("SELECT * FROM airline WHERE code=?", [flight['flightNumber'][:2]])
                 airline = cur.fetchone()
+                print(flight)
                 print(airline)
-                ret_flights.append(flight.values()
+                ret_flights.append(list(flight.values())
                     + [d_airport['name_cn'], a_airport['name_cn'], airline['name_cn']])
     
     return { 'flight': ret_flights }

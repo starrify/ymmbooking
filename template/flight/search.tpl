@@ -3,7 +3,7 @@
   <head>
     <title>国内机票搜索</title>   
     <meta charset=utf-8>        
-	<link href="/css/_bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
 <!--what a mess code.-->
 <script src="/js/jquery.js"></script>

@@ -4,7 +4,7 @@
 body{
 	color: #999999;
 	background-attachment: scroll;
-	background-image: url(/img/backgurand.jpg);
+	background-image: url(../img/backgurand.jpg);
 	background-repeat: repeat;
 	background-position: center;
 	background-color: #f7fcf8;
@@ -27,5 +27,12 @@ body{
       }
 
 .tail{
-text-align:center;
+	text-align:center;
+}
+label{
+	display:inline;
+}
+.hero-unit
+{
+	  background-image:url(../img/glyphicons-halflings.png);
 }

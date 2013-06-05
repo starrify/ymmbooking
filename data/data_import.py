@@ -51,6 +51,24 @@ def data_import(dbpath):
                 1,      # domestic
             ]
         )
+    
+    f = open('airline_list', 'r')
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+        l = line[:-1].split(',')
+        conn.execute(
+            'INSERT INTO airline VALUES(?,?,?,?)',
+            [
+                l[0],   # code
+                l[1],   # name_cn
+                l[2],   # name_en
+                l[3],   # country_cn
+            ]
+        )
+     
+
 
     conn.commit()
     conn.close()
