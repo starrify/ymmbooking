@@ -145,8 +145,8 @@ CREATE TABLE airport(
 /*==============================================================*/
 /* Table: airlines                                              */
 /*==============================================================*/
-DROP TABLE IF EXISTS airlines;
-CREATE TABLE airlines(
+DROP TABLE IF EXISTS airline;
+CREATE TABLE airline(
     code            VARCHAR(255)    not null,
     name_cn         VARCHAR(255)    not null,
     name_en         VARCHAR(255)    not null,

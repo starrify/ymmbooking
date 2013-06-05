@@ -24,8 +24,10 @@ function fetch_flight(d_city, a_city, d_date) {
             for (var i in data.flight) {
                 flight = data.flight[i]
                 console.log(flight)
-                jQuery("#flight_list").append(jQuery("<div>", { html: flight.join(", ") }))
+                $("#flight_list").append($("<div>", { html: flight.join(", ") }))
             }
+            if (data.flight.length == 0)
+                $('#flight_list').html('未查询到满足条件的航班')
         }
     );
 }
@@ -102,7 +104,7 @@ function fetch_flight(d_city, a_city, d_date) {
 				</div>
 		</div>		
 	   </div>
-        <div id='flight_list'>未查询到满足条件的航班</div>
+        <div id='flight_list'></div>
 	  </div>
     </div>
 		</div>
