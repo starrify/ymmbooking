@@ -33,55 +33,92 @@ class Config():
 
 
 class Database(object):
+    """A wrapper for accessing the database."""
+
     def __init__(self, config):
-        self.config = config
-        self.conn = sqlite3.connect(config.database_path)
-        self.conn.row_factory = Database.dict_factory
+        self._config = config
+        self._conn = sqlite3.connect(self._config.database_path)
+        self._conn.row_factory = Database.dict_factory
+
     def __del__(self):
-        self.conn.close()
+        self._conn.close()
+
     @staticmethod
     def dict_factory(cursor, row):
         d = {}
         for idx, col in enumerate(cursor.description):
             d[col[0]] = row[idx]
         return d
-    def reset(self):
-        config = self.config
-        self.conn.close()
-        os.remove(config.database_path)
-        self.conn = sqlite3.connect(config.database_path)
-        if True:
-            # well i shall try: and except: here..
+
+    @staticmethod
+    def reset(config):
+        print("Started resetting database.")
+        try:
+            os.remove(config.database_path)
             f = open(config.db_schema_path, 'r')
             script = f.read()
             f.close()
-            self.conn.executescript(script)
-            self.conn.commit()
+            conn = sqlite3.connect(config.database_path)
+            conn.executescript(script)
+            conn.commit()
             from data.data_import import data_import as dimport
             dimport(os.path.abspath(config.database_path))
             del dimport
-        self.__init__(config)
-    def cursor(self):
-        return self.conn.cursor()
+        except None:
+            pass
+        print("Finished resetting database.")
+
+    def get_airport_by_city(self, city):
+        cursor = self._conn.cursor()
+        cursor.execute("SELECT * FROM airport WHERE city LIKE ?", ["%" + city + "%"])
+        airports = cursor.fetchall()
+        cursor.close()
+        return airports
+
+    def get_flights(self, departure_airport="", arrival_airport=""):
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "SELECT * FROM flight "
+            "WHERE depatureAirport=? AND arrivalAirport=?",
+            [departure_airport, arrival_airport])
+        flights = cursor.fetchall()
+        cursor.close()
+        return flights
+    def get_airline_by_code(self, code=""):
+        cursor = self._conn.cursor()
+        cursor.execute("SELECT * FROM airline WHERE code=?", [code])
+        airline = cursor.fetchall()
+        cursor.close()
+        return airline
 
 class App(object):
-    config = Config('./config.cfg')
-    db = Database(config)
-    
-    def __init__(self):
+    """The main application."""
+    def __init__(self, config_path='./config.cfg'):
+        self._config = Config(config_path)
         #self.app = bottle.Bottle()
-        if self.config.debug:
-            self.db.reset()
+        if self._config.debug:
+            Database.reset(self._config)
         pass
 
-app = App()
-bottle_app = bottle.Bottle()
+    @property
+    def config(self):
+        return self._config
 
-def auth_validate(func):
-    def decorator(*args, **kwargs):
-        # validation here
-        return func(*args, **kwargs)
-    return decorator
+class Misc(object):
+    """Miscellaneous items goes here."""
+    @staticmethod
+    def auth_validate(func):
+        def decorator(*args, **kwargs):
+            # validation here
+            return func(*args, **kwargs)
+        return decorator
+
+    @staticmethod
+    def unicodify(string, code):
+        return bytes(map(ord, string)).decode(code)
+
+app = App('./config.cfg')
+bottle_app = bottle.Bottle()
 
 # routes static css/img/js files
 @bottle_app.route('/<category:re:(css|img|js)>/<filepath:path>')
@@ -91,7 +128,7 @@ def static_css_img_js(category, filepath):
 @bottle_app.route('/')
 @bottle_app.route('/index')
 @bottle.view(app.config.template_path + 'index.tpl')
-@auth_validate
+@Misc.auth_validate
 def index():
     return {}
 
@@ -100,50 +137,28 @@ def index():
 def flight_search():
     return {}
 
-def get_airport_by_city(cursor, city):
-    print("city:", city)
-    cursor.execute("SELECT * FROM airport WHERE city LIKE ?", ["%" + city + "%"])
-    airports = cursor.fetchall()
-    return airports
-
-def unicodify(string, code):
-    return bytes(map(ord, string)).decode(code)
-
 @bottle_app.get('/flight/search/async')
 def flight_search_json():
-    d_city = bottle.request.query.get('departure_city')
-    a_city = bottle.request.query.get('arrival_city')
-    d_date = bottle.request.query.get('departure_date')
-    d_city, a_city, d_data = list(
-        map(lambda x: unicodify(bottle.request.query.get(x), 'utf8'), 
+    d_city, a_city, d_date = list(
+        map(lambda x: Misc.unicodify(bottle.request.query.get(x), 'utf8'), 
             ['departure_city', 'arrival_city', 'departure_date']))
-
-    print([d_city, a_city, d_date])
 
     if not all([d_city, a_city, d_date]):
         return { 'flight': [] }
-   
+
+    db = Database(app.config)
+    
     # get airports belong to city
-    cur = app.db.cursor()
-    d_airports = get_airport_by_city(cur, d_city)
-    a_airports = get_airport_by_city(cur, a_city)
-    print(d_airports)
-    print(a_airports)
+    d_airports = db.get_airport_by_city(d_city)
+    a_airports = db.get_airport_by_city(a_city)
 
     # get flights between airports
     ret_flights = []
     for d_airport in d_airports:
         for a_airport in a_airports:
-            cur.execute(
-                "SELECT * FROM flight "
-                "WHERE depatureAirport=? AND arrivalAirport=?",
-                [d_airport['code'], a_airport['code']])
-            flights = cur.fetchall()
+            flights = db.get_flights(d_airport['code'], a_airport['code'])
             for flight in flights:
-                cur.execute("SELECT * FROM airline WHERE code=?", [flight['flightNumber'][:2]])
-                airline = cur.fetchone()
-                print(flight)
-                print(airline)
+                airline = db.get_airline_by_code(flight['flightNumber'][:2])[0]
                 ret_flights.append(list(flight.values())
                     + [d_airport['name_cn'], a_airport['name_cn'], airline['name_cn']])
     
@@ -180,5 +195,6 @@ def oneway_async_json_get():
     return {"flight": [d,d]}#json.dumps(d)
 
 if __name__ == '__main__':
-    bottle.run(bottle_app, host='localhost', port=8080, debug=True)
+    #bottle.run(bottle_app, host='localhost', port=8080, debug=True)
+    bottle.run(bottle_app, server='cherrypy', host='localhost', port=8080, debug=True)
 
