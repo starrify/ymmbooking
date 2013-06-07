@@ -70,7 +70,7 @@ class Database(object):
 
     def get_airport_by_city(self, city):
         cursor = self._conn.cursor()
-        cursor.execute("SELECT * FROM airport WHERE city LIKE ?", ["%" + city + "%"])
+        cursor.execute("SELECT * FROM airport WHERE city_cn LIKE ?", ["%" + city + "%"])
         airports = cursor.fetchall()
         cursor.close()
         return airports
@@ -84,6 +84,7 @@ class Database(object):
         flights = cursor.fetchall()
         cursor.close()
         return flights
+
     def get_airline_by_code(self, code=""):
         cursor = self._conn.cursor()
         cursor.execute("SELECT * FROM airline WHERE code=?", [code])

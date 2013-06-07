@@ -136,7 +136,8 @@ CREATE TABLE hotelComment(
 DROP TABLE IF EXISTS airport;
 CREATE TABLE airport(
     code            VARCHAR(255)    not null,
-    city            VARCHAR(255)    not null,
+    city_cn         VARCHAR(255),
+    city_en         VARCHAR(255),
     name_cn         VARCHAR(255),
     name_en         VARCHAR(255),
     domestic        BOOL            not null

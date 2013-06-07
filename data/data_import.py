@@ -6,8 +6,9 @@ def data_import(dbpath):
     import sqlite3
     import os
     
+    fpath = os.path.abspath(__file__)
     cwd = os.getcwd()
-    fwd = __file__[:-__file__[::-1].index('/')]
+    fwd = fpath[:-fpath[::-1].index('/')]
     os.chdir(fwd)
 
     conn = sqlite3.connect(dbpath)
@@ -40,15 +41,16 @@ def data_import(dbpath):
     f.close()
 
     for line in lines:
-        l = line[:-1].split(' ')
+        l = line[:-1].split(',')
         conn.execute(
-            'INSERT INTO airport VALUES(?,?,?,?,?)',
+            'INSERT INTO airport VALUES(?,?,?,?,?,?)',
             [
                 l[0],   # code
-                l[2],   # city
+                l[3],   # city_cn
+                l[4],   # city_en
                 l[1],   # name_cn
-                "",     # name_en
-                1,      # domestic
+                l[2],   # name_en
+                l[5],   # domestic
             ]
         )
     
@@ -67,8 +69,6 @@ def data_import(dbpath):
                 l[3],   # country_cn
             ]
         )
-     
-
 
     conn.commit()
     conn.close()
