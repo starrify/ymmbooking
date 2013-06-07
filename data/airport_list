@@ -1,190 +1,3025 @@
-AQG 天柱山机场 安庆
-FUG 阜阳机场 阜阳
-HFE 新桥国际机场 合肥
-TXN 屯溪机场 黄山
-MFM 澳门国际机场 澳门
-NAY 南苑机场 北京
-PEK 首都国际机场 北京
-CKG 江北国际机场 重庆
-WXN 五桥机场 万州
-FOC 长乐国际机场 福州
-LCX 连城冠豸山机场 龙岩
-JJN 晋江机场 泉州
-WUS 武夷山机场 南平
-XMN 高崎国际机场 厦门
-DNH 敦煌机场 敦煌
-JGN 嘉峪关机场 嘉峪关
-JGN 嘉峪关机场 酒泉
-JIC 金川机场 金昌
-ZGC 中川机场 兰州
-IQN 庆阳机场 庆阳
-THQ 麦积山机场 天水
-FUO 沙堤机场 佛山
-CAN 白云国际机场 广州
-HUZ 平潭机场 惠州
-MXZ 梅县长岗岌机场 梅州
-SWA 揭阳潮汕机场 汕头
-SWA 揭阳潮汕机场 揭阳
-SWA 揭阳潮汕机场 潮州
-SZX 宝安国际机场 深圳
-ZHA 坡头机场 湛江
-ZUH 金湾机场 珠海
-AEB 右江机场 百色
-BHY 福成机场 北海
-KWL 两江国际机场 桂林
-LZH 白莲机场 柳州
-NNG 吴圩国际机场 南宁
-WUZ 长洲岛机场 梧州
-AVA 黄果树机场 安顺
-KWE 龙洞堡国际机场 贵阳
-HZH 黎平机场 黎平
-LLB 荔波机场 黔南
-ACX 兴义机场 黔西南
-TEN 凤凰机场 铜仁
-ZYI 新舟机场 遵义
-HAK 美兰国际机场 海口
-SYX 凤凰国际机场 三亚
-HDG 邯郸机场 邯郸
-SHP 山海关机场 秦皇岛
-SJW 正定国际机场 石家庄
-XNT 褡裢机场 邢台
-LYA 北郊机场 洛阳
-NNY 姜营机场 南阳
-CGO 新郑国际机场 郑州
-DQA 萨尔图机场 大庆
-HRB 太平国际机场 哈尔滨
-HEK 黑河机场 黑河
-JXA 兴凯湖机场 鸡西
-JMU 东郊机场 佳木斯
-OHE 古莲机场 漠河
-MDG 海浪机场 牡丹江
-NDG 三家子机场 齐齐哈尔
-LDS 林都机场 伊春
-ENH 许家坪机场 恩施
-WUH 天河国际机场 武汉
-XFN 刘集机场 襄阳
-YIH 三峡机场 宜昌
-CGD 桃花源机场 常德
-CSX 黄花国际机场 长沙
-HJJ 芷江机场 怀化
-DYG 荷花机场 张家界
-CZX 奔牛机场 常州
-HIA 涟水机场 淮安
-LYG 白塔埠机场 连云港
-NKG 禄口国际机场 南京
-NTG 兴东机场 南通
-WUX 苏南硕放国际机场 苏州
-WUX 苏南硕放国际机场 无锡
-XUZ 观音机场 徐州
-YNZ 南洋机场 盐城
-YTY 扬州泰州机场 泰州
-YTY 扬州泰州机场 扬州
-KOW 黄金机场 赣州
-JGS 井冈山机场 吉安
-JDZ 罗家机场 景德镇
-JIU 庐山机场 九江
-KHN 昌北国际机场 南昌
-CGQ 龙嘉国际机场 长春
-TNH 三源浦机场 通化
-YNJ 延吉朝阳川机场 延边
-AOG 腾鳌机场 鞍山
-CNI 大长山岛机场 长海
-CHG 朝阳机场 朝阳
-DLC 周水子国际机场 大连
-DDG 浪头机场 丹东
-JNZ 小岭子机场 锦州
-SHE 桃仙国际机场 沈阳
-BAV 二里半机场 包头
-CIF 玉龙机场 赤峰
-DSN 伊金霍洛机场 鄂尔多斯
-ERL 赛乌苏机场 二连浩特
-HET 白塔国际机场 呼和浩特
-HLD 海拉尔机场 呼伦贝尔
-NZH 西郊机场 满洲里
-TGO 通辽机场 通辽
-WUA 乌海机场 乌海
-HLH 乌兰浩特机场 乌兰浩特
-XIL 锡林浩特机场 锡林浩特
-GYU 六盘山机场 固原
-INC 河东机场 银川
-ZHY 沙坡头机场 中卫
-GOQ 格尔木机场 格尔木
-XNN 曹家堡机场 西宁
-YUS 巴塘机场 玉树
-AKA 五里铺机场 安康
-HZG 西关机场 汉中
-XIY 咸阳国际机场 西安
-ENY 二十里堡机场 延安
-UYN 榆阳机场 榆林
-DOY 胜利机场 东营
-TNA 遥墙国际机场 济南
-JNG 济宁曲阜机场 曲阜
-JNG 济宁曲阜机场 济宁
-LYI 沭埠岭机场 临沂
-TAO 流亭国际机场 青岛
-WEF 潍坊机场 潍坊
-WEH 大水泊机场 威海
-YNT 莱山国际机场 烟台
-CIH 王村机场 长治
-DAT 云冈机场 大同
-TYN 武宿国际机场 太原
-YCU 张孝机场 运城
-SHA 虹桥国际机场 上海
-PVG 浦东国际机场 上海
-CTU 双流国际机场 成都
-DAX 河市机场 达州
-DCY 亚丁机场 稻城
-GYS 盘龙机场 广元
-JZH 九寨黄龙机场 松潘
-JZH 九寨黄龙机场 九寨沟
-KGT 甘孜康定机场 康定
-LZO 蓝田机场 泸州
-MIG 南郊机场 绵阳
-NAO 高坪机场 南充
-FZI 保安营机场 攀枝花
-XIC 青山机场 西昌
-YBP 菜坝机场 宜宾
-TSN 滨海国际机场 天津
-BPX 邦达机场 昌都
-NGQ 昆莎机场 阿里
-LXA 拉萨贡嘎机场 山南
-LXA 拉萨贡嘎机场 拉萨
-LZY 米林机场 林芝
-RKZ 和平机场 日喀则
-HKG 香港国际机场 香港
-AKU 阿克苏机场 阿克苏
-AAT 阿勒泰机场 阿勒泰
-BPL 博乐阿拉山口机场 博尔塔拉
-KJI 喀纳斯机场 布尔津
-FYN 富蕴机场 富蕴
-HMI 哈密机场 哈密
-HTN 和田机场 和田
-KHG 喀什机场 喀什
-KRY 克拉玛依机场 克拉玛依
-KCA 龟兹机场 库车
-KRL 库尔勒机场 库尔勒
-IQM 且末机场 且末
-TCG 塔城机场 塔城
-TLQ 交河机场 吐鲁番
-URC 地窝堡国际机场 乌鲁木齐
-NLT 那拉提机场 新源
-YIN 伊宁机场 伊宁
-BSD 云端机场 保山
-DLU 大理机场 大理
-LUM 芒市机场 德宏
-DIG 香格里拉机场 迪庆藏族自治州
-KMG 长水国际机场 昆明
-LJG 三义机场 丽江
-LNJ 临沧机场 临沧
-SYM 思茅机场 普洱
-TCZ 驼峰机场 腾冲
-WNH 普者黑机场 文山
-JHG 嘎洒国际机场 西双版纳
-ZAT 昭通机场 昭通
-HGH 萧山国际机场 杭州
-YIW 义乌机场 金华
-NGB 栎社国际机场 宁波
-JUZ 衢州机场 衢州
-HYN 路桥机场 台州
-WNZ 龙湾国际机场 温州
-HSN 普陀山机场 舟山
+AAA,,Anaa Airport,阿纳环礁,,法属波利尼西亚,0
+AAB,,Arrabury Airport,,Arrabury,澳大利亚,0
+AAC,,El Arish International Airport,阿里什,,埃及,0
+AAD,,Ad-Dabbah Airport,,Ad-Dabbah,苏丹,0
+AAE,,Rabah Bitat Airport,安纳巴,,阿尔及利亚,0
+AAF,,Apalachicola Regional Airport,,Apalachicola,美国,0
+AAG,,Arapoti Airport,,Arrapoti,巴西,0
+AAH,,Merzbrück Airport,亚琛,,德国,0
+AAI,,Arraias Airport,,Arraias,巴西,0
+AAJ,,Cayana Airstrip,,Awaradam,苏里南,0
+AAK,,Aranuka Airport,阿拉努卡环礁,,基里巴斯,0
+AAL,,Aalborg Airport,奥尔堡,,丹麦,0
+AAM,马拉马拉机场,,,Mala Mala,南非,0
+AAN,,Al Ain International Airport,艾因,,阿拉伯联合酋长国,0
+AAO,,Anaco Airport,,Anaco,委内瑞拉,0
+AAP,,Andrau Airpark,休斯敦,,美国,0
+AAQ,,Anapa Airport,阿纳帕,,俄罗斯,0
+AAR,,Aarhus Airport,奥胡斯,,丹麦,0
+AAS,,Apalapsili Airport,,Apalapsili,印尼,0
+AAT,阿勒泰机场,,阿勒泰,,中国,1
+AAU,,Asau Airport,,Asau,萨摩亚,0
+AAV,,Allah Valley Airport,,Surallah,菲律宾,0
+AAW,,Abbottabad Airport,阿伯塔巴德,,巴基斯坦,0
+AAX,,Araxá Airport,,Araxá,巴西,0
+AAY,,Al Ghaydah Airport,,Al Ghaydah,也门,0
+AAZ,,Quetzaltenango Airport,,Quetzaltenango,危地马拉,0
+ABA,,Abakan International Airport,阿巴坎,,俄罗斯,0
+ABD,,Abadan Airport,阿巴丹,,伊朗,0
+ABE,,Lehigh Valley International Airport,阿伦敦,,美国,0
+ABF,,Abaiang Atoll Airport,阿拜昂环礁,,基里巴斯,0
+ABG,,Abingdon Airport,,Abingdon,澳大利亚,0
+ABH,,Alpha Airport,,Alpha,澳大利亚,0
+ABI,,Abilene Regional Airport,阿比林,,美国,0
+ABJ,,Port Bouet Airport,阿比让,,科特迪瓦,0
+ABK,,Kabri Dar Airport,,Kebri Dahar,埃塞俄比亚,0
+ABL,,Ambler Airport,,Ambler,美国,0
+ABM,,Northern Peninsula Airport,,Bamaga,澳大利亚,0
+ABN,,Albina Airstrip,,Albina,苏里南,0
+ABO,,Aboisso Airport,阿博伊索,,科特迪瓦,0
+ABP,,Atkamba Airport,,Atkamba,巴布亚新几内亚,0
+ABQ,,Albuquerque International Sunport,阿布奎基,,美国,0
+ABR,,Aberdeen Regional Airport,阿伯丁,,美国,0
+ABS,,Abu Simbel Airport,,Abu Simbel,埃及,0
+ABT,,Al-Baha Domestic Airport,,Al-Baha,沙特阿拉伯,0
+ABU,,Haliwen Airport,,Atambua,印尼,0
+ABV,纳姆迪·阿齐基韦国际机场,,阿布贾,,尼日利亚,0
+ABW,,Abau Airport,,Abau,巴布亚新几内亚,0
+ABX,,Albury Airport,奥尔伯里,,澳大利亚,0
+ABY,,Southwest Georgia Regional Airport,,Albany,美国,0
+ABZ,阿伯丁机场,,阿伯丁,,英国,0
+ACA,,General Juan N. Álvarez International Airport,阿卡普尔科,,墨西哥,0
+ACB,,Antrim County Airport,,Bellaire,美国,0
+ACC,科托卡国际机场,,阿克拉,,加纳,0
+ACD,,Alcides Fernandez Airport,,Acandí,哥伦比亚,0
+ACE,,Lanzarote Airport,,Arrecife,西班牙,0
+ACH,,St. Gallen-Altenrhein Airport,,Altenrhein,瑞士,0
+ACI,,Alderney Airport,奥尔德尼岛,,海峡群岛,0
+ACK,,Nantucket Memorial Airport,南塔克特,,美国,0
+ACL,,Cesar Airport,,Aguaclara,哥伦比亚,0
+ACM,,Chacalluta International Airport,,Arica,哥伦比亚,0
+ACN,,Ciudad Acuña International Airport,,Ciudad Acuña,墨西哥,0
+ACO,,Ascona Airport,,Ascona,瑞士,0
+ACR,,Araracuara Airport,,Araracuara,哥伦比亚,0
+ACS,,Achinsk Airport,阿钦斯克,,俄罗斯,0
+ACT,,Waco Regional Airport,韦科,,美国,0
+ACU,,Achutupo Airport,,Achutupo,巴拿马,0
+ACV,,Arcata-Eureka Airport,,McKinleyville,美国,0
+ACY,大西洋城国际机场,,大西洋城,,美国,0
+ACZ,,Zabol Airport,扎博勒,,伊朗,0
+ADA,,Adana Şakirpaşa Airport,阿达纳,,土耳其,0
+ADB,,Adnan Menderes Airport,伊兹密尔,,土耳其,0
+ADC,,Andakombe Airport,,Andakombe,巴布亚新几内亚,0
+ADD,博莱国际机场,,亚迪斯亚贝巴,,埃塞俄比亚,0
+ADE,亚丁国际机场,,亚丁,,也门,0
+ADF,,Ad?yaman Airport,阿德亚曼,,土耳其,0
+ADG,,Lenawee County Airport,,Adrian,美国,0
+ADH,,Aldan Airport,阿尔丹,,俄罗斯,0
+ADI,,Arandis Airport,,Arandis,纳米比亚,0
+ADJ,马尔卡国际机场,,安曼,,约旦,0
+ADK,,Adak Island Airport,埃达克岛,,美国,0
+ADL,阿德莱德机场,,阿德雷德,,澳大利亚,0
+ADM,,Ardmore Municipal Airport,,Ardmore,美国,0
+ADN,,Andes Airport,,Andes,哥伦比亚,0
+ADO,,Andamooka Airport,,Andamooka,澳大利亚,0
+ADP,,Anuradhapura Airport,阿努拉德普勒,,斯里兰卡,0
+ADQ,,Kodiak Airport,,Kodiak,美国,0
+ADR,,Robert F. Swinnie Airport,,Andrews,美国,0
+ADS,,Addison Airport,达拉斯,,美国,0
+ADT,,Ada Municipal Airport,,Ada,美国,0
+ADU,,Ardabil Airport,阿尔达比勒,,伊朗,0
+ADV,,Andover Airport,,Andover,英国,0
+ADW,安德鲁斯空军基地,,,Camp Springs,美国,0
+ADX,,RAF Leuchars,圣安德鲁斯,,英国,0
+ADY,,Alldays Airport,,Alldays,南非,0
+ADZ,,Gustavo Rojas Pinilla International Airport,,San Andres,哥伦比亚,0
+AEA,,Abemama Atoll Airport,,Abemama,基里巴斯,0
+AED,,Aleneva Airport,,Aleneva,美国,0
+AEG,,Aek Godang Airport,,Padang Sidempuan,印尼,0
+AEH,,Abéché Airport,阿贝歇,,乍得,0
+AEK,,Aseki Airport,,Aseki,巴布亚新几内亚,0
+AEL,,Albert Lea Municipal Airport,,Albert Lea,美国,0
+AEO,,Aioun el Atrouss Airport,,Ayoun el Atrous,毛里塔尼亚,0
+AEP,,Jorge Newbery Airpark,布宜诺斯艾利斯,,阿根廷,0
+AER,,Adler-Sochi International Airport,索契,,俄罗斯,0
+AES,,Ålesund Airport, Vigra,奥勒松,,挪威,0
+AET,,Allakaket Airport,,Allakaket,美国,0
+AEX,,Alexandria International Airport,亚历山德里亚,,美国,0
+AEY,,Akureyri Airport,阿克雷里,,冰岛,0
+AFA,,San Rafael Airport,,San Rafael,阿根廷,0
+AFD,艾尔弗雷德港机场,,艾尔弗雷德港,,南非,0
+AFF,美国空军军官学校 飞行场,,科罗拉多泉,,美国,0
+AFI,,Amalfi Airport,,Amalfi,哥伦比亚,0
+AFL,,Alta Floresta Airport,,Alta Floresta,巴西,0
+AFN,,Jaffrey Airport - Silver Ranch Airpark,,Jaffrey,美国,0
+AFO,,Afton Municipal Airport,,Afton,美国,0
+AFR,,Afore Airport,,Afore,巴布亚新几内亚,0
+AFT,,Afutara Airport,,Afutara,所罗门群岛,0
+AFW,,Fort Worth Alliance Airport,沃斯堡,,美国,0
+AFY,,Afyon Airport,阿菲永卡拉希萨尔,,土耳其,0
+AGA,,Agadir – Al Massira Airport,阿加迪尔,,摩洛哥,0
+AGB,,Augsburg Airport,奥格斯堡,,德国,0
+AGC,,Allegheny County Airport,匹兹堡,,美国,0
+AGD,,Anggi Airport,,Anggi,印尼,0
+AGE,,Wangerooge Airport,,Wangerooge,德国,0
+AGF,,Agen - La Garenne Aerodrome,阿让,,法国,0
+AGG,,Angorarn Airport,,Angorarn,巴布亚新几内亚,0
+AGH,恩厄尔霍尔姆－赫尔辛堡机场,,恩厄尔霍尔姆,,瑞典,0
+AGI,,Wageningen Airport,,Wageningen,苏里南,0
+AGJ,粟国机场,,粟国,,日本,0
+AGK,,Kagua Airport,,Kagua,巴布亚新几内亚,0
+AGL,,Wanigela Airport,,Wanigela,巴布亚新几内亚,0
+AGM,,Tasiilaq Heliport,,Tasiilaq,格陵兰,0
+AGN,,Angoon Seaplane Base,,Angoon,美国,0
+AGO,,Magnolia Municipal Airport,,Magnolia,美国,0
+AGP,,Málaga Airport,马拉加,,西班牙,0
+AGQ,,Agrinion Airport,,Agrinio,希腊,0
+AGR,,Agra Airport,阿格拉,,印度,0
+AGS,,Augusta Regional Airport,,Augusta,美国,0
+AGT,,Guarani International Airport,东方,,巴拉圭,0
+AGU,,Lic. Jesús Terán Peredo International Airport,阿瓜斯卡连特斯,,墨西哥,0
+AGV,,Oswaldo Guevara Mujica Airport,阿卡里瓜,,委内瑞拉,0
+AGW,,Agnew Airport,,Agnew,澳大利亚,0
+AGX,,Agatti Island Airport,阿格蒂岛,,印度,0
+AGY,,Argyle Downs Airport,,Argyle Downs,澳大利亚,0
+AGZ,,Aggeneys Airport,,Aggeneys,南非,0
+AHB,,Abha Regional Airport,艾卜哈,,沙特阿拉伯,0
+AHC,,Amedee Army Airfield,,Herlong,美国,0
+AHD,,Ardmore Downtown Executive Airport,,Ardmore,美国,0
+AHE,,Ahe Airport,,Ahe,法属波利尼西亚,0
+AHF,,Arapahoe Municipal Airport,,Arapahoe,美国,0
+AHH,,Amery Municipal Airport,,Amery,美国,0
+AHI,,Amahai Airport,,Amahai,印度,0
+AHL,,Aishalton Airport,,Aishalton,圭亚那,0
+AHN,,Athens-Ben Epps Airport,雅典,,美国,0
+AHO,,Alghero Airport,阿尔盖罗,,意大利,0
+AHS,,Ahuas Airport,,Ahuas,洪都拉斯,0
+AHU,,Charif Al ldrissi Airport,,Al Hoceima,摩洛哥,0
+AHY,,Ambatolahy Airport,,Ambatolahy,马达加斯加,0
+AHZ,,Alpe d'Huez Airport,,Alpe d'Huez,法国,0
+AIA,,Alliance Municipal Airport,,Alliance,美国,0
+AIC,,Airok Airport,,Airok,马绍尔群岛,0
+AID,,Anderson Municipal Airport,,Anderson,美国,0
+AIE,,Aiome Airport,,Aiome,巴布亚新几内亚,0
+AIF,,Assis Airport,,Assis,巴西,0
+AIG,,Yalinga Airport,,Yalinga,中非共和国,0
+AIH,,Aiambak Airport,,Aiambak,巴布亚新几内亚,0
+AII,阿里萨比赫机场,,阿里萨比耶,,吉布提,0
+AIK,,Aiken Municipal Airport,,Aiken,美国,0
+AIL,,Ailigandi Airport,,Ailigandi,巴拿马,0
+AIM,,Ailuk Airport,,Ailuk,马绍尔群岛,0
+AIN,,Wainwright Airport,,Fort Wainwright,美国,0
+AIO,,Atlantic Municipal Airport,,Atlantic,美国,0
+AIP,,Ailinglaplap Airport,,Ailinglaplap Atoll,马绍尔群岛,0
+AIR,,Aripuana Airport,,Aripuana,巴西,0
+AIS,,Arorae Island Airport,,Arorae,基里巴斯,0
+AIT,,Aitutaki Island Airport,,Aitutaki,库克群岛,0
+AIU,,Atiu Island Airport,,Atiu,库克群岛,0
+AIV,,George Downer Airport,艾丽斯维尔,,美国,0
+AIW,,Ai-Ais Airport,,Ai-Ais,纳米比亚,0
+AIZ,,Lee C. Fine Memorial Airport,,Lake Ozark,美国,0
+AJA,,Ajaccio - Campo dell'Oro Airport,阿雅克肖,,法国,0
+AJF,,Al-Jawf Domestic Airport,,Skaka,沙特阿拉伯,0
+AJI,,Ağrı Airport,阿勒,,土耳其,0
+AJJ,,Akjoujt Airport,,Akjoujt,毛里塔尼亚,0
+AJL,,Aizawl Airport,艾藻尔,,印度,0
+AJN,,Ouani Airport,昂儒昂岛,,科摩罗,0
+AJO,,Aljouf Airport,,Aljouf,也门,0
+AJR,,Arvidsjaur Airport,阿尔维斯尧尔,,瑞典,0
+AJS,,Abreojos Airport,,Punta Abreojos,墨西哥,0
+AJU,,Santa Maria Airport,阿拉卡茹,,巴西,0
+AJY,,Mano Dayak International Airport,阿加德兹,,尼日尔,0
+AKA,五里铺机场,,安康,,中国,1
+AKB,,Atka Airport,,Atka,美国,0
+AKC,,Akron Fulton International Airport,阿克伦,,美国,0
+AKD,,Akola Airport,阿科拉,,印度,0
+AKE,,Akieni Airport,,Akieni,加蓬,0
+AKF,,Kufra Airport,库夫拉,,利比亚,0
+AKG,,Anguganak Airport,,Anguganak,巴布亚新几内亚,0
+AKI,,Akiak Airport,,Akiak,美国,0
+AKJ,旭川机场,,旭川,,日本,0
+AKK,,Akhiok Airport,,Akhiok,美国,0
+AKL,奥克兰机场,,奥克兰,,新西兰,0
+AKM,,Zakouma Airport,,Zakouma,乍得,0
+AKN,,King Salmon Airport,,King Salmon,美国,0
+AKO,,Colorado Plains Regional Airport,,Akron,美国,0
+AKP,,Anaktuvuk Pass Airport,,Anaktuvuk Pass,美国,0
+AKQ,,Gunung Batin Airport,,Astraksetra,印尼,0
+AKR,,Akure Airport,阿库雷,,尼日利亚,0
+AKS,奥基机场,,,Auki,所罗门群岛,0
+AKT,,RAF Akrotiri,亚克罗提利,,塞浦路斯,0
+AKU,阿克苏机场,,阿克苏,,中国,1
+AKV,,Akulivik Airport,,Akulivik,加拿大,0
+AKX,,Aktobe Airport,阿克托比,,哈萨克斯坦,0
+AKY,,Sittwe Airport,实兑,,缅甸,0
+ALA,阿拉木图国际机场,,阿拉木图,,哈萨克斯坦,0
+ALB,,Albany International Airport,奥本尼,,美国,0
+ALC,,El Altet Airport,阿利坎特,,西班牙,0
+ALD,,Alerta Airport,,Alerta,秘鲁,0
+ALE,,Alpine-Casparis Municipal Airport,,Alpine,美国,0
+ALF,,Alta Airport,阿尔塔,,挪威,0
+ALG,阿尔及尔－胡阿里·布迈丁国际机场,,阿尔及尔,,阿尔及利亚,0
+ALH,,Albany Airport,奥班尼,,澳大利亚,0
+ALI,,Alice International Airport,,Alice,美国,0
+ALJ,,Kortdoorn Airport,,Alexander Bay,南非,0
+ALK,,Asella Airport,阿塞拉,,埃塞俄比亚,0
+ALL,,Albenga Airport,阿尔本加,,意大利,0
+ALM,,Alamogordo-White Sands Regional Airport,,Alamogordo,美国,0
+ALN,,St. Louis Regional Airport,,Alton,美国,0
+ALO,,Waterloo Regional Airport,,Waterloo,美国,0
+ALP,阿勒颇国际机场,,阿勒颇,,叙利亚,0
+ALQ,,Alegrete Federal Airport,,Alegrete,巴西,0
+ALR,,Alexandra Airport,,Alexandra,新西兰,0
+ALS,,San Luis Valley Regional Airport,,Alamosa,美国,0
+ALT,,Alenquer Airport,,Alenquer,巴西,0
+ALU,,Alula Airport,,Aluula,索马里,0
+ALV,,Andorra La Vella Airport,安道尔城,,安道尔,0
+ALW,,Walla Walla Regional Airport,,Walla Walla,美国,0
+ALX,,Thomas C. Russell Field,亚历山大城,,美国,0
+ALY,亚历山大国际机场,,亚历山大港,,埃及,0
+ALZ,,Alitak Seaplane Base,,Lazy Bay,美国,0
+AMA,,Rick Husband Amarillo International Airport,阿马里洛,,美国,0
+AMB,,Ambilobe Airport,,Ambilobe,马达加斯加,0
+AMC,,Am Timan Airport,,Am Timan,乍得,0
+AMD,萨达尔·瓦拉巴伊·帕特尔国际机场,,亚美达巴德,,印度,0
+AME,,Alto Molocue Airport,,Alto Molocue,莫桑比克,0
+AMF,,Ama Airport,,Ama,巴布亚新几内亚,0
+AMG,,Amboin Airport,,Amboin,巴布亚新几内亚,0
+AMH,,Arba Minch Airport,,Arba Minch,埃塞俄比亚,0
+AMI,,Selaparang Airport,马塔兰,,印尼,0
+AMJ,,Almenara Airport,,Almenara,巴西,0
+AMK,,Animas Air Park,,Durango,美国,0
+AML,,Puerto Armuellas Airport,,Puerto Armuellas,巴拿马,0
+AMM,阿勒娅王后国际机场,,安曼,,约旦,0
+AMN,,Gratiot Community Airport,,Alma,美国,0
+AMO,,Mao Airport,,Mao,乍得,0
+AMP,,Ampanihy Airport,,Ampanihy,马达加斯加,0
+AMQ,,Pattimura Airport,安汶,,印尼,0
+AMR,,Arno Airport,,Arno,马绍尔群岛,0
+AMS,史基浦机场,,,Haarlemmermeer,荷兰,0
+AMT,,Amata Airport,,Amata,澳大利亚,0
+AMU,,Amanab Airport,,Amanab,巴布亚新几内亚,0
+AMV,,Amderma Airport,,Amderma,俄罗斯,0
+AMW,,Ames Municipal Airport,艾姆斯,,美国,0
+AMX,,Ammaroo Airport,,Ammaroo,澳大利亚,0
+AMY,,Ambatomainty Airport,,Ambatomainty,马达加斯加,0
+AMZ,,Ardmore Airport,,Ardmore,新西兰,0
+ANB,,Anniston Metropolitan Airport,安尼斯敦,,美国,0
+ANC,泰德·史蒂文斯安克雷奇国际机场,,安克雷奇,,美国,0
+AND,,Anderson Regional Airport,,Anderson,美国,0
+ANE,,Angers – Loire Airport,昂热,,法国,0
+ANF,,Cerro Moreno International Airport,安托法加斯塔,,智利,0
+ANG,,Angoulême - Brie - Champniers Airport,昂古莱姆,,法国,0
+ANH,,Anuha Island Resort Airport,,Anuha Island Resort,所罗门群岛,0
+ANI,,Aniak Airport,,Aniak,美国,0
+ANJ,,Zanaga Airport,,Zanaga,刚果共和国,0
+ANK,,Etimesgut Airport,安卡拉,,土耳其,0
+ANL,,Andulo Airport,,Andulo,安哥拉,0
+ANM,,Antsirabato Airport,,Antalaha,马达加斯加,0
+ANN,,Annette Island Airport,,Annette Island,美国,0
+ANO,,Angoche Airport,,Angoche,莫桑比克,0
+ANP,,Lee Airport,安那波利斯,,美国,0
+ANQ,,Tri-State Steuben County Airport,,Angola,美国,0
+ANR,,Antwerp International Airport,安特卫普,,比利时,0
+ANS,,Andahuaylas Airport,,Andahuaylas,秘鲁,0
+ANT,,St. Anton Airport,,Sankt Anton am Arlberg,奥地利,0
+ANU,维尔伯德国际机场,,圣约翰,,安提瓜和巴布达,0
+ANV,,Anvik Airport,,Anvik,美国,0
+ANW,,Ainsworth Municipal Airport,,Ainsworth,美国,0
+ANX,,Andoya Airport, Andenes,,Andenes,挪威,0
+ANY,,Anthony Municipal Airport,,Anthony,美国,0
+ANZ,,Angus Downs Airport,,Angus Downs,澳大利亚,0
+AOA,,Aroa Airport,,Aroa,巴布亚新几内亚,0
+AOB,,Annanberg Airport,,Annanberg,巴布亚新几内亚,0
+AOC,,Leipzig-Altenburg Airport,,Altenburg,德国,0
+AOD,,[Abou-Deia Airport,,Abou-Deia,乍得,0
+AOE,,Anadolu Airport,埃斯基谢希尔,,土耳其,0
+AOG,腾鳌机场,,鞍山,,中国,1
+AOH,,Lima Allen County Airport,,Lima,美国,0
+AOI,,Falconara Airport,安科纳,,意大利,0
+AOJ,青森机场,,青森,,日本,0
+AOK,,Karpathos Airport,,Karpathos,希腊,0
+AOL,,Paso de los Libres Airport,,Paso de los Libres,阿根廷,0
+AON,,Arona Airport,,Arona,巴布亚新几内亚,0
+AOO,,Altoona-Blair County Airport,阿尔图纳,,美国,0
+AOR,苏丹阿都哈林机场,,亚罗士打,,马来西亚,0
+AOS,,Amook Bay Seaplane Base,,Amook Bay,美国,0
+AOT,,Corrado Gex Airport,奥斯塔,,意大利,0
+AOU,,Attopeu Airport,,Attapeu,老挝,0
+APA,,Centennial Airport,,Dove Valley,美国,0
+APB,,Apolo Airport,,Apolo,玻利维亚,0
+APC,,Napa County Airport,纳帕,,美国,0
+APE,,San Juan Aposento Airport,,San Juan Aposento,秘鲁,0
+APF,,Naples Municipal Airport,那不勒斯,,美国,0
+APG,,Phillips Army Airfield,阿伯丁,,美国,0
+APH,,A.P. Hill Army Airfield,,Fort A.P. Hill,美国,0
+API,,Gomez Nino-Apiay Airport,,Apiay,哥伦比亚,0
+APK,,Apataki Airport,,Apataki,法属波利尼西亚,0
+APL,,Nampula Airport,,Nampula,莫桑比克,0
+APN,,Alpena County Regional Airport,阿尔皮纳,,美国,0
+APO,,Antonio Roldan Betancourt Airport,,Apartado,哥伦比亚,0
+APP,,Asapa Airport,,Asapa,巴布亚新几内亚,0
+APQ,,Arapiraca Airport,阿拉皮拉卡,,巴西,0
+APR,,April River Airport,,April River,巴布亚新几内亚,0
+APS,,Anapolis Airport,阿纳波利斯,,巴西,0
+APT,,Marion County Airport,,Jasper,美国,0
+APU,,Apucarana Airport,阿普卡拉纳,,巴西,0
+APV,,Apple Valley Airport,,Apple Valley,美国,0
+APW,法莱奥洛国际机场,,阿皮亚,,萨摩亚,0
+APX,,Arapongas Airport,,Arapongas,巴西,0
+APY,,Alto Parnaiba Airport,,Alto Parnaiba,巴西,0
+APZ,,Zapala Airport,,Zapala,阿根廷,0
+AQA,,Araraquara Airport,阿拉拉夸拉,,巴西,0
+AQB,,Quiché Airport,,Santa Cruz del Quiché,危地马拉,0
+AQG,天柱山机场,,安庆,,中国,1
+AQI,,Qaisumah Domestic Airport,,Qaisumah,沙特阿拉伯,0
+AQJ,侯赛因国王国际机场,,亚喀巴,,约旦,0
+AQM,,Ariquemes Airport,,Ariquemes,巴西,0
+AQP,,Rodriguez Ballon International Airport,阿雷基帕,,秘鲁,0
+AQS,,Saqani Airport,,Saqani,斐济,0
+ARA,,Acadiana Regional Airport,新伊比利亚,,美国,0
+ARB,,Ann Arbor Municipal Airport,安娜堡,,美国,0
+ARC,,Arctic Village Airport,,Arctic Village,美国,0
+ARD,,Alor Island Airport,阿洛岛,,印尼,0
+ARE,,Antonio Juarbe Pol Airport,阿雷西沃,,波多黎各,0
+ARF,,Acaricuara Airport,,Acaricuara,哥伦比亚,0
+ARG,,Walnut Ridge Regional Airport,,Walnut Ridge,美国,0
+ARH,,Talagi Airport,阿尔汉格尔斯克,,俄罗斯,0
+ARI,,Chacalluta International Airport,,Arica,智利,0
+ARJ,,Arso Airport,,Arso,印尼,0
+ARK,,Arusha Airport,阿鲁沙,,坦桑尼亚,0
+ARL,,Arly Airport,,Arly,布基纳法索,0
+ARM,,Armidale Airport,阿米代尔,,澳大利亚,0
+ARN,斯德哥尔摩－阿兰达机场,,斯德哥尔摩,,瑞典,0
+ARO,,Arboletas Airport,,Arboletas,哥伦比亚,0
+ARP,,Aragip Airport,,Aragip,巴布亚新几内亚,0
+ARQ,,Arauquita Airport,,Arauquita,哥伦比亚,0
+ARR,,Alto Río Senguer Airport,,Alto Rio Senguer,阿根廷,0
+ARS,,Aragarças Airport,,Aragarcas,巴西,0
+ART,,Watertown International Airport,,Watertown,美国,0
+ARU,,Araçatuba Airport,阿拉萨图巴,,巴西,0
+ARV,,Lakeland Airport,,Minocqua,美国,0
+ARW,,Arad International Airport,阿拉德,,罗马尼亚,0
+ARY,,Ararat Airport,,Ararat,澳大利亚,0
+ARZ,,N'zeto Airport,,N'zeto,安哥拉,0
+ASA,阿萨布国际机场,,阿萨布,,厄立特里亚,0
+ASB,萨帕尔穆拉特·尼亚佐夫国际机场,,阿什哈巴德,,土库曼斯坦,0
+ASC,,Ascención de Guarayos Airport,,Ascencion de Guarayos,玻利维亚,0
+ASD,,Andros Town International Airport,安德罗斯岛,,巴哈马,0
+ASE,,Aspen-Pitkin County Airport,,Aspen,美国,0
+ASF,,Narimanovo Airport,阿斯特拉罕,,俄罗斯,0
+ASG,,Ashburton Airport,,Ashburton,新西兰,0
+ASH,,Boire Field,纳舒厄,,美国,0
+ASI,,Wideawake Field,乔治敦,,圣赫勒拿岛,0
+ASJ,,Amami O Shima Airport,奄美,,日本,0
+ASK,,Yamoussoukro Airport,亚穆苏克罗,,科特迪瓦,0
+ASL,,Harrison County Airport,马歇尔,,美国,0
+ASM,阿斯马拉国际机场,,阿斯马拉,,厄立特里亚,0
+ASN,,Talladega Municipal Airport,,Talladega,美国,0
+ASO,,Asosa Airport,,Asosa,埃塞俄比亚,0
+ASP,,Alice Springs Airport,爱丽斯泉,,澳大利亚,0
+ASQ,,Austin Airport,,Austin,美国,0
+ASR,,Erkilet International Airport,开塞利,,土耳其,0
+AST,,Astoria Regional Airport,,Astoria,美国,0
+ASU,,Silvio Pettirossi International Airport,亚松森,,巴拉圭,0
+ASV,,Amboseli Airport,,Amboseli,肯尼亚,0
+ASW,,Aswan International Airport,阿斯旺,,埃及,0
+ASX,,John F. Kennedy Memorial Airport,,Ashland,美国,0
+ASY,,Ashley Municipal Airport,,Ashley,美国,0
+ASZ,,Asirim Airport,,Asirim,巴布亚新几内亚,0
+ATA,,Comandante FAP German Arias Grazziani Airport,,Huaraz,秘鲁,0
+ATB,,Atbara Airport,,Atbarah,苏丹,0
+ATC,,Arthur's Town Airport,,Arthur's Town,巴哈马,0
+ATD,,Atoifi Airport,,Atoifi,所罗门群岛,0
+ATE,,Antlers Municipal Airport,,Antlers,美国,0
+ATF,,Chachoan Airport,安巴托,,厄瓜多尔,0
+ATG,,Attock Airport,,Attock,巴基斯坦,0
+ATH,雅典国际机场,,雅典,,希腊,0
+ATI,,Artigas International Airport,,Artigas,乌拉圭,0
+ATJ,,Antsirabe Airport,安齐拉贝,,马达加斯加,0
+ATK,,Atqasuk Edward Burnell Sr. Memorial Airport,,Atqasuk,美国,0
+ATL,哈茨菲尔德－杰克逊亚特兰大国际机场,,亚特兰大,,美国,0
+ATM,,Altamira Airport,,Altamira,巴西,0
+ATN,,Namatanai Airport,,Namatanai,巴布亚新几内亚,0
+ATO,,Ohio University Airport,阿森斯,,美国,0
+ATP,,Aitape Airstrip,,Aitape,巴布亚新几内亚,0
+ATQ,,Raja Sansi International Airport,阿姆利则,,印度,0
+ATR,阿塔尔国际机场,,,Atar,毛里塔尼亚,0
+ATS,,Artesia Municipal Airport,,Artesia,美国,0
+ATT,,Atmautluak Airport,,Atmautluak,美国,0
+ATU,,Casco Cove Coast Guard Station,阿图岛,,美国,0
+ATV,,Ati Airport,,Ati,乍得,0
+ATW,,Outagamie County Regional Airport,,Greenville,美国,0
+ATX,,Atbasar Airport,,Atbasar,哈萨克斯坦,0
+ATY,,Watertown Regional Airport,,Watertown,美国,0
+ATZ,艾斯尤特国际机场,,艾斯尤特,,埃及,0
+AUA,,Queen Beatrix International Airport,奥腊涅斯塔德,,阿鲁巴,0
+AUB,,Itauba Airport,,Itauba,巴西,0
+AUC,,Santiago Pérez Airport,阿劳卡,,哥伦比亚,0
+AUD,,Augustus Downs Airport,,Augustus Downs,澳大利亚,0
+AUE,,Abu Rudeis Airport,,Abu Rudeis,埃及,0
+AUF,,Auxerre - Branches Aerodrome,欧塞尔,,法国,0
+AUG,,Augusta State Airport,奥古斯塔,,美国,0
+AUH,阿布扎比国际机场,,阿布扎比,,阿拉伯联合酋长国,0
+AUI,,Aua Island Airport,,Aua Island,巴布亚新几内亚,0
+AUJ,,Ambunti Airport,,Ambunti,巴布亚新几内亚,0
+AUK,,Alakanuk Airport,,Alakanuk,美国,0
+AUL,,Aur Airport,,Aur,马绍尔群岛,0
+AUM,,Austin Municipal Airport,,Austin,美国,0
+AUN,,Auburn Municipal Airport,,Auburn,美国,0
+AUO,,Auburn-Opelika Robert G. Pitts Airport,欧本,,美国,0
+AUP,,Agaun Airport,,Agaun,巴布亚新几内亚,0
+AUQ,,Atuona Airport,,Atuona,法属波利尼西亚,0
+AUR,,Aurillac Airport,欧里亚克,,法国,0
+AUS,,Austin-Bergstrom International Airport,奥斯汀,,美国,0
+AUT,,Atauro Airport,阿陶罗岛,,东帝汶,0
+AUU,,Aurukun Airport,,Aurukun,澳大利亚,0
+AUV,,Aurno Airport,,Aurno,巴布亚新几内亚,0
+AUW,,Wausau Downtown Airport,,Wausau,美国,0
+AUX,,Araguaína Airport,,Araguaina,巴西,0
+AUY,,Anatom Airport,,Anatom,瓦努阿图,0
+AUZ,,Aurora Municipal Airport,奥罗拉,,美国,0
+AVB,阿维亚诺空军基地,,,Aviano,意大利,0
+AVF,,Avoriaz Airport,,Avoriaz,法国,0
+AVG,,Auvergne Airport,,Auvergne,澳大利亚,0
+AVI,,Máximo Gómez Airport,,Ciego de Avila,古巴,0
+AVK,,Arvaikheer Airport,,Arvaikheer,蒙古,0
+AVL,,Asheville Regional Airport,,Fletcher,美国,0
+AVN,,Avignon - Caumont Airport,阿维尼翁,,法国,0
+AVO,,Avon Park Executive Airport,,Avon Park,美国,0
+AVP,,Wilkes-Barre/Scranton International Airport,,Avoca,美国,0
+AVU,,Avu Avu Airport,,Avu Avu,所罗门群岛,0
+AVV,爱华隆机场,,,Avalon,澳大利亚,0
+AVW,,Marana Regional Airport,图森,,美国,0
+AWA,,Awasa Airport,阿瓦萨,,埃塞俄比亚,0
+AWB,,Awaba Airport,,Awaba,巴布亚新几内亚,0
+AWD,,Aniwa Airport,,Aniwa,瓦努阿图,0
+AWE,,Alowe Airport,,Alowe,加蓬,0
+AWH,,Awareh Airport,,Awareh,埃塞俄比亚,0
+AWK,,Wake Island Airfield,威克岛,,美国本土外小岛屿,0
+AWM,,West Memphis Municipal Airport,,West Memphis,美国,0
+AWN,,Afton Downs Airport,,Afton Downs,澳大利亚,0
+AWP,,Austral Downs Airport,,Austral Downs,澳大利亚,0
+AWR,,Awar Airport,,Awar,巴布亚新几内亚,0
+AWZ,,Ahwaz Airport,阿瓦士,,伊朗,0
+AXA,,Wallblake Airport,山谷,,安圭拉,0
+AXB,,Maxson Airfield,,Alexandria Bay,美国,0
+AXC,,Aramac Airport,,Aramac,澳大利亚,0
+AXD,亚历山德鲁波利斯德谟克利特国际机场,,亚历山德鲁波利斯,,希腊,0
+AXE,,Xanxere Airport,,Xanxere,巴西,0
+AXG,,Algona Municipal Airport,,Algona,美国,0
+AXK,,Ataq Airport,,Ataq,也门,0
+AXL,,Alexandria Airport,,Alexandria,澳大利亚,0
+AXM,,El Edén International Airport,亚美尼亚城,,哥伦比亚,0
+AXN,,Chandler Field,,Alexandria,美国,0
+AXP,,Spring Point Airport,,Spring Point,巴哈马,0
+AXR,,Arutua Airport,,Arutua,法属波利尼西亚,0
+AXS,,Altus/Quartz Mountain Regional Airport,,Altus,美国,0
+AXT,秋田机场,,秋田,,日本,0
+AXU,,Axum Airport,阿克苏姆,,埃塞俄比亚,0
+AXV,,Neil Armstrong Airport,,Wapakoneta,美国,0
+AXX,,Angel Fire Airport,,Angel Fire,美国,0
+AYA,,Ayapel Airport,,Ayapel,哥伦比亚,0
+AYC,,Ayacucho Airport,阿亚库乔,,秘鲁,0
+AYD,,Alroy Downs Airport,,Alroy Downs,澳大利亚,0
+AYG,,Yaguara Airport,,Yaguara,哥伦比亚,0
+AYH,,RAF Alconbury,,Alconbury,英国,0
+AYI,,Yari Airport,,Yari,哥伦比亚,0
+AYK,,Arkalyk Airport,阿尔卡雷克,,哈萨克斯坦,0
+AYL,,Anthony Lagoon Airport,,Anthony Lagoon,澳大利亚,0
+AYN,安阳机场,Anyang Airport,安阳,,中国,1
+AYO,,Juan De Ayolas Airport,,Ayolas,巴拉圭,0
+AYP,,Coronel FAP Alfredo Mendivil Duarte Airport,阿亚库乔,,秘鲁,0
+AYQ,,Ayers Rock Airport,,Yulara,澳大利亚,0
+AYR,,Ayr Airport,,Ayr,澳大利亚,0
+AYS,,Waycross-Ware County Airport,,Waycross,美国,0
+AYT,安塔利亚机场,,安塔利亚,,土耳其,0
+AYU,,Aiyura Airport,,Aiyura,巴布亚新几内亚,0
+AYW,,Ayawasi Airport,,Ayawasi,印尼,0
+AZA,,Phoenix-Mesa Gateway Airport,凤凰城,,美国,0
+AZB,,Amazon Bay Airport,,Amazon Bay,巴布亚新几内亚,0
+AZD,,Yazd Shahid Sadooghi Airport,亚兹德,,伊朗,0
+AZG,,Pablo L. Sidar Airport,,Apatzingan,墨西哥,0
+AZI,,Bateen Airport,阿布扎比,,阿拉伯联合酋长国,0
+AZN,,Andizhan Airport,安集延,,乌兹别克斯坦,0
+AZO,,Kalamazoo/Battle Creek International Airport,卡拉马祖,,美国,0
+AZP,,Atizapan Airport,墨西哥城,,墨西哥,0
+AZR,,Touat Cheikh Sidi Mohamed Belkebir Airport,阿德拉尔,,阿尔及利亚,0
+AZS,,Samaná El Catey International Airport,,El Catey,多米尼加,0
+AZT,,Zapatoca Airport,,Zapatoca,哥伦比亚,0
+AZZ,,Ambriz Airport,,Ambriz,安哥拉,0
+BAH,巴林国际机场,,麦纳麦,,巴林,0
+BAV,包头机场,,包头,,中国 内蒙古自治区,1
+BCN,巴塞罗那国际机场,,巴塞罗那,,西班牙,0
+BEG,贝尔格莱德尼古拉·特斯拉国际机场,,贝尔格莱德,,塞尔维亚,0
+BER,柏林-勃兰登堡国际机场,,柏林,,德国,0
+BFS,贝尔法斯特国际机场,,贝尔法斯特,,英国,0
+BHX,伯明翰国际机场,,伯明翰,,英国,0
+BHY,福成机场,,北海,,中国 广西壮族自治区,1
+BKK,新曼谷国际机场,,曼谷,,泰国,0
+BLR,班加罗尔国际机场,,班加罗尔,,印度,0
+BNA,纳什维尔国际机场,,纳什维尔,,美国,0
+BNE,布里斯班国际机场,,布里斯班,,澳洲 昆士兰省,0
+BOS,罗根国际机场,,波士顿,,美国,0
+BRN,伯恩机场,,伯恩,,瑞士,0
+BRS,布里斯托国际机场,,布里斯托,,英国,0
+BRU,布鲁塞尔机场,,布鲁塞尔,,比利时,0
+BSB,巴西利亚国际机场,,巴西利亚,,巴西,0
+BSR,巴士拉国际机场,,巴士拉,,伊拉克,0
+BSD,保山机场,,保山,,中国,1
+BUF,水牛城尼亚加拉国际机场,,水牛城,,美国 纽约州,0
+BWN,文莱国际机场,,斯里巴加湾,,文莱,0
+BVO,巴特尔斯维尔机场,,巴特尔斯维尔,,美国 俄克拉何马州,0
+BAK,,Baku,巴库,,阿塞拜疆,0
+BAL,,Nearest Air Service Through Diyarbakir,,巴特曼 Batman,土耳其,0
+BAQ,,ECortissoz,,巴兰基亚 Barranquilla,哥伦比亚,0
+BAX,,BarnaulAirport,,巴尔瑙尔 Barnaul,俄罗斯,0
+BBI,,Bhubaneswar,,巴布内斯瓦尔 Bhubaneswar,印度,0
+BBU,,Baneasa,布加勒斯特,,罗马尼亚,0
+BCD,描戈律锡莱国际机场,,巴科洛德,,菲律宾,0
+BDA,,L.F. Wade International Airport,,St.George's,百慕大,0
+BDJ,,Syamsudin Noor,班格尔马辛,,印尼,0
+BDO,,Husein Sastranegara,万隆,,印尼,0
+BDR,,Sikorsky Memorial,,Bridgeport,美国,0
+BED,,Bedford,,贝德福德 Bedford,美国,0
+BEH,,Ross Field,,本顿港 Benton Harbor,美国,0
+BEI,,Beica,贝卡,,埃塞俄比亚,0
+BEL,,Val DeCans,贝伦,,巴西,0
+BES,,Guipavas,布列斯特,,法国,0
+BET,,Bethel,,贝塞尔 Bethel,美国,0
+BEW,,Beira,贝拉,,莫桑比克,0
+BEY,,,贝鲁特,,黎巴嫩,0
+BFD,,Bradford Regional,,布拉得福德 Bradford,美国,0
+BFL,,Meadows Field,,贝克斯菲尔德 Bakersfield,美国,0
+BFN,,Jbm Hertzog,布隆方丹,,南非,0
+BGA,,Palo Negro,,Bucaramanga,哥伦比亚,0
+BGF,,Bangui,班基,,中非共和国,0
+BGI,,Grantley Adams International,,Bridgetown,巴巴多斯,0
+BGM,,Edwin Alink Field,宾罕顿,,美国,0
+BGO,,Flesland,贝根,,挪威,0
+BGR,,Bangor International Airport,,班戈 Bangor,美国,0
+BHB,,,,巴港 Bar Harbor,美国,0
+BHD,,BelfastHarbor,贝尔法斯特,,联合王国,0
+BHI,,Commandante,布兰卡港,,阿根廷,0
+BHK,,,,Bukhara,乌兹别克斯坦,0
+BHM,,Seibels/Bryan Airport,伯明翰,,美国,0
+BHQ,,Broken Hill,,Broken Hill,澳大利亚,0
+BIA,,Poretta,,巴斯蒂亚 Bastia,法国,0
+BIK,,Mokmer,比亚克,,印尼,0
+BIL,,Billings Logan Intnl Airport,,比林兹 Billings,美国,0
+BIM,,Bimini Island International,比米尼,,巴哈马群岛,0
+BIO,,Sondica,,毕尔巴鄂 Bilbao,西班牙,0
+BIQ,,Parme,,比亚里茨 Biarritz,法国,0
+BIS,,Bismarck Mannan Municipal,俾斯麦,,美国,0
+BJI,,Bemidji Municipal Airport,,伯米吉 Bemidji,美国,0
+BJL,,Yundum International,班竹,,冈比亚,0
+BKO,,Senou,巴马科,,马里,0
+BKW,,,贝克利,,美国,0
+BKX,,Brookings Municipal Airport,,Brookings,美国,0
+BLA,,GralJose Antonio Anzoategui,巴塞罗那,,委内瑞拉,0
+BLF,,,,布卢菲尔特 Bluefield,美国,0
+BLI,,Bellingham International,,贝灵厄姆 Bellingham,美国,0
+BLK,,Blackpool,,布拉克普耳 Blackpool,英国,0
+BLL,,Billund,比灵斯,,丹麦,0
+BLZ,,智利ka,,布兰太尔 Blantyre,马拉维,0
+BMG,,Monroe County Airport,,布隆明顿 Bloomington,美国,0
+BMI,,Normal,,布隆明顿 Bloomington,美国,0
+BNJ,,Train MainRailroad Station,波昂,,德国,0
+BNN,,Bronnoy,,Bronnoysund,挪威,0
+BNS,,Barinas,巴里纳斯,,委内瑞拉,0
+BOD,,Merignac,波尔多,,法国,0
+BOG,,Eldorado,波哥大,,哥伦比亚,0
+BOI,,Boise Municipal Arpt,树城,,美国,0
+BOM,,Bombay,孟买,,印度,0
+BON,,FlamingoField,,博奈尔 Bonaire,荷兰,0
+BOO,,Bodo,,博多 Bodo,挪威,0
+BPT,,Jefferson County,,博蒙特 Beaumont,美国,0
+BQK,,Glynco Jetport,,Brunswick,美国,0
+BRD,,,,布雷纳德 Brainerd,美国,0
+BRE,,Bremen,不来梅,,德国,0
+BRI,,,巴厘,,意大利,0
+BRL,,Burlington Municipal Airport,伯林顿,,美国,0
+BRM,,Barquisimeto,,巴基西梅托 Barquisimeto,委内瑞拉,0
+BRO,,SouthPadre Island Intl,,Brownsville,美国,0
+BRQ,,Turany,,Brno,捷克共和国,0
+BRR,,NorthBay,,巴拉岛 Barra / Hebrides Islands,联合王国,0
+BRT,,,,巴瑟斯特岛 Bathurst Island,澳大利亚,0
+BRW,,Barrow,,巴罗 Barrow,美国,0
+BSK,,Biskra,,Biskra,阿尔及利亚,0
+BSL,巴塞尔欧洲机场,,巴塞尔,,瑞士,0
+BTM,,,,Butte,美国,0
+BTR,红杖都会机场,,红杖,,美国,0
+BTS,,Ivanka,,布拉提斯拉瓦 Bratislava,斯洛伐克,0
+BTU,,Bintulu,,民都鲁 Bintulu,马来西亚,0
+BTV,,Burlington International Airport,柏林顿,,美国,0
+BUD,,Ferihegy,布达佩斯,,匈牙利,0
+BUQ,,Bulawayo,,Bulawayo,津巴布韦,0
+BUR,,Burbank Glendale Pasadena Airport,,Burbank,美国,0
+BUZ,,Bushehr,,Bushehr,伊朗,0
+BVB,,,,博阿维斯塔 Boa Vista,巴西,0
+BVE,,Laroche,,Brive-La-Gaillarde,法国,0
+BVI,,Birdsville,,伯兹维尔 Birdsville,澳大利亚,0
+BWA,,Bhairawa,,Bhairawa,尼泊尔,0
+BWI,巴尔的摩华盛顿国际机场,,巴尔的摩,,美国,0
+BXN,,ImsikAirport,,博多鲁姆 Bodrum,土耳其,0
+BXU,,Butuan,,Butuan,菲律宾,0
+BYU,,Bindlacher Berg,,拜罗伊特 Bayreuth,德国,0
+BZE,菲腊高逊国际机场,,伯利兹城,,伯利兹,0
+BZN,,GallatinField,,博兹曼 Bozeman,美国,0
+BZR,,Beziers,,贝济耶 Beziers,法国,0
+CAH,金瓯机场,,金瓯,,越南,0
+CAI,开罗国际机场,,开罗,,埃及,0
+CAN,白云国际机场,,广州,,中国,1
+CBR,堪培拉国际机场,,堪培拉,,澳洲,0
+CCU,内塔吉·苏巴斯·钱德拉·鲍斯国际机场,,加尔各答,,印度,0
+CDG,夏尔·戴高乐国际机场,,巴黎,,法国,0
+CEB,宿雾麦克坦国际机场,,宿雾,,菲律宾,0
+CEI,清莱国际机场,,清莱,,泰国,0
+CGK,苏卡诺-哈达国际机场,,雅加达,,印尼,0
+CGN,科隆-波恩机场,,科隆,,德国,0
+CGN,科隆-波恩机场,,波恩,,德国,0
+CGO,新郑国际机场,,郑州,,中国,1
+CGQ,龙嘉国际机场,,长春,,中国,1
+CHC,基督城国际机场,,基督城,,新西兰,0
+CHS,查尔斯顿国际机场,,北查尔斯顿,,美国,0
+CJJ,清州国际机场,,清州,,韩国,0
+CJU,济州国际机场,,济州,,韩国,0
+CKG,江北国际机场,,重庆,,中国,1
+CLE,克利夫兰霍普金斯国际机场,,克利夫兰,,美国,0
+CLT,夏洛特/道格拉斯国际机场,,夏洛特,,美国,0
+CMB,班达拉奈克国际机场,,可伦坡,,斯里兰卡,0
+CMJ,七美机场,,七美,,中华民国(台湾),0
+CMN,穆罕默德五世国际机场,,卡萨布兰加,,摩洛哥,0
+CNS,凯恩斯国际机场,,凯恩斯,,澳洲,0
+CNX,清迈国际机场,,清迈,,泰国,0
+COK,柯枝国际机场,,柯枝,,印度,0
+COS,科罗拉多泉机场,,科罗拉多泉,,美国,0
+CPH,哥本哈根机场,,哥本哈根,,丹麦,0
+CPT,开普敦国际机场,,开普敦,,南非,0
+CRL,沙尔勒鲁瓦－南布鲁塞尔机场,,沙尔勒鲁瓦,,比利时,0
+CSX,黄花国际机场,,长沙,,中国,1
+CTS,新千岁机场,,千岁,,日本,0
+CTU,双流国际机场,,成都,,中国,1
+CVG,辛辛那堤/北肯塔基国际机场,,辛辛那堤,,美国,0
+CWL,卡地夫国际机场,,卡地夫,,英国,0
+CYI,嘉义机场,,嘉义,,中华民国 （ 台湾 ）,0
+CZX,奔牛机场,,常州,,中国,1
+CAE,,Columbia Sc Airport Metropolitan,哥伦比亚,,美国,0
+CAG,,Elmas,卡里亚里,,意大利,0
+CAJ,,,,Canaima,委内瑞拉,0
+CAY,,Rochambeau,,Cayenne,法属圭亚那,0
+CBB,,San Jose De La Banda,,Cochabamba,玻利维亚,0
+CBE,,Municipal,,Cumberland,美国,0
+CBG,,Cambridge,剑桥,,英国,0
+CBL,,,,Ciudad Bolivar,委内瑞拉,0
+CCF,,Salvaza Airport,,Carcassonne,法国,0
+CCJ,,,卡利卡特,,印度,0
+CCP,,Carriel Sur,,Concepcion,智利,0
+CCS,,Simon Bolivar International,卡拉卡斯,,委内瑞拉,0
+CDC,,,,Cedar City,美国,0
+CDH,,,,Camden,美国,0
+CDR,,,,Chadron,美国,0
+CDV,,,,Cordova,美国,0
+CEC,,Crescent City Municipal Airport,,Crescent City,美国,0
+CEN,,,,Ciudad Obregon,墨西哥,0
+CER,,Maupertus,,Cherbourg,法国,0
+CEZ,,Montezuma County,,Cortez,美国,0
+CFR,,Carpiquet,,Caen,法国,0
+CGA,,,,Craig,美国,0
+CGB,,,,Cuiaba,巴西,0
+CGI,,Municipal Airport,,Cape Girardeau,美国,0
+CGP,,Patenga,,Chittagong,孟加拉,0
+CGR,,,,Campo Grande,巴西,0
+CHA,,ChaLovell Field,查塔努加,,美国,0
+CHO,,Charlottesville/Albemarle,,Charlottesville,美国,0
+CHQ,,Souda,,Chania,希腊,0
+CIC,,Chico Municipal Air Terminal,,Chico,美国,0
+CID,,Municipal,,Cedar Rapids,美国,0
+CIX,,Cornel Ruiz,,Chiclayo,秘鲁,0
+CJB,,Peelamedu,,Coimbatore,印度,0
+CJS,,InternationalAbrahamGonzalez,,Ciudad Juarez,墨西哥,0
+CKB,,Clarksburg,,Clarksburg,美国,0
+CKS,,International/Brasilia,,Carajas,巴西,0
+CKY,,Conakry,,Conakry,几内亚,0
+CLD,,Carlsbad/Palomar Airport,,Carlsbad,美国,0
+CLJ,,Cluj,,Cluj,罗马尼亚,0
+CLL,,,,College Station,美国,0
+CLO,,Alfonso Bonilla Aragon,,Cali,哥伦比亚,0
+CLQ,,,,Colima,墨西哥,0
+CLY,,Ste Catherine,,Calvi,法国,0
+CME,,,,Ciudad Del Carmen,墨西哥,0
+CMF,,ChamberyAix,,Chambery,法国,0
+CMG,,Corumba,,Corumba,巴西,0
+CMH,,Port Columbus Intl Airport,哥伦布,,美国,0
+CMI,,Univ Of Illinois,香槟,,美国,0
+CND,,Kogalniceanu,,Constanta,罗马尼亚,0
+CNM,,,,Carlsbad,美国,0
+COO,,Cotonou,,Cotonou,贝宁,0
+COR,,Pajas Blancas,,Cordoba,阿根廷,0
+COU,,Columbia Regional,哥伦比亚,,美国,0
+CPQ,,Campinas International,,Campinas,巴西,0
+CPR,,Natrona County Intl Airport,,Casper,美国,0
+CRD,,Comodora Rivadavia,,Comodoro Rivadavia,阿根廷,0
+CRI,,,,Crooked Island,巴哈马,0
+CRP,,Corpus Christi International Airport,,Corpus Christi,美国,0
+CRU,,,,Carriacou Island,格林娜达,0
+CRW,耶格机场,,查尔斯顿,,美国,0
+CSG,,Columbus Metropolitan/Fort Benning,哥伦布,,美国,0
+CTA,,Fontanarossa,,Catania,意大利,0
+CTG,,Rafael Nunez,,Cartagena,哥伦比亚,0
+CTL,,Charleville,,Charleville,澳大利亚,0
+CUC,,Camilo Daza,,Cucuta,哥伦比亚,0
+CUE,,Mariscal LaMar,,Cuenca,厄瓜多尔,0
+CUL,,,,Culiacan,墨西哥,0
+CUM,,,,Cumana,委内瑞拉,0
+CUN,,,坎昆,,墨西哥,0
+CUP,,Carupano,,Carupano,委内瑞拉,0
+CUU,,Genvillalobos,,Chihuahua,墨西哥,0
+CUZ,,Tte Velazco Astete,库斯科,,秘鲁,0
+CVN,,,,Clovis,美国,0
+CWB,,AfonsoPena,,Curitiba,巴西,0
+CWT,,Cowra,,Cowra,澳大利亚,0
+CYB,,,,Cayman Brac Island,CaymanIslands,0
+CYR,,,,Colonia,乌拉圭,0
+CYS,,Cheyenne Municipal Airport,,Cheyenne,美国,0
+CZM,,Aeropuerto Intl DeCozumel,,Cozumel,墨西哥,0
+DAC,齐亚国际机场,,达卡,,孟加拉,0
+DAD,岘港国际机场,,岘港,,越南,0
+DAM,大马士革国际机场,,大马士革,,叙利亚,0
+DAT,东王庄机场,,大同,,中国,1
+DAX,河机场,,达州,,中国,1
+DCA,雷根华盛顿国家机场,,华盛顿特区,,美国,0
+DEL,英迪拉·甘地国际机场,,德里,,印度,0
+DEN,丹佛国际机场,,丹佛,,美国,0
+DFW,达拉斯-沃斯堡国际机场,,达拉斯,,美国,0
+DIG,迪庆香格里拉机场,,香格里拉,,中国,1
+DLC,周水子国际机场,,大连,,中国,1
+DMK,曼谷国际机场,,曼谷,,泰国,0
+DNH,敦煌机场,,敦煌,,中国,1
+DOH,多哈国际机场,,多哈,,卡达,0
+DPS,伍拉·赖国际机场,,丹帕沙,,印尼,0
+DRS,德累斯顿机场,,德累斯顿,,德国,0
+DRW,达尔文国际机场,,达尔文,,澳洲,0
+DTW,底特律都会韦恩机场,,底特律,,美国,0
+DUB,都柏林机场,,都柏林,,爱尔兰,0
+DUD,但尼丁国际机场,,但尼丁,,新西兰,0
+DUR,德班国际机场,,德班,,南非,0
+DUS,杜塞尔多夫国际机场,,杜塞尔多夫,,德国,0
+DXB,迪拜国际机场,,迪拜,,阿拉伯联合酋长国,0
+DAB,,Daytona Beach International Airport,,Daytona Beach,美国,0
+DAL,爱田机场,,达拉斯,,美国,0
+DAN,,,,Danville,美国,0
+DAR,,International,,Dar Es Salaam,坦桑尼亚,0
+DAY,,James M Cox Dayton International,德顿,,美国,0
+DBO,,Dubbo,,Dubbo,澳大利亚,0
+DBQ,,Dubuque Municipal Airport,,Dubuque,美国,0
+DCF,,Cane Field,多米尼加,,多米尼加,0
+DDC,,Dodge City Municipal,,Dodge City,美国,0
+DEC,,Decatur Municiple Airport,,Decatur,美国,0
+DEM,,Dembidollo,,Dembidollo,埃塞俄比亚,0
+DGA,,Dangriga,,Dangriga,伯利兹,0
+DGO,,Gen Guadalupe Victoria,,Durango,墨西哥,0
+DHA,,Dhahran Intl,,Dhahran,沙特阿拉伯,0
+DHN,,Municipal,,Dothan,美国,0
+DIB,,Chabua,,Dibrugarh,印度,0
+DIJ,,Longvic,,Dijon,法国,0
+DIY,,Diyarbakia,,Diyarbakir,土耳其,0
+DKR,,Yoff,达喀尔,,塞内加尔,0
+DLA,,Douala,,Douala,喀麦隆,0
+DLH,,Duluth International Airport,,Duluth,美国,0
+DLM,,Dalaman,,Dalaman,土耳其,0
+DME,,,,Domodedovo,俄罗斯,0
+DND,,Dundee,,Dundee,英国,0
+DNM,,,,Denham,澳大利亚,0
+DNV,,Vermilion County Airport,,Danville,美国,0
+DOK,,Donetsk,,Donetsk,乌克兰,0
+DOM,,Melville Hal,多米尼加,,多米尼加,0
+DPL,,Dipolog,,Dipolog,菲律宾,0
+DPO,,Devonport,,Devonport,澳大利亚,0
+DRO,,Durango La Plata County Airport,,Durango,美国,0
+DRT,,,,Del Rio,美国,0
+DSI,,,,Destin,美国,0
+DSM,,,,Des Moines,美国,0
+DTM,,Wickede,多特蒙德,,德国,0
+DUJ,,Jefferson County,,Du Bois,美国,0
+DUQ,,QuamichanLake,,Quam,加拿大,0
+DUQ,,QuamichanLake,,Duncan,加拿大,0
+DUT,,DutchHarbor,,Dutch Harbor,美国,0
+DVO,,Mati,,Davao,菲律宾,0
+EBL,阿尔贝拉国际机场,,阿尔贝拉,,伊拉克,0
+EDI,爱丁堡机场,,爱丁堡,,英国,0
+ELS,东伦敦机场,,东伦敦,,南非,0
+EWR,纽华克自由国际机场,,伊丽莎白,,美国,0
+EWR,纽华克自由国际机场,,纽华克,,美国,0
+EYW,基韦斯特国际机场,,基韦斯特,,美国,0
+EAU,,Eau Claire Municipal,,Eau Claire,美国,0
+EBA,,Marina Di Campo,埃尔巴岛,,意大利,0
+EBB,,Entebbe,,Kampala,乌干达,0
+EBB,,Entebbe,,Entebbe,乌干达,0
+EBJ,,Esbjerg,,Esbjerg,丹麦,0
+EIN,,Welschap,埃因霍温,,荷兰,0
+EKO,,J C Harris Field,,Elko,美国,0
+ELD,,,,El Dorado,美国,0
+ELF,,El Fasher,,El Fasher,苏丹,0
+ELI,,,,Elim,美国,0
+ELM,,Elmira Corning Regional Arpt,,Elmira,美国,0
+ELM,,Elmira Corning Regional Arpt,,Corning,美国,0
+ELP,,El Paso International Airport,,El Paso,美国,0
+ELY,,Yelland Field,,Ely,美国,0
+EMA,,East Midlands,,East Midlands,英国,0
+EMD,,Emerald,,Emerald,澳大利亚,0
+ENS,,Twente,,Enschede,荷兰,0
+EPR,,Esperance,,Esperance,澳大利亚,0
+ERF,,Erfurt,,Erfurt,德国,0
+ERI,,Erie International,伊利,,美国,0
+ERZ,,Erzurum,,Erzurum,土耳其,0
+ESC,,Delta County Airport,,Escanaba,美国,0
+ESD,,Eastsound/Orcas Island Airport,,Eastsound,美国,0
+ESR,,,,El Salvador,智利,0
+ETH,,Elat,,Elat,以色列,0
+EUG,,Eugene Airport,尤金,,美国,0
+EVE,,Evenes,,Evenes,挪威,0
+EVV,,Evansville Regional Airport,,Evansville,美国,0
+EXT,,Exeter,,Exeter,英国,0
+FAI,费尔班克斯国际机场,,费尔班克斯,,美国,0
+FLL,劳德岱堡-好莱坞国际机场,,好莱坞,,美国,0
+FLL,劳德岱堡-好莱坞国际机场,,劳德岱堡,,美国,0
+FMA,福尔摩莎国际机场,,福尔摩莎,,阿根廷,0
+FNJ,平壤顺安国际机场,,平壤,,朝鲜民主主义人民共和国,0
+FOC,长乐国际机场,,福州,,中国,1
+FRA,法兰克福国际机场,,法兰克福,,德国,0
+FRU,马纳斯国际机场,,比斯凯克,,吉尔吉斯,0
+FSP,圣皮耶机场,,圣皮耶,,圣皮耶与密克隆群岛,0
+FKS,福岛机场,,福岛,,日本,0
+FUK,福冈机场,,福冈,,日本,0
+FUN,富纳富提国际机场,,富纳富提,,图瓦卢,0
+FCO,罗马－菲乌米奇诺机场,,菲乌米奇诺,,意大利,0
+FAE,,Faeroe Islands,法罗群岛,,法罗群岛,0
+FAO,,Faro,,Faro,葡萄牙,0
+FAR,,Hector Airport,,Fargo,美国,0
+FAT,,Fresno Air Terminal,加利福尼亚,,美国,0
+FAY,,Fayetteville Municipal,,Fayetteville,美国,0
+FDF,,Fort De 法国,,Fort De,Martinique 法国,0
+FDH,,Friedrichshafen,腓特烈港,,德国,0
+FEZ,,Fez,,Fez,摩洛哥,0
+FFM,,Fergus Falls Municipal Airport,,Fergus Falls,美国,0
+FHU,,,,Sierra Vista,美国,0
+FHU,,,,Fort Huachuca,美国,0
+FKL,,Chess Lamberton,富兰克林,,美国,0
+FLG,,Flagstaff,,Flagstaff,美国,0
+FLN,,Florianopolis,,Florianopolis,巴西,0
+FLO,,Gilbert Field,佛罗伦斯,,美国,0
+FLR,,,佛罗伦斯,,意大利,0
+FMN,,Four Corners Regional Airport,,Farmington,美国,0
+FNC,,Funchal,,Funchal,葡萄牙,0
+FNL,,Fort Collins / Loveland Airport,,Loveland,美国,0
+FNL,,Fort Collins / Loveland Airport,,Fort Collins,美国,0
+FNT,,Bishop Int'l Airport,,Flint,美国,0
+FOD,,Fort Dodge Regional Airport,,Fort Dodge,美国,0
+FOR,,Fortaleza,,Fortaleza,巴西,0
+FPO,,Freeport Intl Airport,,Freeport,巴哈马,0
+FRD,,Friday Harbor Airport,,Friday Harbor,美国,0
+FRM,,Fairmont Municipal,,Fairmont,美国,0
+FRO,,Floro,,Floro,挪威,0
+FRS,,Flores,,Flores,危地马拉,0
+FSM,,Fort Smith Municipal,,Fort Smith,美国,0
+FUE,,Fuerteventura,,Puerto Del Rosario,西班牙,0
+FUE,,Fuerteventura,,Fuerteventura,西班牙,0
+FWA,,Baer Field,韦恩堡,,美国,0
+FYV,,Municipal,,Fayetteville,美国,0
+GCN,大峡谷国家公园机场,,可可尼诺,,美国,0
+GHB,总督港机场,,总督港,,巴哈马,0
+GIB,直布罗陀机场,,直布罗陀,,直布罗陀,0
+GLA,格拉斯哥国际机场,,格拉斯哥,,英国,0
+GMP,金浦机场,,首尔,,大韩民国,0
+GNI,绿岛机场,,绿岛,,中华民国 （ 台湾 ）,0
+GRU,圣保罗国际机场,,圣保罗,,巴西,0
+GTF,大瀑布城国际机场,,大瀑布城,,美国,0
+GUM,安东尼奥·汪帕特国际机场,,阿加尼亚,,关岛,0
+GVA,日内瓦国际机场,,日内瓦,,瑞士,0
+GYD,盖达尔·阿利耶夫国际机场,,巴库,,阿塞拜疆,0
+GAL,,,,Galena,美国,0
+GAU,,Borjhar,,Gauhati,印度,0
+GBE,,Gaborone,,Gaborone,博茨瓦纳,0
+GBG,,Galesburg Municiple Airport,,Galesburg,美国,0
+GCC,,Campbell County Airport,,Gillette,美国,0
+GCI,,Guernsey,,Guernsey,联合王国,0
+GCK,,Garden City Municipal Airport,,Garden City,美国,0
+GCM,,Owen Roberts Intl Airport,,Grand Cayman Island,CaymanIslands,0
+GDL,,Miguel Hidalgo Intl,,Guadalajara,墨西哥,0
+GDN,,Rebiechowo,格但斯克,,波兰,0
+GDT,,,,Grand Turk Is,TurksAndCaicosIslands,0
+GDV,,,,Glendive,美国,0
+GEO,,Timehri,,Georgetown,Guyana,0
+GET,,Geraldton,,Geraldton,澳大利亚,0
+GFK,,Grand Forks International Airport,,Grand Forks,美国,0
+GGT,,Exuma International,,George Town,巴哈马,0
+GGW,,,格拉斯哥,,美国,0
+GJT,,Walker Field,,Grand Junction,美国,0
+GKA,,Goroka,,Goroka,巴布亚新矶内亚,0
+GLD,,Renner Field,,Goodland,美国,0
+GLF,,Golfito,,Golfito,哥斯达黎加,0
+GLS,,Scholes Field,,Galveston,美国,0
+GLV,,,,Golovin,美国,0
+GNB,,St Geoirs,,Grenoble,法国,0
+GNV,,Jr Alison Municipal,,Gainesville,美国,0
+GOA,,Christoforo Colombo,热内亚,,意大利,0
+GOI,,Dabolim,,Goa,印度,0
+GON,,Groton,,New London,美国,0
+GON,,Groton,,Groton,美国,0
+GOT,,Landvetter,古登堡,,瑞典,0
+GPS,,Baltra,,Gal?pagos Islands,厄瓜多尔,0
+GPT,,Gulfport/Biloxi,,Gulfport,美国,0
+GRB,,Austin/Straybel Field,绿湾,,美国,0
+GRI,,Central Nebraska Regional Airport,,Grand Island,美国,0
+GRJ,,George,,George,南非,0
+GRO,,Costa Brava,,Gerona,西班牙,0
+GRQ,,Eelde,,Groningen,荷兰,0
+GRR,,Kent County International Airport,,Grand Rapids,美国,0
+GRX,,Granada,,Granada,西班牙,0
+GRZ,,Thalerhof,,Graz,奥地利,0
+GSO,,Piedmont Triad Intl Airport,,High Point,美国,0
+GSO,,Piedmont Triad Intl Airport,,Greensboro,美国,0
+GTO,,Tolotio,,Gorontalo,印度尼西亚,0
+GUA,,La Aurora Intl Airport,危地马拉,,危地马拉,0
+GUB,,Guerrero Negro Airport,,Guerrero Negro,墨西哥,0
+GUC,,Gunnison County Airport,,Gunnison,美国,0
+GUP,,Gallup Municipal,,Gallup,美国,0
+GWD,,,奎达,,巴基斯坦,0
+GWY,,Carnmore,,Galway,爱尔兰,0
+GYE,,Simon Bolivar,,Guayaquil,厄瓜多尔,0
+GYM,,,,Guaymas,墨西哥,0
+GYY,,,,Gary,美国,0
+HAC,八丈岛机场,,八丈岛,,日本,0
+HAE,海州机场,,海州,,朝鲜民主主义人民共和国,0
+HAJ,汉诺威机场,,汉诺威,,德国,0
+HAK,美兰国际机场,,海口,,中国,1
+HAM,汉堡机场,,汉堡,,德国,0
+HAN,内排国际机场,,河内,,越南,0
+HAV,哈瓦那何塞·马蒂国际机场,,哈瓦那,,古巴,0
+HBA,荷巴特国际机场,,荷巴特,,澳洲,0
+HCN,恒春机场,,屏东,,中华民国 （ 台湾 ）,0
+HDG,邯郸机场,,邯郸,,中国,1
+HDY,合艾国际机场,,合艾,,泰国,0
+HEL,赫尔辛基-万塔机场,,赫尔辛基,,芬兰,0
+HEM,赫尔辛基-马尔米机场,,赫尔辛基,,芬兰,0
+HET,白塔国际机场,,呼和浩特,,中国,1
+HFA,海法机场,,海法,,以色列,0
+HFE,骆岗国际机场,,合肥,,中国,1
+HGH,萧山国际机场,,杭州,,中国,1
+HGU,芒特哈根机场,,芒特哈根,,巴布亚新几内亚,0
+HIJ,广岛机场,,广岛,,日本,0
+HIN,泗川机场,,泗川,,韩国,0
+HKD,函馆机场,,函馆,,日本,0
+HKG,香港国际机场,,香港,,香港,0
+HKT,布吉国际机场,,普吉岛,,泰国,0
+HMI,哈密机场,,哈密,,中国,1
+HNA,花卷机场,,岩手,,日本,0
+HND,东京国际机场,,东京都,,日本,0
+HNL,檀香山国际机场,,檀香山,,美国,0
+HPH,吉悲机场,,海防,,越南,0
+HRB,太平国际机场,,哈尔滨,,中国,1
+HRE,哈拉雷国际机场,,哈拉雷,,津巴布韦,0
+HRK,哈尔科夫国际机场,,哈尔科夫,,乌克兰,0
+HTN,和田机场,,和田,,中国,1
+HUI,富排机场,,顺化,,越南,0
+HUN,花莲机场,,花莲,,中华民国 （ 台湾 ）,0
+HYD,拉吉夫·甘地国际机场,,海德拉巴,,印度,0
+HZG,汉中机场,,汉中,,中国,1
+HAD,,Halmstad,,Halmstad,瑞典,0
+HAU,,Karmoy,,Haugesund,挪威,0
+HDB,,,海德堡,,德国,0
+HDN,,Yampa Valley Regional Airport,,Hayden,美国,0
+HER,,Heraklion,,Heraklion,希腊,0
+HFT,,,,Hammerfest,挪威,0
+HGR,,Washington County Regional Airport,,Hagerstown,美国,0
+HHH,,Municipal,,Hilton Head,美国,0
+HIB,,Hibbing,,Chisholm,美国,0
+HIB,,Hibbing,,Hibbing,美国,0
+HIR,,Henderson International,,Guadalcanal,所罗门群岛,0
+HIR,,Henderson International,,Honiara,所罗门群岛,0
+HIS,,Hayman Island Airport,,Hayman Island,澳大利亚,0
+HKK,,Hokitika,,Hokitika,新西兰,0
+HKN,,Hoskins,,Hoskins,巴布亚新矶内亚,0
+HKY,,,,Hickory,美国,0
+HLN,,,,Helena,美国,0
+HLZ,,Hamilton,汉密尔顿,,新西兰,0
+HMO,,General Ignacio Pesqueira Garcia,,Hermosillo,墨西哥,0
+HNH,,,,Hoonah,美国,0
+HNS,,,,Haines,美国,0
+HOB,,Lea County,,Hobbs,美国,0
+HOM,,Homer Airport,,Homer,美国,0
+HON,,Huron Regional Airport,,Huron,美国,0
+HOT,,Memorial Field,,Hot Springs,美国,0
+HOU,,Houston Hobby Airport,休士顿,,美国,0
+HPB,,,,Hooper Bay,美国,0
+HRG,,,,Hurghada,埃及,0
+HRL,,,,Harlingen,美国,0
+HRO,,Boone County,,Harrison,美国,0
+HSI,,,,Hastings,美国,0
+HSV,,Huntsville,,Decatur,美国,0
+HSV,,Huntsville,,Huntsville,美国,0
+HTI,,,汉密尔顿岛,,澳大利亚,0
+HTS,,Tri,,Ashland,美国,0
+HTS,,Tri,,Huntington,美国,0
+HUX,,,,Huatulco,墨西哥,0
+HUY,,Humberside,,Humberside,联合王国,0
+HVB,,,,Hervey Bay,澳大利亚,0
+HVR,,City County,,Havre,美国,0
+HWN,,Hwange National Park,,Hwange National Park,津巴布韦,0
+HYA,,Barnstable County,,Hyannis,美国,0
+HYG,,,,Hydaburg,美国,0
+HYS,,Hays Municipal Airport,,Hays,美国,0
+IAD,华盛顿杜勒斯国际机场,,华盛顿特区,,美国,0
+IAG,尼亚加拉瀑布国际机场,,尼亚加拉瀑布城,,美国,0
+IAH,乔治·布什洲际机场,,休士顿,,美国,0
+IAS,雅西国际机场,,雅西,,罗马尼亚,0
+IBZ,伊维萨机场,,伊维萨岛,,西班牙,0
+ICN,仁川国际机场,,仁川,,大韩民国,0
+IEV,基辅国际机场,,基辅,,乌克兰,0
+IGU,伊瓜苏瀑布国际机场,,伊瓜苏,,巴西,0
+IKT,伊尔库次克机场,,伊尔库次克,,俄罗斯,0
+ILG,新堡机场,,威尔明顿,,美国,0
+ILZ,日利纳机场,,日利纳,,斯洛伐克,0
+INC,河东机场,,银川,,中国,1
+IND,印第安纳波利斯国际机场,,印第安纳波利斯,,美国,0
+INU,瑙鲁国际机场,,亚伦,,瑙鲁,0
+IQM,且末机场,,且末,,中国,1
+ISB,班纳姬·布托国际机场,,拉瓦尔品第,,巴基斯坦,0
+ITM,大阪国际机场,,大阪府,,日本,0
+ITO,希洛国际机场,,希洛,,美国,0
+IUE,纽埃国际机场,,阿洛菲,,纽埃,0
+IZO,出云机场,,岛根,,日本,0
+IDA,,,,Idaho Falls,美国,0
+IGA,,,,Inagua,巴哈马,0
+IGR,,Iguazu International,,Iguazu,阿根廷,0
+IJK,,,,Izhevsk,俄罗斯,0
+ILF,,,,Ilford,加拿大,0
+ILI,,,,Iliamna,美国,0
+ILO,,Mandurriao,,Iloilo,菲律宾,0
+ILQ,,Ilo Airport,,Ilo,秘鲁,0
+ILY,,Glenegedale,,Islay,联合王国,0
+IMF,,Municipal,,Imphal,印度,0
+IMP,,,,Imperatriz,巴西,0
+IMT,,Ford Airport,,Iron Mountain,美国,0
+INL,,Falls International,,International Falls,美国,0
+INN,,Kranebitten,,Innsbruck,奥地利,0
+INV,,Inverness,,Inverness,联合王国,0
+IOA,,Ioannina,,Ioannina,希腊,0
+IOM,,Ronaldsway,,Isle Of Man,联合王国,0
+IOS,,Eduardo Gomes,,Ilheus,巴西,0
+IPH,怡保,,怡保,,马来西亚,0
+IPI,,San Luis,,Ipiales,哥伦比亚,0
+IQQ,,Chucumata,,Iquique,智利,0
+IQT,,Cf Secada,,Iquitos,秘鲁,0
+ISC,,Tresco,,Isles Of Scilly,联合王国,0
+ISP,,Long Island,,Islip,美国,0
+IST,,Ataturk,伊斯坦布尔,,土耳其,0
+ITH,,Tompkins County,绮色佳,,美国,0
+IVC,,,,Invercargill,新西兰,0
+IWD,,Gogebic County Airport,,Ironwood,美国,0
+IYK,,Inyokern Airport,,Inyokern,美国,0
+JAA,贾拉拉巴德机场,,贾拉拉巴德,,阿富汗,0
+JAI,斋浦尔机场,,斋浦尔,,印度,0
+JAX,杰克逊维尔国际机场,,杰克逊维尔,,美国,0
+JED,阿卜杜勒-阿齐兹国王国际机场,,吉达,,沙特阿拉伯,0
+JER,泽西机场,,泽西岛,,英国,0
+JFK,肯尼迪国际机场,,纽约,,美国,0
+JHG,西双版纳嘎洒机场,,景洪,,中国,1
+JJN,晋江机场,,泉州,,中国,1
+JNB,,O·R·坦博国际机场,约翰尼斯堡,,南非,0
+JNU,朱诺国际机场,,朱诺,,美国,0
+JRO,吉力马扎罗国际机场,,阿鲁沙,,坦桑尼亚,0
+JRS,耶路撒冷国际机场,,耶路撒冷,,以色列,0
+JAC,,Jackson Hole Airport,,Jackson Hole,美国,0
+JAN,,Allen C Thompson Field,杰克森,,美国,0
+JBR,,Municipal,,Jonesboro,美国,0
+JDH,,,,Jodhpur,印度,0
+JGA,,,,Jamnagar,印度,0
+JHB,,Sultan Ismail International,,Johor Bahru,马来西亚,0
+JHW,,Chautauqua County Airport,,Jamestown,美国,0
+JKG,,Axamo,,Jonkoping,瑞典,0
+JLN,,Municipal Airport,,Joplin,美国,0
+JMO,,,,Jomsom,尼泊尔,0
+JMS,,Jamestown Municipal Airport,,Jamestown,美国,0
+JOI,,Federal,,Joinville,巴西,0
+JON,,,,Johnston Island,OutlyingIslands,0
+JST,,Johnstown Cambria,,Johnstown,美国,0
+JUJ,,El Cadillal,,Jujuy,阿根廷,0
+JUL,,Juliaca,,Juliaca,秘鲁,0
+KBL,喀布尔国际机场,,喀布尔,,阿富汗,0
+KBS,博城机场,,博城,,塞拉利昂,0
+KBV,甲米机场,,甲米,,泰国,0
+KCA,库车机场,,阿克苏,,中国,1
+KCH,古晋国际机场,,古晋,,马来西亚,0
+KDH,堪达哈国际机场,,堪达哈,,阿富汗,0
+KEF,凯夫拉维克国际机场,,凯夫拉维克,,冰岛,0
+KEN,凯内马机场,,凯内马,,塞拉利昂,0
+KGL,基加利国际机场,,吉佳利,,卢旺达,0
+KHG,喀什机场,,喀什,,中国,1
+KHH,高雄国际机场,,高雄,,中华民国 （ 台湾 ）,0
+KHN,昌北国际机场,,南昌,,中国,1
+KIX,关西国际机场,,大阪府,,日本,0
+KJI,喀纳斯机场,,布尔津,,中国,1
+KMG,巫家坝国际机场,,昆明,,中国,1
+KMI,宫崎机场,,宫崎,,日本,0
+KMJ,熊本机场,,熊本,,日本,0
+KMQ,小松飞行场,,石川,,日本,0
+KNH,金门机场,,金门,,中华民国 （ 台湾 ）,0
+KOJ,鹿儿岛机场,,鹿儿岛,,日本,0
+KOW,黄金机场,,赣州,,中国,1
+KRK,克拉科夫若望保禄二世国际机场,,克拉科夫,,波兰,0
+KRL,库尔勒机场,,库尔勒,,中国,1
+KRT,喀土穆国际机场,,喀土穆,,苏丹,0
+KRY,克拉玛依机场,,克拉玛依,,中国,1
+KTM,加德满都国际机场,,加德满都,,尼泊尔,0
+KUL,吉隆坡国际机场,,雪邦,,马来西亚,0
+KUN,考纳斯机场,,考纳斯,,立陶宛,0
+KUV,群山机场,,群山,,韩国,0
+KWE,龙洞堡国际机场,,贵阳,,中国,1
+KWI,科威特国际机场,,科威特,,科威特,0
+KWJ,光州机场,,光州,,韩国,0
+KWL,两江国际机场,,桂林,,中国,1
+KYD,兰屿机场,,兰屿,,中华民国(台湾),0
+KZN,喀山国际机场,,喀山,,俄罗斯,0
+KAB,,Kariba,加里巴,,津巴布韦,0
+KAE,,,,Kake,美国,0
+KAL,,,,Kaltag,美国,0
+KAN,,Aminu Kano International,,Kano,尼日利亚,0
+KAT,,Kaitaia,,Kaitaia,新西兰,0
+KBP,,Borispol,基辅,,乌克兰,0
+KBR,,Sultan Ismail Petra,哥打峇鲁,,马来西亚,0
+KEH,,,,Kenmore Air Harbor,美国,0
+KEJ,,Kemerovo,,Kemerovo,俄罗斯,0
+KEL,,Holtenau,基尔,,德国,0
+KEM,,Kemi,,Tornio,芬兰,0
+KEM,,Kemi,,Kemi,芬兰,0
+KER,,Kerman,,Kerman,伊朗,0
+KGC,,,,Kingscote,澳洲,0
+KGD,,Kaliningrad Airport,,Kaliningrad,俄罗斯,0
+KHI,,Karachi,卡拉奇,,巴基斯坦,0
+KHV,,Novy,,Khabarovsk,俄罗斯,0
+KIN,,,金士顿,,牙买加,0
+KIR,,Kerry County,,Kerry County,爱尔兰,0
+KIV,,Kishinev,,Kishinev,莫尔达瓦,0
+KJA,,,,Krasnojarsk,俄罗斯,0
+KKN,,Hoeyburtmoen,,Kirkenes,挪威,0
+KLO,,Kalibo,,Kalibo,菲律宾,0
+KLR,,Kalmar,,Kalmar,瑞典,0
+KLU,,Klagenfurt,,Klagenfurt,奥地利,0
+KLW,,,,Klawock,美国,0
+KNS,,King Island,,King Island,澳洲,0
+KOA,,Keahole,,Kona,美国,0
+KOI,,Kirkwall,,Orkney Island,UnitedKingdom,0
+KOI,,Kirkwall,,Kirkwall,UnitedKingdom,0
+KOK,,Kruunupyy,,Pietarsaari,芬兰,0
+KOK,,Kruunupyy,,Kokkola,芬兰,0
+KRN,,Kiruna,,Kiruna,瑞典,0
+KRP,,Karup,,Karup,丹麦,0
+KRR,,Krasnodar,,Krasnodar,俄罗斯,0
+KRS,,Kjevik,,Kristiansand,挪威,0
+KSA,,,,Kosrae,密克罗尼西亚,0
+KSC,,Barca,,Kosice,斯洛伐克,0
+KSH,,Bakhtaran Iran,,Kermanshah,伊朗,0
+KSJ,,Kasos Island,,Kasos Island,希腊,0
+KSU,,Kvernberget,,Kristiansund,挪威,0
+KTN,,Ketchikan International,,Ketchikan,美国,0
+KTR,,Tindal,,Katherine,澳洲,0
+KTW,,Pyrzowice,,Katowice,波兰,0
+KUA,,Padang Geroda,关丹,,马来西亚,0
+KUO,,Kuopio,,Kuopio,芬兰,0
+KUS,,Metropolitan Area,,Kulusuk,格林兰,0
+KVA,,Kavala,,Kavala,希腊,0
+KWA,,,,Kwajalein,马绍尔群岛,0
+LAS,麦卡伦国际机场,,拉斯维加斯,,美国,0
+LAX,洛杉矶国际机场,,洛杉矶,,美国,0
+LCX,冠豸山机场,,龙岩,,中国,1
+LED,普尔科沃机场,,圣彼得堡,,俄罗斯,0
+LEJ,莱比锡/哈雷机场,,哈雷,,德国,0
+LEJ,莱比锡/哈雷机场,,莱比锡,,德国,0
+LEX,蓝草机场,,勒星顿,,美国,0
+LGA,拉瓜地亚机场,,纽约,,美国,0
+LGA,长滩机场,,长滩,,美国,0
+LGK,浮罗交怡国际机场,,浮罗交怡,,马来西亚,0
+LGW,格域机场,,伦敦,,英国,0
+LHR,伦敦希斯路机场,,伦敦,,英国,0
+LIM,豪尔赫·查韦斯国际机场,,利马,,秘鲁,0
+LIT,小岩城机场,,小岩城,,美国,0
+LJG,三义机场,,丽江,,中国,1
+LLW,里朗威国际机场,,里朗威,,马拉维,0
+LOS,穆塔拉·穆罕默德国际机场,,拉哥斯,,尼日利亚,0
+LPL,利物浦约翰蓝侬机场,,利物浦,,英国,0
+LUN,路沙卡国际机场,,路沙卡,,赞比亚,0
+LUX,卢森堡-芬戴尔国际机场,,卢森堡,,卢森堡,0
+LXA,拉萨贡嘎机场,,拉萨,,西藏,0
+LYG,白塔埠机场,,连云港,,中国,1
+LZN,马祖南竿机场,,南竿,,中华民国 （ 台湾 ）,0
+LZY,林芝米林机场,,林芝,,西藏,0
+LAD,,Fevereiro,,Luanda,安哥拉,0
+LAF,,Purdue University Airport,拉法叶,,美国,0
+LAN,,Capital City Airport,兰辛,,美国,0
+LAP,,Aeropuerto General Marquez De Leon,,La Paz,墨西哥,0
+LAR,,General Brees Field,,Laramie,美国,0
+LAW,,Municipal,,Lawton,美国,0
+LBA,,,,Bradford,英国,0
+LBA,,,,里兹,英国,0
+LBB,,Lubbock International Airport,,Lubbock,美国,0
+LBE,,Westmoreland County,,Latrobe,美国,0
+LBL,,Glenn L Martin Terminal,,Liberal,美国,0
+LBU,,,,Labuan,马来西亚,0
+LBV,,Libreville,,Libreville,加蓬,0
+LCA,,Intl,拉纳卡,,塞浦路斯,0
+LCE,,International,,La Ceiba,洪都拉斯,0
+LCG,,La Coruna,,La Coruna,西班牙,0
+LCH,,Municipal,,Lake Charles,美国,0
+LCY,,London City,伦敦,,英国,0
+LDB,,Londrina,,Londrina,巴西,0
+LDE,,Tarbes International,,Tarbes,法国,0
+LDE,,Tarbes International,,Lourdes,法国,0
+LDU,,Lahad Datu,,Lahad Datu,马来西亚,0
+LEA,,,,Learmonth,澳大利亚,0
+LEB,,Lebanon Regional,,White River,美国,0
+LEB,,Lebanon Regional,,Hanover,美国,0
+LEB,,Lebanon Regional,,Lebanon,美国,0
+LEH,,Le Havre,,Le Havre,法国,0
+LET,,Gen Av Cob0,,Leticia,哥伦比亚,0
+LFT,,Municipal,,New Iberia,美国,0
+LFT,,Municipal,,拉法夷特,美国,0
+LFW,,Lome,洛美,,多哥,0
+LGG,,Bierset,,Liege,比利时,0
+LGP,,Legaspi,,Legaspi,菲律宾,0
+LHE,,Lahore,,Lahore,巴基斯坦,0
+LIG,,Bellegarde,,Limoges,法国,0
+LIR,,Liberia,,Liberia,哥斯达黎加,0
+LIS,,Lisboa,里斯本,,葡萄牙,0
+LJU,,Brnik,,Ljubljana,斯洛文尼亚,0
+LKN,,Leknes,,Leknes,挪威,0
+LKO,,,,Lucknow,印度,0
+LLA,,Kallax,,Lulea,瑞典,0
+LLF,零陵机场,,永州,,中国,1
+LMM,,,,Los Mochis,墨西哥,0
+LMN,,Limbang,,Limbang,马来西亚,0
+LNK,,Municipal Airport,林肯,,美国,0
+LNS,,Lancaster,,Lancaster,美国,0
+LNV,,Londolovit,,Londolovit,巴布亚新矶内亚,0
+LNY,,Lanai,,Lanai City,美国,0
+LNZ,,Linz,,Linz,奥地利,0
+LPB,,El Alto,,La Paz,玻利维亚,0
+LPI,,Saab,,Linkoping,瑞典,0
+LRD,,International,,Laredo,美国,0
+LRH,,Laleu,,La Rochelle,法国,0
+LRS,,Leros,,Leros,希腊,0
+LRT,,Lann,,Lorient,法国,0
+LRU,,,,Las Cruces,美国,0
+LSC,,La Florida,,La Serena,智利,0
+LSE,,La Crosse Municipal,,La Crosse,美国,0
+LSP,,Josefa Camejo,,Las Piedras,委内瑞拉,0
+LSQ,,Maria Dolores,,Los Angeles,智利,0
+LST,,Launceston,,Launceston,澳大利亚,0
+LSY,,Lismore,,Lismore,澳大利亚,0
+LTN,,Luton International,伦敦,,英国,0
+LTO,,,,Loreto,墨西哥,0
+LUA,,Lukla,,Lukla,尼泊尔,0
+LUD,,Luderitz,,Luderitz,纳米比亚,0
+LUG,,Agno,,Lugano,瑞士,0
+LVI,,Livingstone,,Livingstone,赞比亚,0
+LWO,,Snilow,,Lvov,乌克兰,0
+LWS,,Lewiston,,Lewiston,美国,0
+LWT,,Municipal,,Lewistown,美国,0
+LWY,,Lawas,,Lawas,马来西亚,0
+LXR,,Luxor,,Luxor,埃及,0
+LYH,,Municipal Airport,,Lynchburg,美国,0
+LYR,,Svalbard,,Longyearbyen,挪威,0
+LYS,,Satolas,里昂,,法国,0
+LZC,,Na,,Lazaro Cardenas,墨西哥,0
+MAA,金奈国际机场,,金奈,,印度,0
+MAD,马德里巴拉哈斯机场,,马德里,,西班牙,0
+MAJ,马绍尔群岛国际机场,,马久罗,,马绍尔群岛,0
+MAN,曼彻斯特国际机场,,曼彻斯特,,英国,0
+MCI,堪萨斯国际机场,,堪萨斯,,美国,0
+MCT,马斯喀特国际机场,,马斯喀特,,阿曼,0
+MDC,萨姆·拉图兰吉机场,,万鸦老,,印尼,0
+MDG,海浪机场,,牡丹江,,中国,1
+MEL,墨尔本国际机场,,墨尔本,,澳洲,0
+MEM,孟斐斯国际机场,,孟斐斯,,美国,0
+MEX,墨西哥城国际机场,,墨西哥城,,墨西哥,0
+MFK,马祖北竿机场,,北竿,,中华民国 （ 台湾 ）,0
+MFM,澳门国际机场,,氹仔,,澳门,0
+MIA,迈阿密国际机场,,迈阿密,,美国,0
+MLE,马累国际机场,,马累,,马尔代夫,0
+MMB,女满别机场,,大空町,,日本,0
+MMK,莫曼斯克机场,,莫曼斯克,,俄罗斯,0
+MNL,马尼拉艾奎诺国际机场,,马尼拉,,菲律宾,0
+MSJ,三泽飞行场,,青森,,日本,0
+MSP,明尼阿波利斯-圣保罗国际机场,,圣保罗,,美国,0
+MSP,明尼阿波利斯-圣保罗国际机场,,明尼阿波利斯,,美国,0
+MSQ,明斯克国际机场,,明斯克,,白俄罗斯,0
+MSY,路易阿姆斯壮纽奥良国际机场,,纽奥良,,美国,0
+MUC,慕尼黑弗朗茨·约瑟夫·施特劳斯机场,,慕尼黑,,德国,0
+MUX,木尔坦国际机场,,木尔坦,,巴基斯坦,0
+MXP,米兰马尔彭萨国际机场,,米兰,,意大利,0
+MYJ,松山机场,,爱媛,,日本,0
+MZG,马公机场,,马公,,中华民国(台湾),0
+MAF,,Midland Intl Airport,,Odessa,美国,0
+MAF,,Midland Intl Airport,,Midland,美国,0
+MAG,,Madang,,Madang,巴布亚新矶内亚,0
+MAH,,Aerop De Menorca,,Menorca,西班牙,0
+MAM,,Servando Canales,,Matamoros,墨西哥,0
+MAO,,Eduardo Gomes,,Manaus,巴西,0
+MAR,,La Chinita,,Maracaibo,委内瑞拉,0
+MAY,,,,Mangrove Cay,巴哈马,0
+MAZ,,El Maui,,Mayaguez,美国,0
+MBA,,Moi International,蒙巴萨,,肯尼亚,0
+MBJ,,Sangster,,Montego Bay,牙买加,0
+MBL,,Manistee Blacker Airport,,Manistee,美国,0
+MBS,,Tri,,Saginaw,美国,0
+MBS,,Tri,,Bay City,美国,0
+MBS,,Tri,,Midland,美国,0
+MCE,,Merced Municipal Airport,,Merced,美国,0
+MCK,,Municipal,,Mc Cook,美国,0
+MCM,,Hel De Monte Carlo,蒙地卡罗,,摩纳哥,0
+MCN,,Lewis B Wilson,,Macon,美国,0
+MCP,,,,Macapa,巴西,0
+MCW,,Mason City Municipal Airport,,Mason City,美国,0
+MDE,,La Playas,,Medellin,哥伦比亚,0
+MDQ,,,,Mar Del Plata,阿根廷,0
+MDZ,,El Plumerillo,,Mendoza,阿根廷,0
+MED,,Madinah,,Medinah,沙特阿拉伯,0
+MEI,,Key Field,,Meridian,美国,0
+MES,,Polonia,,Medan,印度尼西亚,0
+MEY,,Meghauli,,Meghauli,尼泊尔,0
+MFE,,,,Mc Mission,美国,0
+MFE,,,,Mc Allen,美国,0
+MFN,,,,Milford Sound,新西兰,0
+MFR,,Medford,,Medford,美国,0
+MGA,,,,Managua,尼加拉瓜,0
+MGM,,Dannelly Field,蒙哥马利,,美国,0
+MGQ,,,摩加迪休,,索马里,0
+MGW,,Morgantown Municipal Airport,,Morgantown,美国,0
+MHH,,,,Marsh Harbour,巴哈马,0
+MHK,,Manhattan Municipal,,Manhattan,美国,0
+MHQ,,,,Mariehamn,芬兰,0
+MHT,,Manchester,曼彻斯特,,美国,0
+MID,,Merida Internationl,,Merida,墨西哥,0
+MIE,,Delaware County Airport,,Muncie,美国,0
+MIR,,Skanes,,Monastir,突尼斯,0
+MJT,,Mytilene,,Mytilene,希腊,0
+MJV,,San Javier,,Murcia,西班牙,0
+MKE,,General Mitchell Field,密尔瓦基,,美国,0
+MKG,,Muskegon County Intl Airport,,Muskegon,美国,0
+MKM,,,,Mukah,马来西亚,0
+MKW,,Rendani,,Manokwari,印度尼西亚,0
+MKY,,Mackay,,Mackay,澳大利亚,0
+MLA,,Luqa,马尔它,,马尔它,0
+MLB,,Melbourne Regional Airport,,Melbourne,美国,0
+MLH,,Mulhouse,,Mulhouse,法国,0
+MLI,,Quad City Airport,,Moline,美国,0
+MLM,,Municipal,,Morelia,墨西哥,0
+MLO,,Milos,,Milos,希腊,0
+MLS,,Miles City,,Miles City,美国,0
+MLU,,,,Monroe,美国,0
+MMH,,Mammoth Lakes Airport,,Mammoth Lakes,美国,0
+MMU,,Morristown,,Morristown,美国,0
+MMX,,Sturup,,Malmo,瑞典,0
+MNI,,Blackburne,,Montserrat,Montserrat,0
+MNM,,Twin County Airport,,Menominee,美国,0
+MOB,,Mobile Municipal,,Mobile,美国,0
+MOD,,Harry Sham Feild,,Modesto,美国,0
+MOL,,Aro,,Molde,挪威,0
+MOT,,Minot International Airport,,Minot,美国,0
+MOW,,Bykovo,莫斯科,,俄罗斯,0
+MPA,,,,Mpacha,纳米比亚,0
+MPB,,Miami Public Seaplane Base,迈阿密,,美国,0
+MPL,,Frejorgues,,Montpellier,法国,0
+MPM,,Maputo International,,Maputo,莫桑比克,0
+MQL,,Mildura,,Mildura,澳大利亚,0
+MQT,,Marquette County Airport,,Marquette,美国,0
+MRD,,Alberto Carnevalli,,Merida,委内瑞拉,0
+MRS,,Marseille,马赛,,法国,0
+MRU,,Plaisance,,Mauritius,毛里求斯,0
+MRY,,Monterey Peninsula Airport,,Carmel,美国,0
+MRY,,Monterey Peninsula Airport,,Monterey,美国,0
+MSL,,Muscle Shoals,,Sheffield,美国,0
+MSL,,Muscle Shoals,,Florence,美国,0
+MSL,,Muscle Shoals,,Muscle Shoals,美国,0
+MSN,,Dane County Regional Airport,麦迪逊,,美国,0
+MSO,,Missoula International,,Missoula,美国,0
+MSS,,,,Massena,美国,0
+MST,,Zuid,,Maastricht,荷兰,0
+MSU,,Maseru,,Maseru,莱索托,0
+MTH,,,马拉松,,美国,0
+MTJ,,Montrose County Airport,,Montrose,美国,0
+MTY,,Escobedo,,Monterrey,墨西哥,0
+MUB,,,,Maun,博兹瓦那,0
+MUN,,,,Maturin,委内瑞拉,0
+MVD,,Carrasco,蒙特维多,,乌拉圭,0
+MVN,,Mount Vernon Outland Airport,,Mount Vernon,美国,0
+MVY,,,,Marthas Vineyard,美国,0
+MWA,,,,Marion,美国,0
+MXL,,Rodolfo Sanchez Taboada,,Mexicali,墨西哥,0
+MYA,,Moruya,,Moruya,澳大利亚,0
+MYR,,,,Myrtle Beach,美国,0
+MYY,,Miri,,Miri,马来西亚,0
+MZL,,Santaguida,,Manizales,哥伦比亚,0
+MZT,,Buelna,,Mazatlan,墨西哥,0
+MZV,,Mulu Airport,,Mulu,马来西亚,0
+NAG,巴巴萨海布·阿姆倍伽尔博士国际机场,,那格浦尔,,印度,0
+NAO,高坪机场,,南充,,中国,1
+NAP,那不勒斯国际机场,,那不勒斯,,意大利,0
+NAY,南苑机场,,北京,,中国,1
+NBO,乔莫·肯雅塔国际机场,,奈洛比,,肯尼亚,0
+NGB,栎社国际机场,,宁波,,中国,1
+NGO,中部国际机场,,爱知,,日本,0
+NGS,长崎机场,,长崎,,日本,0
+NJC,下瓦尔托夫斯克机场,,下瓦尔托夫斯克,,俄罗斯,0
+NKG,禄口国际机场,,南京,,中国,1
+NKM,名古屋机场,,爱知,,日本,0
+NLT,那拉提机场,,新源,,中国,1
+NNY,姜营机场,,南阳,,中国,1
+NRT,成田国际机场,,千叶,,日本,0
+NTG,兴东机场,,南通,,中国,1
+NUE,纽伦堡机场,,纽伦堡,,德国,0
+NAK,,Nakhon Ratchasima,,Nakhon Ratchasima,泰国,0
+NAK,,,,Nampula,莫桑比克,0
+NAN,,International,,Nadi,斐济,0
+NAS,,Nassau International Airport,拿索,,巴哈马,0
+NAT,,Agusto Severo,,Natal,巴西,0
+NCA,,,,North Caicos,TurksAndCaicosIslands,0
+NCE,,Cote D'azur,尼斯,,法国,0
+NDJ,,N'djamena,,N Djamena,乍得,0
+NEC,,Necochea,,Necochea,阿根廷,0
+NEV,,,,Nevis,SaintKittsAndNevis,0
+NKC,,Nouakchott,,Nouakchott,毛里塔尼亚,0
+NLA,,Ndola,,Ndola,赞比亚,0
+NLD,,,,Nuevo Laredo,墨西哥,0
+NLP,,,,Nelspruit,南非,0
+NNG,吴圩机场,,南宁,,中国,1
+NOU,,Tontouta,,Noumea,新卡里多尼亚,0
+NPL,,New Plymouth,,New Plymouth,新西兰,0
+NQY,,Newquay Civil,,Newquay,联合王国,0
+NSN,,Nelson,,Nelson,新西兰,0
+NTE,,Nantes,南特,,法国,0
+NTL,,Williamtown,,Newcastle,澳大利亚,0
+NVT,,,,Navegantes,巴西,0
+NWI,,Norwich,诺维奇,,英国,0
+OAK,奥克兰国际机场,,奥克兰,,美国,0
+OBO,带广机场,,带广,,日本,0
+ODS,敖德萨国际机场,,敖德萨,,乌克兰,0
+OIT,大分机场,,大分,,日本,0
+OIR,奥尻机场,,奥尻町,,日本,0
+OLM,奥林匹亚机场,,奥林匹亚,,美国,0
+OKA,那霸机场,,那霸,,日本,0
+OKJ,冈山机场,,冈山,,日本,0
+ORD,芝加哥奥黑尔国际机场,,芝加哥,,美国,0
+ORF,诺福克国际机场,,诺福克,,美国,0
+OAG,,Springhill,,Orange,澳大利亚,0
+OAX,,Xoxocotlan,,Oaxaca,墨西哥,0
+ODE,,Odense,,Odense,丹麦,0
+ODW,,,,Oak Harbor,美国,0
+OGS,,,,Ogdensburg,美国,0
+OHD,,Ohrid,,Ohrid,马其顿,0
+OKC,,Will Rogers World Airport,奥克拉荷马,,美国,0
+OMA,,Eppley Airfield,欧玛哈,,美国,0
+OMR,,Oradea,,Oradea,罗马尼亚,0
+ONT,,安大略 International,安大略,,美国,0
+ORB,,Orebro,,Orebro,瑞典,0
+ORN,,Es Senia,,Oran,阿尔及利亚,0
+OSD,,Froesoe,,Ostersund,瑞典,0
+OSH,,Wittman Field,,Oshkosh,美国,0
+OTM,,Ottumwa Industrial Airport,,Ottumwa,美国,0
+OUA,,Ouagadougou,,Ouagadougou,伯基纳法索,0
+OUL,,Oulu,,Oulu,芬兰,0
+OWB,,,,Owensboro,美国,0
+OXR,,Oxnard Airport,,Ventura,美国,0
+OXR,,Oxnard Airport,,Oxnard,美国,0
+OZZ,,Ouarzazate,,Ouarzazate,摩洛哥,0
+PEK,首都国际机场,,北京,,中国,1
+PIK,格拉斯哥普雷斯蒂克国际机场,,格拉斯哥,,英国,0
+PVG,浦东国际机场,,上海,,中国,1
+PEN,槟城国际机场,,槟城,,马来西亚,0
+PAD,,Paderborn,,Paderborn,德国,0
+PAH,,,,Paducah,美国,0
+PAO,,,,Palo Alto,美国,0
+PAP,,Mais Gate,太子港,,海地,0
+PAS,,Paros Community,,Paros,希腊,0
+PAT,,Patna,,Patna,印度,0
+PAZ,,,,Poza Rica,墨西哥,0
+PBC,,,,Puebla,墨西哥,0
+PBI,棕榈滩国际机场,,佛罗里达州,,美国,0
+PBM,,Zanderij Intl,,Paramaribo,苏里南,0
+PBO,,Paraburdoo,,Paraburdoo,澳大利亚,0
+PCL,,Captain Rolden,,Pucallpa,秘鲁,0
+PDG,,Tabing,,Padang,印度尼西亚,0
+PDL,,Nordela,,Ponta Delgada,葡萄牙,0
+PDT,,,,Pendleton,美国,0
+PDX,,Portland International Airport,波特兰,,美国,0
+PEE,,Perm,,Perm,俄罗斯,0
+PEG,,Na,佩鲁贾,,意大利,0
+PEI,,Matecana,,Pereira,哥伦比亚,0
+PER,,Perth,珀斯,,澳大利亚,0
+PES,,Petrozavodsk Airport,,Petrozavodsk,俄罗斯,0
+PEW,,Peshawar,,Peshawar,巴基斯坦,0
+PFN,,,巴拿马,,美国,0
+PFO,,International,,Paphos,塞浦路斯,0
+PGA,,,,Page,美国,0
+PGF,,Llabanere,,Perpignan,法国,0
+PGX,,,,Perigueux,法国,0
+PHE,,Port Hedlan,,Port Hedland,澳大利亚,0
+PHL,,Philadelphia International Airport,费城,,美国,0
+PHO,,Point Hope,,Point Hope,美国,0
+PHS,,,,Phitsanulok,泰国,0
+PHX,,Sky Harbor International Airport,凤凰城,,美国,0
+PIA,,Greater Peoria Airport,,Peoria,美国,0
+PIH,,,,Pocatello,美国,0
+PIR,,Pierre Municipal Airport,,Pierre,美国,0
+PIT,,Greater Pit Intnl Airport,匹兹堡,,美国,0
+PIW,,,,Pikwitonei,加拿大,0
+PJG,,,,Panjgur,巴基斯坦,0
+PKB,,Wood County,,Marietta,美国,0
+PKB,,Wood County,,Parkersburg,美国,0
+PKC,,Petropavlovsk,,Petropavlovsk-Kamchatsky,俄罗斯,0
+PKE,,Parkes,,Parkes,澳大利亚,0
+PKR,,Pokhara,,Pokhara,尼泊尔,0
+PKU,,Simpang Tiga,,Pekanbaru,印度尼西亚,0
+PLB,,,,Plattsburgh,美国,0
+PLH,,Plymouth Airport,普利茅斯,,英国,0
+PLM,,Sultan Mahmud Badaruddin Ii,,Palembang,印度尼西亚,0
+PLN,,Pellston Regional Airport,,Pellston,美国,0
+PLO,,Port Lincoln,,Port Lincoln,澳大利亚,0
+PLS,,,,Providenciales,TurksAndCaicosIslands,0
+PLW,,Mutiara,,Palu,印度尼西亚,0
+PLZ,,Hf Verwoerd,伊丽沙伯港,,南非,0
+PMC,,Tepual,,Puerto Montt,智利,0
+PMD,,Air Force 42,,Palmdale,美国,0
+PMI,,Palma Mallorca,,Palma Mallorca,西班牙,0
+PMO,,Punta Raisi,巴勒墨,,意大利,0
+PMR,,Palmerstown North,,Palmerston North,新西兰,0
+PMV,,Gral Santiago Marino,波拉马尔,,委内瑞拉,0
+PNA,,Pamplona,,Pamplona,西班牙,0
+PNC,,,,Ponca City,美国,0
+PNH,,Pochentong,金边,,柬埔寨,0
+PNI,,Pohnpei International,,Pohnpei,密克罗尼西亚,0
+PNK,,Supadio,,Pontianak,印度尼西亚,0
+PNL,,Pantelleria,,Pantelleria,意大利,0
+PNQ,,Lohegaon Poona,,Poona,印度,0
+PNR,,Pointe Noire,,Pointe Noire,刚果,0
+PNS,,,彭萨科拉,,美国,0
+POA,,Salgado Filho,,Porto Alegre,巴西,0
+POG,,Port Gentil,,Port Gentil,加蓬,0
+POM,,Jackson,,Port Moresby,巴布亚新矶内亚,0
+POP,,La Union,,Puerto Plata,多米尼加,0
+POR,,Pori,,Pori,芬兰,0
+POS,,Piarco International Airport,西班牙港,,特立尼达和多巴哥,0
+POU,,Dutchess County,,Poughkeepsie,美国,0
+POZ,,Lawica,,Poznan,Poland,0
+PPG,,International,,Pago Pago,美属萨摩亚,0
+PPS,,Puerto Princesa,,Puerto Princesa,菲律宾,0
+PPT,,Intl Tahiti,,Papeete,法属玻利尼西亚,0
+PQI,,,,Presque Isle,美国,0
+PQQ,,Port Macquarie,,Port Macquarie,澳大利亚,0
+PRC,,,,Prescott,美国,0
+PRG,,Ruzyne,布拉格,,捷克,0
+PRI,,,,Praslin Island,Seychelles,0
+PSA,,G Galilei,,Pisa,意大利,0
+PSE,,Mercedita,,Ponce,美国,0
+PSG,,Municipal,彼得堡,,美国,0
+PSM,,Pease Intl Tradeport,朴茨茅斯,,美国,0
+PSO,,Cano,,Pasto,哥伦比亚,0
+PSP,,Palm Springs Municipal,棕榈泉,,美国,0
+PSR,,Liberi,佩斯卡拉,,意大利,0
+PSZ,,,,Puerto Suarez,玻利维亚,0
+PTG,,,,Pietersburg,南非,0
+PTP,,Le Raizet,,Pointe A Pitre,Guadeloupe,0
+PTY,,Tocumen International Airport,巴拿马,,巴拿马,0
+PUB,,Pueblo Memorial Airport,,Pueblo,美国,0
+PUJ,,,,Punta Cana,多米尼加,0
+PUQ,,Presidente Ibanez,,Punta Arenas,智利,0
+PUS,金海国际机场,,釜山,,韩国,0
+PUW,,Pullman,,Pullman,美国,0
+PUZ,,Puerto Cabezas,,Puerto Cabezas,尼加拉瓜,0
+PVC,,Provincetown Municipal Airport,,Provincetown,美国,0
+PVD,,Tf Green State Airport,,Providence,美国,0
+PVR,,Gustavo Diaz Ordaz,,Puerto Vallarta,墨西哥,0
+PVU,,Provo,,Provo,美国,0
+PWM,,Portland International Jetport,波特兰,,美国,0
+PXM,,,,Puerto Escondido,墨西哥,0
+PXO,,Porto Santo,,Porto Santo,葡萄牙,0
+PZE,,Penzance,,Penzance,英国,0
+PZO,,Puerto Ordaz,,Puerto Ordaz,委内瑞拉,0
+QAP,,Apapa Airport,,Apapa,尼日利亚,0
+QAS,,Chlef International Airport,,Chlef,阿尔及利亚,0
+QCY,,RAF Coningsby,,Coningsby,英国 英格兰,0
+QDF,,All Airports,达拉斯,,美国 德州,0
+QGN,,Reus AirportReus,,Tarragona,西班牙 加泰隆尼亚,0
+QGP,,Garanhuns Airport,,Garanhuns,巴西 伯南布哥,0
+QHA,,All Airports,,Hasselt,比利时,0
+QHD,,Heidelberg AAF,海德堡,,德国,0
+QHO,,All Airports,休斯顿,,美国 德州,0
+QKF,,Krefeld-Egelsberg Airport,克雷费尔德,,德国 北莱茵-威斯特法伦州,0
+QLA,,Lasham Airfield,,Lasham,英国 英格兰,0
+QLI,,Limassol Airport,,Limassol,塞浦路斯,0
+QLT,,Latina Airport,,Latina,意大利,0
+QMJ,,Shahid Asyaee Airport,,Masjed Soleiman,伊朗,0
+QMZ,,Mainz-Finthen Airport,美因兹,,德国 莱茵兰-法耳茨,0
+QNB,,Anand Airport,,Anand,印度,0
+QNJ,,Annemasse Airport,安纳马斯,,法国,0
+QPS,,Campo Fontenelle ,,Piraçununga,巴西 圣保罗州,0
+QPZ,,Piacenza Airport,,Piacenza,意大利,0
+QSC,,São Carlos Airport,,São Carlos,巴西 圣保罗州,0
+QSF,,All Airports,旧金山湾区,,美国 加州,0
+QSI,,Moshi Airport,,Moshi,坦桑尼亚,0
+QUG,,Goodwood Airfield,,Chichester,英国 英格兰,0
+QUS,,Gusau Airport,,Gusau,尼日利亚,0
+QVB,,União da Vitória Airport,,União da Vitória,巴西 Paraná,0
+QXB,,Aix Les Milles Airport,,Aix-les-milles,法国,0
+QYR,,Barberey Airport,,Troyes,法国,0
+REP,吴哥国际机场,,暹粒,,柬埔寨,0
+RGN,仰光国际机场,,仰光,,缅甸,0
+RIX,里加国际机场,,里加,,拉脱维亚,0
+RMQ,台中清泉岗机场,,台中,,中华民国 （ 台湾 ）,0
+RTM,鹿特丹机场,,鹿特丹,,荷兰,0
+RAB,,Lakunai,,Rabaul,巴布亚新矶内亚,0
+RAB,,Lakunai,,Rabaul,巴布亚新矶内亚,0
+RAJ,,Rajkot,,Rajkot,印度,0
+RAJ,,Rajkot,,Rajkot,印度,0
+RAP,,Rapid City Regional Airport,,Rapid City,美国,0
+RAP,,Rapid City Regional Airport,,Rapid City,美国,0
+RAR,,Rarotonga,,Rarotonga,科克群岛,0
+RAR,,Rarotonga,,Rarotonga,科克群岛,0
+RBA,,Sale,,Rabat,摩洛哥,0
+RBA,,Sale,,Rabat,摩洛哥,0
+RCB,,Richards Bay,,Richards Bay,南非,0
+RCB,,Richards Bay,,Richards Bay,南非,0
+RCH,,,,Riohacha,哥伦比亚,0
+RCH,,,,Riohacha,哥伦比亚,0
+RDD,,Redding Municipal Airport,,Redding,美国,0
+RDD,,Redding Municipal Airport,,Redding,美国,0
+RDG,,Municipal / Spaatz Field,,Reading,美国,0
+RDG,,Municipal / Spaatz Field,,Reading,美国,0
+RDU,,Raleigh Durham International Arpt,,Durham,美国,0
+RDU,,Raleigh Durham International Arpt,,Raleigh,美国,0
+REC,,Guararapes International,,Recife,巴西,0
+REC,,Guararapes International,,Recife,巴西,0
+REG,,Tito Menniti,,Reggio Calabria,意大利,0
+REG,,Tito Menniti,,Reggio Calabria,意大利,0
+RES,,,,Resistencia,阿根廷,0
+RES,,,,Resistencia,阿根廷,0
+REU,,Reus,,Reus,西班牙,0
+REU,,Reus,,Reus,西班牙,0
+REX,,General Lucio Blanco Airport,,Reynosa,墨西哥,0
+REX,,General Lucio Blanco Airport,,Reynosa,墨西哥,0
+RFD,,Greater Rockford,,Rockford,美国,0
+RFD,,Greater Rockford,,Rockford,美国,0
+RGA,,,,Rio Grande,阿根廷,0
+RGA,,,,Rio Grande,阿根廷,0
+RGL,,Rio Gallegos,,Rio Gallegos,阿根廷,0
+RGL,,Rio Gallegos,,Rio Gallegos,阿根廷,0
+RHI,,Rhinelander Oneida County Airport,,Rhinelander,美国,0
+RHI,,Rhinelander Oneida County Airport,,Rhinelander,美国,0
+RHO,,Paradisi,,Rhodes,希腊,0
+RHO,,Paradisi,,Rhodes,希腊,0
+RIC,,Richmond International Airport,里奇蒙,,美国,0
+RIC,,Richmond International Airport,里奇蒙,,美国,0
+RIO,,,里约热内卢,,巴西,0
+RIO,,,里约热内卢,,巴西,0
+RIW,,Riverton Regional Airport,,Riverton,美国,0
+RIW,,Riverton Regional Airport,,Riverton,美国,0
+RKD,,Rockland,,Rockland,美国,0
+RKD,,Rockland,,Rockland,美国,0
+RKS,,Rock Springs Sweetwater Cty Arpt,,Rock Springs,美国,0
+RKS,,Rock Springs Sweetwater Cty Arpt,,Rock Springs,美国,0
+RKV,,Reykjavik Domestic Airport,雷克亚维克,,冰岛,0
+RKV,,Reykjavik Domestic Airport,雷克亚维克,,冰岛,0
+RMA,,Roma,,Roma,澳大利亚,0
+RMA,,Roma,,Roma,澳大利亚,0
+RNB,,Kallinge,,Ronneby,瑞典,0
+RNB,,Kallinge,,Ronneby,瑞典,0
+RNO,,Reno,雷诺,,美国,0
+RNO,,Reno,雷诺,,美国,0
+RNS,,St Jacques,,Rennes,法国,0
+RNS,,St Jacques,,Rennes,法国,0
+ROA,,Roanoke Regional Airport,,Roanoke,美国,0
+ROA,,Roanoke Regional Airport,,Roanoke,美国,0
+ROC,,Monroe County Airport,罗切斯特,,美国,0
+ROC,,Monroe County Airport,罗切斯特,,美国,0
+ROP,,Rota,,Rota,北马利安纳群岛,0
+ROP,,Rota,,Rota,北马利安纳群岛,0
+ROS,,Fisherton,,Rosario,阿根廷,0
+ROS,,Fisherton,,Rosario,阿根廷,0
+ROV,,Rostov,,Rostov,俄罗斯,0
+ROV,,Rostov,,Rostov,俄罗斯,0
+ROW,,Industrial Air Center,,Roswell,美国,0
+ROW,,Industrial Air Center,,Roswell,美国,0
+RPR,,,,Raipur,印度,0
+RPR,,,,Raipur,印度,0
+RRG,,Rodrigues,,Rodrigues Island,毛里求斯,0
+RRG,,Rodrigues,,Rodrigues Island,毛里求斯,0
+RSD,,,,Rock Sound,巴哈马,0
+RSD,,,,Rock Sound,巴哈马,0
+RST,,Rochester Municipal,罗切斯特,,美国,0
+RST,,Rochester Municipal,罗切斯特,,美国,0
+RTB,,Roatan,,Roatan,洪都拉斯,0
+RTB,,Roatan,,Roatan,洪都拉斯,0
+RUH,,King Khaled Intl,利雅德,,沙特阿拉伯,0
+RUH,,King Khaled Intl,利雅德,,沙特阿拉伯,0
+RUI,,,,Ruidoso,美国,0
+RUI,,,,Ruidoso,美国,0
+RUT,,,,Rutland,美国,0
+RUT,,,,Rutland,美国,0
+RWI,,Wilson,,Rocky Mount,美国,0
+RWI,,Wilson,,Rocky Mount,美国,0
+SAN,圣地牙哥国际机场,,圣地牙哥,,美国,0
+SCL,阿图罗·梅里诺·贝尼特斯准将国际机场,,圣地亚哥,,智利,0
+SDA,巴格达国际机场,,巴格达,,伊拉克,0
+SDJ,仙台机场,,宫城,,日本,0
+SDK,山打根机场,,山打根,,马来西亚,0
+SEA,西雅图-塔科马国际机场,,西雅图,,美国,0
+SEZ,塞舌尔国际机场,,马埃岛,,塞舌尔,0
+SFO,旧金山国际机场,,旧金山,,美国,0
+SGN,新山一国际机场,,胡志明,,越南,0
+SHA,虹桥国际机场,,上海,,中国,1
+SHE,桃仙国际机场,,沈阳,,中国,1
+SHM,南纪白滨机场,,和歌山,,日本,0
+SIN,樟宜机场,,新加坡,,新加坡,0
+SJC,圣荷西国际机场,,圣荷西,,美国,0
+SJJ,萨拉热窝国际机场,,萨拉热窝,,波斯尼亚,0
+SJU,圣胡安国际机场,,圣胡安,,波多黎各,0
+SJW,正定机场,,石家庄,,中国,1
+SLK,盐湖城国际机场,,盐湖城,,美国,0
+SMF,沙加缅度国际机场,,沙加缅度,,美国,0
+SOU,南安普敦机场,,南安普敦,,英国,0
+SPN,塞班国际机场,,塞班岛,,北马里亚纳群岛,0
+SSG,马拉博圣伊莎贝尔机场,,马拉博,,赤道几内亚,0
+STL,圣路易兰伯特国际机场,,圣路易,,美国,0
+STN,伦敦斯坦斯特德机场,,伦敦,,英国,0
+SUB,祝安达国际机场,,泗水,,印尼,0
+SUV,瑙索里国际机场,,苏瓦,,斐济,0
+SVO,舍列梅季耶夫国际机场,,莫斯科,,俄罗斯,0
+SXB,史特拉斯堡机场,,史特拉斯堡,,法国,0
+SXF,柏林-舍内费尔德机场,,柏林,,德国,0
+SXJ,鄯善机场,,鄯善,,中国,1
+SXM,茱莉安娜公主国际机场,,荷属圣马丁,,荷属安地列斯,0
+SYD,京斯福特·史密斯机场,,雪梨,,澳洲,0
+SYX,凤凰国际机场,,三亚,,中国,1
+SZG,萨尔斯堡机场,,萨尔斯堡,,奥地利,0
+SZX,宝安国际机场,,深圳,,中国,1
+SCN,,Ensheim,索尔布吕肯,,德国,0
+SAB,,,,Saba Island,荷兰,0
+SPD,,,,Saidpur,孟加拉,0
+STC,,Saint Cloud,,Saint Cloud,美国,0
+SGU,,St George,,Saint George,美国,0
+SNO,,,,Sakon Nakhon,泰国,0
+SID,,Amilcar Cabral International,,Sal,Cape Verde,0
+SLN,,Salina Municipal,,Salina,美国,0
+SBY,,Salisbury,,Salisbury,美国,0
+SLA,,International,,Salta,阿根廷,0
+SLW,,Saltillo,,Saltillo,墨西哥,0
+SSA,,Dois De Julho,,Salvador,巴西,0
+SKD,,,,Samarkand,乌兹别克斯坦,0
+SAQ,,,,Andros Island,巴哈马,0
+SAQ,,,,San Andros,巴哈马,0
+SJT,,,,San Angelo,美国,0
+SVZ,,,圣安东尼,,委内瑞拉,0
+SAT,,San Antonio International,圣安东尼奥,,美国,0
+SJO,,Juan Santamaria International,圣荷塞,,哥斯达黎加,0
+SJI,,Mcguire Field,圣荷塞,,菲律宾,0
+SJD,,Los Cabos Intl Airport,,San Jose Del Cabo,墨西哥,0
+SBP,,SanLuisObispoCountyAirport,,San Luis Obispo,美国,0
+SLP,,,,San Luis Potosi,墨西哥,0
+SPR,,San Pedro,,San Pedro,伯利兹,0
+SAP,,La Mesa,,San Pedro Sula,洪都拉斯,0
+SAL,,El Salvadore Intl Airport,,San Salvador,萨尔瓦多,0
+SOM,,,圣多美,,委内瑞拉,0
+SAH,,International,,Sanaa,也门,0
+SDN,,,,Sandane,挪威,0
+SSJ,,Stokka,,Sandnessjoen,挪威,0
+SBA,,Santa Barbara Airport,桑塔巴巴拉,,美国,0
+SPC,,La Palma,,Santa Cruz La Palma,西班牙,0
+SFN,,,圣德菲,,阿根廷,0
+SAF,,Santa FeMunicipal Airport,圣大非,,美国,0
+SMX,,Santa MariaPublic Airport,,Santa Maria,美国,0
+STS,,Sonoma County Airport,,Santa Rosa,美国,0
+SDR,,Santander,,Santander,西班牙,0
+STM,,,,Santarem,巴西,0
+SCU,,Santiago,,Santiago,古巴,0
+STI,,Municipal,,Santiago,多米尼加,0
+SCQ,,Santiago,,Santiago De Compostela,西班牙,0
+SDQ,,Las Americas,,Santo Domingo,多米尼加,0
+STD,,Mayor Humberto Vivas Guerrero,,Santo Domingo,委内瑞拉,0
+SLZ,,Tirirical,,Sao Luiz,巴西,0
+SLK,,Adirondack,,Saranac Lake,美国,0
+SRQ,,Sarasota,,Bradenton,美国,0
+SRQ,,Sarasota,,Sarasota,美国,0
+SAV,,TravisField,,Savannah,美国,0
+SVL,,Savonlinna,,Savonlinna,芬兰,0
+SVU,,Savvu,,Savusavu,斐济,0
+SDX,,,塞多纳,,美国,0
+SMM,,Semporna,,Semporna,马来西亚,0
+SVQ,,,,Sevilla,西班牙,0
+SFA,,Sfax Airport,,Sfax,突尼斯,0
+SNN,,Shannon,,Shannon,爱尔兰,0
+SHJ,,Sharjah,,Sharjah,阿拉伯联合酋长国,0
+SSH,,Ophira,,Sharm El Sheikh,埃及,0
+SHR,,Sheridan County Airport,,Sheridan,美国,0
+SYZ,,Shiraz,,Shiraz,伊朗,0
+SYO,,Shonai,,Shonai,日本,0
+SOW,,,,Show Low,美国,0
+SHV,,Regional Airport,,Shreveport,美国,0
+SBW,,Sibu,,Sibu,马来西亚,0
+SDY,,,,Sidney,美国,0
+SIP,,Simferopol,,Simferopol,乌克兰,0
+SIT,,Sitka,,Sitka,美国,0
+SGY,,,,Skagway,美国,0
+SFT,,Skelleftea,,Skelleftea,瑞典,0
+SKP,,Skopje,,Skopje,马其顿,0
+SXL,,Collooney,,Sligo,爱尔兰,0
+SOF,,SofiaIntl,索非亚，保加利亚,,索非亚 ， 保加利亚,0
+SOG,,Haukasen,,Sogndal,挪威,0
+SHO,,,,Sokcho,韩国,0
+SGD,,Sonderborg,,Sonderborg,丹麦,0
+SBN,,Michiana Regional Airport,,South Bend,美国,0
+SOP,,Pinehurst,,Southern Pines,美国,0
+SPW,,Spencer Municipal Airport,,Spencer,美国,0
+SGF,,Springfield Regional Airport,春田,,美国,0
+SPI,,Capital Airport,春田,,美国,0
+SXR,,,,Srinagar,印度,0
+SBH,,,,St Barthelemy,Guadeloupe,0
+STX,,,,St Croix Island,美国,0
+SSB,,Sea Plane Base,,St Croix Island,美国,0
+SGO,,St George,,St George,澳大利亚,0
+SKB,,Golden Rock,,St Kitts,Saint Kitts And Nevis,0
+SLU,,Vigie Field,圣卢西亚,,圣卢西亚,0
+SMS,,,圣玛丽,,马达加斯加,0
+SFG,,Esperance,,St Martin,荷兰Antilles,0
+STP,,Downtown Airport,圣保罗,,美国,0
+STT,,CyrilE King Arpt,,St Thomas Island,美国,0
+SPB,,SeaplaneBase,,St Thomas Island,美国,0
+SVD,,,圣文森特,,圣文森特和格林纳丁斯群岛,0
+SCE,,University Park Arpt,,State College,美国,0
+SHD,,Shenandoah Valley Regional,,Staunton,美国,0
+SVG,,Sola,,Stavanger,挪威,0
+SML,,,,Stella Maris,巴哈马,0
+SYY,,Stornoway,,Stornoway,联合王国,0
+STR,,Echterdingen,斯图加特,,德国,0
+SRE,,Sucre,,Sucre,波利维亚,0
+SWQ,,Brang Bidji,,Sumbawa Island,印度尼西亚,0
+SUN,,,,Hailey,美国,0
+SUN,,,,Sun Valley,美国,0
+SDL,,Sundsvall,,Sundsvall,瑞典,0
+SGC,,,,Surgut,俄罗斯,0
+SWP,,,,Swakopmund,纳米比亚,0
+SYR,,Hancock International,雪城,,美国,0
+SZZ,,Goleniow,,Szczecin,波兰,0
+TAE,大邱国际机场,,大邱,,韩国,0
+TAO,流亭国际机场,,青岛,,中国,1
+TAS,塔什干国际机场,,塔什干,,乌兹别克,0
+TCG,塔城机场,,塔城,,中国,1
+TFN,北特内里费机场,,特内里费岛,,西班牙,0
+TFS,南特内里费机场,,特内里费岛,,西班牙,0
+TGA,登加机场,,新加坡,,新加坡,0
+THR,梅赫拉巴德国际机场,,德黑兰,,伊朗,0
+TIA,地拉那国际机场,,地拉那,,阿尔巴尼亚,0
+TKS,德岛机场,,德岛,,日本,0
+TLV,本·古里安国际机场,,特拉维夫,,以色列,0
+TNA,遥墙国际机场,,济南,,中国,1
+TNN,台南机场,,台南,,台湾,0
+TOY,富山机场,,富山,,日本,0
+TPA,坦帕国际机场,,坦帕,,美国,0
+TPE,台湾桃园国际机场,,桃园,,台湾,0
+TSA,台北松山机场,,台北,,台湾,0
+TSN,滨海国际机场,,天津,,中国,1
+TTJ,鸟取机场,,鸟取,,日本,0
+TTT,台东机场,,台东,,台湾,0
+TVS,三女河机场,,唐山,,中国,1
+TXN,屯溪机场,,黄山,,中国,1
+TYN,武宿机场,,太原,,中国,1
+TAB,,Crown Point,多贝哥,,特立尼达多贝哥,0
+TAC,,Dz Romualdez,,Tacloban,菲律宾,0
+TAG,,Tagbilaran,,Tagbilaran,菲律宾,0
+TAI,,Al-Janad,,Taiz,也门,0
+TAM,,,,Tamaulipas,墨西哥,0
+TAM,,,,Tampico,墨西哥,0
+TAP,,Tapachula International,,Chiapas,墨西哥,0
+TAP,,Tapachula International,,Tapachula,墨西哥,0
+TAT,,Tatry/Poprad,,Poprad,斯洛伐克,0
+TAT,,Tatry/Poprad,,Tatry,斯洛伐克,0
+TBP,,Tumbes,,Tumbes,秘鲁,0
+TBS,,Novo Alexeyevka,第比利斯,,乔治亚,0
+TBT,,,,Amazonas,巴西,0
+TBT,,,,Tabatinga,巴西,0
+TCL,,Van De Graff,,Tuscaloosa,美国,0
+TCL,,Van De Graff,阿拉巴马州,,美国,0
+TDD,,,,Trinidad,玻利维亚,0
+TED,,Thisted,,Thisted,丹麦,0
+TER,,Lajes,,Azores Islands,葡萄牙,0
+TER,,Lajes,,Terceira Island,葡萄牙,0
+TEX,,Telluride Municipal Airport,,Telluride,美国,0
+TEX,,Telluride Municipal Airport,科罗拉多州,,美国,0
+TEZ,,Salonbari,,Tezpur,印度,0
+TGM,,Tirgu Mures,,Tirgu Mures,罗马尼亚,0
+TGU,,Toncontin,,Tegucigalpa,洪都拉斯,0
+TGZ,,Llano San Juan,,Chiapas,墨西哥,0
+TGZ,,Llano San Juan,,Tuxtla Gutierrez,墨西哥,0
+THE,,Teresina,,Teresina,巴西,0
+THE,,Teresina,,Piaui,巴西,0
+TIJ,,General Abelardo L Rodriguez,下加利福尼亚,,墨西哥,0
+TIJ,,General Abelardo L Rodriguez,地华纳,,墨西哥,0
+TIQ,,Tinian,,Tinian,北马里亚纳群岛,0
+TIS,,Horn Island,,Thursday Island,澳大利亚,0
+TIS,,Horn Island,昆士兰州,,澳大利亚,0
+TIZ,,,,Tari,巴布亚新几内亚,0
+TJA,,,,Tarija,玻利维亚,0
+TJM,,Tyumen,,Tyumen,俄罗斯,0
+TKK,,Truk,卡罗琳群岛,,密克罗尼西亚,0
+TKK,,Truk,,Truk,密克罗尼西亚,0
+TKU,,Turku,,Turku,芬兰,0
+TLH,,,佛罗里达州,,美国,0
+TLH,,,塔拉哈西,,美国,0
+TLL,,Ulemiste,,Tallinn,爱沙尼亚,0
+TLS,,Blagnac,,Toulouse,法国,0
+TMP,,Tampere-Pirkkala,,Tampere,芬兰,0
+TMW,,Tamworth,,Tamworth,,澳大利亚,0
+TNG,,Boukhalef Souahel,,Tangier,摩洛哥,0
+TOL,,Toledo Express Airport,,托雷多,美国,0
+TOS,,Tromso/Langes,,Tromso,挪威,0
+TPL,,,,坦波,美国,0
+TPP,,Tarapoto,,Tarapoto,秘鲁,0
+TPQ,,,,Tepic,墨西哥,0
+TPS,,Birgi,,Trapani,意大利,0
+TRD,,Trondheim-Vaernes,,Trondheim,挪威,0
+TRE,,Tiree Island,,Tiree,联合王国,,0
+TRG,,Tauranga,,Tauranga,新西兰,0
+TRK,,Tarakan,,Tarakan,印度尼西亚,0
+TRN,,Caselle,杜林,,意大利,0
+TRS,,Ronchi Dei Legionari,,Trieste,意大利,0
+TRU,,Trujillo,,Trujillo,秘鲁,0
+TRV,,Trivandrum,,Trivandrum,印度,0
+TRZ,,Civil,,Tiruchirapally,印度,0
+TSR,,Timisoara,,Timisoara,罗马尼亚,0
+TSV,,Townsville,,Townsville,澳大利亚,0
+TTN,,Mercer County,,Trenton,美国,0
+TUC,,Benjamin Matienzo,,Tucuman,阿根廷,0
+TUF,,St Symphorien,,Tours,法国,0
+TUL,,Tulsa International,,Tulsa,美国,0
+TUN,,Carthage,突尼斯,,突尼斯,0
+TUO,,Taupo,,Taupo,新西兰,0
+TUP,,Cd Lemons Municipal,,Tupelo,美国,0
+TUS,土桑国际机场,,土桑,,美国,0
+TVC,,Cherry Capital Airport,,Traverse City,美国,0
+TVF,,Thief River Falls Municipal,,Thief River Falls,美国,0
+TWB,,Toowoomba,,Toowoomba,澳大利亚,0
+TWF,,,,Twin Falls,美国,0
+TXK,,Municipal,,Texarkana,美国,0
+TYR,,Pounds Field,,Tyler,美国,0
+TZX,,Trabzon,,Trabzon,土耳其,0
+UAM,安德森空军基地,,阿加尼亚,,关岛,0
+UBJ,山口宇部机场,,山口,,日本,0
+ULN,乌兰巴托成吉思汗国际机场,,乌兰巴托,,蒙古,0
+UKB,神户机场,,兵库,,日本,0
+URC,地窝堡国际机场,,乌鲁木齐,,中国,1
+USH,乌斯怀亚国际机场,,乌斯怀亚,,阿根廷,0
+USN,蔚山机场,,蔚山,,韩国,0
+UTP,乌打抛国际机场,,芭达雅,,泰国,0
+UCA,,Oneida County,,Utica,美国,0
+UDR,,,,Udaipur,印度,0
+UGC,,,,Urgench,乌兹别克斯坦,0
+ULY,,Ulyanoysk,,Ulyanovsk,俄罗斯,0
+UME,,Umea,,Umea,瑞典,0
+UNT,,,,Unst Shetland Islands,联合王国,0
+UPG,,Hasanudin,,Ujung Pandang,印度尼西亚,0
+UPN,,,,Uruapan,墨西哥,0
+UTH,,Udon,,Udon Thani,泰国,0
+UTN,,Municipal,,Upington,南非,0
+UUD,,,,Ulan-Ude,俄罗斯,0
+VAA,瓦萨机场,,瓦萨,,芬兰,0
+VAD,,Moody Air Force Base,,Valdosta,美国,0
+VAF,,Valence-Chabeuil Airport,瓦朗斯,,法国,0
+VAG,,Major-Brigadeiro Trompowsky Airport,瓦尔任阿,,巴西,0
+VAK,,Chevak Airport,切瓦克,,美国,0
+VAM,,Maamigili Airport,,Maamigili,马尔代夫,0
+VAN,,Van Ferit Melen Airport,凡城,,土耳其,0
+VAR,,Varna Airport,瓦尔纳,,保加利亚,0
+VAS,,Sivas Airport,锡瓦斯,,土耳其,0
+VAW,,Vardø Airport, Svartnes,瓦尔德,,挪威,0
+VBG,范登堡空军基地,,隆波克,,美国,0
+VBS,,Brescia Airport Gabriele D'Annunzio,布雷西亚,,意大利,0
+VBY,,Visby Airport,维斯比,,瑞典,0
+VCA,芹苴国际机场,,芹苴,,越南,0
+VCB,,Nut Tree Airport,,Vacaville,美国,0
+VCC,,Limbe Airport,林贝,,喀麦隆,0
+VCE,威尼斯－泰塞拉机场,,威尼斯,,意大利,0
+VCL,茱莱机场,,,Chu Lai,越南,0
+VCP,,Viracopos–Campinas International Airport,坎皮纳斯,,巴西,0
+VCS,昆仑机场,,昆仑岛,,越南,0
+VCT,,Victoria Regional Airport,维多利亚,,美国,0
+VCV,,Southern California Logistics Airport,维克多维尔,,美国,0
+VDA,,Ovda Airport,,Ovda,以色列,0
+VDB,,Fagernes Airport, Leirin,法格内斯,,挪威,0
+VDI,,Vidalia Regional Airport,,Vidalia,美国,0
+VDM,,Gobernador Edgardo Castello Airport,别德马,,阿根廷,0
+VDP,,Valle de la Pascua Airport,帕斯夸谷镇,,委内瑞拉,0
+VDR,,Villa Dolores Airport,,Villa Dolores,阿根廷,0
+VDS,,Vadsø Airport,瓦德瑟,,挪威,0
+VDZ,,Valdez Airport,瓦尔迪兹,,美国,0
+VEE,,Venetie Airport,,Venetie,美国,0
+VEL,,Vernal Regional Airport,韦纳尔,,美国,0
+VER,,General Heriberto Jara International Airport,韦拉克鲁斯,,墨西哥,0
+VEY,,Vestmannaeyjar Airport,韦斯特曼纳群岛,,冰岛,0
+VEX,,Tioga Municipal Airport,泰奥加,,美国,0
+VFA,,Victoria Falls Airport,,Victoria Falls,津巴布韦,0
+VGA,,Vijayawada Airport,维杰亚瓦达,,印度,0
+VGD,,Vologda Airport,沃洛格达,,俄罗斯,0
+VGO,,Vigo Airport,维戈,,西班牙,0
+VGT,,North Las Vegas Airport,北拉斯维加斯,,美国,0
+VGZ,,Villa Garzón Airport,加尔松镇,,哥伦比亚,0
+VHM,,Vilhelmina Airport,,Vilhelmina,瑞典,0
+VHN,,Culberson County Airport,范霍恩,,美国,0
+VIA,,Ângelo Ponzoni Municipal Airport,维代拉,,巴西,0
+VIC,,Vicenza “Tommaso Dal Molin” Airport,维琴察,,意大利,0
+VID,,Vidin Airport,维丁,,保加利亚,0
+VIE,维也纳国际机场,,维也纳,,奥地利,0
+VIF,,Vieste Airport,维耶斯泰,,意大利,0
+VIG,,Juan Pablo Pérez Alfonso Airport,,Alberto Adriani Municipality,委内瑞拉,0
+VIH,,Rolla National Airport,罗拉,,美国,0
+VII,荣机场,,荣,,越南,0
+VIJ,,Virgin Gorda Airport,维尔京戈尔达岛,,英属维尔京群岛,0
+VIL,,Dakhla Airport,达克拉,,西撒哈拉,0
+VIN,,Havryshivka International Airport,文尼察,,乌克兰,0
+VIQ,,Viqueque Airport,维克克,,东帝汶,0
+VIS,,Visalia Municipal Airport,维塞利亚,,美国,0
+VIT,,Vitoria Airport,维多利亚,,西班牙,0
+VIV,,Vivigani Airfield,,Vivigani,巴布亚新几内亚,0
+VIX,,Eurico de Aguiar Salles Airport,维多利亚,,巴西,0
+VJB,,Xai Xai Airport,赛赛,,莫桑比克,0
+VJI,,Virginia Highlands Airport,阿宾登,,美国,0
+VKG,迪石机场,,迪石,,越南,0
+VKO,伏努科沃国际机场,,莫斯科,,俄罗斯,0
+VKS,,Vicksburg Municipal Airport,维克斯堡,,美国,0
+VKT,,Vorkuta Airport,沃尔库塔,,俄罗斯,0
+VLA,,Vandalia Municipal Airport,,Vandalia,美国,0
+VLC,,Valencia Airport,巴伦西亚,,西班牙,0
+VLD,,Valdosta Regional Airport,,Valdosta,美国,0
+VLE,,Valle Airport,,Valle,美国,0
+VLG,,Villa Gesell Airport,,Villa Gesell,阿根廷,0
+VLI,维拉港国际机场,,维拉港,,瓦努阿图,0
+VLL,,Valladolid Airport,瓦拉多利德,,西班牙,0
+VLN,,Arturo Michelena International Airport,巴伦西亚,,委内瑞拉,0
+VLU,,Velikiye Luki Airport,大卢基,,俄罗斯,0
+VLV,,Dr. Antonio Nicolás Briceño Airport,巴莱拉,,委内瑞拉,0
+VME,,Pringles Airport,梅塞德斯镇,,阿根廷,0
+VMU,,Baimuru Airport,,Baimuru,巴布亚新几内亚,0
+VNC,,Venice Municipal Airport,威尼斯,,美国,0
+VNE,,Vannes-Meucon Airport,瓦讷,,法国,0
+VNO,维尔纽斯国际机场,,维尔纽斯,,立陶宛,0
+VNS,,Lal Bahadur Shastri Airport,瓦拉纳西,,印度,0
+VNT,文茨皮尔斯机场,,文茨皮尔斯,,拉脱维亚,0
+VNX,,Vilankulo Airport,维兰库洛,,莫桑比克,0
+VNY,,Van Nuys Airport,,Van Nuys,美国,0
+VOD,,Vodochody Airport,,Vodochody,捷克,0
+VOG,,Volgograd International Airport,伏尔加格勒,,俄罗斯,0
+VOI,,Voinjama Airport,沃因贾马,,利比里亚,0
+VOK,,Volk Field Air National Guard Base,,Camp Douglas,美国,0
+VOL,,Nea Anchialos National Airport,佛洛斯,,希腊,0
+VOZ,,Voronezh International Airport,沃罗涅日,,俄罗斯,0
+VPN,,Vopnafjörður Airport,沃普纳菲厄泽,,冰岛,0
+VPS,,Northwest Florida Regional Airport/Eglin Air Force Base,瓦尔帕莱索,,美国,0
+VPY,,Chimoio Airport,希莫尤,,莫桑比克,0
+VPZ,,Porter County Regional Airport,瓦尔帕莱索,,美国,0
+VQS,,Antonio Rivera Rodríguez Airport,别克斯岛,,美国,0
+VRA,,Juan Gualberto Gómez Airport,巴拉德罗,,古巴,0
+VRB,,Vero Beach Municipal Airport,维罗海滩,,美国,0
+VRC,,Virac Airport,,Virac,菲律宾,0
+VRI,,Varandey Airport,涅涅茨自治区,,俄罗斯,0
+VRK,瓦尔考斯机场,,约罗伊宁,,芬兰,0
+VRL,,Vila Real Airport,雷阿尔城,,葡萄牙,0
+VRN,,Verona Villafranca Airport,维洛那,,意大利,0
+VRS,,Roy Otten Memorial Airfield,,Versailles,美国,0
+VRY,,Værøy Heliport,韦岛,,挪威,0
+VSA,,Carlos Rovirosa Pérez International Airport,比亚埃尔莫萨,,墨西哥,0
+VSF,,Hartness State Airport,斯普林菲尔德,,美国,0
+VSG,,Luhansk International Airport,卢甘斯克,,乌克兰,0
+VST,斯德哥尔摩－韦斯特罗斯机场,,斯德哥尔摩,,瑞典,0
+VTA,,Victoria Airport,,Victoria,洪都拉斯,0
+VTE,瓦岱国际机场,,永珍,,老挝,0
+VTG,,Vung Tau Airport,头顿,,越南,0
+VTN,,Miller Field,,Valentine,美国,0
+VTZ,,Visakhapatnam Airport,维沙卡帕特南,,印度,0
+VUP,,Alfonso López Pumarejo Airport,巴耶杜帕尔,,哥伦比亚,0
+VUS,,Veliky Ustyug Airport,大乌斯秋格,,俄罗斯,0
+VVI,,Viru Viru International Airport,圣克鲁斯,,玻利维亚,0
+VVO,海参崴国际机场,,海参崴,,俄罗斯,0
+VXC,,Lichinga Airport,利欣加,,莫桑比克,0
+VXE,,São Pedro Airport,圣维森特岛,,佛得角,0
+VXO,,Växjö Småland Airport,韦克舍,,瑞典,0
+VYD,,Vryheid Airport,弗莱海德,,南非,0
+VYS,,Illinois Valley Regional Airport,,Peru,美国,0
+WAA,,Wales Airport,,Wales,美国,0
+WAD,,Andriamena Airport,,Andriamena,马达加斯加,0
+WAG,,Wanganui Airport,,Wanganui,新西兰,0
+WAH,,Harry Stern Airport,瓦佩顿,,美国,0
+WAL,,Wallops Flight Facility Airport,瓦勒普斯岛,,美国,0
+WAT,,Waterford Airport,瓦特福,,爱尔兰,0
+WAW,华沙萧邦机场,,华沙,,波兰,0
+WAY,,Greene County Airport,,Waynesburg,美国,0
+WBB,,Stebbins Airport,,Stebbins,美国,0
+WBG,,Schleswig Air Base,亚格尔,,德国,0
+WBQ,,Beaver Airport,,Beaver,美国,0
+WBR,,Roben-Hood Airport,,Big Rapids,美国,0
+WBU,,Boulder Municipal Airport,博尔德,,美国,0
+WBW,,Wilkes-Barre Wyoming Valley Airport,威尔克斯-巴里,,美国,0
+WCA,,Gamboa Airport,卡斯特罗,,智利,0
+WCH,,Chaitén Airport,柴滕,,智利,0
+WCR,,Chandalar Lake Airport,,Chandalar Lake,美国,0
+WDA,,Wadi Ain Airport,,Wadi Ain,也门,0
+WDG,,Enid Woodring Regional Airport,,Enid,美国,0
+WDH,霍齐亚•库塔科国际机场,,温得和克,,纳米比亚,0
+WDR,,Barrow County Airport,,Winder,美国,0
+WEA,,Parker County Airport,,Weatherford,美国,0
+WEF,潍坊机场,,潍坊,,中国,1
+WEH,大水泊机场,,威海,,中国,1
+WEI,,Weipa Airport,,Weipa,澳洲,0
+WFB,,Ketchikan Harbor Seaplane Base,,Ketchikan,美国,0
+WFI,菲亚纳兰楚阿机场,,菲亚纳兰楚阿,,马达加斯加,0
+WFK,,Northern Aroostook Regional Airport,,Frenchville,美国,0
+WGA,,Wagga Wagga Airport,沃加沃加,,澳洲,0
+WGB,,Bahawalnagar Airport,,Bahawalnagar,巴基斯坦,0
+WGO,,Winchester Regional Airport,温彻斯特,,美国,0
+WGP,,Mau Hau Airport,,Waingapu,印尼,0
+WHD,,Hyder Seaplane Base,,Hyder,美国,0
+WHF,,Wadi Halfa Airport,瓦迪哈勒法,,苏丹,0
+WHK,,Whakatane Airport,华卡塔尼,,新西兰,0
+WHP,,Whiteman Airport,洛杉矶,,美国,0
+WHT,,Wharton Regional Airport,,Wharton,美国,0
+WIC,,Wick Airport,,Wick,英国,0
+WIE,,Wiesbaden Army Airfield,威斯巴登,,德国,0
+WIL,,Wilson Airport,奈洛比,,肯尼亚,0
+WJA,,Woja Airport,,Woja,马绍尔群岛,0
+WJF,,General William J. Fox Airfield,兰开斯特,,美国,0
+WJU,原州机场,,原州,,韩国,0
+WKA,,Wanaka Airport,,Wanaka,新西兰,0
+WKJ,稚内机场,,稚内,,日本,0
+WKK,,Aleknagik Airport,,Aleknagik,美国,0
+WKL,,Waikoloa Heliport,,Waikoloa,美国,0
+WLD,,Chapleau Airport,,Arkansas City,美国,0
+WLD,,Chapleau Airport,,Winfield,美国,0
+WLG,威灵顿国际机场,,威灵顿,,新西兰,0
+WLK,,Selawik Airport,,Selawik,美国,0
+WLL,,Wollogorang Airport,,Wollogorang,澳洲,0
+WLM,,Prospect Hill Heliport,沃尔瑟姆,,美国,0
+WLO,,Waterloo Airport,,Waterloo,澳洲,0
+WLR,,Loring Seaplane Base,,Loring,美国,0
+WLS,马塔乌图机场,,马塔乌图,,瓦利斯和富图纳群岛,0
+WLW,,Willows-Glenn County Airport,威洛斯,,美国,0
+WMA,,Mandritsara Airport,曼德里察拉,,马达加斯加,0
+WMC,,Winnemucca Municipal Airport,温尼马卡,,美国,0
+WME,,Mount Keith Airport,,Mount Keith,澳洲,0
+WMH,,Ozark Regional Airport,,Mountain Home,美国,0
+WMI,,Minaki Airport,华沙,,波兰,0
+WMK,,Meyers Chuck Seaplane Base,,Meyers Chuck,美国,0
+WML,,Malaimbandy Airport,马拉因班迪,,马达加斯加,0
+WMO,,White Mountain Airport,,White Mountain,美国,0
+WNA,,Napakiak Airport,,Napakiak,美国,0
+WNC,,Naukati Bay Seaplane Base,,Tuxekan Island,美国,0
+WNH,普者黑机场,,文山,,中国,1
+WNP,,Naga Airport,,Pili,菲律宾,0
+WNZ,永强国际机场,,温州,,中国,1
+WOE,,Woensdrecht Air Base,,Woensdrecht,荷兰,0
+WOL,,Illawarra Regional Airport,,Shellharbour,澳洲,0
+WOT,望安机场,,望安,,台湾,0
+WOW,,Willow Airport,,Willow,美国,0
+WPA,,Puerto Aisén Airport,艾森港,,智利,0
+WPB,,Port Bergé Airport,,Port Bergé,马达加斯加,0
+WPC,,Pincher Creek Airport,,Pincher Creek,加拿大,0
+WPO,,North Fork Valley Airport,佩奥尼亚,,美国,0
+WRB,,Robins Air Force Base,,Warner Robins,美国,0
+WRE,,Whangarei Airport,旺阿雷,,新西兰,0
+WRG,,Wrangell Airport,,Wrangell,美国,0
+WRI,,McGuire Air Force Base,,Wrightstown,美国,0
+WRL,,Worland Municipal Airport,沃兰,,美国,0
+WRN,,Windarling Airport,,Windarling,澳洲,0
+WRO,,Wrocław – Copernicus Airport,弗罗茨瓦夫,,波兰,0
+WRZ,,Weerawila International Airport,,Weerawila,斯里兰卡,0
+WSD,,Condron Army Airfield,,White Sands,美国,0
+WSG,,Washington County Airport,,Washington,美国,0
+WSH,,Brookhaven Airport,,Shirley,美国,0
+WSM,,Wiseman Airport,,Wiseman,美国,0
+WSN,,South Naknek Nr 2 Airport,,South Naknek,美国,0
+WSO,,Washabo Airport,,Washabo,苏里南,0
+WSP,,Waspam Airport,,Waspam,尼加拉瓜,0
+WST,,Weston Airport,,Leixlip,爱尔兰,0
+WSX,,Westsound/WSX Seaplane Base,,Westsound,美国,0
+WSY,,Whitsunday Airstrip,,Airlie Beach,澳洲,0
+WSZ,,Westport Airport,,Westport,新西兰,0
+WTA,,Tambohorano Airport,坦布胡拉努,,马达加斯加,0
+WTD,,West End Airport,,West End,巴哈马,0
+WTE,,Wotje Airport,沃特杰环礁,,马绍尔群岛,0
+WTK,,Noatak Airport,,Noatak,美国,0
+WTL,,Tuntutuliak Airport,,Tuntutuliak,美国,0
+WTO,,Wotho Airport,沃特环礁,,马绍尔群岛,0
+WTR,,Whiteriver Airport,,Whiteriver,美国,0
+WTS,,Tsiroanomandidy Airport,齐鲁阿努曼迪迪,,马达加斯加,0
+WUA,乌海机场,,乌海,,中国,1
+WUH,天河国际机场,,武汉,,中国,1
+WUU,,Wau Airport,瓦乌,,苏丹,0
+WUX,苏南硕放国际机场,,苏州,,中国,1
+WUX,苏南硕放国际机场,,无锡,,中国,1
+WUZ,长洲岛机场,,梧州,,中国,1
+WVB,,Walvis Bay Airport,华维斯湾,,纳米比亚,0
+WVI,,Watsonville Municipal Airport,沃森维尔,,美国,0
+WVL,,Waterville Robert LaFleur Airport,沃特维尔,,美国,0
+WVN,,JadeWeser Airport,威廉港,,德国,0
+WWA,,Wasilla Airport,瓦西拉,,美国,0
+WWD,,Cape May Airport,,Wildwood,美国,0
+WWP,,North Whale Seaplane Base,,North Whale Pass,美国,0
+WWR,,West Woodward Airport,,Woodward,美国,0
+WWY,,Newtok Airport,,Newtok,美国,0
+WWY,,West Wyalong Airport,,West Wyalong,澳洲,0
+WXF,,MDPGA Wethersfield,,Braintree,英国,0
+WXN,五桥机场,,万州,,中国,1
+WYB,,Yes Bay Lodge Seaplane Base,,Yes Bay,美国,0
+WYE,,Yengema Airport,,Yengema,狮子山,0
+WYS,,Yellowstone Airport,,West Yellowstone],美国,0
+XAB,,Abbeville - Buigny-Saint-Maclou Aerodrome,阿布维尔,,法国,0
+XAC,,Arcachon – La Teste-de-Buch Airport,阿尔卡雄,,法国,0
+XAL,,Álamos Airport,,Álamos,墨西哥,0
+XAP,,Chapecó Airport,沙佩科,,巴西,0
+XAR,,Aribinda Airport,,Aribinda,布基纳法索,0
+XAU,,Saül Airport,,Saül,法属圭亚那,0
+XBB,,Blubber Bay Airport,,Blubber Bay,加拿大,0
+XBE,,Bearskin Lake Airport,,Bearskin Lake,加拿大,0
+XBG,,Bogande Airport,,Bogande,布基纳法索,0
+XBJ,,Birjand Airport,比尔詹德,,伊朗,0
+XBK,,Bourg - Ceyzériat Airport,布雷斯地区布尔格,,法国,0
+XBL,,Bedele Airport,,Bedele,埃塞俄比亚,0
+XBN,,Biniguni Airport,,Biniguni,巴布亚新几内亚,0
+XBO,,Boulsa Airport,,Boulsa,布基纳法索,0
+XBR,,Thousand Islands Regional Airport,,Brockville,加拿大,0
+XCH,圣诞岛机场,,圣诞岛,,澳洲,0
+XCL,,Cluff Lake Airport,,Cluff Lake,加拿大,0
+XCM,,Chatham-Kent Airport,,Chatham-Kent,加拿大,0
+XCN,,Pacific Air-VAL Coron Airport,,Coron,菲律宾,0
+XCO,,Colac Airport,,Colac,澳洲,0
+XCR,,Vatry International Airport,瓦特里,,法国,0
+XCY,,Château-Thierry Belleau Airport,蒂耶里堡,,法国,0
+XDA,,Dax - Seyresse Airport,达克斯,,法国,0
+XDE,,Diebougou Airport,,Diebougou,布基纳法索,0
+XDJ,,Djibo Airport,,Djibo,布基纳法索,0
+XDK,,Dunkerque - Les Moëres Airport,敦刻尔克,,法国,0
+XEN,兴城机场,Xingcheng Airport,兴城,,中国,1
+XEP,,Épernay - Plivot Airport,埃佩尔奈,,法国,0
+XEQ,,Tasiusaq Heliport,,Tasiusaq,格陵兰,0
+XES,,Grand Geneva Resort Airport,,Lake Geneva,美国,0
+XFN,刘集机场,,襄阳,,中国,1
+XFW,,Hamburg Finkenwerder Airport,汉堡,,德国,0
+XGA,,Gaoua Airport,加瓦,,布基纳法索,0
+XGG,,Gorom Gorom Airport,,Gorom Gorom,布基纳法索,0
+XGL,,Granville Lake Airport,,Granville Lake,加拿大,0
+XGN,,Xangongo Airport,桑贡戈,,安哥拉,0
+XGR,,Kangiqsualujjuaq Airport,,Kangiqsualujjuaq,加拿大,0
+XIC,青山机场,,西昌,,中国,1
+XIG,,Xinguara Airport,,Big Bay Marina,巴西,0
+XIL,锡林浩特机场,,锡林浩特,,中国,1
+XIN,兴宁机场,Xingning Airport,兴宁,,中国,1
+XIY,咸阳国际机场,,咸阳,,中国,1
+XKA,,Kantchari Airport,,Kantchari,布基纳法索,0
+XKH,,Xieng Khouang Airport,川圹省,,老挝,0
+XKL,吉隆坡内空港,,吉隆坡,,马来西亚,0
+XKO,,Kemano Airport,,Kemano,加拿大,0
+XKS,,Kasabonika Airport,,Kasabonika First Nation,加拿大,0
+XKY,,Kaya Airport,卡亚,,布基纳法索,0
+XLB,,Lac Brochet Airport,,Lac Brochet,加拿大,0
+XLO,,Long Xuyen Airport,龙川,,越南,0
+XLS,,Saint-Louis Airport,圣路易,,塞内加尔,0
+XLU,,Leo Airport,,Leo,布基纳法索,0
+XLW,,Lemwerder Airport,莱姆韦尔德尔,,德国,0
+XMA,,Maramag Airport,,Maramag,菲律宾,0
+XMD,,Madison Municipal Airport,麦迪逊,,美国,0
+XMF,,Montbéliard Courcelles Airport,蒙贝利亚尔,,法国,0
+XMG,,Mahendranagar Airport,,Mahendranagar,尼泊尔,0
+XMH,,Manihi Airport,马尼希环礁,,法属波利尼西亚,0
+XMI,,Masasi Airport,,Masasi,坦桑尼亚,0
+XML,,Minlaton Airport,,Minlaton,澳洲,0
+XMN,高崎国际机场,,厦门,,中国,1
+XMS,,Macas Airport,马卡斯,,厄瓜多尔,0
+XMU,,Moulins - Montbeugny Airport,穆兰,,法国,0
+XMY,,Yam Island Airport,,Yam Island,澳洲,0
+XNA,,Northwest Arkansas Regional Airport,,Springdale,美国,0
+XNA,,Northwest Arkansas Regional Airport,费耶特维尔,,美国,0
+XNN,曹家堡机场,,西宁,,中国,1
+XNT,邢台机场,Xingtai Airport,邢台,,中国,1
+XNU,,Nouna Airport,,Nouna,布基纳法索,0
+XOG,,Orange-Caritat Air Base,奥朗日,,法国,0
+XPA,,Pama Airport,,Pama,布基纳法索,0
+XPK,,Pukatawagan Airport,,Pukatawagan,加拿大,0
+XPL,,Palmerola Air Base,科马亚瓜,,洪都拉斯,0
+XPP,,Poplar River Airport,,Poplar River,加拿大,0
+XPR,,Pine Ridge Airport,,Pine Ridge,美国,0
+XQP,,Quepos Managua Airport,,Quepos,哥斯达黎加,0
+XQU,,Qualicum Beach Airport,,Qualicum Beach,加拿大,0
+XRR,,Ross River Airport,,Ross River,加拿大,0
+XRY,,Jerez Airport,赫雷斯-德拉弗龙特拉,,西班牙,0
+XSC,,South Caicos Airport,,South Caicos,土克凯可群岛,0
+XSD,,Tonopah Test Range Airport,托诺帕,,美国,0
+XSE,,Sebba Airport,,Sebba,布基纳法索,0
+XSI,,South Indian Lake Airport,,South Indian Lake,加拿大,0
+XSO,,Siocon Airport,,Siocon,菲律宾,0
+XSP,实里达机场,,新加坡,,新加坡,0
+XTG,,Thargomindah Airport,,Thargomindah,澳洲,0
+XTL,,Tadoule Lake Airport,,Tadoule Lake,加拿大,0
+XTO,,Taroom Airport,,Taroom,澳洲,0
+XTR,,Tara Airport,,Tara,澳洲,0
+XUZ,观音机场,,徐州,,中国,1
+XVL,,Vinh Long Airport,永隆,,越南,0
+XVS,,Valenciennes - Denain Aerodrome,瓦朗谢讷,,法国,0
+XXN,,Riyadh Air Base,利雅德,,沙特阿拉伯,0
+XYA,扬迪纳机场,,,Yandina,所罗门群岛,0
+XYE,,Ye Airport,,Ye,缅甸,0
+XZA,,Zabré Airport,,Zabré,布基纳法索,0
+YAA,,Anahim Lake Airport,,Anahim Lake,加拿大,0
+YAB,北极湾机场,,北极湾,,加拿大,0
+YAC,,Cat Lake Airport,,Cat Lake,加拿大,0
+YAD,,Moose Lake Airport,,Moose Lake,加拿大,0
+YAF,,Asbestos Hill Airport,,Asbestos Hill,加拿大,0
+YAG,弗朗西斯堡立机场,,弗朗西斯堡,,加拿大,0
+YAH,,La Grande-4 Airport,,Northern Quebec,加拿大,0
+YAI,,General Bernardo O'Higgins Airport,,Chillán,智利,0
+YAJ,,Lyall Harbour Airport,,Saturna Island,加拿大,0
+YAK,,Yakutat Airport,亚库塔特,,美国,0
+YAL,,Alert Bay Airport,,Alert Bay,加拿大,0
+YAM,苏圣玛丽机场,,苏圣玛丽,,加拿大,0
+YAN,,Yangambi Airport,扬甘比,,刚果民主共和国,0
+YAO,雅温得机场,,雅温得,,喀麦隆,0
+YAP,雅蒲岛国际机场,,雅蒲岛,,密克罗尼西亚,0
+YAQ,,Maple Bay Airport,,Maple Bay,加拿大,0
+YAS,,Yasawa Island Airport,,Yasawa Island,斐济,0
+YAT,,Attawapiskat Airport,,Attawapiskat,加拿大,0
+YAU,,Kattiniq/Donaldson Airport,,Raglan Mine,加拿大,0
+YAV,,Miner's Bay Airport,,Miner's Bay,加拿大,0
+YAW,,Shearwater Heliport,,Shearwater,加拿大,0
+YAY,,St. Anthony Airport,,St. Anthony,加拿大,0
+YAZ,,Tofino Airport,,Tofino,加拿大,0
+YBA,,Banff Airport,班夫,,加拿大,0
+YBB,,Kugaaruk Airport,,Kugaaruk,加拿大,0
+YBC,,Baie-Comeau Airport,,Baie-Comeau,加拿大,0
+YBD,,New Westminster Airport,新威斯敏斯特,,加拿大,0
+YBE,,Uranium City Airport,,Uranium City,加拿大,0
+YBF,,Bamfield Water Aerodrome,,Bamfield,加拿大,0
+YBG,,Bagotville Airport,,Bagotville,加拿大,0
+YBH,,Bull Harbour Airport,,Bull Harbour,加拿大,0
+YBI,,Black Tickle Airport,,Black Tickle,加拿大,0
+YBJ,,Baie-Johan-Beetz Airport,,Baie-Johan-Beetz,加拿大,0
+YBK,,Baker Lake Airport,,Baker Lake,加拿大,0
+YBL,,Campbell River Airport,坎贝尔河,,加拿大,0
+YBM,,Bronson Creek Airport,,Bronson Creek,加拿大,0
+YBN,,CFB Borden,,Borden,加拿大,0
+YBO,,Bob Quinn Lake Airport,,Bob Quinn Lake,加拿大,0
+YBP,菜坝机场,,宜宾,,中国,1
+YBQ,,Telegraph Harbour Airport,,Telegraph Harbour,加拿大,0
+YBR,,Brandon Municipal Airport,布兰登,,加拿大,0
+YBT,,Brochet Airport,,Brochet,加拿大,0
+YBV,,Berens River Airport,,Berens River,加拿大,0
+YBW,,Bedwell Harbour Airport,,Bedwell Harbour,加拿大,0
+YBX,,Lourdes-de-Blanc-Sablon Airport,,Lourdes-de-Blanc-Sablon,加拿大,0
+YBY,,Bonnyville Airport,,Bonnyville,加拿大,0
+YCA,,Courtenay Airpark,,Courtenay,加拿大,0
+YCB,,Cambridge Bay Airport,剑桥湾,,加拿大,0
+YCC,,Cornwall Regional Airport,康瓦耳,,加拿大,0
+YCD,,Nanaimo Airport,纳奈莫,,加拿大,0
+YCE,,Centralia/James T. Field Memorial Aerodrome,,Centralia,加拿大,0
+YCF,,Cortes Island Airport,,Cortes Island,加拿大,0
+YCG,,West Kootenay Regional Airport ,卡斯尔加,,加拿大,0
+YCH,,Miramichi Airport,,Miramichi,加拿大,0
+YCI,,Caribou Island Airport,,Caribou Island,加拿大,0
+YCK,,Colville Lake Airport,,Colville Lake,加拿大,0
+YCL,,Charlo Airport,,Charlo,加拿大,0
+YCM,,St. Catharines/Niagara District Airport,圣凯瑟琳斯,,加拿大,0
+YCN,,Cochrane Airport,,Cochrane,加拿大,0
+YCO,,Kugluktuk Airport,库格鲁克图克,,加拿大,0
+YCP,,Blue River Airport,,Blue River,加拿大,0
+YCQ,,Chetwynd Airport,,Chetwynd,加拿大,0
+YCR,,Cross Lake Airport,,Cross Lake,加拿大,0
+YCS,,Chesterfield Inlet Airport,,Chesterfield Inlet,加拿大,0
+YCT,,Coronation Airport,,Coronation,加拿大,0
+YCU,张孝机场,,运城,,中国,1
+YCV,,Cartierville Airport,,Cartierville,加拿大,0
+YCW,,Chilliwack Airport,智利域,,加拿大,0
+YCX,,CFB Gagetown,,Gagetown,加拿大,0
+YCY,,Clyde River Airport,,Clyde River,加拿大,0
+YCZ,,Fairmont Hot Springs Airport,,Fairmont Hot Springs,加拿大,0
+YDA,,Dawson City Airport,道森,,加拿大,0
+YDB,,Burwash Airport,伯沃什兰丁,,加拿大,0
+YDC,,Drayton Valley Industrial Airport,,Drayton Valley,加拿大,0
+YDE,,Paradise River Airport,,Paradise River,加拿大,0
+YDF,,Deer Lake Regional Airport,,Deer Lake,加拿大,0
+YDG,,Digby/Annapolis Regional Airport,,Digby,加拿大,0
+YDH,,Daniel's Harbour Airport,,Daniel's Harbour,加拿大,0
+YDI,,Davis Inlet Airport,,Davis Inlet,加拿大,0
+YDK,,Main Duck Island Airport,,Main Duck Island,加拿大,0
+YDL,,Dease Lake Airport,,Dease Lake,加拿大,0
+YDN,,Lt. Col W.G. Barker VC Airport,,Dauphin,加拿大,0
+YDO,,Dolbeau-Saint-Félicien Airport,,Dolbeau-Mistassini,加拿大,0
+YDP,,Nain Airport,,Nain,加拿大,0
+YDQ,,Dawson Creek Airport,道森河,,加拿大,0
+YDR,,Broadview Airport,,Broadview,加拿大,0
+YDS,,Desolation Sound Airport,,Desolation Sound,加拿大,0
+YDT,,Boundary Bay Airport,三角洲,,加拿大,0
+YDV,,Bloodvein River Airport,,Bloodvein River,加拿大,0
+YDW,,Obre Lake/North of Sixty Airport,,Obre Lake,加拿大,0
+YDX,,Doc Creek Airport,,Doc Creek,加拿大,0
+YEC,,Yecheon Air Base,醴泉郡,,韩国,0
+YED,,CFB Edmonton,埃德蒙顿,,加拿大,0
+YEG,埃德蒙顿国际机场,,埃德蒙顿,,加拿大,0
+YEI,,Yenişehir Airport,,Yenişehir,土耳其,0
+YEK,,Arviat Airport,亚怀亚特,,加拿大,0
+YEL,,Elliot Lake Municipal Airport,,Elliot Lake,加拿大,0
+YEM,,Manitowaning/Manitoulin East Municipal Airport,,Manitowaning,加拿大,0
+YEN,,Estevan Airport,,Estevan,加拿大,0
+YEO,,RNAS Yeovilton,,Yeovilton,英国,0
+YEP,,Estevan Point Airport,,Estevan Point,加拿大,0
+YEQ,,Yenkis Airport,,Yenkis,巴布亚新几内亚,0
+YER,,Fort Severn Airport,,Fort Severn,加拿大,0
+YET,,Edson Airport,,Edson,加拿大,0
+YEU,,Eureka Aerodrome,,Eureka,加拿大,0
+YEV,,Inuvik Airport,因纽维克,,加拿大,0
+YEY,,Amos/Magny Airport,,Amos,加拿大,0
+YFA,,Fort Albany Airport,,Fort Albany,加拿大,0
+YFB,,Iqaluit Airport,伊魁特,,加拿大,0
+YFC,,Fredericton International Airport,弗雷德里克顿,,加拿大,0
+YFD,,Brantford Airport,,Brantford,加拿大,0
+YFE,,Forestville Airport,,Forestville,加拿大,0
+YFG,,Fontanges Airport,,Fontanges,加拿大,0
+YFH,,Fort Hope Airport,,Fort Hope,加拿大,0
+YFL,,Fort Reliance Airport,,Fort Reliance,加拿大,0
+YFO,,Flin Flon Airport,,Flin Flon,加拿大,0
+YFR,,Fort Resolution Airport,,Fort Resolution,加拿大,0
+YFS,,Fort Simpson Airport,辛普森堡,,加拿大,0
+YFX,,St. Lewis Airport,,St. Lewis,加拿大,0
+YGA,,Gagnon Airport,,Gagnon,加拿大,0
+YGB,,Texada/Gillies Bay Airport,,Texada Island,加拿大,0
+YGC,,Grande Cache Airport,,Grande Cache,加拿大,0
+YGE,,Gorge Harbour Airport,,Gorge Harbour,加拿大,0
+YGG,,Ganges Water Aerodrome,,Ganges Water,加拿大,0
+YGH,,Fort Good Hope Airport,,Fort Good Hope,加拿大,0
+YGJ,美保飞行场 ,,米子,,日本,0
+YGK,,Kingston/Norman Rogers Airport,金斯敦,,加拿大,0
+YGL,,La Grande Rivière Airport,,Radisson,加拿大,0
+YGM,,Gimli Industrial Park Airport,,Gimli,加拿大,0
+YGN,,Greenway Sound Airport,,Greenway Sound,加拿大,0
+YGO,,Gods Lake Narrows Airport,,Gods Lake Narrows,加拿大,0
+YGP,,Michel-Pouliot Gaspé Airport,,Gaspé,加拿大,0
+YGQ,,Geraldton Airport,,Geraldton,加拿大,0
+YGR,,Îles-de-la-Madeleine Airport,,Îles-de-la-Madeleine,加拿大,0
+YGS,,Germansen Landing Airport,,Germansen Landing,加拿大,0
+YGT,,Igloolik Airport,,Igloolik,加拿大,0
+YGV,,Havre Saint-Pierre Airport,,Havre Saint-Pierre,加拿大,0
+YGW,,Kuujjuarapik Airport,,Kuujjuarapik,加拿大,0
+YGX,,Gillam Airport,,Gillam,加拿大,0
+YGY,,Deception Airport,,Deception,加拿大,0
+YGZ,,Grise Fiord Airport,,Grise Fiord,加拿大,0
+YHA,,Port Hope Simpson Airport,,Port Hope Simpson,加拿大,0
+YHB,,Hudson Bay Airport,,Hudson Bay,加拿大,0
+YHC,,Hakai Pass Airport,,Hakai Pass,加拿大,0
+YHD,,Dryden Regional Airport,,Dryden,加拿大,0
+YHE,,Hope Aerodrome,,Hope,加拿大,0
+YHF,,Hearst Municipal Airport,,Hearst,加拿大,0
+YHG,,Charlottetown Airport,夏洛特顿,,加拿大,0
+YHH,,Campbell River Water Aerodrome,坎贝尔河,,加拿大,0
+YHI,,Ulukhaktok/Holman Airport,,Ulukhaktok,加拿大,0
+YHK,,Gjoa Haven Airport,,Gjoa Haven,加拿大,0
+YHM,约翰·卡尔·芒罗哈密尔顿国际机场,,哈密尔顿,,加拿大,0
+YHN,,Hornepayne Municipal Airport,,Hornepayne,加拿大,0
+YHO,,Hopedale Airport,,Hopedale,加拿大,0
+YHP,,Poplar Hill Airport,,Poplar Hill,加拿大,0
+YHR,,Chevery Airport,,Chevery,加拿大,0
+YHS,,Sechelt Aerodrome,,Sechelt,加拿大,0
+YHT,,Haines Junction Airport,,Haines Junction,加拿大,0
+YHU,,Montréal/Saint-Hubert Airport,,Saint-Hubert,加拿大,0
+YHY,,Hay River/Merlyn Carter Airport,,Hay River,加拿大,0
+YHZ,哈利法克斯罗伯特·洛恩·斯坦菲尔德国际机场,,,Enfield,加拿大,0
+YIB,,Atikokan Municipal Airport,,Atikokan,加拿大,0
+YIE,阿尔山机场,,阿尔山,,中国,1
+YIF,,Saint-Augustin Airport,,Saint-Augustin,加拿大,0
+YIG,,Big Bay Marina Airport,,Big Bay Marina,加拿大,0
+YIH,三峡机场,,宜昌,,中国,1
+YIK,,Ivujivik Airport,,Ivujivik,加拿大,0
+YIN,伊宁机场,,伊宁,,中国,1
+YIO,,Pond Inlet Airport,,Pond Inlet,加拿大,0
+YIP,,Willow Run Airport,底特律,,美国,0
+YIV,,Island Lake Airport,,Island Lake,加拿大,0
+YIW,义乌机场,,义乌,,中国,1
+YJA,,Jasper Airport,贾斯珀,,加拿大,0
+YJF,,Fort Liard Airport,,Fort Liard,加拿大,0
+YJN,,Saint-Jean Airport,,Saint-Jean-sur-Richelieu,加拿大,0
+YJT,,Stephenville Airport,,Stephenville,加拿大,0
+YKA,甘露机场,,甘露,,加拿大,0
+YKC,,Collins Bay Airport,,Collins Bay,加拿大,0
+YKD,,Kincardine Airport,,Kincardine,加拿大,0
+YKE,,Knee Lake Airport,,Knee Lake,加拿大,0
+YKF,,Region of Waterloo International Airport,滑铁卢区,,加拿大,0
+YKG,,Kangirsuk Airport,,Kangirsuk,加拿大,0
+YKK,,Kitkatla Water Aerodrome,,Kitkatla Water,加拿大,0
+YKL,,Schefferville Airport,,Schefferville,加拿大,0
+YKM,,Yakima Air Terminal,雅基马,,美国,0
+YKN,,Chan Gurney Municipal Airport,,Yankton,美国,0
+YKQ,,Waskaganish Airport,,Waskaganish,加拿大,0
+YKS,,Yakutsk Airport,雅库茨克,,俄罗斯,0
+YKT,,Klemtu Airport,,Klemtu,加拿大,0
+YKU,,Chisasibi Airport,,Chisasibi,加拿大,0
+YKX,,Kirkland Lake Airport,,Kirkland Lake,加拿大,0
+YKY,,Kindersley Airport,,Kindersley,加拿大,0
+YKZ,,Toronto/Buttonville Municipal Airport,,Buttonville,加拿大,0
+YLA,,Langara Airport,,Vancouver-Langara,加拿大,0
+YLB,,Lac La Biche Airport,,Lac La Biche,加拿大,0
+YLC,,Kimmirut Airport,,Kimmirut,加拿大,0
+YLD,,Chapleau Airport,,Chapleau,加拿大,0
+YLE,,Wha Ti Airport,,Lac La Martre,加拿大,0
+YLF,,Laforges Airport,,Laforges,加拿大,0
+YLG,,Yalgoo Airport,,Yalgoo,澳大利亚,0
+YLH,,Lansdowne House Airport,,Lansdowne House,加拿大,0
+YLI,,Ylivieska Airport,上维耶斯卡,,芬兰,0
+YLJ,,Meadow Lake Airport,,Meadow Lake,加拿大,0
+YLL,,Lloydminster Airport,,Lloydminster,加拿大,0
+YLN,依兰机场,Yilan Airport,依兰,,中国,1
+YLO,,Shilo Airport,,Shilo,加拿大,0
+YLP,,Mingan Airport,,Mingan,加拿大,0
+YLQ,,La Tuque Airport,,La Tuque,加拿大,0
+YLS,,Lebel-sur-Quévillon Airport,,Lebel-sur-Quévillon,加拿大,0
+YLR,,Leaf Rapids Airport,,Leaf Rapids,加拿大,0
+YLT,,Alert Airport,阿勒特,,加拿大,0
+YLW,基隆拿国际机场,,基隆拿,,加拿大,0
+YMA,,Mayo Airport,,Mayo,加拿大,0
+YMB,,Merritt Airport,,Merritt,加拿大,0
+YMC,,Maricourt Airstrip,,Maricourt,加拿大,0
+YMD,,Mould Bay Airport,帕特里克王子岛,,加拿大,0
+YME,,Matane Airport,,Matane,加拿大,0
+YMF,,Montague Harbour Airport,,Montague Harbour,加拿大,0
+YMG,,Manitouwadge Airport,,Manitouwadge,加拿大,0
+YMH,,Mary's Harbour Airport,,Mary's Harbour,加拿大,0
+YMI,,Minaki Airport,,Minaki,加拿大,0
+YMJ,,CFB Moose Jaw,穆斯乔,,加拿大,0
+YML,,Charlevoix Airport,,Charlevoix,加拿大,0
+YMM,,Fort McMurray Airport,,Fort McMurray,加拿大,0
+YMN,,Makkovik Airport,,Makkovik,加拿大,0
+YMO,,Moosonee Airport,,Moosonee,加拿大,0
+YMP,,Port McNeill Airport,,Port McNeill,加拿大,0
+YMS,,Moisés Benzaquén Rengifo Airport,尤里马瓜斯,,秘鲁,0
+YMT,,Chibougamau/Chapais Airport,,Chibougamau,加拿大,0
+YMW,,Maniwaki Airport,,Maniwaki,加拿大,0
+YMX,蒙特利尔－米拉贝勒国际机场,,蒙特利尔,,加拿大,0
+YNA,,Natashquan Airport,,Natashquan,加拿大,0
+YNB,,Yanbu Airport,,Yanbu,沙特阿拉伯,0
+YNC,,Wemindji Airport,,Wemindji,加拿大,0
+YND,,Gatineau-Ottawa Executive Airport,加蒂诺,,加拿大,0
+YNE,,Norway House Airport,,Norway House,加拿大,0
+YNG,,Youngstown-Warren Regional Airport,扬斯敦,,美国,0
+YNH,,Hudson's Hope Airport,,Hudson's Hope,加拿大,0
+YNI,,Nitchequon Airport,,Nitchequon,加拿大,0
+YNJ,朝阳川机场,,延吉,,中国,1
+YNK,,Nootka Sound Airport,,Nootka Sound,加拿大,0
+YNL,,Points North Landing Airport,,Points North Landing,加拿大,0
+YNM,,Matagami Airport,,Matagami,加拿大,0
+YNO,,North Spirit Lake Airport,,North Spirit Lake,加拿大,0
+YNR,,Arnes Airport,,Arnes,加拿大,0
+YNS,,Nemiscau Airport,,Nemiscau,加拿大,0
+YNT,莱山国际机场,,烟台,,中国,1
+YNZ,盐城机场,,盐城,,中国,1
+YOC,,Old Crow Airport,旧克罗,,加拿大,0
+YOD,,CFB Cold Lake,,Cold Lake,加拿大,0
+YOE,,Falher Airport,,Falher,加拿大,0
+YOG,,Ogoki Post Airport,,Ogoki Post,加拿大,0
+YOH,,Oxford House Airport,,Oxford House,加拿大,0
+YOJ,,High Level Airport,,High Level,加拿大,0
+YOL,,Yola Airport,约拉,,尼日利亚,0
+YOO,奥沙华机场,,奥沙华,,加拿大,0
+YOP,,Rainbow Lake Airport,,Rainbow Lake,加拿大,0
+YOS,,Owen Sound/Billy Bishop Regional Airport,,Owen Sound,加拿大,0
+YOT,,Yotvata Airport,,Yotvata,以色列,0
+YOW,渥太华麦克唐纳－卡蒂埃国际机场,,渥太华,,加拿大,0
+YOY,,CFB Valcartier,,Valcartier,加拿大,0
+YPA,,Prince Albert Airport,,Prince Albert,加拿大,0
+YPB,,Alberni Valley Regional Airport,艾伯尼港,,加拿大,0
+YPC,,Paulatuk Airport,,Paulatuk,加拿大,0
+YPD,,Parry Sound Area Municipal Airport,,Parry Sound,加拿大,0
+YPE,,Peace River Airport,皮斯里弗,,加拿大,0
+YPF,,Esquimalt Airport,,Esquimalt,加拿大,0
+YPG,,Portage La Prairie/Southport Airport,,Portage La Prairie,加拿大,0
+YPH,,Inukjuak Airport,,Inukjuak,加拿大,0
+YPI,,Port Simpson Airport,,Port Simpson,加拿大,0
+YPJ,,Aupaluk Airport,,Aupaluk,加拿大,0
+YPL,,Pickle Lake Airport,,Pickle Lake,加拿大,0
+YPM,,Pikangikum Airport,,Pikangikum,加拿大,0
+YPN,,Port-Menier Airport,,Port-Menier,加拿大,0
+YPO,,Peawanuck Airport,,Peawanuck,加拿大,0
+YPP,,Pine Point Airport,,Pine Point,加拿大,0
+YPQ,彼得堡机场,,彼得堡,,加拿大,0
+YPR,,Prince Rupert Airport,鲁珀特王子港,,加拿大,0
+YPS,,Port Hawkesbury Airport,,Port Hawkesbury,加拿大,0
+YPT,,Pender Harbour Water Aerodrome,,Pender Harbour,加拿大,0
+YPW,,Powell River Airport,,Powell River,加拿大,0
+YPX,,Puvirnituq Airport,,Puvirnituq,加拿大,0
+YPY,,Fort Chipewyan Airport,,Fort Chipewyan,加拿大,0
+YPZ,,Burns Lake Airport,伯尔尼斯湖,,加拿大,0
+YQA,,Muskoka Airport,,Muskoka,加拿大,0
+YQB,魁北克让·勒萨热国际机场,,,Sainte-Foy,加拿大,0
+YQC,,Quaqtaq Airport,,Quaqtaq,加拿大,0
+YQD,,The Pas Airport,,The Pas,加拿大,0
+YQE,,Kimberley Airport,,Kimberley,加拿大,0
+YQF,,Red Deer Regional Airport,红鹿,,加拿大,0
+YQG,,Windsor Airport,温莎,,加拿大,0
+YQH,,Watson Lake Airport,,Watson Lake,加拿大,0
+YQI,,Yarmouth Airport,,Yarmouth,加拿大,0
+YQK,,Kenora Airport,,Kenora,加拿大,0
+YQL,,Lethbridge County Airport,莱斯布里奇,,加拿大,0
+YQM,,Greater Moncton International Airport,蒙克顿,,加拿大,0
+YQN,,Nakina Airport,,Nakina,加拿大,0
+YQQ,,CFB Comox,,Comox,加拿大,0
+YQR,,Regina International Airport,里贾纳,,加拿大,0
+YQS,,St. Thomas Municipal Airport,,St. Thomas,加拿大,0
+YQT,,Thunder Bay Airport,雷湾,,加拿大,0
+YQU,,Grande Prairie Airport,,Grande Prairie,加拿大,0
+YQV,,Yorkton Municipal Airport,,Yorkton,加拿大,0
+YQW,,North Battleford Airport,北巴特尔福德,,加拿大,0
+YQX,,Gander International Airport / CFB Gander,,Gander,加拿大,0
+YQY,,Sydney/J.A. Douglas McCurdy Airport,,Sydney,加拿大,0
+YQZ,,Quesnel Airport,,Quesnel,加拿大,0
+YRA,,Gamètì/Rae Lakes Airport,,Gamètì,加拿大,0
+YRB,,Resolute Bay Airport,,Resolute,加拿大,0
+YRC,,Chicoutimi/Saint-Honoré Aerodrome,,Chicoutimi,加拿大,0
+YRD,,Dean River Airport,,Dean River,加拿大,0
+YRE,,Resolution Island Airport,,Resolution Island,加拿大,0
+YRF,,Cartwright Airport,,Cartwright,加拿大,0
+YRG,,Rigolet Airport,,Rigolet,加拿大,0
+YRI,,Rivière-du-Loup Airport,,Rivière-du-Loup,加拿大,0
+YRJ,,Roberval Airport,,Roberval,加拿大,0
+YRL,,Red Lake Airport,,Red Lake,加拿大,0
+YRM,,Rocky Mountain House Airport,,Rocky Mountain House,加拿大,0
+YRN,,Rivers Inlet Airport,,Rivers Inlet,加拿大,0
+YRO,,Rockcliffe Airport,渥太华,,加拿大,0
+YRP,,Carp Airport,,Carp,加拿大,0
+YRQ,,Trois-Rivières Airport,三河,,加拿大,0
+YRR,,Stuart Island Airport,,Stuart Island,加拿大,0
+YRS,,Red Sucker Lake Airport,,Red Sucker Lake,加拿大,0
+YRT,,Rankin Inlet Airport,,Rankin Inlet,加拿大,0
+YRV,,Revelstoke Airport,,Revelstoke,加拿大,0
+YSA,,Sable Island Airport,,Sable Island,加拿大,0
+YSB,,Sudbury Airport,,Greater Sudbury,加拿大,0
+YSC,,Sherbrooke Airport,舍布鲁克,,加拿大,0
+YSD,,CFB Suffield,,Suffield,加拿大,0
+YSE,,Squamish Airport,,Squamish,加拿大,0
+YSF,,Stony Rapids Airport,,Stony Rapids,加拿大,0
+YSG,,Lutselke/Snowdrift Airport,,Lutselke,加拿大,0
+YSH,,Smiths Falls-Montague Airport,,Smiths Falls,加拿大,0
+YSI,,Sans Souci Water Aerodrome,,Frying Pan Island,加拿大,0
+YSJ,,Saint John Airport,圣约翰,,加拿大,0
+YSK,,Sanikiluaq Airport,,Sanikiluaq,加拿大,0
+YSL,,Saint-Léonard Aerodrome,,Saint-Léonard,加拿大,0
+YSM,,Fort Smith Airport,,Fort Smith,加拿大,0
+YSN,,Salmon Arm Airport,,Salmon Arm,加拿大,0
+YSO,,Postville Airport,,Postville,加拿大,0
+YSP,,Marathon Aerodrome,,Marathon,加拿大,0
+YSR,,Nanisivik Airport,,Nanisivik,加拿大,0
+YST,,St. Theresa Point Airport,,St. Theresa Point,加拿大,0
+YSU,,Summerside Airport,萨默赛德,,加拿大,0
+YSV,,Saglek Airport,,Saglek,加拿大,0
+YSX,,Shearwater Water Aerodrome,,Bella Bella,加拿大,0
+YSY,,Sachs Harbour Airport,,Sachs Harbour,加拿大,0
+YSZ,,Squirrel Cove Airport,,Squirrel Cove,加拿大,0
+YTA,,Pembroke Airport,,Pembroke,加拿大,0
+YTB,,Hartley Bay Water Aerodrome,,Hartley Bay,加拿大,0
+YTC,,Sturdee Airport,,Sturdee,加拿大,0
+YTD,,Thicket Portage Airport,,Thicket Portage,加拿大,0
+YTE,,Cape Dorset Airport,,Cape Dorset,加拿大,0
+YTF,,Alma Airport,,Alma,加拿大,0
+YTG,,Sullivan Bay Airport,,Sullivan Bay,加拿大,0
+YTH,,Thompson Airport,,Thompson,加拿大,0
+YTJ,,Terrace Bay Airport,,Terrace Bay,加拿大,0
+YTK,,Tulugak Airport,,Tulugak,加拿大,0
+YTL,,Big Trout Lake Airport,,Big Trout Lake,加拿大,0
+YTM,,Rivière Rouge/Mont-Tremblant International Airport,,Mont-Tremblant,加拿大,0
+YTN,,Rivière-au-Tonnerre Airport,,Rivière-au-Tonnerre,加拿大,0
+YTP,,Tofino Harbour Water Aerodrome,,Tofino,加拿大,0
+YTQ,,Tasiujaq Airport,,Tasiujaq,加拿大,0
+YTR,,CFB Trenton,,Trenton,加拿大,0
+YTS,,Timmins/Victor M. Power Airport,,Timmins,加拿大,0
+YTT,,Tisdale Airport,,Tisdale,加拿大,0
+YTX,,Telegraph Creek Airport,,Telegraph Creek,加拿大,0
+YTY,扬州泰州机场,,泰州,,中国,1
+YTY,扬州泰州机场,,扬州,,中国,1
+YTZ,比利·毕晓普多伦多机场,,多伦多,,加拿大,0
+YUA,元谋机场,Yuanmou Airport,元谋,,中国,1
+YUB,,Tuktoyaktuk/James Gruben Airport,图克托亚图克,,加拿大,0
+YUD,,Umiujaq Airport,,Umiujaq,加拿大,0
+YUE,,Yuendumu Airport,,Yuendumu,澳大利亚,0
+YUL,蒙特利尔皮埃尔·埃利奥特·特鲁多国际机场,,,Dorval,加拿大,0
+YUM,,Yuma International Airport / MCAS Yuma,尤马,,美国,0
+YUS,玉树巴塘机场,,巴塘,,中国,1
+YUT,,Repulse Bay Airport,,Repulse Bay,加拿大,0
+YUX,,Hall Beach Airport,,Hall Beach,加拿大,0
+YUY,,Rouyn-Noranda Airport,,Rouyn-Noranda,加拿大,0
+YVA,,Iconi Airport,莫罗尼,,科摩罗,0
+YVB,,Bonaventure Airport,,Bonaventure,加拿大,0
+YVC,,La Ronge Airport,,La Ronge,加拿大,0
+YVD,,Yeva Airport,,Yeva,巴布亚新几内亚,0
+YVE,弗农区域机场,,,Vernon,加拿大,0
+YVG,,Vermilion Airport,,Vermilion,加拿大,0
+YVM,,Qikiqtarjuaq Airport,,Qikiqtarjuaq,加拿大,0
+YVO,,Val-d'Or Airport,,Val-d'Or,加拿大,0
+YVP,,Kuujjuaq Airport,,Kuujjuaq,加拿大,0
+YVQ,,Norman Wells Airport,,Norman Wells,加拿大,0
+YVR,温哥华国际机场,,温哥华,,加拿大,0
+YVT,,Buffalo Narrows Airport,,Buffalo Narrows,加拿大,0
+YVV,,Wiarton Airport,,Wiarton,加拿大,0
+YVZ,,Deer Lake Airport,,Deer Lake,加拿大,0
+YWA,,Petawawa Airport,,Petawawa,加拿大,0
+YWB,,Wakeham Bay Airport,,Kangiqsujuaq,加拿大,0
+YWF,,Downtown Waterfront Heliport,哈利法克斯,,加拿大,0
+YWG,温尼伯詹姆斯·阿姆斯特朗·理查森国际机场,,温尼伯,,加拿大,0
+YWH,,Victoria Inner Harbour Airport,维多利亚,,加拿大,0
+YWJ,,Deline Airport,,Deline,加拿大,0
+YWK,,Wabush Airport,,Wabush,加拿大,0
+YWL,,Williams Lake Airport,威廉士湖,,加拿大,0
+YWM,,Williams Harbour Airport,,Williams Harbour,加拿大,0
+YWN,,Winisk Airport,,Winisk,加拿大,0
+YWP,,Webequie Airport,,Webequie,加拿大,0
+YWR,,White River Airport,,White River,加拿大,0
+YWS,,Whistler/Green Lake Water Aerodrome,惠斯勒,,加拿大,0
+YWV,,Wainwright Aerodrome,,Wainwright,加拿大,0
+YWY,,Wrigley Airport,,Wrigley,加拿大,0
+YXC,,Cranbrook/Canadian Rockies International Airport,,Cranbrook,加拿大,0
+YXD,,Edmonton City Centre Airport,埃德蒙顿,,加拿大,0
+YXE,萨斯卡通约翰·乔治·迪芬贝克国际机场,,萨斯卡通,,加拿大,0
+YXF,,Snake River Airport,,Snake River,加拿大,0
+YXH,,Medicine Hat Airport,梅迪辛哈特,,加拿大,0
+YXJ,,Fort St. John Airport,,Fort St. John,加拿大,0
+YXK,,Rimouski Airport,,Rimouski,加拿大,0
+YXL,,Sioux Lookout Airport,,Sioux Lookout,加拿大,0
+YXN,,Whale Cove Airport,,Whale Cove,加拿大,0
+YXP,,Pangnirtung Airport,,Pangnirtung,加拿大,0
+YXQ,,Beaver Creek Airport,河狸溪,,加拿大,0
+YXR,,Earlton - Timiskaming Regional Airport,,Earlton,加拿大,0
+YXS,乔治皇子城机场,,乔治王子城,,加拿大,0
+YXT,,Northwest Regional Airport,,Kitimat,加拿大,0
+YXT,,Northwest Regional Airport,,Terrace,加拿大,0
+YXU,伦敦国际机场,,伦敦,,加拿大,0
+YXX,亚博斯福国际机场,,亚博斯福,,加拿大,0
+YXY,埃里克·尼尔森怀特霍斯国际机场,,白马,,加拿大,0
+YXZ,,Wawa Airport,,Wawa,加拿大,0
+YYA,,Big Bay Yacht Club Airport,,Big Bay,加拿大,0
+YYB,,North Bay/Jack Garland Airport,,North Bay,加拿大,0
+YYC,卡加利国际机场,,卡加利,,加拿大,0
+YYD,,Smithers Airport,,Smithers,加拿大,0
+YYE,,Fort Nelson Airport,,Fort Nelson,加拿大,0
+YYF,彭蒂克顿区域机场,,,Penticton,加拿大,0
+YYG,,Charlottetown Airport,夏洛特顿,,加拿大,0
+YYH,,Taloyoak Airport,,Taloyoak,加拿大,0
+YYI,,Rivers Airport,,Rivers,加拿大,0
+YYJ,维多利亚国际机场,,维多利亚,,加拿大,0
+YYL,,Lynn Lake Airport,,Lynn Lake,加拿大,0
+YYM,,Cowley Airport,,Cowley,加拿大,0
+YYN,,Swift Current Airport,,Swift Current,加拿大,0
+YYQ,,Churchill Airport,,Churchill,加拿大,0
+YYR,,CFB Goose Bay,,Goose Bay,加拿大,0
+YYT,圣约翰斯国际机场,,圣约翰斯,,加拿大,0
+YYU,,Kapuskasing Airport,,Kapuskasing,加拿大,0
+YYW,,Armstrong Airport,,Armstrong,加拿大,0
+YYY,,Mont-Joli Airport,,Mont-Joli,加拿大,0
+YYZ,多伦多皮尔逊国际机场,,密西沙加,,加拿大,0
+YZA,,Ashcroft Airport,,Ashcroft,加拿大,0
+YZC,,Beatton River Airport,,Beatton River,加拿大,0
+YZE,,Gore Bay-Manitoulin Airport,,Gore Bay,加拿大,0
+YZF,,Yellowknife Airport,黄刀镇,,加拿大,0
+YZG,,Salluit Airport,,Salluit,加拿大,0
+YZH,,Slave Lake Airport,,Slave Lake,加拿大,0
+YZM,,Buchans Airport,,Buchans,加拿大,0
+YZP,,Sandspit Airport,,Sandspit,加拿大,0
+YZR,,Sarnia Chris Hadfield Airport,萨尼亚,,加拿大,0
+YZS,,Coral Harbour Airport,,Coral Harbour,加拿大,0
+YZT,,Port Hardy Airport,,Port Hardy,加拿大,0
+YZU,,Whitecourt Airport,,Whitecourt,加拿大,0
+YZV,,Sept-Îles Airport,,Sept-Îles,加拿大,0
+YZW,,Teslin Airport,,Teslin,加拿大,0
+YZX,,CFB Greenwood,,Greenwood,加拿大,0
+YZY,张掖甘州机场,Zhangye Ganzhou Airport,张掖,,中国,1
+ZAA,,Alice Arm Airport,,Alice Arm,加拿大,0
+ZAC,,York Landing Airport,,York Landing,加拿大,0
+ZAD,,Zadar Airport,扎达尔,,克罗地亚,0
+ZAG,萨格勒布机场,,札格雷布,,克罗地亚,0
+ZAH,,Zahedan Airport,扎黑丹,,伊朗,0
+ZAJ,,Zaranj Airport,扎兰季,,阿富汗,0
+ZAL,,Pichoy Airport,瓦尔迪维亚,,智利,0
+ZAM,,Zamboanga International Airport,三宝颜,,菲律宾,0
+ZAO,,Laberandie Airport,卡奥尔,,法国,0
+ZAR,,Zaria Airport,扎里亚,,尼日利亚,0
+ZAT,昭通机场,,昭通,,中国,1
+ZBE,,Dolní Benesov Airport,,Zábreh,捷克,0
+ZBF,,Bathurst Airport,,Bathurst,加拿大,0
+ZBK,,Žabljak Airport,扎布利亚克,,黑山,0
+ZBM,,Bromont Airport,,Bromont,加拿大,0
+ZBO,,Bowen Airport,,Bowen,澳洲,0
+ZBR,,Konarak Airport,,Chabahar,伊朗,0
+ZBY,,Sayaboury Airport,,Sainyabuli,老挝,0
+ZCL,,General Leobardo C. Ruiz International Airport,萨卡特卡斯,,墨西哥,0
+ZCN,,Celle Air Base,策勒,,德国,0
+ZCO,,Maquehue Airport,特木科,,智利,0
+ZEC,,Secunda Airport,,Secunda,南非,0
+ZEG,,Senggo Airport,,Senggo,印尼,0
+ZEL,,Denny Island Aerodrome,,Bella Bella,加拿大,0
+ZEM,,Eastmain River Airport,,Eastmain,加拿大,0
+ZER,,Zero Airport ,,Ziro,印度,0
+ZFA,,Faro Airport,,Faro,加拿大,0
+ZFB,,Old Fort Bay Airport,,Bonne-Espérance,加拿大,0
+ZFD,,Fond-du-Lac Airport,,Fond-du-Lac,加拿大,0
+ZFL,,South Trout Lake Airport,,South Trout Lake,加拿大,0
+ZFM,,Fort McPherson Airport,,Fort McPherson,加拿大,0
+ZFN,,Tulita Airport,,Tulita,加拿大,0
+ZGC,中川机场,,兰州,,中国,1
+ZGF,,Grand Forks Airport,,Grand Forks,加拿大,0
+ZGI,,Gods River Airport,,Gods River,加拿大,0
+ZGL,,South Galway Airport,,South Galway,澳洲,0
+ZGM,,Ngoma Airport,,Ngoma,赞比亚,0
+ZGR,,Little Grand Rapids Airport,,Little Grand Rapids,加拿大,0
+ZGS,,Gethsemani Airport,,Gethsemani,加拿大,0
+ZHA,湛江机场,,湛江,,中国,1
+ZHM,,Shamshernagar Airport,,Shamshernagar,孟加拉,0
+ZHP,,High Prairie Airport,,High Prairie,加拿大,0
+ZHY,香山机场,,中卫,,中国,1
+ZIC,,Victoria Airport,,Victoria,智利,0
+ZIG,,Ziguinchor Airport,济金绍尔,,塞内加尔,0
+ZIH,,Ixtapa-Zihuatanejo International Airport,芝华塔尼欧,,墨西哥,0
+ZJG,,Jenpeg Airport,,Jenpeg,加拿大,0
+ZJN,,Swan River Airport,天鹅河,,加拿大,0
+ZKB,,Kasaba Bay Airport,,Kasaba Bay,赞比亚,0
+ZKE,,Kashechewan Airport,,Kashechewan,加拿大,0
+ZKG,,Kegaska Airport,,Kegaska,加拿大,0
+ZKL,,Bintuni Airport,,Bintuni,印尼,0
+ZKM,,Sette Cama Airport,,Akieni,加蓬,0
+ZKP,,Kasompe Airport,钦戈拉,,赞比亚,0
+ZLG,,El Gouera Airport,,El Gouera,毛里塔尼亚,0
+ZLO,,Playa de Oro International Airport,曼萨尼约,,墨西哥,0
+ZLT,,La Tabatière Airport,,La Tabatière,加拿大,0
+ZMD,,Sena Madureira Airport,,Sena Madureira,巴西,0
+ZMH,,South Cariboo Regional Airport,,108 Mile Ranch,加拿大,0
+ZMM,,Zamora Airport,萨莫拉-德伊达尔戈,,墨西哥,0
+ZMT,,Masset Airport,,Masset,加拿大,0
+ZNA,,Nanaimo Harbour Water Airport,纳奈莫,,加拿大,0
+ZNC,,Nyac Airport,,Nyac,美国,0
+ZND,,Zinder Airport,津德尔,,尼日,0
+ZNE,,Newman Airport,,Newman,澳洲,0
+ZNG,,Negginan Airport,,Negginan,加拿大,0
+ZNU,,Namu Airport,,Namu,加拿大,0
+ZNZ,,Zanzibar Airport,桑吉巴,,坦桑尼亚,0
+ZOF,,Ocean Falls Airport,,Ocean Falls,加拿大,0
+ZOS,,Cañal Bajo Carlos Hott Siebert Airport,,Osorno,智利,0
+ZPB,,Sachigo Lake Airport,,Sachigo Lake First Nation,加拿大,0
+ZPC,,Pucón Airport,普孔,,智利,0
+ZPH,,Zephyrhills Municipal Airport,,Zephyrhills,美国,0
+ZPO,,Pinehouse Lake Airport,,Pinehouse Lake,加拿大,0
+ZPQ,,Rheine Air Base,,Rheine,德国,0
+ZQN,,Queenstown Airport,皇后镇,,新西兰,0
+ZQS,,Queen Charlotte Island Airport,,Haida Gwaii,加拿大,0
+ZQW,,Zweibrücken Airport,茨魏布吕肯,,德国,0
+ZRH,苏黎世机场,,苏黎世,,瑞士,0
+ZRI,,Serui Airport,,Serui,印尼,0
+ZRJ,,Round Lake Airport,,Round Lake,加拿大,0
+ZRM,,Sarmi Airport,,Sarmi,印尼,0
+ZSA,,San Salvador Airport ,圣萨尔瓦多岛,,巴哈马,0
+ZSE,,Pierrefonds Airport,圣皮埃尔 ,,留尼汪,0
+ZSJ,,Sandy Lake Airport,,Sandy Lake,加拿大,0
+ZSP,,St. Paul Aerodrome,,St. Paul,加拿大,0
+ZSS,,Sassandra Airport,萨桑德拉,,科特迪瓦,0
+ZST,,Stewart Aerodrome,,Stewart,加拿大,0
+ZSW,,Prince Rupert/Seal Cove Water Airport,鲁珀特王子港,,加拿大,0
+ZTA,,Tureira Airport,,Tureira,法属波利尼西亚,0
+ZTB,,Tête-à-la-Baleine Airport,,Tête-à-la-Baleine,加拿大,0
+ZTH,,Zakynthos International Airport,扎金索斯,,希腊,0
+ZTM,,Shamattawa Airport,,Shamattawa,加拿大,0
+ZTR,,Zhitomir Airport,日托米尔,,乌克兰,0
+ZTS,,Tahsis Water Aerodrome,,Tahsis Water,加拿大,0
+ZUC,,Ignace Municipal Airport,,Ignace Municipal,加拿大,0
+ZUD,,Itauba Airport,,Ancud,智利,0
+ZUE,,Zuenoula Airport,,Zuenoula,科特迪瓦,0
+ZUH,珠海机场,,珠海,,中国,1
+ZUL,,Zilfi Airport,,Zilfi,沙特阿拉伯,0
+ZUM,,Churchill Falls Airport,,Churchill Falls,加拿大,0
+ZVA,,Miandrivazo Airport,米安德里瓦祖,,马达加斯加,0
+ZVG,,Springvale Airport,,Springvale,澳洲,0
+ZVK,,Savannakhet Airport,凯山丰威汉,,老挝,0
+ZWA,,Andapa Airport,安达帕,,马达加斯加,0
+ZWL,,Wollaston Lake Airport,,Wollaston Lake,加拿大,0
+ZWS,,Stuttgart Hauptbahnhof,斯图加特,,德国,0
+ZYI,遵义机场,Zunyi Airport,遵义,,中国,1
+ZYL,,Osmani International Airport,,Sylhet,孟加拉,0
+ZZU,,Mzuzu Airport,姆祖祖,,马拉维,0
+ZZV,,Zanesville Municipal Airport,曾斯维尔 ,,美国,0
+FUG,阜阳机场,,阜阳,,中国,1
+WUS,武夷山机场,,南平,,中国,1
+JGN,嘉峪关机场,,嘉峪关,,中国,1
+JGN,嘉峪关机场,,酒泉,,中国,1
+JIC,金川机场,,金昌,,中国,1
+IQN,庆阳机场,,庆阳,,中国,1
+THQ,麦积山机场,,天水,,中国,1
+FUO,沙堤机场,,佛山,,中国,1
+HUZ,平潭机场,,惠州,,中国,1
+MXZ,梅县长岗岌机场,,梅州,,中国,1
+SWA,揭阳潮汕机场,,汕头,,中国,1
+SWA,揭阳潮汕机场,,揭阳,,中国,1
+SWA,揭阳潮汕机场,,潮州,,中国,1
+AEB,右江机场,,百色,,中国,1
+LZH,白莲机场,,柳州,,中国,1
+AVA,黄果树机场,,安顺,,中国,1
+HZH,黎平机场,,黎平,,中国,1
+LLB,荔波机场,,黔南,,中国,1
+ACX,兴义机场,,黔西南,,中国,1
+TEN,凤凰机场,,铜仁,,中国,1
+SHP,山海关机场,,秦皇岛,,中国,1
+LYA,北郊机场,,洛阳,,中国,1
+DQA,萨尔图机场,,大庆,,中国,1
+HEK,黑河机场,,黑河,,中国,1
+JXA,兴凯湖机场,,鸡西,,中国,1
+JMU,东郊机场,,佳木斯,,中国,1
+OHE,古莲机场,,漠河,,中国,1
+NDG,三家子机场,,齐齐哈尔,,中国,1
+LDS,林都机场,,伊春,,中国,1
+ENH,许家坪机场,,恩施,,中国,1
+CGD,桃花源机场,,常德,,中国,1
+HJJ,芷江机场,,怀化,,中国,1
+DYG,荷花机场,,张家界,,中国,1
+HIA,涟水机场,,淮安,,中国,1
+JGS,井冈山机场,,吉安,,中国,1
+JDZ,罗家机场,,景德镇,,中国,1
+JIU,庐山机场,,九江,,中国,1
+TNH,三源浦机场,,通化,,中国,1
+CNI,大长山岛机场,,长海,,中国,1
+CHG,朝阳机场,,朝阳,,中国,1
+DDG,浪头机场,,丹东,,中国,1
+JNZ,小岭子机场,,锦州,,中国,1
+CIF,玉龙机场,,赤峰,,中国,1
+DSN,伊金霍洛机场,,鄂尔多斯,,中国,1
+ERL,赛乌苏机场,,二连浩特,,中国,1
+HLD,海拉尔机场,,呼伦贝尔,,中国,1
+NZH,西郊机场,,满洲里,,中国,1
+TGO,通辽机场,,通辽,,中国,1
+HLH,乌兰浩特机场,,乌兰浩特,,中国,1
+GYU,六盘山机场,,固原,,中国,1
+GOQ,格尔木机场,,格尔木,,中国,1
+ENY,二十里堡机场,,延安,,中国,1
+UYN,榆阳机场,,榆林,,中国,1
+DOY,胜利机场,,东营,,中国,1
+JNG,济宁曲阜机场,,曲阜,,中国,1
+JNG,济宁曲阜机场,,济宁,,中国,1
+LYI,沭埠岭机场,,临沂,,中国,1
+CIH,王村机场,,长治,,中国,1
+DCY,亚丁机场,,稻城,,中国,1
+GYS,盘龙机场,,广元,,中国,1
+JZH,九寨黄龙机场,,松潘,,中国,1
+JZH,九寨黄龙机场,,九寨沟,,中国,1
+KGT,甘孜康定机场,,康定,,中国,1
+LZO,蓝田机场,,泸州,,中国,1
+MIG,南郊机场,,绵阳,,中国,1
+PZI,保安营机场,,攀枝花,,中国,1
+BPX,邦达机场,,昌都,,中国,1
+NGQ,昆莎机场,,阿里,,中国,1
+RKZ,和平机场,,日喀则,,中国,1
+BPL,博乐阿拉山口机场,,博尔塔拉,,中国,1
+FYN,机场,,富蕴,,中国,1
+TLQ,交河机场,,吐鲁番,,中国,1
+DLU,大理机场,,大理,,中国,1
+LUM,芒市机场,,德宏,,中国,1
+LNJ,临沧机场,,临沧,,中国,1
+SYM,思茅机场,,普洱,,中国,1
+TCZ,驼峰机场,,腾冲,,中国,1
+JUZ,衢州机场,,衢州,,中国,1
+HYN,路桥机场,,台州,,中国,1
+HSN,普陀山机场,,舟山,,中国,1
+JIQ,武陵山机场,,黔江,,中国,1
+HSC,桂头机场,,韶关,,中国,1
+ZQZ,张家口机场,,张家口,,中国,1
+JGD,加格达奇机场,,大兴安岭,,中国,1
+NBS,长白山机场,,白山,,中国,1
+RLK,天吉泰机场,,巴彦淖尔,,中国,1
+BKI,亚庇国际机场,,,sabah,马来西亚,0
+COQ,乔巴山机场,,乔巴山,CHOIBALSAN,蒙古,0
+CRK,克拉克国际机场,Diosdado Macapagal International Airport,马尼拉,,菲律宾,0
+DYU,杜尚別国际机场,,杜尚別,,塔吉克斯坦,0
+FSZ,静冈机场,Shizuoka Airport,静冈,Shizuoka,日本,0
+HSG,佐贺机场,Saga Airport,佐贺,Saga,日本,0
+HTA,赤塔机场,Chita Airport,赤塔,Chita,俄罗斯,0
+IBR,茨城机场,Ibaraki Airport,茨城,Ibaraki,日本,0
+IKA,伊玛目霍梅尼国际机场,Imam Khomeini International Airport,德黑兰,Teheran,伊朗,0
+KIJ,新泻机场,Niigata Airport,新泻,Niigata,日本,0
+LBD,苦盏机场,Khudzhand Airport,苦盏,Khudzhand,塔吉克斯坦,0
+LHW,中川机场,,兰州,,中国,1
+MDL,曼德勒机场,Mandalay Airport,曼德勒,Mandalay,缅甸,0
+MWX,务安国际机场,Muan Intl Airport,务安,Muan,韩国,0
+MWX,务安国际机场,Muan Intl Airport,光州,Kwangju,韩国,0
+OMS,鄂木斯克机场,Omsk Airport,鄂木斯克,Omsk,俄罗斯,0
+OSS,奥什机场,Osh Airport,奥什,Osh,吉尔吉斯斯坦,0
+OVB,托尔马切沃机场/新西伯利亚机场,NOVOSIBIRSK/TOLMACHEVO,鄂毕,,俄罗斯,0
+ROR,戈罗尔机场,Airai Airport,戈罗尔,,帛流,0
+SVX,叶卡捷琳堡机场,Sverdlovsk Airport,叶卡捷琳堡,Ekaterinburg,俄罗斯,0
+TAK,高松机场,Takamatsu Airport,高松,Takamatsu,日本,0
+TNR,塔那那利佛/伊瓦图国际机场,Antananarivo Airport,塔那那利佛,Antanananrivo,马达加斯加,0
+TSE,阿斯塔纳国际机场,Astana Airport,阿斯塔纳,Astana,哈萨克斯坦,0
+TXL,柏林泰格尔奥托·利林塔尔机场,,柏林,Berlin,德国,0
+UKK,厄斯克门机场,Ust-Kamenogorsk Airport,厄斯克门,Ust-Kamenogorsk,哈萨克斯坦,0
+UUS,南萨哈林斯克机场,Yuzhno-Sakhalinsk Khomutovo,南萨哈林斯克,Yuzhno-Sakhalinsk,俄罗斯,0
