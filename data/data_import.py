@@ -13,7 +13,7 @@ def data_import(dbpath):
 
     conn = sqlite3.connect(dbpath)
     
-    f = open("fetched_flights", "r")
+    f = open("fetched_flights", "r", encoding="utf8")
     lines = f.readlines()
     f.close()
     
@@ -36,7 +36,7 @@ def data_import(dbpath):
             ]
         )
 
-    f = open('airport_list', 'r')
+    f = open('airport_list', 'r', encoding="utf8")
     lines = f.readlines()
     f.close()
 
@@ -54,7 +54,7 @@ def data_import(dbpath):
             ]
         )
     
-    f = open('airline_list', 'r')
+    f = open('airline_list', 'r', encoding="utf8")
     lines = f.readlines()
     f.close()
 
