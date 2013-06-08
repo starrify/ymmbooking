@@ -140,12 +140,15 @@ def flight_search():
 
 @bottle_app.get('/flight/search/async')
 def flight_search_json():
-    d_city, a_city, d_date = list(
-        map(lambda x: Misc.unicodify(bottle.request.query.get(x), 'utf8'), 
-            ['departure_city', 'arrival_city', 'departure_date']))
+    d_city, a_city, d_date = list(map(
+        bottle.request.query.get, 
+        ['departure_city', 'arrival_city', 'departure_date']))
 
     if not all([d_city, a_city, d_date]):
         return { 'flight': [] }
+
+    d_city, a_city, d_date = list(map(
+        lambda x: Misc.unicodify(x, 'utf8'), [d_city, a_city, d_date]))
 
     db = Database(app.config)
     
