@@ -128,24 +128,27 @@ def static_css_img_js(category, filepath):
 
 @bottle_app.route('/')
 @bottle_app.route('/index')
-@bottle.view(app.config.template_path + 'index.tpl')
+@bottle.view(app.config.template_path + 'index.html')
 @Misc.auth_validate
 def index():
     return {}
 
 @bottle_app.get('/flight/search')
-@bottle.view(app.config.template_path + 'flight/search.tpl')
+@bottle.view(app.config.template_path + 'flight/search.html')
 def flight_search():
     return {}
 
 @bottle_app.get('/flight/search/async')
 def flight_search_json():
-    d_city, a_city, d_date = list(
-        map(lambda x: Misc.unicodify(bottle.request.query.get(x), 'utf8'), 
-            ['departure_city', 'arrival_city', 'departure_date']))
+    d_city, a_city, d_date = list(map(
+        bottle.request.query.get, 
+        ['departure_city', 'arrival_city', 'departure_date']))
 
     if not all([d_city, a_city, d_date]):
         return { 'flight': [] }
+
+    d_city, a_city, d_date = list(map(
+        lambda x: Misc.unicodify(x, 'utf8'), [d_city, a_city, d_date]))
 
     db = Database(app.config)
     
@@ -168,7 +171,7 @@ def flight_search_json():
 # following are samples of flight/oneway
 
 @bottle_app.get('/flight/oneway')
-@bottle.view(app.config.template_path + 'flight/oneway.tpl')
+@bottle.view(app.config.template_path + 'flight/oneway.html')
 def oneway_get():
     d = { 
         "a1": "Airport 1", 
@@ -180,7 +183,7 @@ def oneway_get():
     return {'flights': [d, d]}
 
 @bottle_app.get('/flight/oneway_async')
-@bottle.view(app.config.template_path + 'flight/oneway_async.tpl')
+@bottle.view(app.config.template_path + 'flight/oneway_async.html')
 def oneway_async_get():
     return {}
 
@@ -196,6 +199,6 @@ def oneway_async_json_get():
     return {"flight": [d,d]}#json.dumps(d)
 
 if __name__ == '__main__':
-    #bottle.run(bottle_app, host='localhost', port=8080, debug=True)
-    bottle.run(bottle_app, server='cherrypy', host='localhost', port=8080, debug=True)
+    bottle.run(bottle_app, host='localhost', port=8080, debug=True)
+    #bottle.run(bottle_app, server='cherrypy', host='localhost', port=8080, debug=True)
 
