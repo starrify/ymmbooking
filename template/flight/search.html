@@ -25,7 +25,7 @@ function fetch_flight(d_city, a_city, d_date) {
               $('#flight_table').html('')
               $('#flight_row').html('')
               $('#flight_time1').html('')
-              $("#flight_list").append($("<div>"))
+              $("#flight_list").append($("<div class=info_div>"))
               $("#flight_table").append($("<table class=info_table>"))
               $("#flight_list").append($("<tr>"))
               $("#flight_list").append($("<td class=info_td>"))
@@ -44,22 +44,30 @@ function fetch_flight(d_city, a_city, d_date) {
               
               for (var i in data.flight) {
               flight = data.flight[i]
-              console.log(flight)
-              $("#flight_list").append($("<tr>"))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:flight[13]+flight[1]}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:flight[2]}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:flight[4]}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:flight[11]}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:flight[12]}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:flight[3]}))
-              $("#flight_list").append($("<td class=info_td>"))
+              $("#flight_list").append($("<div>",{html:flight[13]+flight[1]}))
+              $("#flight_list").append($("<div>",{html:flight[2]}))
+              $("#flight_list").append($("<div>",{html:flight[4]}))
+              $("#flight_list").append($("<div>",{html:flight[11]}))
+              $("#flight_list").append($("<div>",{html:flight[12]}))
+              $("#flight_list").append($("<div>",{html:flight[3]}))
               $("#flight_list").append($("<button class=btn btn-info >"))
+
+
+//              $("#flight_list").append($("<tr>"))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[13]+flight[1]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[2]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[4]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[11]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[12]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[3]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<button class=btn btn-info >"))
               
           }
               if (data.flight.length == 0)
@@ -122,9 +130,9 @@ function fetch_flight(d_city, a_city, d_date) {
 				<div>
 					<label> 城市 </label>
 					<label> 从：</label>
-					<input type="text" size="20" id="departure_city" value maxlength="30">
+					<input type="text" value="杭州" size="20" id="departure_city" value maxlength="30">
 					<label> 到：</label>
-					<input type="text" size="20" id="arrival_city" value maxlength="30">
+					<input type="text" value="北京" size="20" id="arrival_city" value maxlength="30">
 				</div>
 
 				<div>
@@ -140,7 +148,7 @@ function fetch_flight(d_city, a_city, d_date) {
 				</div>
 		</div>		
 	   </div>
-        <div id='flight_list'>
+        <div id='flight_list' style="display:inline" >
         <table id='flight_table'>
         <tr id='flight_row'>
         <td id='flight_time1'>
