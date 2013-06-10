@@ -129,11 +129,11 @@ def static_css_img_js(category, filepath):
 @bottle_app.route('/')
 @bottle_app.route('/index')
 @bottle_app.route('/spcart')
+@bottle_app.route('/payment')
 @bottle.view(app.config.template_path + 'index.html')
 @bottle.view(app.config.template_path + 'spcart.html')
+@bottle.view(app.config.template_path + 'payment.html')
 @Misc.auth_validate
-def index():
-    return {}
 
 def index():
     return {}
