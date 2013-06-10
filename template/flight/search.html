@@ -124,28 +124,32 @@ function fetch_flight(d_city, a_city, d_date) {
 	  <div class="well sidebar-nav">
 	  <div class="order_list">
 		<div class="hotelbook">
-				<div>
-					<label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label><label><input type="checkbox" class="singletrip" id="singletrip" checked>&nbsp单程</label><label>&nbsp&nbsp&nbsp&nbsp</label><label><input type="checkbox" class="roundtrip" id="roundtrip">&nbsp往返</label>
-				</div>
-				<div>
-					<label> 城市 </label>
-					<label> 从：</label>
-					<input type="text" value="杭州" size="20" id="departure_city" value maxlength="30">
-					<label> 到：</label>
-					<input type="text" value="北京" size="20" id="arrival_city" value maxlength="30">
-				</div>
+				<div class="row-fluid">
+                    <div class="span1 offset1"><input type="checkbox" checked>单程</input></div>
+                    <div class="span1"><input type="checkbox">往返</input></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span1"> 城市</div>
+                    <div class="span1">
+                        <input type="text" value="杭州" size="20" id="departure_city" value maxlength="30">
+                    </div>
+                    <div class="span2"></div>
+                    <div class="span2">
+                        <input type="text" value="北京" size="20" id="arrival_city" value maxlength="30">
+                    </div>
+                </div>
 
-				<div>
-					<label> &nbsp&nbsp&nbsp&nbsp日期 :&nbsp </label>
-					<input type="text" size="20" id="departure_date" value maxlength="30">
-					<label>&nbsp&nbsp&nbsp </label>
-					<input class="search_button" type="button" value="搜索" 
+				<div class="row=fluid">
+					<div class="span1">出发日期</div>
+					<div class="span11"><input type="text" placeholder="yyyy/mm/dd" size="20" id="departure_date" value maxlength="30"></input></div>
+                </div>
+                <input class="search_button" type="button" value="搜索"
                         onclick="fetch_flight(
                             $('#departure_city').val(),
                             $('#arrival_city').val(),
                             $('#departure_date').val()
                             )">
-				</div>
+                        
 		</div>		
 	   </div>
         <div id='flight_list' style="display:inline" >
