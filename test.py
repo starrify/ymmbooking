@@ -159,6 +159,11 @@ def flight_search():
 def flight_search():
     return {}
 
+@bottle_app.get('/trade/remark')
+@bottle.view(app.config.template_path + 'trade/remark.html')
+def flight_search():
+    return {}
+
 @bottle_app.get('/flight/search/async')
 def flight_search_json():
     d_city, a_city, d_date = list(map(
