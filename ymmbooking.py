@@ -168,35 +168,21 @@ def flight_search_json():
     
     return { 'flight': ret_flights }
 
-# following are samples of flight/oneway
-
-@bottle_app.get('/flight/oneway')
-@bottle.view(app.config.template_path + 'flight/oneway.html')
-def oneway_get():
-    d = { 
-        "a1": "Airport 1", 
-        "a2": "Airport 2", 
-        "dt1": "Datetime 1", 
-        "dt2": "Datetime 2",
-        "fn": "FlightNo",
-    }
-    return {'flights': [d, d]}
-
-@bottle_app.get('/flight/oneway_async')
-@bottle.view(app.config.template_path + 'flight/oneway_async.html')
-def oneway_async_get():
+@bottle_app.get('/order')
+@bottle.view(app.config.template_path + 'order.html')
+def order():
     return {}
 
-@bottle_app.get('/flight/oneway_async_json')
-def oneway_async_json_get():
-    d = { 
-        "a1": "Airport 1", 
-        "a2": "Airport 2", 
-        "dt1": "Datetime 1", 
-        "dt2": "Datetime 2",
-        "fn": "FlightNo",
-        }
-    return {"flight": [d,d]}#json.dumps(d)
+@bottle_app.get('/booking_history')
+@bottle.view(app.config.template_path + 'booking_history.html')
+def booking_history():
+    return {}
+
+@bottle_app.get('/trade/remark')
+@bottle.view(app.config.template_path + 'trade/remark.html')
+def trade_remark():
+    return {}
+
 
 if __name__ == '__main__':
     bottle.run(bottle_app, host='localhost', port=8080, debug=True)
