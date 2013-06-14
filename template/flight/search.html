@@ -5,6 +5,7 @@
     <meta charset=utf-8>        
 	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
+    <link href="/css/3.css" rel="stylesheet" type="text/css">
 <!--what a mess code.-->
 <script src="/js/jquery.js"></script>
 <script>
@@ -18,18 +19,61 @@ function fetch_flight(d_city, a_city, d_date) {
             arrival_city:   a_city, 
             departure_date: d_date, 
         },
-        function(data) {
-            console.log(data)
-            $('#flight_list').html('')
-            for (var i in data.flight) {
-                flight = data.flight[i]
-                console.log(flight)
-                $("#flight_list").append($("<div>", { html: flight.join(", ") }))
-            }
-            if (data.flight.length == 0)
-                $('#flight_list').html('未查询到满足条件的航班')
-        }
-    );
+              function(data) {
+              console.log(data)
+              $('#flight_list').html('')
+              $('#flight_table').html('')
+              $('#flight_row').html('')
+              $('#flight_time1').html('')
+              $("#flight_list").append($("<div class=info_div>"))
+              $("#flight_table").append($("<table class=info_table>"))
+              $("#flight_list").append($("<tr>"))
+              $("#flight_list").append($("<td class=info_td>"))
+              $("#flight_list").append($("<td>",{html:"航班信息"}))
+              $("#flight_list").append($("<td class=info_td>"))
+              $("#flight_list").append($("<td>",{html:"起飞时间"}))
+              $("#flight_list").append($("<td class=info_td>"))
+              $("#flight_list").append($("<td>",{html:"降落时间"}))
+              $("#flight_list").append($("<td class=info_td>"))
+              $("#flight_list").append($("<td>",{html:"起飞机场"}))
+              $("#flight_list").append($("<td class=info_td>"))
+              $("#flight_list").append($("<td>",{html:"降落机场"}))
+              $("#flight_list").append($("<td class=info_td>"))
+              $("#flight_list").append($("<td>",{html:"最低报价"}))
+
+              
+              for (var i in data.flight) {
+              flight = data.flight[i]
+              $("#flight_list").append($("<div>",{html:flight[13]+flight[1]}))
+              $("#flight_list").append($("<div>",{html:flight[2]}))
+              $("#flight_list").append($("<div>",{html:flight[4]}))
+              $("#flight_list").append($("<div>",{html:flight[11]}))
+              $("#flight_list").append($("<div>",{html:flight[12]}))
+              $("#flight_list").append($("<div>",{html:flight[3]}))
+              $("#flight_list").append($("<button class=btn btn-info >"))
+
+
+//              $("#flight_list").append($("<tr>"))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[13]+flight[1]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[2]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[4]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[11]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[12]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<td>",{html:flight[3]}))
+//              $("#flight_list").append($("<td class=info_td>"))
+//              $("#flight_list").append($("<button class=btn btn-info >"))
+              
+          }
+              if (data.flight.length == 0)
+              $('#flight_list').html('未查询到满足条件的航班')
+              }
+              );
 }
 </script>
 
@@ -80,35 +124,43 @@ function fetch_flight(d_city, a_city, d_date) {
 	  <div class="well sidebar-nav">
 	  <div class="order_list">
 		<div class="hotelbook">
-				<div>
-					<label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </label>
-                        <label><input type="checkbox" class="singletrip" id="singletrip" checked>&nbsp单程</label>
-                        
-                        <label>&nbsp&nbsp&nbsp&nbsp</label>
-                        <label><input type="checkbox" class="roundtrip" id="roundtrip">&nbsp往返</label>
-				</div>
-				<div>
-					<label> 城市 </label>
-					<label> 从：</label>
-					<input type="text" size="20" id="departure_city" value maxlength="30">
-					<label> 到：</label>
-					<input type="text" size="20" id="arrival_city" value maxlength="30">
-				</div>
-				<li> </li>
-				<div>
-					<label> &nbsp&nbsp&nbsp&nbsp日期 :&nbsp </label>
-					<input type="text" size="20" id="departure_date" value maxlength="30">
-					<label>&nbsp&nbsp&nbsp </label>
-					<input class="search_button" type="button" value="搜索" 
+				<div class="row-fluid">
+                    <div class="span1 offset1"><input type="checkbox" checked>单程</input></div>
+                    <div class="span1"><input type="checkbox">往返</input></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span1"> 城市</div>
+                    <div class="span1">
+                        <input type="text" value="杭州" size="20" id="departure_city" value maxlength="30">
+                    </div>
+                    <div class="span2"></div>
+                    <div class="span2">
+                        <input type="text" value="北京" size="20" id="arrival_city" value maxlength="30">
+                    </div>
+                </div>
+
+				<div class="row=fluid">
+					<div class="span1">出发日期</div>
+					<div class="span11"><input type="text" placeholder="yyyy/mm/dd" size="20" id="departure_date" value maxlength="30"></input></div>
+                </div>
+                <input class="search_button" type="button" value="搜索"
                         onclick="fetch_flight(
                             $('#departure_city').val(),
                             $('#arrival_city').val(),
                             $('#departure_date').val()
                             )">
-				</div>
+                        
 		</div>		
 	   </div>
-        <div id='flight_list'></div>
+        <div id='flight_list' style="display:inline" >
+        <table id='flight_table'>
+        <tr id='flight_row'>
+        <td id='flight_time1'>
+        
+    
+                        </table>
+        </div>
+        
 	  </div>
     </div>
 		</div>
