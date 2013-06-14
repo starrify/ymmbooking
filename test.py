@@ -128,13 +128,49 @@ def static_css_img_js(category, filepath):
 
 @bottle_app.route('/')
 @bottle_app.route('/index')
+#@bottle_app.route('/spcart')
+#@bottle_app.route('/payment')
 @bottle.view(app.config.template_path + 'index.html')
+#@bottle.view(app.config.template_path + 'spcart.html')
+#@bottle.view(app.config.template_path + 'payment.html')
 @Misc.auth_validate
+
 def index():
     return {}
 
+
 @bottle_app.get('/flight/search')
 @bottle.view(app.config.template_path + 'flight/search.html')
+def flight_search():
+    return {}
+
+@bottle_app.get('/hotel/search1')
+@bottle.view(app.config.template_path + 'hotel/search1.html')
+def flight_search():
+    return {}
+
+@bottle_app.get('/hotel/search')
+@bottle.view(app.config.template_path + 'hotel/search.html')
+def flight_search():
+    return {}
+
+@bottle_app.get('/order')
+@bottle.view(app.config.template_path + 'order.html')
+def flight_search():
+    return {}
+
+@bottle_app.get('/payment')
+@bottle.view(app.config.template_path + 'payment.html')
+def flight_search():
+    return {}
+
+@bottle_app.get('/booking_history')
+@bottle.view(app.config.template_path + 'booking_history.html')
+def flight_search():
+    return {}
+
+@bottle_app.get('/trade/remark')
+@bottle.view(app.config.template_path + 'trade/remark.html')
 def flight_search():
     return {}
 
