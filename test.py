@@ -154,8 +154,8 @@ def flight_search():
 def flight_search():
     return {}
 
-@bottle_app.get('/booking_history')
-@bottle.view(app.config.template_path + 'booking_history.html')
+@bottle_app.get('/trade/booking_history')
+@bottle.view(app.config.template_path + 'trade/booking_history.html')
 def flight_search():
     return {}
 

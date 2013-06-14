@@ -6,8 +6,42 @@
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
 	<link href="/css/tran_history.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
-
+	<script type="text/javascript" src="/js/jquery.js"></script>
+<!--jscode.-->
+ 
+        <script>
+            function fetch_history(b_date,e_date,typ,u_id)
+            {
+                console.log(type);
+                $('#history_list').html('查询中，请稍候...')
+                $.getJSON(
+                "/trade/booking_history/async",
+                    {
+                          begin_date: b_date,
+                          end_date: e_date,
+                          type:     typ,
+                          Username: u_id,   
+                    },
+                          function(data){
+                          console.log(data)
+                          $('#booking_item').html('')
+                          $('#booking_price').html('')
+                          $('#booking_date').html('')
+                          
+                          for(var i in data.info){
+                          $(#booking_item).append({html:data.information})
+                          $(#booking_price).append({html:data.price})
+                          $(#booking_date).append({html:data.booking_date})
+                          }
+                          if(data.info.length== 0)
+                          $('#booing_item').html('未查询到满足条件的记录')
+                          
+                          }
+                          
+                );
+            }
+        </script>
+        
   </head>
   <body>
   
@@ -58,42 +92,41 @@
 	  <div class="order_list">
 		<form class="orderquery">
             	<label class="control-label" for="time">成交时间</label>
-                <input type="text" placeholder="Begin date" id="lower_date">
-                <input type="text" placeholder="End date" id="lower_date">
+                <input type="text" placeholder="Begin date" id="begin_date">
+                <input type="text" placeholder="End date" id="end_date">
             
             	<label class="control-label" for="time">交易类型</label>
-            	<select id="statequery">
-						<option data-msg="机票预定" value="ALL">机票预定</option>
-						<option data-msg="酒店预定" value="ALL">酒店预定</option>
+            	<select id="type">
+						<option data-msg="机票预定" value="ALL" id="flight_booking">机票预定</option>
+						<option data-msg="酒店预定" value="ALL" id="hotel_booking">酒店预定</option>
                 </select>
              <div>
-			 <button type="submit" class="btn">搜索</button>
+			 <button class="search_button" type="button"
+                        onclick="fetch_history(
+                            $('#begin_date').val(),
+                            $('#end_date').val(),
+                            $('#type').val(),
+                            $('#Username').val(),
+                 )">搜索</button>
              </div>
 		</form>
         <div class="well">
 		<table class="table bought_list " id="order_list">
 		<thead>
-			<tr class="col_name">			
-				<th class="item" colspan="2">商品</th>
+            <div><tr class="col_name">
+				<th class="item" colspan="4">商品</th>
 				<th class="totalprice">价格</th>
-			</tr>
-
+                <th class="deal_time"> 成交时间</th>
+                </tr>
+			</tr></div>
 		</thead>
 		<tbody>
 			<tr class="order_head">
-				<td  colspan="7">
-				<span class="order_num">订单编号： </span>
-                <span class="deal-time">成交时间： </span>
 			</tr>
-			<tr class="order_item">
-				<td class="item_pic"><a><img/></a></td>
-				<td class="item_name"></td>
-				<td class="price"></td>
-				<td class="num"></td>
-				<td class="totalprice" rowspan="2"></td>
-				<td class="logistic" rowspan="2"></td>
-				<td class="trade_state" rowspan="2"></td>
-			</tr>
+            <tr class="order_item">
+                <th class="item" colspan="4"><div id ="booking_item">dsf</div></th>
+                <th class="totalprice"><div id="booking_price">fsdff</div></th>
+                <th class="deal_time"><div id="booking_date">dsff</div></th>
 		</tbody>
 		</table>
 		<div class="pageNac"></div>
