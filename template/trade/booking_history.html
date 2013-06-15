@@ -28,10 +28,11 @@
                           $('#booking_price').html('')
                           $('#booking_date').html('')
                           
-                          for(var i in data.info){
-                          $(#booking_item).append({html:data.information})
-                          $(#booking_price).append({html:data.price})
-                          $(#booking_date).append({html:data.booking_date})
+                          for(var i in data.booking_history){
+                          booking_history = data.booking_history[i]
+                          $(#booking_item).append($("<div>",{html:booking_history[0]}))
+                          $(#booking_price).append($("<div>",{html:booking_history[1]}))
+                          $(#booking_date).append($("<div>",{html:booking_history[2]}))
                           }
                           if(data.info.length== 0)
                           $('#booing_item').html('未查询到满足条件的记录')
@@ -76,9 +77,11 @@
                           <li><a href="hotelbooking.html">酒店预定</a></li>
                           <li><a href="innbooking.html">旅馆预定</a></li>
                           <li class="nav-header">航班</li>
-                          <li><a href="interflight.html">国际航班</a></li>
-                          <li ><a href="domeflight.html">国内航班</a></li>
-                          <li class="active nav-header"><a href="/booking_history">订单历史</a></li>
+                          <li><a href="/flight/search">国际航班</a></li>
+                          <li ><a href="/flight/search">国内航班</a></li>
+                          <li class="nav-header">订单管理</li>
+                          <li class="active"><a href="/trade/booking_history">订单历史</a></li>
+                          <li ><a href="/trade/remark">评价</a></li>
                       </ul>
                   </div><!--/.well -->
               </div><!--/span-->
@@ -101,7 +104,7 @@
 						<option data-msg="酒店预定" value="ALL" id="hotel_booking">酒店预定</option>
                 </select>
              <div>
-			 <button class="search_button" type="button"
+			 <button class="btn" type="button"
                         onclick="fetch_history(
                             $('#begin_date').val(),
                             $('#end_date').val(),
@@ -121,12 +124,20 @@
 			</tr></div>
 		</thead>
 		<tbody>
-			<tr class="order_head">
-			</tr>
+            <div id="history">
             <tr class="order_item">
                 <th class="item" colspan="4"><div id ="booking_item">dsf</div></th>
                 <th class="totalprice"><div id="booking_price">fsdff</div></th>
                 <th class="deal_time"><div id="booking_date">dsff</div></th>
+            </tr>
+            </div>
+            <div id="history">
+                <tr class="order_item">
+                    <th class="item" colspan="4"><div id ="booking_item">dsf</div></th>
+                    <th class="totalprice"><div id="booking_price">fsdff</div></th>
+                    <th class="deal_time"><div id="booking_date">dsff</div></th>
+                </tr>
+            </div>
 		</tbody>
 		</table>
 		<div class="pageNac"></div>
