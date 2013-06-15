@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>主页</title>
+    <meta charset=utf-8>  
+	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <link href="/css/3.css" rel="stylesheet" type="text/css" />
+        <script>
+            $(function () {
+              var log = function(s){
+              window.console && console.log(s)
+              }
+              $('.carousel').carousel()
+              })
+            </script>
+  </head>
+  <body>
+  
+  
+  <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+
+          <a class="brand" href="#">Online Payment</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav">
+              <li><a href="#">账户设置</a></li>
+              <li><a href="order_manage.html">我是买家</a></li>
+              <li><a href="../seller/order_manage.html">我是卖家</a></li>
+			  <li class="active"><a href="#contact">淘宝贝</a></li>
+			  <li><a href="#contact">在线预订</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+  
+
+  <div class="hero-unit"></div>
+   <div class="container-fluid">
+       <div class="row-fluid">
+           <div class="span2">
+               <div class="well sidebar-nav">
+                   <ul class="nav nav-list">
+                       <li class="nav-header">酒店</li>
+                       <li><a href="hotelbooking.html">酒店预定</a></li>
+                       <li><a href="innbooking.html">旅馆预定</a></li>
+                       <li class="nav-header">航班</li>
+                       <li><a href="/flight/search">国际航班</a></li>
+                       <li class="active"><a href="domeflight.html">国内航班</a></li>
+                       <li class="nav-header">订单管理</li>
+                       <li ><a href="/trade/booking_history">订单历史</a></li>
+                       <li ><a href="/trade/comment">评价</a></li>
+
+                   </ul>
+               </div><!--/.well -->
+           </div><!--/span-->
+        <div class="span10">
+	<div class="main">
+            <div class="bs-docs-example">
+                <div id="myCarousel" class="carousel slide">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="/img/hotel.jpg" alt="">
+                                <div class="carousel-caption">
+                                    <h4>First Thumbnail label</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                </div>
+                                </div>
+                        <div class="item">
+                            <img src="/img/flight.jpg" alt="">
+                                <div class="carousel-caption">
+                                    <h4>Second Thumbnail label</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                </div>
+                                </div>
+                        <div class="item">
+                            <img src="/img/comment.jpg" alt="">
+                                <div class="carousel-caption">
+                                    <h4>Third Thumbnail label</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                </div>
+                                </div>
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                </div>
+            </div>
+            
+  </div>
+	</div>
+	</div>
+  <footer class="tail">
+		<hr>
+        <a href="">关于我们</a>
+        <a href="">合作伙伴</a>
+        <a href="">联系客服</a>
+        <a href="../other/connect_us.html">联系我们</a>
+        <a href="../other/map.html">网站地图</a>
+        <span>© 2013 Black.com 版权所有</span>
+   </footer>
+  </body>
+	
+	
+</html>
