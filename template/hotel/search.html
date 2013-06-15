@@ -58,11 +58,12 @@
               <li><a href="domeflight.html">酒店预定</a><span class="divider">/</span></li>
               <li class="active">酒店搜索</a></li>
           </ul>
-          <div id="order_list">
-                  <div class="row-fluid">
-                      <div class="span2 offset1"><input type="checkbox" checked>酒店搜索</input></div>
-                      <div class="span2"><input type="checkbox">民宿客栈</input></div>
-                  </div><!--row0-->
+              <div class="row-fluid">
+                  <div class="span2 offset1"><label class="radio"><input id="optionsRadios1" type="radio" checked="" value="option1" name="optionsRadios" onclick="hide_inn()">酒店预订</label></div>
+                  <div class="span1"></div>
+                  <div class="span2"><label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="show_inn()">旅馆预订</label></div>
+              </div><!--row0-->
+          <div id="hotel_order_list">
                   <div class="row-fluid">
                       <div class="span1"> 我想找</div>
                       <div class="span3">
@@ -97,19 +98,19 @@
                                   </div>
                       </div>
                   </div><!--row2-->
-                  <div class ="row-fluid" style="padding-left: 600px;">
-                <a class="btn btn-primary btn-middle" href="#"
-                    onclick="fetch_hotel(
-                        $('#hotel_city').val(),
-                        $('#hotel_name').val(),
-                        $('#dtp_in').val(),
-                        $('#dtp_leave').val()
-                        )" >搜  索 »</a>
-                      </div><!--/*search button-->
-          </div><!--/#order_list-->
+          </div><!--/#hotel_order_list-->
+          
+          <div class ="row-fluid" style="padding-left: 600px;">
+              <a class="btn btn-primary btn-middle" href="#"
+                  onclick="fetch_hotel(
+                  $('#hotel_city').val(),
+                  $('#hotel_name').val(),
+                  $('#dtp_in').val(),
+                  $('#dtp_leave').val()
+                  )" >搜  索 »</a>
+          </div><!--/*search button-->
       </div>
       <div class="well sidebar-nav" id="display_hotel_panel">
-          
           <div id='display_condition' class="row-fluid" style="display:inline;color:#333333;" >
               <div class="span12">
                   <div class="span6">
@@ -156,15 +157,7 @@
                   </div>
               </div>
           </div><!--/#display_condition-->
-          <table id='hotel_table' style="background-color:#ffffff;" class="table table-hover">
-              <tr style="color:#333333;">
-                  <td id='hotel_name'><strong>酒店名称</strong></td>
-                  <td id='hotel_discription'><strong>酒店位置</strong></td>
-                  <td id='hotel_discount'><strong>折扣</strong></td>
-                  <td id='hotel_price'><strong>最低价格</strong></td>
-                  <td></td>
-              </tr>
-              <div id='hotel_list'></div>
+          <table id='hotel_list' style="background-color:#ffffff;" class="table table-hover">
           </table>
       </div><!--/#display_hotel panel-->
   </div><!--/.main-->
@@ -185,21 +178,37 @@
 <script type="text/javascript">
     // " " for selector
     $("#display_hotel_panel").hide()
+    $(".radio").click(function(){
+        $("#display_hotel_panel").hide()
+    })
+    function show_inn(){
+        $(".nav-list li:eq(2)").addClass('active')
+        $(".nav-list li:eq(1)").removeClass('active')
+        $(".breadcrumb li:eq(2)").html('旅馆预定')
+        $("title").html('旅馆预定')
+        $("#return").show()
+    }
+    function hide_inn(){
+        $(".nav-list li:eq(2)").removeClass('active')
+        $(".nav-list li:eq(1)").addClass('active')
+        $(".breadcrumb li:eq(2)").html('酒店预定')
+        $("title").html('酒店预订')
+        $("#return").hide()
+    }
     $(".form_datetime1").datetimepicker({
-        format: "yyyy-mm-dd",
+        format: "yyyy/mm/dd",
         todayBtn: 1,
         autoclose: 1,
         minView: 2,
         pickerPosition: "bottom-left"
     });
     $(".form_datetime2").datetimepicker({
-        format: "yyyy-mm-dd",
+        format: "yyyy/mm/dd",
         todayBtn: 1,
         autoclose: 1,
         minView: 2,
         pickerPosition: "bottom-left"
     });
-    $("input").click(function(){$(this).val("");});
     $("button").click(function(){
         if($(this).attr("count") == "0"){
             $(this).addClass("asc");
@@ -238,20 +247,28 @@
             function(data){
                 console.log(data);
                 $("#hotel_list").html('')
-                // "hotel":{"name","description","discount","price"}
+                strdata="<td></td><td id='hotel_name'><strong>酒店名称</strong></td><td id='hotel_discription'><strong>酒店位置</strong></td><td id='hotel_rate'><strong>酒店星级</strong></td><td id='hotel_discount'><strong>折扣</strong></td><td id='hotel_price'><strong>最低报价</strong></td><td></td>"
+                $("#hotel_list").append($("<tr>",{html:strdata}))
                 for( var i in data.hotel) {
-                    hotel = data.hotel[i]
-                    strdata = "<td>"+ hotel.name +"</td>"
-                    strdata = "<td>"+ hotel.description +"</td>"
-                    strdata = "<td>"+ hotel.discount +"折</td>"
-                    strdata = "<td>最低"+ hotel.price +"起</td>"
-                    jQuery("#hotel_list").append(jQuery("<tr>",{html: strdata},"<button class=\"btn btn-primary\">",{html:查看详情},"</button></tr>"))
+                  fill_list(data.hotel[i],i)
                 }
                 if(data.hotel.length == 0){
                     $("#hotel_list").html('未查询到满足条件的酒店')
                 }
             }
         );
+    }
+    
+    
+    function fill_list(hotel,i){
+        strdata = "<tr><td>"+i+"</td>"
+        strdata = strdata+"<td>"+ hotel[0] +"</td>"//name
+        strdata = strdata+"<td>"+ hotel[?] +"</td>"//description
+        strdata = strdata+"<td>"+ hotel[8] +"</td>"//rate
+        strdata = strdata+"<td>"+ hotel[?] +"折</td>"//discount
+        strdata = strdata+"<td>最低"+ hotel[6] +"起</td>"//price
+        strdata = strdata+"<td><button class=\"btn btn-primary\">查看详情</button></td></tr>"
+        $("#hotel_list").append($("<tbody>",{html:strdata}))
     }
     
 </script>
