@@ -49,8 +49,8 @@
 			  <li><a href="domeflight.html">国内航班</a></li>
             </ul>
           </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span10">
+          </div><!--/span-->
+<div class="span10">
   <div class="main">
       <div class="well sidebar-nav">
           <ul class="breadcrumb">
@@ -58,13 +58,11 @@
               <li><a href="domeflight.html">酒店预定</a><span class="divider">/</span></li>
               <li class="active">酒店搜索</a></li>
           </ul>
-    
-          <div class="order_list">
-              <div class="hotelbook">
+          <div id="order_list">
                   <div class="row-fluid">
                       <div class="span2 offset1"><input type="checkbox" checked>酒店搜索</input></div>
                       <div class="span2"><input type="checkbox">民宿客栈</input></div>
-                  </div>
+                  </div><!--row0-->
                   <div class="row-fluid">
                       <div class="span1"> 我想找</div>
                       <div class="span3">
@@ -74,8 +72,7 @@
                       <div class="span4">
                           <input type="text" style="width: 100%;" value="酒店名、地标、商圈" title="请输入酒店名称" size="30" id="hotel_name" value maxlength="30">
                       </div>
-                  </div>
-                  
+                  </div><!--row1-->
                   <div class="row-fluid">
                       <div class="span1">入住日期</div>
                       <div class="span3">
@@ -99,8 +96,7 @@
                               <input type="hidden"  value="" id="dtp_leave"><br>
                                   </div>
                       </div>
-                  </div>
-                  
+                  </div><!--row2-->
                   <div class ="row-fluid" style="padding-left: 600px;">
                 <a class="btn btn-primary btn-middle" href="#"
                     onclick="fetch_hotel(
@@ -109,10 +105,9 @@
                         $('#dtp_in').val(),
                         $('#dtp_leave').val()
                         )" >搜  索 »</a>
-                      </div>
-          </div>
-              
-          <div id='hotel_list' class="row-fluid" style="display:inline;color:#333333;" >
+                      </div><!--/*search button-->
+          </div><!--/#order_list-->
+          <div id='display_condition' class="row-fluid" style="display:inline;color:#333333;" >
               <div class="span12">
                   <div class="span6">
                   <div class="span1"></div>
@@ -141,15 +136,13 @@
                       <button id="star" class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">星级<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                       </button>
                       </div>
-                 </div>
-                    
+                 </div>                    
                 <div class="span2">
                         <div class="btn-group dropup">
                             <button id="score" class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">评分<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                             </button>
                         </div>
                     </div>
-                
                 
                 <div class="span2">
                       <div class="btn-group dropup">
@@ -158,21 +151,26 @@
                       </div>
                 </div>
               </div>
-              <table id='hotel_table' class="table table-hover">
-                  <tr id='hotel_row' style="color:#000000;">
-                      <td id='hotel_name'>汉庭全季</td>
-                      <td id='hotel_discription'>浙大路41号</td>
-                      <td id='hotel_discount'>7折</td>
-                      <td id='hotel_price'>332</td>
-                  </tr>
-              </table>
               </div>
-          </div>
-	  </div>
-  </div>
-		</div>
-	</div>
-   </div>
+          </div><!--/#display_condition-->
+      </div>
+      <div class="well sidebar-nav" id="display_hotel panel">
+          <table id='hotel_table' style="background-color:#ffffff;" class="table table-hover">
+              <tr style="color:#333333;">
+                  <td id='hotel_name'><strong>酒店名称</strong></td>
+                  <td id='hotel_discription'><strong>酒店位置</strong></td>
+                  <td id='hotel_discount'><strong>折扣</strong></td>
+                  <td id='hotel_price'><strong>最低价格</strong></td>
+                  <td></td>
+              </tr>
+              <div id='hotel_list'></div>
+          </table>
+      </div><!--/#display_hotel panel-->
+  </div><!--/.main-->
+</div><!--/span10-->
+
+  </div><!--/.row-fluid-->
+</div><!--/.container-fluid-->
   <footer class="tail">
 		<hr>
         <a href="">关于我们</a>
@@ -184,14 +182,15 @@
    </footer>
        
 <script type="text/javascript">
-    $('.form_datetime1').datetimepicker({
+    // " " for selector
+    $(".form_datetime1").datetimepicker({
         format: "yyyy-mm-dd",
         todayBtn: 1,
         autoclose: 1,
         minView: 2,
         pickerPosition: "bottom-left"
     });
-    $('.form_datetime2').datetimepicker({
+    $(".form_datetime2").datetimepicker({
         format: "yyyy-mm-dd",
         todayBtn: 1,
         autoclose: 1,
@@ -223,8 +222,33 @@
         }
     });
     
+    //search result is restricted on hotel_city and hotel_name
     function fetch_hotel(city,name,b_time,e_time){
-        
+        console.log(city);
+        $("#hotel_list").html('查询中，请稍候...')
+        $.getJSON(
+            "/hotel/search/async",// ???
+            {
+                hotel_city: city,
+                hotel_name: name,
+            },
+            function(data){
+                console.log(data);
+                $("#hotel_list").html('')
+                // "hotel":{"name","description","discount","price"}
+                for( var i in data.hotel) {
+                    hotel = data.hotel[i]
+                    strdata = "<td>"+ hotel.name +"</td>"
+                    strdata = "<td>"+ hotel.description +"</td>"
+                    strdata = "<td>"+ hotel.discount +"折</td>"
+                    strdata = "<td>最低"+ hotel.price +"起</td>"
+                    jQuery("#hotel_list").append(jQuery("<tr>",{html: strdata},"<button class=\"btn btn-primary\">",{html:查看详情},"</button></tr>"))
+                }
+                if(data.hotel.length == 0){
+                    $("#flight_list").html('未查询到满足条件的酒店')
+                }
+            }
+        );
     }
     
 </script>
