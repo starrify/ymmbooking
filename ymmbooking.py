@@ -87,14 +87,21 @@ class Database(object):
         cursor.close()
         return flights
 
-    def get_hotels(self, name="", location=""):
+    def get_hotels(self, name="", description="", location="", h_id=None):
+        if h_id:
+            try:
+                h_id = int(h_id)
+            except:
+                return []
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM hotel "
-            "WHERE name LIKE ? AND location LIKE ?;",
-            ["%"+name+"%", "%"+location+"%"])
+            "WHERE name LIKE ? AND description LIKE ? AND location LIKE ?;",
+            ["%"+name+"%", "%"+description+"%", "%"+location+"%"])
         hotels = cursor.fetchall()
-        cursor.close
+        cursor.close()
+        if h_id:
+            hotels = [hotel for hotel in hotels if hotel['h_id'] == h_id]
         return hotels
 
     def get_airline_by_code(self, code=""):
@@ -145,6 +152,8 @@ class Misc(object):
 
     @staticmethod
     def unicodify(string, code):
+        if not string:
+            return ""
         return bytes(map(ord, string)).decode(code)
 
 app = App('./config.cfg')
@@ -205,8 +214,7 @@ def flight_search():
 @bottle_app.get('/hotel/search/async')
 def hotel_search_json():
     param = list(map(bottle.request.query.get, 
-        ['name', 'location']))
-    print(param)
+        ['name', 'description', 'location', 'h_id']))
 
     if not any(param):
         return {'hotel': []}
@@ -214,7 +222,7 @@ def hotel_search_json():
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
 
     db = Database(app.config)
-    hotels = db.get_hotels(param[0], param[1])
+    hotels = db.get_hotels(param[0], param[1], param[2], param[3])
     return {'hotel': [list(hotel.values()) for hotel in hotels]}
 
 @ bottle_app.get('/order')
@@ -249,6 +257,8 @@ def hotel_manage_json():
         pass
     elif access_type == 'delete':
         pass
+    elif access_type == 'search':
+        return hotel_search_json()
     return {'status': 'failed'}
 
 if __name__ == '__main__':
