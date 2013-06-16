@@ -40,6 +40,7 @@ CREATE TABLE flight(
     schedule        VARCHAR(255)    null,
     punctuality     FLOAT           null,
     stop            BOOL            null,
+    price           FLOAT           null,
     PRIMARY KEY (flightNumber)
 );
 
