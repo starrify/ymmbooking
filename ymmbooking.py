@@ -41,6 +41,7 @@ class Database(object):
         self._conn.row_factory = Database.dict_factory
 
     def __del__(self):
+        self._conn.commit()
         self._conn.close()
 
     @staticmethod
@@ -91,6 +92,21 @@ class Database(object):
         airline = cursor.fetchall()
         cursor.close()
         return airline
+
+    def add_hotel(self, name="", desc="", location=""):
+        cursor = self._conn.cursor()
+        cursor.execute("SELECT MAX(h_id) from hotel")
+        try:
+            h_id = cursor.fetchall()[0]['MAX(h_id)'] + 1
+        except: # the table may be empty
+            h_id = 1
+        try:
+            cursor.execute(
+                "INSERT INTO hotel (h_id,name,description,location) "
+                "VALUES(?,?,?,?)", [h_id, name, desc, location])
+            return True, h_id
+        except:
+            return False, -1
 
 class App(object):
     """The main application."""
@@ -168,6 +184,11 @@ def flight_search_json():
     
     return { 'flight': ret_flights }
 
+@bottle_app.get('/hotel/search')
+@bottle.view(app.config.template_path + 'hotel/search.html')
+def flight_search():
+    return {}
+
 @bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
 def order():
@@ -183,15 +204,34 @@ def booking_history():
 def trade_remark():
     return {}
 
-@bottle_app.get('/seller/flight_manage')
-@bottle.view(app.config.template_path + 'seller/flight_manage.html')
+@bottle_app.get('/manage/flight')
+@bottle.view(app.config.template_path + 'manage/flight.html')
 def trade_remark():
     return {}
 
-@bottle_app.get('/seller/hotel_manage')
-@bottle.view(app.config.template_path + 'seller/hotel_manage.html')
+@bottle_app.get('/manage/hotel')
+@bottle.view(app.config.template_path + 'manage/hotel.html')
 def trade_remark():
     return {}
+
+@bottle_app.get('/manage/hotel/async')
+def hotel_manage_json():
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, 
+            ['name', 'description', 'location']))
+        if not all(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, h_id = db.add_hotel(param[0], param[1], param[2])
+        if success:
+            return {'status': 'succeeded', 'h_id': h_id}
+    elif access_type == 'update':
+        pass
+    elif access_type == 'delete':
+        pass
+    return {'status': 'failed'}
 
 if __name__ == '__main__':
     bottle.run(bottle_app, host='0.0.0.0', port=8080, debug=True)
