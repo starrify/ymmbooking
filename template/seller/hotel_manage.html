@@ -54,7 +54,7 @@
 
                 <div class="span8">
                     <div class="row-fluid"> <!-- search panel -->
-                        <div class="seller-search-form">
+                        <div class="seller-search-form" id="basicSearch">
                             <div class="row-fluid"> <!-- search inputs -->
                                 <table class="grid-form">
                                     <tr>
@@ -90,31 +90,47 @@
                     <h3 id="searchVerbose">共有1个搜索结果</h3>
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-striped" id="resultTable" style="table-layout:fixed">
-                            <col width="25%" />
-                            <col width="25%" />
-                            <col width="25%" />
-                            <col width="25%" />
+                            <colgroup>
+                                <col width="25%" />
+                                <col width="25%" />
+                                <col width="25%" />
+                                <col width="25%" />
+                            </colgroup>
                             <tr> <!-- header -->
-                                <th class="cell-cropped">酒店编号</th>
-                                <th class="cell-cropped">酒店名称</th>
-                                <th class="cell-cropped">酒店位置</th>
-                                <th class="cell-cropped">酒店描述</th>
+                                <th class="text-cropped">酒店编号</th>
+                                <th class="text-cropped">酒店名称</th>
+                                <th class="text-cropped">酒店位置</th>
+                                <th class="text-cropped">酒店描述</th>
                             </tr>
                             <tr>
-                                <td class="cell-cropped" rel="popover">tesasdfasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddt1</td>
-                                <td class="cell-cropped">abc</td>
-                                <td class="cell-cropped">def</td>
-                                <td class="cell-cropped">ghi</td>
+                                <td class="text-cropped" rel="popover">tesasdfasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddt1</td>
+                                <td class="text-cropped">abc</td>
+                                <td class="text-cropped">def</td>
+                                <td class="text-cropped">ghi</td>
                             </tr>
                         </table>
                     </div>
                     <div class="row-fluid"> <!-- add result -->
-                        <table class="table">
+                        <table class="table" id="addTable" style="table-layout:fixed">
+                            <colgroup>
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="6^" />
+                            </colgroup>
                             <tr class="warning">
-                                <td>test1</td>
-                                <td>test2</td>
-                                <td><input type="text" placeholder="input"></td>
-                                <td><input type="text" placeholder="input"></td>
+                                <td></td>
+                                <td><input class="text-cropped" id="atName" type="text" placeholder="input"></td>
+                                <td><input class="text-cropped" id="atDescription" type="text" placeholder="input"></td>
+                                <td><input class="text-cropped" id="atLocation" type="text" placeholder="input"></td>
+                                <td><button class="btn" id="atAdd">确认</button></td>
+                            </tr>
+                            <!--<tr class="warning">
+                            <td><input type="text" placeholder="input"></td>
+                            <td><input type="text" placeholder="input"></td>
+                            <td><input type="text" placeholder="input"></td>
+                            <td><input type="text" placeholder="input"></td>
                             </tr>
                             <tr class="warning">
                             <td><input type="text" placeholder="input"></td>
@@ -133,19 +149,7 @@
                             <td><input type="text" placeholder="input"></td>
                             <td><input type="text" placeholder="input"></td>
                             <td><input type="text" placeholder="input"></td>
-                            </tr>
-                            <tr class="warning">
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            </tr>
-                            <tr class="warning">
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            </tr>
+                            </tr>-->
                         </table>
                     </div>
                     <div class="row-fluid row-fluid-fix-bottom">
@@ -195,8 +199,8 @@ $('#resultTable').click(function(e) {
         cell.html('')
             .append('<input type="text" style="width:90%;margin:0;" value="' + text + '">');
         
-        var textarea = $(cell.children()[0]);
-        textarea.focus().select();
+        var input = $(cell.children()[0]);
+        input.focus().select();
     }
 });
 $('#resultTable').focusout(function(e){
@@ -212,11 +216,28 @@ $('#bsSearch').click(function(e) {
         {
             h_id: $('#bsHID').text(),
             name: $('#bsName').text(),
-            localtion: $('#bsLocation').text(),
+            location: $('#bsLocation').text(),
         },
         function(data) {
             console.log(data);
         });
+});
+
+$('#atAdd').click(function(e) {
+    var row = $('#addTable tr:first');
+    console.log($(row.children()[0]).val());
+    $.getJSON(
+        '/manage/hotel/async',
+        {
+            h_id: $($(row.children()[0]).find('input:first')).val(),
+            name: $($(row.children()[1]).find('input:first')).val(),
+            location: $($(row.children()[2]).find('input:first')).val(),
+            description: $($(row.children()[3]).find('input:first')).val(),
+            type: 'add',
+        },
+        function(data) {
+            console.log(data);
+    });
 });
 
 $(function () {
