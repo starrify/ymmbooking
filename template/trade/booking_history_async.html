@@ -1,0 +1,27 @@
+booking history~
+<div id="history">
+Loading...
+</div>
+end of booking history
+
+<script src="/js/jquery.js"></script>
+<script>
+jQuery.getJSON(
+    "/trade/booking_history_async_json",
+    { test_param: "xxx2" },
+    function(data) {
+        jQuery("#history").html("");
+        console.log(data)
+        for (var i = 0, len = data.booking_history.length; i < len; i++) {
+            booking_history = data.booking_history[i]
+            strdata = "<strong>" + booking_history.fn + "</strong>: "
+            strdata += booking_history.a1 + ", "
+            strdata += booking_history.a2 + ", "
+            strdata += booking_history.dt1 + ", "
+            strdata += booking_history.dt2 + ", "
+            strdata += booking_history.fn + " "
+            jQuery("#history").append(jQuery("<div>", { html: strdata }))
+        }
+    }
+);
+</script>

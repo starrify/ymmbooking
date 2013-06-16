@@ -1,16 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>订单历史查询</title>
+    <title>评价系统</title>
     <meta content="text/html" charset=utf-8>   
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
 	<link href="/css/tran_history.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+    <script>
+        function submit_comment(score,com){
+            orderquery.submit()
+        
+        }</script>
+        
 
   </head>
   <body>
-  
+   
   
   <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -45,8 +51,8 @@
                           <li><a href="interflight.html">国际航班</a></li>
                           <li ><a href="domeflight.html">国内航班</a></li>
                           <li class="nav-header">订单管理</li>
-                          <li ><a href="/booking_history">订单历史</a></li>
-                          <li class="active"><a href="/comment">评价</a></li>
+                          <li ><a href="/trade/booking_history">订单历史</a></li>
+                          <li class="active" ><a href="/trade/comment">评价</a></li>
                       </ul>
                   </div><!--/.well -->
               </div><!--/span-->
@@ -77,12 +83,12 @@
               <textarea rows="5" id="comment" class=span8 placeholder="亲，请分享您的使用感受"></textarea>
                 <div class="row">
                     <div class=span2></div>
-                <div class="span8"><button type="submit" class="btn"
+                <div class="span8"><input type="submit" class="btn" value="提交"
                     onclick="submit_comment(
                         $('#scoring').val(),
                         $('#comment').val(),
-                    )">
-                     发表评论</div>
+                    )"></input>
+                     </div>
           </div></div></div>
          </form>
      </div>
