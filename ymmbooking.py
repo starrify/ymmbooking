@@ -183,8 +183,17 @@ def booking_history():
 def trade_remark():
     return {}
 
+@bottle_app.get('/seller/flight_manage')
+@bottle.view(app.config.template_path + 'seller/flight_manage.html')
+def trade_remark():
+    return {}
+
+@bottle_app.get('/seller/hotel_manage')
+@bottle.view(app.config.template_path + 'seller/hotel_manage.html')
+def trade_remark():
+    return {}
 
 if __name__ == '__main__':
-    bottle.run(bottle_app, host='localhost', port=8080, debug=True)
+    bottle.run(bottle_app, host='0.0.0.0', port=8080, debug=True)
     #bottle.run(bottle_app, server='cherrypy', host='localhost', port=8080, debug=True)
 
