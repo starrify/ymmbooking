@@ -60,6 +60,7 @@ class Database(object):
             script = f.read()
             f.close()
             conn = sqlite3.connect(config.database_path)
+            conn.execute("PRAGMA journal_mode = wal;")
             conn.executescript(script)
             conn.commit()
             from data.data_import import data_import as dimport
@@ -71,7 +72,7 @@ class Database(object):
 
     def get_airport_by_city(self, city):
         cursor = self._conn.cursor()
-        cursor.execute("SELECT * FROM airport WHERE city_cn LIKE ?", ["%" + city + "%"])
+        cursor.execute("SELECT * FROM airport WHERE city_cn LIKE ?;", ["%" + city + "%"])
         airports = cursor.fetchall()
         cursor.close()
         return airports
@@ -80,7 +81,7 @@ class Database(object):
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flight "
-            "WHERE depatureAirport=? AND arrivalAirport=?",
+            "WHERE depatureAirport=? AND arrivalAirport=?;",
             [departure_airport, arrival_airport])
         flights = cursor.fetchall()
         cursor.close()
@@ -88,14 +89,14 @@ class Database(object):
 
     def get_airline_by_code(self, code=""):
         cursor = self._conn.cursor()
-        cursor.execute("SELECT * FROM airline WHERE code=?", [code])
+        cursor.execute("SELECT * FROM airline WHERE code=?;", [code])
         airline = cursor.fetchall()
         cursor.close()
         return airline
 
     def add_hotel(self, name="", desc="", location=""):
         cursor = self._conn.cursor()
-        cursor.execute("SELECT MAX(h_id) from hotel")
+        cursor.execute("SELECT MAX(h_id) from hotel;")
         try:
             h_id = cursor.fetchall()[0]['MAX(h_id)'] + 1
         except: # the table may be empty
@@ -103,7 +104,7 @@ class Database(object):
         try:
             cursor.execute(
                 "INSERT INTO hotel (h_id,name,description,location) "
-                "VALUES(?,?,?,?)", [h_id, name, desc, location])
+                "VALUES(?,?,?,?);", [h_id, name, desc, location])
             return True, h_id
         except:
             return False, -1
@@ -194,13 +195,13 @@ def flight_search():
 def order():
     return {}
 
-@bottle_app.get('/booking_history')
-@bottle.view(app.config.template_path + 'booking_history.html')
+@bottle_app.get('/trade/booking_history')
+@bottle.view(app.config.template_path + '/trade/booking_history.html')
 def booking_history():
     return {}
 
-@bottle_app.get('/trade/remark')
-@bottle.view(app.config.template_path + 'trade/remark.html')
+@bottle_app.get('/trade/comment')
+@bottle.view(app.config.template_path + 'trade/comment.html')
 def trade_remark():
     return {}
 
