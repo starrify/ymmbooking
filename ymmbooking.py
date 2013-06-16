@@ -72,7 +72,7 @@ class Database(object):
 
     def get_airport_by_city(self, city):
         cursor = self._conn.cursor()
-        cursor.execute("SELECT * FROM airport WHERE city_cn LIKE ?;", ["%" + city + "%"])
+        cursor.execute("SELECT * FROM airport WHERE city_cn LIKE ?;", ["%"+city+"%"])
         airports = cursor.fetchall()
         cursor.close()
         return airports
@@ -86,6 +86,16 @@ class Database(object):
         flights = cursor.fetchall()
         cursor.close()
         return flights
+
+    def get_hotels(self, name="", location=""):
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "SELECT * FROM hotel "
+            "WHERE name LIKE ? AND location LIKE ?;",
+            ["%"+name+"%", "%"+location+"%"])
+        hotels = cursor.fetchall()
+        cursor.close
+        return hotels
 
     def get_airline_by_code(self, code=""):
         cursor = self._conn.cursor()
@@ -105,6 +115,8 @@ class Database(object):
             cursor.execute(
                 "INSERT INTO hotel (h_id,name,description,location) "
                 "VALUES(?,?,?,?);", [h_id, name, desc, location])
+            cursor.commit()
+            cursor.close()
             return True, h_id
         except:
             return False, -1
@@ -162,7 +174,7 @@ def flight_search_json():
         ['departure_city', 'arrival_city', 'departure_date']))
 
     if not all([d_city, a_city, d_date]):
-        return { 'flight': [] }
+        return {'flight': []}
 
     d_city, a_city, d_date = list(map(
         lambda x: Misc.unicodify(x, 'utf8'), [d_city, a_city, d_date]))
@@ -183,14 +195,29 @@ def flight_search_json():
                 ret_flights.append(list(flight.values())
                     + [d_airport['name_cn'], a_airport['name_cn'], airline['name_cn']])
     
-    return { 'flight': ret_flights }
+    return {'flight': ret_flights}
 
 @bottle_app.get('/hotel/search')
 @bottle.view(app.config.template_path + 'hotel/search.html')
 def flight_search():
     return {}
 
-@bottle_app.get('/order')
+@bottle_app.get('/hotel/search/async')
+def hotel_search_json():
+    param = list(map(bottle.request.query.get, 
+        ['name', 'location']))
+    print(param)
+
+    if not any(param):
+        return {'hotel': []}
+
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+
+    db = Database(app.config)
+    hotels = db.get_hotels(param[0], param[1])
+    return {'hotel': [list(hotel.values()) for hotel in hotels]}
+
+@ bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
 def order():
     return {}
@@ -211,7 +238,7 @@ def hotel_manage_json():
     if access_type == 'add':
         param = list(map(bottle.request.query.get, 
             ['name', 'description', 'location']))
-        if not all(param):
+        if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
