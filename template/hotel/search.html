@@ -263,9 +263,9 @@
     function fill_list(hotel,i){
         strdata = "<tr><td>"+i+"</td>"
         strdata = strdata+"<td>"+ hotel[0] +"</td>"//name
-        strdata = strdata+"<td>"+ hotel[?] +"</td>"//description
+       // strdata = strdata+"<td>"+ hotel[?] +"</td>"//description
         strdata = strdata+"<td>"+ hotel[8] +"</td>"//rate
-        strdata = strdata+"<td>"+ hotel[?] +"折</td>"//discount
+        //strdata = strdata+"<td>"+ hotel[?] +"折</td>"//discount
         strdata = strdata+"<td>最低"+ hotel[6] +"起</td>"//price
         strdata = strdata+"<td><button class=\"btn btn-primary\">查看详情</button></td></tr>"
         $("#hotel_list").append($("<tbody>",{html:strdata}))
