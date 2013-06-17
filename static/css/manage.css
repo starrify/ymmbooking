@@ -39,3 +39,7 @@
 //    display: inline-block;
 }
 
+.table .input-cropped {
+    width: 90%;
+    margin: 0;
+}

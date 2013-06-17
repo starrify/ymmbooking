@@ -103,19 +103,6 @@
                                 <th class="text-cropped">酒店位置</th>
                                 <th class="text-cropped">酒店描述</th>
                             </tr>
-                            <tr>
-                                <td class="text-cropped" rel="popover">tesasdfasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddt1</td>
-                                <td class="text-cropped">abc</td>
-                                <td class="text-cropped">def</td>
-                                <td class="text-cropped">ghi</td>
-                                <td>
-                                    <div>
-                                        <button class="btn" style="width:10px"><i class="icon-ok"></i></button>
-                                        <button class="btn" style="width:10px"><i class="icon-remove"></i></button>
-                                        <button class="btn" style="width:10px"><i class="icon-repeat"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
                         </table>
                     </div>
                     <div class="row-fluid"> <!-- add result -->
@@ -125,18 +112,18 @@
                                 <col width="22%" />
                                 <col width="22%" />
                                 <col width="22%" />
-                                <col width="12" />
+                                <col width="12%" />
                             </colgroup>
                             <tr>
                                 <td class="text-cropped">新的酒店</td>
-                                <td><input class="text-cropped" id="atName" type="text" placeholder="input"></td>
-                                <td><input class="text-cropped" id="atDescription" type="text" placeholder="input"></td>
-                                <td><input class="text-cropped" id="atLocation" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atName" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atDescription" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atLocation" type="text" placeholder="input"></td>
                                 <td>
                                     <div>
-                                        <button class="btn" style="width:10px" id="atAdd"><i class="icon-ok"></i></button>
-                                        <button class="btn" style="width:10px" id="atRemove"><i class="icon-remove"></i></button>
-                                        <button class="btn" style="width:10px" id="atReset"><i class="icon-repeat"></i></button>
+                                        <button class="btn" style="width:10px;float:left;" id="atAdd"><i class="icon-ok"></i></button>
+                                        <button class="btn" style="width:10px;float:left;" id="atRemove"><i class="icon-remove"></i></button>
+                                        <button class="btn" style="width:10px;float:left;" id="atReset"><i class="icon-repeat"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -187,12 +174,12 @@ function textToHtml(text) {
 </script>
 
 <script> // page specified functions
-function editable(param1) {
+function editable(param) {
     var col;
-    if(typeof param1 == 'number') {
-        col = param1;
+    if(typeof param == 'number') {
+        col = param;
     } else {
-        col = param1.prop('cellIndex');
+        col = param.prop('cellIndex');
     }
     
     if(col == 0 || col == 4)
@@ -205,58 +192,100 @@ function isValid(col, text) {
     if(text.length > 255) return false;
     return true;
 }
+function mapResult(res) {
+    return $.map(res, function(ele) {
+        return [[ele[3], ele[2], ele[0], ele[1]]];
+    });
+}
+var rowtmpl = '<tr><td class="text-cropped" rel="popover">__col1__</td>'
+    + '<td class="text-cropped">__col2__</td>'
+    + '<td class="text-cropped">__col3__</td>'
+    + '<td class="text-cropped">__col4__</td>'
+    + '<td><div><button class="btn" style="width:10px;float:left;"><i class="icon-ok"></i></button>'
+    + '<button class="btn" style="width:10px;float:left;"><i class="icon-remove"></i></button>'
+    + '<button class="btn" style="width:10px;float:left;"><i class="icon-repeat"></i></button></div></td></tr>';
+var schema = ['hid', 'name', 'location', 'description'];
 </script>
 
 <script> // class ResultTable
-function ResultTable() {
+var rt;    
+function ResultTable(data) {
     this.$table = $('#resultTable');
-    this.overflow = createArray(2, 4);
-    this.addEvents();
+    console.log('lookhere', data, mapResult(data));
+    this.data = [schema].concat(mapResult(data));
+    this.overflow = createArray(data.length + 1, schema.length);
+    this.updateContent();
 }
 ResultTable.prototype = {
-    addEvents: function() {
-        var rt = this;
-        $('#resultTable').click(function(e) {
-            if($(e.target).prop('tagName') == 'INPUT') // avoid re-focusing
-                return;
-            var pos = cellPosition($(e.target));
-            if(rt.overflow[pos[0]][pos[1]]) return;
-            
-            var cell = $(e.target).closest('td');
-            if(cell.prop('tagName') == 'TD' && editable(cell)) {
-                cell.css('padding', 0);
-            
-                var text = cell.text();
-                cell.html('')
-                    .append('<input type="text" style="width:90%;margin:0;" value="' + text + '">');
-                
-                var input = $(cell.children()[0]);
-                input.focus().select();
-            }
-        });
+    getRow: function(row) {
+        return this.$table.find('tr:eq(' + row + ')');
+    },
+    
+    getRowCnt: function() {
+        //console.log(this.$table.find('tr'));
+        return this.$table.find('tr').length;
+    },
+    
+    getCell: function(row, col) {
+        if(typeof row == 'number')
+            return this.$table.find('tr:eq(' + row + ') td:eq(' + col + ')');
+        else
+            return row.find('td:eq(' + col + ')');
+    },
+    
+    pushRow: function(rowData) {
+        var newRow = $(rowtmpl);
+        var row = this.getRow(this.getRowCnt() - 1);
+        newRow.insertAfter(row);
         
-        $('#resultTable').focusout(function(e){
-            var text = $(e.target).val();
-            var cell = $(e.target).closest('td');
-            if(editable(cell)) {
-                cell.css('padding', 8);
-                rt.modifyCell(cell, text);
+        this.overflow.push(new Array(schema.length));
+        for(var i = 0; i < schema.length; i++) {
+            if(editable(i)) {
+                console.log(rowData);
+                this.modifyCell(this.getCell(newRow, i), rowData[i]);
+            } else {
+                this.getCell(newRow, i).html(rowData[i]);
             }
-        });
-        
-        $('#bsSearch').click(function(e) {
-            $.getJSON(
-                '/manage/hotel/async',
-                {
-                    h_id: $('#bsHID').val(),
-                    name: $('#bsName').val(),
-                    location: $('#bsLocation').val(),
-                    type: 'search',
-                },
-                function(data) {
-                    console.log(data);
-                });
-        });
+        }
+    },
+    
+    /*pushRow: function(rowData) {
+        this.insertRow(rowData, this.getRowCnt().length);
+    },*/
+    
+    removeRow: function(rowid) {
+        this.getRow(rowid).remove();
+    },
+    
+    popRow: function() {
+        this.removeRow(this.getRowCnt() - 1);
+    },
+    resetRow: function() {
+    },
+    commitRow: function() {
+    },
+    
+    updateContent: function() {
+        var curRowCnt = this.getRowCnt();
+        //console.log(curRowCnt, this.data.length);
+        //console.log(this.data);
+        var minRowCnt = Math.min(curRowCnt, this.data.length);
+        // skip header
+        for(var row = 1; row < minRowCnt; row++) {
+            // set index directly
+            this.getCell(row, 0).html(this.data[row][0]);
+            for(var col = 1; col < this.data[row].length; col++) {
+                console.log(row, col, this.data[row][col]);
+                this.modifyCell(row, col, this.data[row][col]);
+            }
+        }
+        if(curRowCnt > this.data.length) {
+            for(var t = curRowCnt - this.data.length; t--; )
+                this.popRow();
+        } else if(curRowCnt < this.data.length) {
+            for(var t = curRowCnt; t < this.data.length; t++)
+                this.pushRow(this.data[t]);
+        }
     },
     
     addPopover: function(param1, param2) {
@@ -269,23 +298,23 @@ ResultTable.prototype = {
         
         var edit = false;
         var edittmpl = '<div><textarea style="height:100px">__texthere__</textarea></div>'
-        + '<div style="text-align:center;"><button class="btn btn-primary">保存</button>'
-        + '<button class="btn">放弃</button></div>';
+            + '<div style="text-align:center;"><button class="btn btn-primary">保存</button>'
+            + '<button class="btn">放弃</button></div>';
         var viewtmpl = '<div style="word-wrap:break-word;">__texthere__</div>'
+            + '<div style="font-size:8px;line-height:8px;color:#C0C0C0;text-align:right;">click to edit</div>'
         
-        var rt = this;
         obj.popoverex({
-            trigger : 'hover', 
-            hoverReserve : "in in_popover",
+            trigger: 'hover', 
+            hoverReserve: "in in_popover",
             delay: {show: 100, hide: 1000},
-            placement : 'bottom',
-            html : true,
-            container : 'body',
-            content : function() {
+            placement: 'bottom',
+            html: true,
+            container: 'body',
+            content: function() {
                 return viewtmpl.replace('__texthere__', textToHtml($(this).text()));
             },
             popover_click: function(e) {
-                //console.log(edit);
+                ////console.log(edit);
                 if(!edit && $(e.target).prop('tagName') == 'DIV') {
                     edit = true;
                     
@@ -305,7 +334,7 @@ ResultTable.prototype = {
                         ele.popoverex('unpin');
                         ele.popoverex('hide');
                         edit = false;
-                        //console.log(edit);
+                        ////console.log(edit);
                     };
                     $(buttons[0]).click(function() {
                         close();
@@ -322,24 +351,27 @@ ResultTable.prototype = {
         if(typeof param1 == 'number') { // row col
             row = param1;
             col = param2;
-            cell = $($(this.$table.children()[row]).children()[col]);
+            cell = this.getCell(row, col);
+            //console.log(cell);
             text = param3;
         } else { // cell
             cell = param1;
             text = param2;
             [row, col] = cellPosition(cell);
-            console.log(row, col);
+            //console.log(row, col);
         }
         
-        if(!isValid(cell.prop('cellIndex'), text)) {
+        if(!isValid(col, text)) {
             alert('invalid');
         }
         else {
             // modify
+            //console.log(row, col, 'from', cell.text(), 'to', text);
             cell.html(text);
             // popover
             var cellOverflow = checkOverflow(cell);
-            console.log('cellOverflow', cellOverflow, 'orioveflow', this.overflow[row][col], 'text is', text);
+            console.log(row, col);
+            console.log('cellOverflow', cellOverflow, 'orioverflow', this.overflow[row][col], 'text is', text);
             if(!this.overflow[row][col] && cellOverflow)  {
                 this.overflow[row][col] = true;
                 this.addPopover(cell);
@@ -350,15 +382,56 @@ ResultTable.prototype = {
         }
     }
 }
-var result = new ResultTable();
+rt = new ResultTable([]);
 </script>
 
 <script> //event handlers
-
+$('#resultTable').click(function(e) {
+    if($(e.target).prop('tagName') == 'INPUT') // avoid re-focusing
+        return;
+    var pos = cellPosition($(e.target));
+    if(rt.overflow[pos[0]][pos[1]]) return;
+                           
+                           var cell = $(e.target).closest('td');
+    if(cell.prop('tagName') == 'TD' && editable(cell)) {
+        cell.css('padding', 0);
+    
+    var text = cell.text();
+    cell.html('')
+    .append('<input type="text" class="input-cropped" value="' + text + '">');
+    
+    var input = $(cell.children()[0]);
+    input.focus().select();
+    }
+});
+    
+$('#resultTable').focusout(function(e){
+    var text = $(e.target).val();
+    var cell = $(e.target).closest('td');
+    if(editable(cell)) {
+        cell.css('padding', 8);
+        rt.modifyCell(cell, text);
+    }
+});
+            
+$('#bsSearch').click(function(e) {
+    $.getJSON(
+        '/manage/hotel/async',
+        {
+            h_id: $('#bsHID').val(),
+                        name: $('#bsName').val(),
+                        location: $('#bsLocation').val(),
+                    type: 'search',
+        },
+        function(data) {
+            //console.log(data);
+            rt = new ResultTable(data.hotel);
+        });
+});
 
 $('#atAdd').click(function(e) {
     var row = $('#addTable tr:first');
-    //console.log($(row.children()[0]).val());
+    ////console.log($(row.children()[0]).val());
     $.getJSON(
         '/manage/hotel/async',
         {
@@ -369,7 +442,7 @@ $('#atAdd').click(function(e) {
             type: 'add',
         },
         function(data) {
-            console.log(data);
+            //console.log(data);
         });
 });
 </script>
