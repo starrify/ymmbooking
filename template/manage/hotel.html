@@ -89,7 +89,7 @@
                     </div> <!-- row-fluid -->
                     <h3 id="searchVerbose">共有1个搜索结果</h3>
                     <div class="row-fluid"> <!-- search result -->
-                        <table class="table table-striped" id="resultTable" style="table-layout:fixed">
+                        <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
                                 <col width="22%" />
                                 <col width="22$" />
@@ -147,7 +147,8 @@
     </body>
   
 </html>
-
+<!--TODO: table sort -->
+<!--TODO: forbid multiple popover -->
 <script> // tools
 // checks overflow in our one-line context
 function checkOverflow(cell) {
@@ -171,6 +172,12 @@ function createArray(length) {
 function textToHtml(text) {
     return text.replace(/\n/g, '<BR>');
 }
+function isInteger(str) {
+    return (str.length < 10 && /^[0-9]+$/.test(str));
+}
+function deepCopyArray(arr) {
+        return $.extend(true, {}, {0:arr})[0];
+}
 </script>
 
 <script> // page specified functions
@@ -187,9 +194,19 @@ function editable(param) {
     else
         return true;
 }
-function isValid(col, text) {
-    if(!editable(col)) return false;
-    if(text.length > 255) return false;
+function isRowValid(row) {
+    var zeroCnt = 0;
+
+    console.log(row.find('td:eq(0)').text());
+    if(!isInteger(row.find('td:eq(0)').text())) return false;
+    for(var i = 1; i < 4; i++) {
+        var coltxt = row.find('td:eq(' + i + ')').text();
+        console.log(coltxt, coltxt.length);
+        if(coltxt.length > 255) return false;
+        if(coltxt.length == 0) zeroCnt++;
+    }
+    console.log('zero', zeroCnt);
+    if(zeroCnt == 3) return false;
     return true;
 }
 function mapResult(res) {
@@ -211,10 +228,12 @@ var schema = ['hid', 'name', 'location', 'description'];
 var rt;    
 function ResultTable(data) {
     this.$table = $('#resultTable');
-    console.log('lookhere', data, mapResult(data));
+    // model
     this.data = [schema].concat(mapResult(data));
+    this.cache = deepCopyArray(this.data);
     this.overflow = createArray(data.length + 1, schema.length);
-    this.updateContent();
+    // view
+    this.updateContentView();
 }
 ResultTable.prototype = {
     getRow: function(row) {
@@ -222,7 +241,6 @@ ResultTable.prototype = {
     },
     
     getRowCnt: function() {
-        //console.log(this.$table.find('tr'));
         return this.$table.find('tr').length;
     },
     
@@ -233,58 +251,76 @@ ResultTable.prototype = {
             return row.find('td:eq(' + col + ')');
     },
     
-    pushRow: function(rowData) {
-        var newRow = $(rowtmpl);
-        var row = this.getRow(this.getRowCnt() - 1);
-        newRow.insertAfter(row);
-        
+    pushRow: function(rowData) { //TODO: animation
+        // model
         this.overflow.push(new Array(schema.length));
-        for(var i = 0; i < schema.length; i++) {
-            if(editable(i)) {
-                console.log(rowData);
-                this.modifyCell(this.getCell(newRow, i), rowData[i]);
-            } else {
-                this.getCell(newRow, i).html(rowData[i]);
-            }
-        }
+        this.cache.push(deepCopyArray(rowData));
+        this.data.push(deepCopyArray(rowData));
+        // view
+        this.$table.find('tbody').append(rowtmpl);
+        //$(rowtmpl).insertAfter(this.getRow(this.getRowCnt() - 1));
+        console.log('a');
+        this.updateRowView(this.getRowCnt() - 1);
     },
     
     /*pushRow: function(rowData) {
         this.insertRow(rowData, this.getRowCnt().length);
     },*/
     
-    removeRow: function(rowid) {
+    removeRow: function(rowid) { //TODO: animation
+        // model
+        //TODO: use lazy removal to speedup
+        this.overflow.splice(rowid, 1);
+        this.cache.splice(rowid, 1);
+        this.data.splice(rowid, 1);
+        // view
         this.getRow(rowid).remove();
     },
     
     popRow: function() {
         this.removeRow(this.getRowCnt() - 1);
     },
-    resetRow: function() {
-    },
-    commitRow: function() {
+    
+    resetRow: function(rowId) {
+        // model
+        this.cache[rowId] = deepCopyArray(this.data[rowId]);
+        // view
+        this.updateRowView(rowId);
+        this.getRow(rowId).removeClass();
     },
     
-    updateContent: function() {
+    commitRow: function(rowId) { // write from buffer to data
+        // model
+        this.data[rowId] = deepCopyArray(this.cache[rowId]);
+        // view
+        var row = this.getRow(rowId);
+        row.removeClass().addClass('success');
+        setTimeout(function() { row.removeClass(); }, 1000);
+    },
+    
+    updateRowView: function(rowId) {
+        for(var colId = 0; colId < schema.length; colId++) {
+            this.setCell(this.getCell(rowId, colId), this.cache[rowId][colId]);
+        }
+    },
+    
+    updateContentView: function() {
         var curRowCnt = this.getRowCnt();
-        //console.log(curRowCnt, this.data.length);
-        //console.log(this.data);
+
         var minRowCnt = Math.min(curRowCnt, this.data.length);
         // skip header
-        for(var row = 1; row < minRowCnt; row++) {
-            // set index directly
-            this.getCell(row, 0).html(this.data[row][0]);
-            for(var col = 1; col < this.data[row].length; col++) {
-                console.log(row, col, this.data[row][col]);
-                this.modifyCell(row, col, this.data[row][col]);
-            }
+        for(var rowId = 1; rowId < minRowCnt; rowId++) {
+            this.updateRowView(rowId);
         }
         if(curRowCnt > this.data.length) {
-            for(var t = curRowCnt - this.data.length; t--; )
-                this.popRow();
+            for(var t = curRowCnt - this.data.length; t--; ) {
+                this.$table.find('tr:last').remove();
+            }
         } else if(curRowCnt < this.data.length) {
-            for(var t = curRowCnt; t < this.data.length; t++)
-                this.pushRow(this.data[t]);
+            for(var t = curRowCnt; t < this.data.length; t++) {
+                this.$table.find('tbody').append(rowtmpl);
+                this.updateRowView(t);
+            }
         }
     },
     
@@ -314,7 +350,7 @@ ResultTable.prototype = {
                 return viewtmpl.replace('__texthere__', textToHtml($(this).text()));
             },
             popover_click: function(e) {
-                ////console.log(edit);
+
                 if(!edit && $(e.target).prop('tagName') == 'DIV') {
                     edit = true;
                     
@@ -334,74 +370,122 @@ ResultTable.prototype = {
                         ele.popoverex('unpin');
                         ele.popoverex('hide');
                         edit = false;
-                        ////console.log(edit);
+
                     };
                     $(buttons[0]).click(function() {
                         close();
                         rt.modifyCell(ele, textarea.val())
                     });
-                    $(buttons[1]).click(close)
+                    $(buttons[1]).click(close);
                 }
             },
         });
     },
 
+    setCell: function(cell, text) { // with no checks
+        var row, col;
+        [row, col] = cellPosition(cell);
+        cell.html(text);
+        // popover
+        console.log(cell);
+        this.cache[row][col] = text;
+        
+        var cellOverflow = checkOverflow(cell);
+        if(!this.overflow[row][col] && cellOverflow)  {
+            this.overflow[row][col] = true;
+            this.addPopover(cell);
+        } else if(this.overflow[row][col] && !cellOverflow) {
+            this.overflow[row][col] = false;
+            cell.popoverex('destroy');
+        }
+    }, 
     modifyCell: function(param1, param2, param3) {
-        var cell, row, col, text;
+        var cell, row, col, text, oritext;
         if(typeof param1 == 'number') { // row col
             row = param1;
             col = param2;
-            cell = this.getCell(row, col);
-            //console.log(cell);
             text = param3;
+            cell = this.getCell(row, col);
         } else { // cell
             cell = param1;
             text = param2;
             [row, col] = cellPosition(cell);
-            //console.log(row, col);
         }
-        
-        if(!isValid(col, text)) {
-            alert('invalid');
-        }
-        else {
-            // modify
-            //console.log(row, col, 'from', cell.text(), 'to', text);
-            cell.html(text);
-            // popover
-            var cellOverflow = checkOverflow(cell);
-            console.log(row, col);
-            console.log('cellOverflow', cellOverflow, 'orioverflow', this.overflow[row][col], 'text is', text);
-            if(!this.overflow[row][col] && cellOverflow)  {
-                this.overflow[row][col] = true;
-                this.addPopover(cell);
-            } else if(this.overflow[row][col] && !cellOverflow) {
-                this.overflow[row][col] = false;
-                cell.popoverex('destroy');
+        //TODO: if not changed then do not set or change class
+        if(this.cache[row][col] != text) {
+            console.log('bbb');
+            this.setCell(cell, text);
+            if(isRowValid(this.getRow(row))) {
+                cell.closest('tr').removeClass().addClass('warning');
+            } else {
+                cell.closest('tr').removeClass().addClass('error');
             }
+        } else {
+            cell.html(text);
         }
-    }
+    },
 }
 rt = new ResultTable([]);
 </script>
 
 <script> //event handlers
 $('#resultTable').click(function(e) {
-    if($(e.target).prop('tagName') == 'INPUT') // avoid re-focusing
-        return;
-    var pos = cellPosition($(e.target));
-    if(rt.overflow[pos[0]][pos[1]]) return;
+    switch($(e.target).prop('tagName')) {
+    case 'TD' : {
+        var pos = cellPosition($(e.target));
+        var cell = $(e.target);
+        if(!editable(cell) || rt.overflow[pos[0]][pos[1]]) return;
                            
-                           var cell = $(e.target).closest('td');
-    if(cell.prop('tagName') == 'TD' && editable(cell)) {
         cell.css('padding', 0);
+        var text = cell.text();
+        cell.html('')
+            .append('<input type="text" class="input-cropped" value="' + text + '">');
     
-    var text = cell.text();
-    cell.html('')
-    .append('<input type="text" class="input-cropped" value="' + text + '">');
-    
-    var input = $(cell.children()[0]);
-    input.focus().select();
+        cell.find('input').focus().select();
+        break;
+    }
+    case 'BUTTON': {
+        //TODO: enable and disable of buttons
+        var btn = $(e.target);
+        var rowId = btn.closest('tr').prop('rowIndex');
+        switch(btn.parent().children().index(e.target)) {
+        case 0: { // submit
+            $.getJSON(
+                '/manage/hotel/async',
+                {
+                    h_id: rt.cache[rowId][0],
+                    name: rt.cache[rowId][1],
+                    location: rt.cache[rowId][2],
+                    description: rt.cache[rowId][3],
+                    type: 'update',
+                },
+                function(data) {
+                    console.log(data);
+                    //if(data.status == 'success')
+                    rt.commitRow(rowId);
+                });
+            break;
+        }
+        case 1: { // remove
+            $.getJSON(
+                '/manage/hotel/async',
+                {
+                    h_id: rt.cache[rowId][0],
+                    type: 'delete',
+                },
+                function(data) {
+                    console.log(data);
+                    //if(data.status == 'success')
+                    rt.removeRow(rowId);
+                });
+            break;
+        }
+        case 2: { // reset
+            rt.resetRow(rowId);
+            break;
+        }
+        }
+    }
     }
 });
     
@@ -419,30 +503,31 @@ $('#bsSearch').click(function(e) {
         '/manage/hotel/async',
         {
             h_id: $('#bsHID').val(),
-                        name: $('#bsName').val(),
-                        location: $('#bsLocation').val(),
-                    type: 'search',
+            name: $('#bsName').val(),
+            location: $('#bsLocation').val(),
+            type: 'search',
         },
         function(data) {
-            //console.log(data);
             rt = new ResultTable(data.hotel);
         });
 });
 
 $('#atAdd').click(function(e) {
     var row = $('#addTable tr:first');
-    ////console.log($(row.children()[0]).val());
+    var addobj = {
+        h_id: '',
+        name: row.find('td:eq(1) input:first').val(),
+        location: row.find('td:eq(2) input:first').val(),
+        description: row.find('td:eq(3) input:first').val(),
+        type: 'add',
+    };
     $.getJSON(
         '/manage/hotel/async',
-        {
-            h_id: '',
-            name: $(row.children()[1]).find('input:first').val(),
-            location: $(row.children()[2]).find('input:first').val(),
-            description: $(row.children()[3]).find('input:first').val(),
-            type: 'add',
-        },
+        addobj,
         function(data) {
-            //console.log(data);
+            console.log(data);
+            //if(data.status == 'success')
+            rt.pushRow([data.h_id, addobj.name, addobj.location, addobj.description]);
         });
 });
 </script>
