@@ -202,13 +202,7 @@ function editable(param1) {
 }
 function isValid(col, text) {
     if(!editable(col)) return false;
-    switch(col) {
-    case 1:
-    case 2:
-    case 3:
-        if(text.length > 255) return false;
-        break;
-    }
+    if(text.length > 255) return false;
     return true;
 }
 </script>
@@ -228,7 +222,7 @@ ResultTable.prototype = {
             var pos = cellPosition($(e.target));
             if(rt.overflow[pos[0]][pos[1]]) return;
             
-            var cell = $($(e.target).closest('td'));
+            var cell = $(e.target).closest('td');
             if(cell.prop('tagName') == 'TD' && editable(cell)) {
                 cell.css('padding', 0);
             
@@ -243,7 +237,7 @@ ResultTable.prototype = {
         
         $('#resultTable').focusout(function(e){
             var text = $(e.target).val();
-            var cell = $($(e.target).closest('td'));
+            var cell = $(e.target).closest('td');
             if(editable(cell)) {
                 cell.css('padding', 8);
                 rt.modifyCell(cell, text);
@@ -251,7 +245,6 @@ ResultTable.prototype = {
         });
         
         $('#bsSearch').click(function(e) {
-            console.log(typeof $('#bsHID'));
             $.getJSON(
                 '/manage/hotel/async',
                 {
@@ -300,12 +293,11 @@ ResultTable.prototype = {
                     var popcontent = pop.find('[class=popover-content]');
                     ele.popoverex('pin');
                     popcontent.html(edittmpl.replace('__texthere__', ele.text())); //text()));
-                    var textarea = $(popcontent.find('textarea'));
+                    var textarea = popcontent.find('textarea');
                     textarea.focus().select();
                     
                     // register button events
                     var buttons = pop.find('button');
-                    var ok = $(buttons[0]), cancel = $(buttons[1]);
                     var close = function() {
                         buttons.each(function() {
                             $(this).off('click');
@@ -315,11 +307,11 @@ ResultTable.prototype = {
                         edit = false;
                         //console.log(edit);
                     };
-                    ok.click(function() {
+                    $(buttons[0]).click(function() {
                         close();
                         rt.modifyCell(ele, textarea.val())
                     });
-                    cancel.click(close)
+                    $(buttons[1]).click(close)
                 }
             },
         });
@@ -361,27 +353,6 @@ ResultTable.prototype = {
 var result = new ResultTable();
 </script>
 
-<!--<script> // data access
-function ResultData(data) {
-    this.$table = $('#resultTable');
-    this.cellOverflow = [[]];
-    console.log(data);
-}
-ResultData.prototype = {
-    resetRow: function(row) {
-    },
-    updateRow: function(row) {
-    },
-    removeRow: function(row) {
-    },
-    modify: function(rowid, colid, text) {
-        }
-    },
-};
-
-var result = new ResultData();
-</script>-->
-
 <script> //event handlers
 
 
@@ -391,10 +362,10 @@ $('#atAdd').click(function(e) {
     $.getJSON(
         '/manage/hotel/async',
         {
-            h_id: $($(row.children()[0]).find('input:first')).val(),
-            name: $($(row.children()[1]).find('input:first')).val(),
-            location: $($(row.children()[2]).find('input:first')).val(),
-            description: $($(row.children()[3]).find('input:first')).val(),
+            h_id: '',
+            name: $(row.children()[1]).find('input:first').val(),
+            location: $(row.children()[2]).find('input:first').val(),
+            description: $(row.children()[3]).find('input:first').val(),
             type: 'add',
         },
         function(data) {
