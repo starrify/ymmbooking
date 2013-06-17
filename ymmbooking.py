@@ -219,6 +219,11 @@ def flight_search_json():
     
     return {'flight': ret_flights}
 
+@bottle_app.get('/trade/remark_history')
+@bottle.view(app.config.template_path + 'trade/remark_history.html')
+def order():
+    return {}
+
 @bottle_app.get('/hotel/search')
 @bottle.view(app.config.template_path + 'hotel/search.html')
 def flight_search():
@@ -238,13 +243,13 @@ def hotel_search_json():
     hotels = db.get_hotels(param[0], param[1], param[2], param[3])
     return {'hotel': [list(hotel.values()) for hotel in hotels]}
 
-@ bottle_app.get('/order')
+@bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
 def order():
     return {}
 
 @bottle_app.get('/trade/booking_history')
-@bottle.view(app.config.template_path + '/trade/booking_history.html')
+@bottle.view(app.config.template_path + 'trade/booking_history.html')
 def booking_history():
     return {}
 
