@@ -144,12 +144,10 @@ class Database(object):
             cursor.execute(
                 "DELETE FROM hotel "
                 "WHERE h_id=?", [h_id])
-            print(cursor.fetchall())
             cursor.close()
             return True
         except None:
             return False
-
 
 class App(object):
     """The main application."""
@@ -265,7 +263,8 @@ def hotel_search_json():
 
     db = Database(app.config)
     hotels = db.get_hotels(param[0], param[1], param[2], param[3])
-    return {'hotel': [list(hotel.values()) for hotel in hotels]}
+    return {'hotel': [list(map(lambda x: hotel[x], 
+        ('h_id', 'name', 'description', 'location'))) for hotel in hotels]}
 
 @bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
