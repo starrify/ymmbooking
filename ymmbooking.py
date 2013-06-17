@@ -111,7 +111,7 @@ class Database(object):
         cursor.close()
         return airline
 
-    def add_hotel(self, name="", desc="", location=""):
+    def add_hotel(self, name="", description="", location=""):
         cursor = self._conn.cursor()
         cursor.execute("SELECT MAX(h_id) from hotel;")
         try:
@@ -121,11 +121,35 @@ class Database(object):
         try:
             cursor.execute(
                 "INSERT INTO hotel (h_id,name,description,location) "
-                "VALUES(?,?,?,?);", [h_id, name, desc, location])
+                "VALUES(?,?,?,?);", [h_id, name, description, location])
             cursor.close()
             return True, h_id
         except:
             return False, -1
+    def update_hotel(self, h_id="", name="", description="", location=""):
+        cursor = self._conn.cursor()
+        try:
+            cursor.execute(
+                "UPDATE hotel "
+                "SET name=?, description=?, location=? "
+                "WHERE h_id=?",
+                [name, description, location, h_id])
+            cursor.close()
+            return True
+        except:
+            return False
+    def delete_hotel(self, h_id=""):
+        cursor = self._conn.cursor()
+        try:
+            cursor.execute(
+                "DELETE FROM hotel "
+                "WHERE h_id=?", [h_id])
+            print(cursor.fetchall())
+            cursor.close()
+            return True
+        except None:
+            return False
+
 
 class App(object):
     """The main application."""
@@ -272,9 +296,24 @@ def hotel_manage_json():
         if success:
             return {'status': 'succeeded', 'h_id': h_id}
     elif access_type == 'update':
-        pass
+        param = list(map(bottle.request.query.get, 
+            ['h_id', 'name', 'description', 'location']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_hotel(param[0], param[1], param[2], param[3])
+        if success:
+            return {'status': 'succeeded'}
     elif access_type == 'delete':
-        pass
+        param = list(map(bottle.request.query.get, ['h_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_hotel(param[0])
+        if success:
+            return {'status': 'succeeded'}
     elif access_type == 'search':
         return hotel_search_json()
     return {'status': 'failed'}
