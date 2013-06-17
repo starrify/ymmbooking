@@ -58,8 +58,8 @@
     <div class="main">
         <div class="well sidebar-nav">
         <ul class="breadcrumb">
-            <li><a href="bookindex.html">预定系统</a><span class="divider">/</span></li>
-            <li><a href="domeflight.html">机票预定</a><span class="divider">/</span></li>
+            <li><a href="/hotel/search">预定系统</a><span class="divider">/</span></li>
+            <li><a href="#">机票预定</a><span class="divider">/</span></li>
             <li class="active">国内航班搜索</a></li>
         </ul>
 	  <div class="order_list">
@@ -244,13 +244,13 @@
     }
     
     function fill_list(flight,i){
-        strdata = "<tr><td>"+i+"</td>"
-        strdata = strdata+"<td>"+flight[13]+flight[1]+"</td>"
-        strdata = strdata+"<td>"+flight[2]+"</td>"
-        strdata = strdata+"<td>"+flight[4]+"</td>"
-        strdata = strdata+"<td>"+flight[11]+"</td>"
-        strdata = strdata+"<td>"+flight[12]+"</td>"
-        strdata = strdata+"<td>"+flight[3]+"</td>"
+        strdata = "<tr><td>"+i+"</td>"// number
+        strdata = strdata+"<td>"+flight[13]+"</td>"// airline
+        strdata = strdata+"<td>"+flight[1]+"</td>" //d_time
+        strdata = strdata+"<td>"+flight[2]+"</td>" //a_time
+        strdata = strdata+"<td>"+flight[11]+"</td>" //d_city
+        strdata = strdata+"<td>"+flight[12]+"</td>" //a_city
+        strdata = strdata+"<td>"+flight[10]+"</td>" // lowest_price
         strdata = strdata+"<td><button class=\"btn btn-primary\">查看详情</button></td></tr>"
         $("#flight_list").append($("<tbody>",{html:strdata}))
     }

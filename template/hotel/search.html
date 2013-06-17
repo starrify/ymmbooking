@@ -45,8 +45,11 @@
               <li class="active"><a href="#" onclick="hide_inn()">酒店预定</a></li>
               <li><a href="#" onclick="show_inn()">旅馆预定</a></li>			
               <li class="nav-header">航班</li>
-              <li><a href="interflight.html">国际航班</a></li>
-			  <li><a href="domeflight.html">国内航班</a></li>
+              <li><a href="/flight/search">国内航班</a></li>
+			  <li><a href="/flight/search">国际航班</a></li>
+              <li class="nav-header">订单管理</li>
+              <li ><a href="/trade/booking_history">订单历史</a></li>
+              <li ><a href="/trade/comment">评价</a></li>
             </ul>
           </div><!--/.well -->
           </div><!--/span-->
@@ -54,7 +57,7 @@
   <div class="main">
       <div class="well sidebar-nav">
           <ul class="breadcrumb">
-              <li><a href="bookindex.html">预定系统</a><span class="divider">/</span></li>
+              <li><a href="#">预定系统</a><span class="divider">/</span></li>
               <li><a href="#" onclick="hide_inn()">酒店预定</a><span class="divider">/</span></li>
               <li class="active">酒店预定</a></li>
           </ul>
@@ -243,8 +246,8 @@
         $.getJSON(
             "/hotel/search/async",// ???
             {
-                hotel_city: city,
-                hotel_name: name,
+                city: location,
+                name: name,
             },
             function(data){
                 console.log(data);
