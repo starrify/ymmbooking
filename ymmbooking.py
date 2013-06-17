@@ -168,13 +168,25 @@ def flight_search_json():
     
     return { 'flight': ret_flights }
 
+@bottle_app.get('/trade/remark_history')
+@bottle.view(app.config.template_path + 'trade/remark_history.html')
+def order():
+    return {}
+
+
+@bottle_app.get('/hotel/search')
+@bottle.view(app.config.template_path + 'hotel/search.html')
+def flight_search():
+    return {}
+
 @bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
 def order():
     return {}
 
-@bottle_app.get('/booking_history')
-@bottle.view(app.config.template_path + 'booking_history.html')
+
+@bottle_app.get('/trade/booking_history')
+@bottle.view(app.config.template_path + 'trade/booking_history.html')
 def booking_history():
     return {}
 
@@ -185,6 +197,6 @@ def trade_remark():
 
 
 if __name__ == '__main__':
-    bottle.run(bottle_app, host='localhost', port=8080, debug=True)
+    bottle.run(bottle_app, host='0.0.0.0', port=8080, debug=True)
     #bottle.run(bottle_app, server='cherrypy', host='localhost', port=8080, debug=True)
 

@@ -6,77 +6,11 @@
 	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
     <link href="/css/3.css" rel="stylesheet" type="text/css">
+    <link href="/css/datetimepicker.css" rel="stylesheet" type="text/css" />
 <!--what a mess code.-->
-<script src="/js/jquery.js"></script>
-<script>
-function fetch_flight(d_city, a_city, d_date) { 
-    console.log(d_city);
-    $('#flight_list').html('查询中, 请稍候...')
-    $.getJSON(
-        "/flight/search/async",
-        { 
-            departure_city: d_city, 
-            arrival_city:   a_city, 
-            departure_date: d_date, 
-        },
-              function(data) {
-              console.log(data)
-              $('#flight_list').html('')
-              $('#flight_table').html('')
-              $('#flight_row').html('')
-              $('#flight_time1').html('')
-              $("#flight_list").append($("<div class=info_div>"))
-              $("#flight_table").append($("<table class=info_table>"))
-              $("#flight_list").append($("<tr>"))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:"航班信息"}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:"起飞时间"}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:"降落时间"}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:"起飞机场"}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:"降落机场"}))
-              $("#flight_list").append($("<td class=info_td>"))
-              $("#flight_list").append($("<td>",{html:"最低报价"}))
-
-              
-              for (var i in data.flight) {
-              flight = data.flight[i]
-              $("#flight_list").append($("<div>",{html:flight[13]+flight[1]}))
-              $("#flight_list").append($("<div>",{html:flight[2]}))
-              $("#flight_list").append($("<div>",{html:flight[4]}))
-              $("#flight_list").append($("<div>",{html:flight[11]}))
-              $("#flight_list").append($("<div>",{html:flight[12]}))
-              $("#flight_list").append($("<div>",{html:flight[3]}))
-              $("#flight_list").append($("<button class=btn btn-info >"))
-
-
-//              $("#flight_list").append($("<tr>"))
-//              $("#flight_list").append($("<td class=info_td>"))
-//              $("#flight_list").append($("<td>",{html:flight[13]+flight[1]}))
-//              $("#flight_list").append($("<td class=info_td>"))
-//              $("#flight_list").append($("<td>",{html:flight[2]}))
-//              $("#flight_list").append($("<td class=info_td>"))
-//              $("#flight_list").append($("<td>",{html:flight[4]}))
-//              $("#flight_list").append($("<td class=info_td>"))
-//              $("#flight_list").append($("<td>",{html:flight[11]}))
-//              $("#flight_list").append($("<td class=info_td>"))
-//              $("#flight_list").append($("<td>",{html:flight[12]}))
-//              $("#flight_list").append($("<td class=info_td>"))
-//              $("#flight_list").append($("<td>",{html:flight[3]}))
-//              $("#flight_list").append($("<td class=info_td>"))
-//              $("#flight_list").append($("<button class=btn btn-info >"))
-              
-          }
-              if (data.flight.length == 0)
-              $('#flight_list').html('未查询到满足条件的航班')
-              }
-              );
-}
-</script>
-
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8" ></script>
   </head>
   <body>
   
@@ -94,8 +28,8 @@ function fetch_flight(d_city, a_city, d_date) {
               <li><a href="#">账户设置</a></li>
               <li><a href="order_manage.html">我是买家</a></li>
               <li><a href="#contact">我是卖家</a></li>
-			  <li class="active"><a href="#contact">淘宝贝</a></li>
-			  <li><a href="#contact">在线预订</a></li>
+			  <li><a href="#contact">淘宝贝</a></li>
+			  <li class="active"><a href="#contact">在线预订</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -113,64 +47,127 @@ function fetch_flight(d_city, a_city, d_date) {
               <li class="nav-header">航班</li>
               <li><a href="interflight.html">国际航班</a></li>
 			  <li class="active"><a href="domeflight.html">国内航班</a></li>
-                <li class="nav-header">订单管理</li>
-                <li ><a href="/trade/booking_history">订单历史</a></li>
-                <li ><a href="/trade/comment">评价</a></li>
-
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span10">
-  <div class="main">
-	  <div class="rimidebox">
-		<a href="bookindex.html">预定系统</a><span>>></span><a href="bookindex.html"></a><span><a href="domeflight.html"> 机票预定</a></span>>><span><a href="domeflight.html"> 国内机票搜索</a></span>
-      </div>
-	  <div class="well sidebar-nav">
+<div class="span10">
+    <div class="main">
+        <div class="well sidebar-nav">
+        <ul class="breadcrumb">
+            <li><a href="bookindex.html">预定系统</a><span class="divider">/</span></li>
+            <li><a href="domeflight.html">机票预定</a><span class="divider">/</span></li>
+            <li class="active">国内航班搜索</a></li>
+        </ul>
 	  <div class="order_list">
-		<div class="hotelbook">
+		<div class="flightbook">
 				<div class="row-fluid">
-                    <div class="span1 offset1"><input type="checkbox" checked>单程</input></div>
-                    <div class="span1"><input type="checkbox">往返</input></div>
+                    <div class="span1 offset1"><label class="radio"><input id="optionsRadios1" type="radio" checked="" value="option1" name="optionsRadios" onclick="hide_return()">单程</label></div>
+                    <div class="span1"></div>
+                    <div class="span1"><label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="show_return()">往返</label></div>
                 </div>
                 <div class="row-fluid">
                     <div class="span1"> 城市</div>
-                    <div class="span1">
-                        <input type="text" value="杭州" size="20" id="departure_city" value maxlength="30">
+                    <div class="span3">
+                        <input type="text" placeholder="杭州" value="杭州" title="请输入出发城市" size="20" style="width: 100%;" id="departure_city" value maxlength="30">
                     </div>
-                    <div class="span2"></div>
-                    <div class="span2">
-                        <input type="text" value="北京" size="20" id="arrival_city" value maxlength="30">
+                    <div class="span1">&nbsp&nbsp&nbsp&nbsp;到</div>
+                    <div class="span3">
+                        <input type="text" placeholder="北京" value="北京" title="请输入到达城市" size="20" style="width: 100%;" id="arrival_city" value maxlength="30">
                     </div>
                 </div>
 
-				<div class="row=fluid">
-					<div class="span1">出发日期</div>
-					<div class="span11"><input type="text" placeholder="yyyy/mm/dd" size="20" id="departure_date" value maxlength="30"></input></div>
+            <div class="row-fluid">
+                <div class="span1">出发日期</div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div data-link-field="departure_date" class="controls input-append date form_datetime1">
+                            <input type="text" style="width: 80%;" value="" readonly>
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                        <input type="hidden" value="1" id="departure_date"><br>
+                            </div>
                 </div>
-                <input class="search_button" type="button" value="搜索"
+                <div id="return">
+                <div class="span1">&nbsp&nbsp;返回日期</div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div data-link-field="return_date" class="controls input-append date form_datetime1">
+                            <input type="text" style="width: 80%;" value="" readonly>
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                        <input type="hidden" value="1" id="return_date"><br>
+                            </div>
+                </div></div>
+            <div class ="span3">
+                 <a class="btn btn-primary btn-middle"
                         onclick="fetch_flight(
                             $('#departure_city').val(),
                             $('#arrival_city').val(),
                             $('#departure_date').val()
-                            )">
-                        
-		</div>		
-	   </div>
-        <div id='flight_list' style="display:inline" >
-        <table id='flight_table'>
-        <tr id='flight_row'>
-        <td id='flight_time1'>
-        
-    
-                        </table>
-        </div>
-        
-	  </div>
-    </div>
+                            )">搜  索 »</a>
+            </div><!--search button-->
+                </div>
 		</div>
-	</div>
-   </div>
-  
+	   </div>
+
+        </div><!--order-list-->
+            
+        </div>
+      <div class="well sidebar-nav" id="display_flight_panel">
+          
+          <div id='display_condition' class="row-fluid" style="color:#333333;" >
+              <div class="span8">
+                  <div class="span1"></div>
+                  <div class="span2">
+                      <div class="btn-group">
+                          <a class="btn btn-info btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+                              默认排序
+                              <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu" style="font-size:12px;">
+                              <li> <a href="#">默认排序</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">星级：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">评分：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">价格：低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                          </ul>
+                      </div>
+                  </div>
+                  
+                  <div class="span2">
+                      <div class="btn-group dropup">
+                          <button id="star" class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">星级<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="span2">
+                      <div class="btn-group dropup">
+                          <button id="score" class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">评分<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          </button>
+                      </div>
+                  </div>
+                  
+                  <div class="span2">
+                      <div class="btn-group dropup">
+                          <button id="price" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">价格<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div><!--/#display_condition-->
+        <table id='flight_list' style="background-color:#ffffff;" class="table table-hover">
+        </table>
+	  </div>
+    </div><!--main-->
+		</div>
+	</div><!--.row-fluid-->
+  </div><!--.container-fluid-->
   <footer class="tail">
 		<hr>
         <a href="">关于我们</a>
@@ -180,6 +177,73 @@ function fetch_flight(d_city, a_city, d_date) {
         <a href="../other/map.html">网站地图</a>
         <span>© 2013 Black.com 版权所有</span>
    </footer>
+      
+<script>
+    $("#display_flight_panel").hide()
+    $("#return").hide()
+    $(".radio").click(function(){
+        $("#display_flight_panel").hide()
+    })
+    $(".form_datetime1").datetimepicker({
+                                        format: "yyyy/mm/dd",
+                                        todayBtn: 1,
+                                        autoclose: 1,
+                                        minView: 2,
+                                        pickerPosition: "bottom-left"
+                                        });
+    function show_return(){
+        $(".nav-list li:eq(4)").addClass('active')
+        $(".nav-list li:eq(5)").removeClass('active')
+        $(".breadcrumb li:eq(2)").html('国际航班搜索')
+        $("title").html('国际航班搜索')
+        $("#return").show()
+    }
+    function hide_return(){
+        $(".nav-list li:eq(4)").removeClass('active')
+        $(".nav-list li:eq(5)").addClass('active')
+        $(".breadcrumb li:eq(2)").html('国内航班搜索')
+        $("title").html('国内航班搜索')
+        $("#return").hide()
+    }
+    function fetch_flight(d_city, a_city, d_date) {
+        $("#display_flight_panel").show()
+        console.log(d_city);
+        $("#flight_list").html('查询中, 请稍候...')
+        $.getJSON(
+            "/flight/search/async",
+            {
+            departure_city: d_city,
+            arrival_city:   a_city,
+            departure_date: d_date,
+            },
+            function(data) {
+                console.log(data)
+                $("#flight_list").html('')
+                strdata="<td class=info_td></td><td class=info_td><strong>航班信息</strong></td>"+"<td class=info_td><strong>起飞时间</strong></td>"+"<td class=info_td><strong>降落时间</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价</strong></td>"+"<td style=\"width:15%;\"></td>"
+                $("#flight_list").append($("<tr>",{html:strdata}))
+                for (var i in data.flight) {
+                  fill_list (data.flight[i],i)
+                }
+                if (data.flight.length == 0){
+                  $("#flight_list").html('未查询到满足条件的航班')
+                }
+            }
+        );
+    }
+    
+    function fill_list(flight,i){
+        strdata = "<tr><td>"+i+"</td>"
+        strdata = strdata+"<td>"+flight[13]+flight[1]+"</td>"
+        strdata = strdata+"<td>"+flight[2]+"</td>"
+        strdata = strdata+"<td>"+flight[4]+"</td>"
+        strdata = strdata+"<td>"+flight[11]+"</td>"
+        strdata = strdata+"<td>"+flight[12]+"</td>"
+        strdata = strdata+"<td>"+flight[3]+"</td>"
+        strdata = strdata+"<td><button class=\"btn btn-primary\">查看详情</button></td></tr>"
+        $("#flight_list").append($("<tbody>",{html:strdata}))
+    }
+</script>
+
   </body>
   
 </html>

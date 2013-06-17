@@ -1,25 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>订单历史查询</title>
+    <title>评论历史查询</title>
     <meta content="text/html" charset=utf-8>   
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
 	<link href="/css/tran_history.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8" ></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <!--jscode.-->
  
         <script>
-            $("#display_history_panel").hide()
-            $(".radio").click(function(){
-                    $("#display_flight_panel").hide()
-            })
-
             function fetch_history(b_date,e_date,typ,u_id)
             {
-                $("#display_history_panel").show()
                 console.log(type);
                 $('#history_list').html('查询中，请稍候...')
                 $.getJSON(
@@ -35,30 +27,19 @@
                           $('#booking_item').html('')
                           $('#booking_price').html('')
                           $('#booking_date').html('')
-                          strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>起飞时间</strong></td>"+"<td class=info_td><strong>降落时间</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价</strong></td>"+"<td style=\"width:15%;\"></td>"
-                          $("#flight_list").append($("<tr>",{html:strdata}))
-
+                          
                           for(var i in data.booking_history){
-                            fill_list (data.booking_history[i])
-//                          booking_history = data.booking_history[i]
-//                          $(#booking_item).append($("<div>",{html:booking_history[0]}))
-//                          $(#booking_price).append($("<div>",{html:booking_history[1]}))
-//                          $(#booking_date).append($("<div>",{html:booking_history[2]}))
+                          booking_history = data.booking_history[i]
+                          $(#booking_item).append($("<div>",{html:booking_history[0]}))
+                          $(#booking_price).append($("<div>",{html:booking_history[1]}))
+                          $(#booking_date).append($("<div>",{html:booking_history[2]}))
                           }
                           if(data.info.length== 0)
                           $('#booing_item').html('未查询到满足条件的记录')
+                          
                           }
                           
                 );
-            }
-            
-            function fill_list(history,i){
-                strdata = "<tr><td>"+i+"</td>"
-                strdata = strdata+"<td>"+history[2]+"</td>"
-                strdata = strdata+"<td>"+history[4]+"</td>"
-                strdata = strdata+"<td>"+history[11]+"</td>"
-                strdata = strdata+"<td><a href="/trade/remark" class="btn" value="comment"> 评价 </a></td></tr>"
-                $("#flight_list").append($("<tbody>",{html:strdata}))
             }
         </script>
         
@@ -99,8 +80,8 @@
                           <li><a href="/flight/search">国际航班</a></li>
                           <li ><a href="/flight/search">国内航班</a></li>
                           <li class="nav-header">订单管理</li>
-                          <li class="active"><a href="/trade/booking_history">订单历史</a></li>
-                          <li ><a href="/trade/remark">评价</a></li>
+                          <li ><a href="/trade/booking_history">订单历史</a></li>
+                          <li class="active"><a href="/trade/remark_history">评价历史</a></li>
                       </ul>
                   </div><!--/.well -->
               </div><!--/span-->
@@ -108,12 +89,12 @@
 	<div class="main">
   	
 	  <div class="rimidebox">
-		<a href="order_manage.html">我的订单</a><span>>></span><a href="tran_history.html">订单记录</a>
+		<a href="order_manage.html">我的订单</a><span>>></span><a href="tran_history.html">评价记录</a>
       </div>
       
 	  <div class="order_list">
 		<form class="orderquery">
-            	<label class="control-label" for="time">成交时间</label>
+            	<label class="control-label" for="time">评价时间</label>
                 <input type="text" placeholder="Begin date" id="begin_date">
                 <input type="text" placeholder="End date" id="end_date">
             
@@ -123,41 +104,38 @@
 						<option data-msg="酒店预定" value="ALL" id="hotel_booking">酒店预定</option>
                 </select>
              <div>
-			 <a class="btn" type="button"
+			 <button class="btn" type="button"
                         onclick="fetch_history(
                             $('#begin_date').val(),
                             $('#end_date').val(),
                             $('#type').val(),
                             $('#Username').val(),
-                 )">搜索</a>
+                 )">搜索</button>
              </div>
 		</form>
-        <div class="well" id="display_history_panel">
+        <div class="well">
 		<table class="table bought_list " id="order_list">
 		<thead>
             <div><tr class="col_name">
-				<th class="item" colspan="2">商品</th>
-				<th class="totalprice" colspan="1">价格</th>
-                <th class="deal_time" colspan="1"> 成交时间</th>
-                <th class="remark" colspan="1"> 评价</th>
+				<th class="item" colspan="1.8">商品</th>
+                <th class="comment" colspan="2"> 评论内容</th>
+				<th class="rate"colspan="1">评分</th>
                 </tr>
 			</tr></div>
 		</thead>
 		<tbody>
             <div id="history">
             <tr class="order_item">
-                <th class="item" colspan="2"><div id ="booking_item"> 萧山国际机场 首都国际机场 中国国际航空 </div></th>
-                <th class="totalprice" colspan="1"><div id="booking_price">1234567</div></th>
-                <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment"> 评价 </a></div></th>
+                <th class="item" colspan="1.8"><div id ="booking_item">dsf</div></th>
+                <th class="comment" colspan="2" rows="2"><div id="booking_price">fsdff</div></th>
+                <th class="rate" colspan="1"><div id="booking_date">dsff</div></th>
             </tr>
             </div>
             <div id="history">
                 <tr class="order_item">
-                    <th class="item" colspan="2"><div id ="booking_item"> 首都国际机场 萧山国际机场 中国国际航空</div></th>
-                    <th class="totalprice" colspan="1"><div id="booking_price">123456</div></th>
-                    <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                    <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment"> 评价 </a></div></th>
+                    <th class="item" colspan="1.8"><div id ="booking_item">dsf</div></th>
+                    <th class="comment" colspan="2"><div id="booking_price">fsdff</div></th>
+                    <th class="rate" colspan="1"><div id="booking_date">dsff</div></th>
                 </tr>
             </div>
 		</tbody>
