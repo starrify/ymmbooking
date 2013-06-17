@@ -4,10 +4,10 @@
         <title>酒店信息管理</title>
         <meta content="text/html" charset=utf-8>   
         <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
-        <link href="/css/seller_search_form.css" rel="stylesheet" type="text/css" />
+        <link href="/css/manage.css" rel="stylesheet" type="text/css" />
         <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
         <link href="/css/tran_history.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="/js/jquery.js"></script>
         <script type="text/javascript" src="/js/bootstrap.js"></script>
         <script type="text/javascript" src="/js/bootstrapex.js"></script> <!-- test -->
     </head>
@@ -52,7 +52,7 @@
                     </div><!--/.well -->
                 </div><!--/span-->
 
-                <div class="span8">
+                <div class="span9">
                     <div class="row-fluid"> <!-- search panel -->
                         <div class="seller-search-form" id="basicSearch">
                             <div class="row-fluid"> <!-- search inputs -->
@@ -67,7 +67,7 @@
                                         <td>
                                                 <div>
                                                     <label class="search-label">酒店名称</label>
-                                                    <input class="search-input" type="date" id="bsName" placeholder="名称">
+                                                    <input class="search-input" type="text" id="bsName" placeholder="名称">
                                                 </div>
                                         </td> <!-- span4 -->
                                         <td>
@@ -91,10 +91,11 @@
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-striped" id="resultTable" style="table-layout:fixed">
                             <colgroup>
-                                <col width="25%" />
-                                <col width="25%" />
-                                <col width="25%" />
-                                <col width="25%" />
+                                <col width="22%" />
+                                <col width="22$" />
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="12%" />
                             </colgroup>
                             <tr> <!-- header -->
                                 <th class="text-cropped">酒店编号</th>
@@ -107,6 +108,13 @@
                                 <td class="text-cropped">abc</td>
                                 <td class="text-cropped">def</td>
                                 <td class="text-cropped">ghi</td>
+                                <td>
+                                    <div>
+                                        <button class="btn" style="width:10px"><i class="icon-ok"></i></button>
+                                        <button class="btn" style="width:10px"><i class="icon-remove"></i></button>
+                                        <button class="btn" style="width:10px"><i class="icon-repeat"></i></button>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -117,45 +125,24 @@
                                 <col width="22%" />
                                 <col width="22%" />
                                 <col width="22%" />
-                                <col width="6^" />
+                                <col width="12" />
                             </colgroup>
-                            <tr class="warning">
-                                <td></td>
+                            <tr>
+                                <td class="text-cropped">新的酒店</td>
                                 <td><input class="text-cropped" id="atName" type="text" placeholder="input"></td>
                                 <td><input class="text-cropped" id="atDescription" type="text" placeholder="input"></td>
                                 <td><input class="text-cropped" id="atLocation" type="text" placeholder="input"></td>
-                                <td><button class="btn" id="atAdd">确认</button></td>
+                                <td>
+                                    <div>
+                                        <button class="btn" style="width:10px" id="atAdd"><i class="icon-ok"></i></button>
+                                        <button class="btn" style="width:10px" id="atRemove"><i class="icon-remove"></i></button>
+                                        <button class="btn" style="width:10px" id="atReset"><i class="icon-repeat"></i></button>
+                                    </div>
+                                </td>
                             </tr>
-                            <!--<tr class="warning">
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            </tr>
-                            <tr class="warning">
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            </tr>
-                            <tr class="warning">
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            </tr>
-                            <tr class="warning">
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            <td><input type="text" placeholder="input"></td>
-                            </tr>-->
                         </table>
                     </div>
-                    <div class="row-fluid row-fluid-fix-bottom">
-                        <button class="btn" style="width:20%;" type="button">提交更改</button>
-                    </div>
-                </div> <!-- span10 -->
+                </div> <!-- span9 -->
                 
             </div> 
         </div>
@@ -174,58 +161,233 @@
   
 </html>
 
-<script> // data access
-function modify() {
-}
-</script>
-
 <script> // tools
-function checkOverflow(obj) {
-    return (obj.prop('scrollWidth') > obj.innerWidth() || obj.text().indexOf('\n') >= 0)
+// checks overflow in our one-line context
+function checkOverflow(cell) {
+    return (cell.prop('scrollWidth') > cell.innerWidth() || cell.text().indexOf('\n') >= 0)
+}
+function cellPosition(cell) {
+    var col = cell.prop('cellIndex');
+    var row = cell.closest('tr').prop('rowIndex');
+    return [row, col];
+}
+function createArray(length) {
+    var arr = new Array(length || 0),
+    i = length;
+    
+    if (arguments.length > 1) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        while(i--) arr[length - 1 - i] = createArray.apply(this, args);
+    }
+    return arr;
+}
+function textToHtml(text) {
+    return text.replace(/\n/g, '<BR>');
 }
 </script>
 
-<script> // event handlers
-// checks overflow in our one-line context
-$('#resultTable').click(function(e) {
-    if($(e.target).prop('tagName') == 'INPUT') // avoid re-focusing
-        return;
-    
-    var cell = $(e.target).closest('td');
-    if(cell.prop('tagName') == 'TD' && cell.prop('cellIndex') != 0) {
-        cell.css('padding', 0);
-        
-        var text = cell.text();
-        cell.html('')
-            .append('<input type="text" style="width:90%;margin:0;" value="' + text + '">');
-        
-        var input = $(cell.children()[0]);
-        input.focus().select();
+<script> // page specified functions
+function editable(param1) {
+    var col;
+    if(typeof param1 == 'number') {
+        col = param1;
+    } else {
+        col = param1.prop('cellIndex');
     }
-});
-$('#resultTable').focusout(function(e){
-    var text = $(e.target).val();
-    var cell = $(e.target).closest('td');
-    cell.css('padding', 8)
-        .html(text);
-});
+    
+    if(col == 0 || col == 4)
+        return false;
+    else
+        return true;
+}
+function isValid(col, text) {
+    if(!editable(col)) return false;
+    switch(col) {
+    case 1:
+    case 2:
+    case 3:
+        if(text.length > 255) return false;
+        break;
+    }
+    return true;
+}
+</script>
 
-$('#bsSearch').click(function(e) {
-    $.getJSON(
-        '/manage/hotel/async',
-        {
-            h_id: $('#bsHID').text(),
-            name: $('#bsName').text(),
-            location: $('#bsLocation').text(),
-        },
-        function(data) {
-            console.log(data);
+<script> // class ResultTable
+function ResultTable() {
+    this.$table = $('#resultTable');
+    this.overflow = createArray(2, 4);
+    this.addEvents();
+}
+ResultTable.prototype = {
+    addEvents: function() {
+        var rt = this;
+        $('#resultTable').click(function(e) {
+            if($(e.target).prop('tagName') == 'INPUT') // avoid re-focusing
+                return;
+            var pos = cellPosition($(e.target));
+            if(rt.overflow[pos[0]][pos[1]]) return;
+            
+            var cell = $($(e.target).closest('td'));
+            if(cell.prop('tagName') == 'TD' && editable(cell)) {
+                cell.css('padding', 0);
+            
+                var text = cell.text();
+                cell.html('')
+                    .append('<input type="text" style="width:90%;margin:0;" value="' + text + '">');
+                
+                var input = $(cell.children()[0]);
+                input.focus().select();
+            }
         });
-});
+        
+        $('#resultTable').focusout(function(e){
+            var text = $(e.target).val();
+            var cell = $($(e.target).closest('td'));
+            if(editable(cell)) {
+                cell.css('padding', 8);
+                rt.modifyCell(cell, text);
+            }
+        });
+        
+        $('#bsSearch').click(function(e) {
+            console.log(typeof $('#bsHID'));
+            $.getJSON(
+                '/manage/hotel/async',
+                {
+                    h_id: $('#bsHID').val(),
+                    name: $('#bsName').val(),
+                    location: $('#bsLocation').val(),
+                    type: 'search',
+                },
+                function(data) {
+                    console.log(data);
+                });
+        });
+    },
+    
+    addPopover: function(param1, param2) {
+        var obj;
+        if(typeof param1 == 'number') { // row col
+            obj = $($(this.$table.children()[param1]).children()[param2]);
+        } else { // obj
+            obj = param1;
+        }
+        
+        var edit = false;
+        var edittmpl = '<div><textarea style="height:100px">__texthere__</textarea></div>'
+        + '<div style="text-align:center;"><button class="btn btn-primary">保存</button>'
+        + '<button class="btn">放弃</button></div>';
+        var viewtmpl = '<div style="word-wrap:break-word;">__texthere__</div>'
+        
+        var rt = this;
+        obj.popoverex({
+            trigger : 'hover', 
+            hoverReserve : "in in_popover",
+            delay: {show: 100, hide: 1000},
+            placement : 'bottom',
+            html : true,
+            container : 'body',
+            content : function() {
+                return viewtmpl.replace('__texthere__', textToHtml($(this).text()));
+            },
+            popover_click: function(e) {
+                //console.log(edit);
+                if(!edit && $(e.target).prop('tagName') == 'DIV') {
+                    edit = true;
+                    
+                    var ele = e.data.ele, pop = e.data.pop;
+                    var popcontent = pop.find('[class=popover-content]');
+                    ele.popoverex('pin');
+                    popcontent.html(edittmpl.replace('__texthere__', ele.text())); //text()));
+                    var textarea = $(popcontent.find('textarea'));
+                    textarea.focus().select();
+                    
+                    // register button events
+                    var buttons = pop.find('button');
+                    var ok = $(buttons[0]), cancel = $(buttons[1]);
+                    var close = function() {
+                        buttons.each(function() {
+                            $(this).off('click');
+                        });
+                        ele.popoverex('unpin');
+                        ele.popoverex('hide');
+                        edit = false;
+                        //console.log(edit);
+                    };
+                    ok.click(function() {
+                        close();
+                        rt.modifyCell(ele, textarea.val())
+                    });
+                    cancel.click(close)
+                }
+            },
+        });
+    },
+
+    modifyCell: function(param1, param2, param3) {
+        var cell, row, col, text;
+        if(typeof param1 == 'number') { // row col
+            row = param1;
+            col = param2;
+            cell = $($(this.$table.children()[row]).children()[col]);
+            text = param3;
+        } else { // cell
+            cell = param1;
+            text = param2;
+            [row, col] = cellPosition(cell);
+            console.log(row, col);
+        }
+        
+        if(!isValid(cell.prop('cellIndex'), text)) {
+            alert('invalid');
+        }
+        else {
+            // modify
+            cell.html(text);
+            // popover
+            var cellOverflow = checkOverflow(cell);
+            console.log('cellOverflow', cellOverflow, 'orioveflow', this.overflow[row][col], 'text is', text);
+            if(!this.overflow[row][col] && cellOverflow)  {
+                this.overflow[row][col] = true;
+                this.addPopover(cell);
+            } else if(this.overflow[row][col] && !cellOverflow) {
+                this.overflow[row][col] = false;
+                cell.popoverex('destroy');
+            }
+        }
+    }
+}
+var result = new ResultTable();
+</script>
+
+<!--<script> // data access
+function ResultData(data) {
+    this.$table = $('#resultTable');
+    this.cellOverflow = [[]];
+    console.log(data);
+}
+ResultData.prototype = {
+    resetRow: function(row) {
+    },
+    updateRow: function(row) {
+    },
+    removeRow: function(row) {
+    },
+    modify: function(rowid, colid, text) {
+        }
+    },
+};
+
+var result = new ResultData();
+</script>-->
+
+<script> //event handlers
+
 
 $('#atAdd').click(function(e) {
     var row = $('#addTable tr:first');
-    console.log($(row.children()[0]).val());
+    //console.log($(row.children()[0]).val());
     $.getJSON(
         '/manage/hotel/async',
         {
@@ -237,58 +399,6 @@ $('#atAdd').click(function(e) {
         },
         function(data) {
             console.log(data);
-    });
-});
-
-$(function () {
-    var edit = false;
-    var edittmpl = '<div><textarea style="height:100px">__texthere__</textarea></div>'
-        + '<div style="text-align:center;"><button class="btn btn-primary">保存</button>'
-        + '<button class="btn">放弃</button></div>';
-    var viewtmpl = '<div style="word-wrap:break-word;">__texthere__</div>'
-
-    $("[rel='popover']").popoverex({
-        trigger : 'hover', 
-        hoverReserve : "in in_popover",
-        delay: {show: 100, hide: 1000},
-        placement : 'bottom',
-        html : true,
-        container : 'body',
-        content : function() {
-            return viewtmpl.replace('__texthere__', $(this).text());
-        },
-        popover_click: function(e) {
-            console.log(edit);
-            if(!edit && $(e.target).prop('tagName') != 'BUTTON') {
-                edit = true;
-                
-                var ele = e.data.ele, pop = e.data.pop;
-                var popcontent = pop.find('[class=popover-content]');
-                ele.popoverex('pin');
-                popcontent.html(edittmpl.replace('__texthere__', $(this).text()));
-                var textarea = $(popcontent.find('textarea'));
-                textarea.focus().select();
-                
-                // register button events
-                var buttons = pop.find('button');
-                var ok = $(buttons[0]), cancel = $(buttons[1]);
-                var close = function() {
-                    buttons.each(function() {
-                        $(this).off('click');
-                    });
-                    ele.popoverex('unpin');
-                    ele.popoverex('hide');
-                    edit = false;
-                    console.log(edit);
-                };
-                ok.click(function() {
-                    // modify()
-                    ele.html(textarea.val());
-                    close();
-                });
-                cancel.click(close)
-            }
-        }
-    });
+        });
 });
 </script>

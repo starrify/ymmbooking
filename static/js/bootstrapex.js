@@ -65,19 +65,25 @@
         },
 
         show: function() {
-            if(this.pinned) return;
+            if(this.pinned) return this;
 
             $.fn.popover.Constructor.prototype.show.call(this);
             this.visible = true;
+            return this;
         },
 
         hide: function() {
-            if(this.pinned) return;
+            if(this.pinned) return this;
 
             $.fn.popover.Constructor.prototype.hide.call(this);
             this.visible = false;
+            return this;
         },
         
+        destroy: function () {
+            this.hide().$element.off('.' + this.type).removeData(this.type)
+        },
+
         pin: function() {
             if(this.triggerHover() && this.visible) {
                 this.pinned = true;
@@ -107,7 +113,7 @@
                 , options = typeof option == 'object' && option;
             if (typeof option == 'string') {
                 if (!data) $this.data('popoverex', (data = new PopoverEx(this, options)));
-                data[option]();
+                data[option].call(data);
             } else {
                 if (!data) $this.data('popoverex', (data = new PopoverEx(this, options)));
                 else {
