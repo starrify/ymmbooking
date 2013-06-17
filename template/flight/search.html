@@ -42,11 +42,14 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">酒店</li>
-              <li><a href="hotelbooking.html">酒店预定</a></li>
-              <li><a href="innbooking.html">旅馆预定</a></li>			
+              <li><a href="/hotel/search">酒店预定</a></li>
+              <li><a href="/hotel/search">旅馆预定</a></li>			
               <li class="nav-header">航班</li>
-              <li><a href="interflight.html">国际航班</a></li>
-			  <li class="active"><a href="domeflight.html">国内航班</a></li>
+              <li class="active"><a href="#" onclick="hide_inter()">国内航班</a></li>
+			  <li><a href="#" onclick="show_inter()">国际航班</a></li>
+              <li class="nav-header">订单管理</li>
+              <li ><a href="/trade/booking_history">订单历史</a></li>
+              <li ><a href="/trade/comment">评价</a></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -192,17 +195,25 @@
                                         pickerPosition: "bottom-left"
                                         });
     function show_return(){
-        $(".nav-list li:eq(4)").addClass('active')
-        $(".nav-list li:eq(5)").removeClass('active')
-        $(".breadcrumb li:eq(2)").html('国际航班搜索')
-        $("title").html('国际航班搜索')
         $("#return").show()
     }
     function hide_return(){
-        $(".nav-list li:eq(4)").removeClass('active')
+        $("#return").hide()
+    }
+    function show_inter(){
         $(".nav-list li:eq(5)").addClass('active')
+        $(".nav-list li:eq(4)").removeClass('active')
+        $(".breadcrumb li:eq(2)").html('国际航班搜索')
+        $("title").html('国际航班搜索')
+        $("#optionsRadios2")[0].checked=true 
+        $("#return").show()
+    }
+    function hide_inter(){
+        $(".nav-list li:eq(5)").removeClass('active')
+        $(".nav-list li:eq(4)").addClass('active')
         $(".breadcrumb li:eq(2)").html('国内航班搜索')
         $("title").html('国内航班搜索')
+        $("#optionsRadios2")[0].checked=true 
         $("#return").hide()
     }
     function fetch_flight(d_city, a_city, d_date) {
