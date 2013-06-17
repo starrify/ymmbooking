@@ -123,7 +123,7 @@
                                     <div>
                                         <button class="btn" style="width:10px;float:left;" id="atAdd"><i class="icon-ok"></i></button>
                                         <button class="btn" style="width:10px;float:left;" id="atRemove"><i class="icon-remove"></i></button>
-                                        <button class="btn" style="width:10px;float:left;" id="atReset"><i class="icon-repeat"></i></button>
+                                        <!--<button class="btn" style="width:10px;float:left;" id="atReset"><i class="icon-repeat"></i></button>-->
                                     </div>
                                 </td>
                             </tr>
@@ -197,21 +197,19 @@ function editable(param) {
 function isRowValid(row) {
     var zeroCnt = 0;
 
-    console.log(row.find('td:eq(0)').text());
     if(!isInteger(row.find('td:eq(0)').text())) return false;
     for(var i = 1; i < 4; i++) {
         var coltxt = row.find('td:eq(' + i + ')').text();
-        console.log(coltxt, coltxt.length);
+
         if(coltxt.length > 255) return false;
         if(coltxt.length == 0) zeroCnt++;
     }
-    console.log('zero', zeroCnt);
     if(zeroCnt == 3) return false;
     return true;
 }
 function mapResult(res) {
     return $.map(res, function(ele) {
-        return [[ele[3], ele[2], ele[0], ele[1]]];
+        return [[ele[0], ele[1], ele[3], ele[2]]];
     });
 }
 var rowtmpl = '<tr><td class="text-cropped" rel="popover">__col1__</td>'
@@ -258,8 +256,6 @@ ResultTable.prototype = {
         this.data.push(deepCopyArray(rowData));
         // view
         this.$table.find('tbody').append(rowtmpl);
-        //$(rowtmpl).insertAfter(this.getRow(this.getRowCnt() - 1));
-        console.log('a');
         this.updateRowView(this.getRowCnt() - 1);
     },
     
@@ -294,7 +290,7 @@ ResultTable.prototype = {
         this.data[rowId] = deepCopyArray(this.cache[rowId]);
         // view
         var row = this.getRow(rowId);
-        row.removeClass().addClass('success');
+        row.removeClass().addClass('succeeded');
         setTimeout(function() { row.removeClass(); }, 1000);
     },
     
@@ -387,7 +383,7 @@ ResultTable.prototype = {
         [row, col] = cellPosition(cell);
         cell.html(text);
         // popover
-        console.log(cell);
+
         this.cache[row][col] = text;
         
         var cellOverflow = checkOverflow(cell);
@@ -413,7 +409,7 @@ ResultTable.prototype = {
         }
         //TODO: if not changed then do not set or change class
         if(this.cache[row][col] != text) {
-            console.log('bbb');
+
             this.setCell(cell, text);
             if(isRowValid(this.getRow(row))) {
                 cell.closest('tr').removeClass().addClass('warning');
@@ -461,8 +457,10 @@ $('#resultTable').click(function(e) {
                 },
                 function(data) {
                     console.log(data);
-                    //if(data.status == 'success')
-                    rt.commitRow(rowId);
+                    if(data.status == 'succeeded')
+                        rt.commitRow(rowId);
+                    else
+                        alert('Submit failed');
                 });
             break;
         }
@@ -475,7 +473,6 @@ $('#resultTable').click(function(e) {
                 },
                 function(data) {
                     console.log(data);
-                    //if(data.status == 'success')
                     rt.removeRow(rowId);
                 });
             break;
@@ -526,8 +523,15 @@ $('#atAdd').click(function(e) {
         addobj,
         function(data) {
             console.log(data);
-            //if(data.status == 'success')
-            rt.pushRow([data.h_id, addobj.name, addobj.location, addobj.description]);
+            if(data.status == 'succeeded') {
+                $('#addTable input').val('');
+                rt.pushRow([data.h_id, addobj.name, addobj.location, addobj.description]);
+            }
+            else
+                alert('Add failed');
         });
+});
+$('#atRemove').click(function(e) {
+    $('#addTable input').val('');
 });
 </script>
