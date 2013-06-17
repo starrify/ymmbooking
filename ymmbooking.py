@@ -122,7 +122,6 @@ class Database(object):
             cursor.execute(
                 "INSERT INTO hotel (h_id,name,description,location) "
                 "VALUES(?,?,?,?);", [h_id, name, desc, location])
-            cursor.commit()
             cursor.close()
             return True, h_id
         except:
