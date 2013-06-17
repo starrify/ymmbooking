@@ -5,6 +5,8 @@
 def data_import(dbpath):
     import sqlite3
     import os
+    import random
+    import math
     
     fpath = os.path.abspath(__file__)
     cwd = os.getcwd()
@@ -12,6 +14,7 @@ def data_import(dbpath):
     os.chdir(fwd)
 
     conn = sqlite3.connect(dbpath)
+    random.seed('Aperture Science Stringified Entropy Container')
     
     f = open("fetched_flights", "r", encoding="utf8")
     lines = f.readlines()
@@ -20,11 +23,11 @@ def data_import(dbpath):
     for line in lines:
         l = line[:-1].split(',')
         conn.execute(
-            "INSERT INTO flight VALUES(?,?,?,?,?,?,?,?,?,?,?)", 
+            "INSERT INTO flight VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", 
             [
-                l[0],
-                0,
-                0,
+                l[0],#fnumber
+                190, #fuel
+                50, #tax
                 l[2], # airport 1
                 l[3], # time 1
                 l[5], # airport 2
@@ -32,7 +35,8 @@ def data_import(dbpath):
                 l[7], # aircraft
                 l[8], # on days
                 l[10], # punctuality
-                { "True": 1, "False": 0}[l[11]]
+                { "True": 1, "False": 0}[l[11]],
+                math.floor(random.triangular(100, 3000, 900)) # price
             ]
         )
 

@@ -81,7 +81,7 @@ class Database(object):
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flight "
-            "WHERE depatureAirport=? AND arrivalAirport=?;",
+            "WHERE departureAirport=? AND arrivalAirport=?;",
             [departure_airport, arrival_airport])
         flights = cursor.fetchall()
         cursor.close()
@@ -177,9 +177,9 @@ def flight_search():
 
 @bottle_app.get('/flight/search/async')
 def flight_search_json():
-    d_city, a_city, d_date = list(map(
+    d_city, a_city, d_date, way, non_stop, rate = list(map(
         bottle.request.query.get, 
-        ['departure_city', 'arrival_city', 'departure_date']))
+        ['departure_city', 'arrival_city', 'departure_date', 'way', 'non_stop', 'rate']))
 
     if not all([d_city, a_city, d_date]):
         return {'flight': []}
@@ -200,8 +200,22 @@ def flight_search_json():
             flights = db.get_flights(d_airport['code'], a_airport['code'])
             for flight in flights:
                 airline = db.get_airline_by_code(flight['flightNumber'][:2])[0]
-                ret_flights.append(list(flight.values())
-                    + [d_airport['name_cn'], a_airport['name_cn'], airline['name_cn']])
+                flight_lst = [
+                    airline['name_cn'],
+                    flight['departureTime'],
+                    flight['arrivalTime'],
+                    d_airport['city_cn'],
+                    a_airport['city_cn'],
+                    "%.2f"%flight['price'],
+                    flight['fuelTax'],
+                    flight['airportTax'],
+                    flight['flightNumber'],
+                    flight['aircraftType'],
+                    flight['stop'],
+                    0,
+                    0,
+                ]
+                ret_flights.append(flight_lst)
     
     return {'flight': ret_flights}
 
