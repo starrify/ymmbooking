@@ -81,7 +81,7 @@ class Database(object):
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flight "
-            "WHERE depatureAirport=? AND arrivalAirport=?;",
+            "WHERE departureAirport=? AND arrivalAirport=?;",
             [departure_airport, arrival_airport])
         flights = cursor.fetchall()
         cursor.close()
@@ -111,7 +111,7 @@ class Database(object):
         cursor.close()
         return airline
 
-    def add_hotel(self, name="", desc="", location=""):
+    def add_hotel(self, name="", description="", location=""):
         cursor = self._conn.cursor()
         cursor.execute("SELECT MAX(h_id) from hotel;")
         try:
@@ -121,11 +121,35 @@ class Database(object):
         try:
             cursor.execute(
                 "INSERT INTO hotel (h_id,name,description,location) "
-                "VALUES(?,?,?,?);", [h_id, name, desc, location])
+                "VALUES(?,?,?,?);", [h_id, name, description, location])
             cursor.close()
             return True, h_id
         except:
             return False, -1
+    def update_hotel(self, h_id="", name="", description="", location=""):
+        cursor = self._conn.cursor()
+        try:
+            cursor.execute(
+                "UPDATE hotel "
+                "SET name=?, description=?, location=? "
+                "WHERE h_id=?",
+                [name, description, location, h_id])
+            cursor.close()
+            return True
+        except:
+            return False
+    def delete_hotel(self, h_id=""):
+        cursor = self._conn.cursor()
+        try:
+            cursor.execute(
+                "DELETE FROM hotel "
+                "WHERE h_id=?", [h_id])
+            print(cursor.fetchall())
+            cursor.close()
+            return True
+        except None:
+            return False
+
 
 class App(object):
     """The main application."""
@@ -177,9 +201,9 @@ def flight_search():
 
 @bottle_app.get('/flight/search/async')
 def flight_search_json():
-    d_city, a_city, d_date = list(map(
+    d_city, a_city, d_date, way, non_stop, rate = list(map(
         bottle.request.query.get, 
-        ['departure_city', 'arrival_city', 'departure_date']))
+        ['departure_city', 'arrival_city', 'departure_date', 'way', 'non_stop', 'rate']))
 
     if not all([d_city, a_city, d_date]):
         return {'flight': []}
@@ -200,10 +224,29 @@ def flight_search_json():
             flights = db.get_flights(d_airport['code'], a_airport['code'])
             for flight in flights:
                 airline = db.get_airline_by_code(flight['flightNumber'][:2])[0]
-                ret_flights.append(list(flight.values())
-                    + [d_airport['name_cn'], a_airport['name_cn'], airline['name_cn']])
+                flight_lst = [
+                    airline['name_cn'],
+                    flight['departureTime'],
+                    flight['arrivalTime'],
+                    d_airport['city_cn'],
+                    a_airport['city_cn'],
+                    "%.2f"%flight['price'],
+                    flight['fuelTax'],
+                    flight['airportTax'],
+                    flight['flightNumber'],
+                    flight['aircraftType'],
+                    flight['stop'],
+                    0,
+                    0,
+                ]
+                ret_flights.append(flight_lst)
     
     return {'flight': ret_flights}
+
+@bottle_app.get('/trade/remark_history')
+@bottle.view(app.config.template_path + 'trade/remark_history.html')
+def order():
+    return {}
 
 @bottle_app.get('/hotel/search')
 @bottle.view(app.config.template_path + 'hotel/search.html')
@@ -224,13 +267,13 @@ def hotel_search_json():
     hotels = db.get_hotels(param[0], param[1], param[2], param[3])
     return {'hotel': [list(hotel.values()) for hotel in hotels]}
 
-@ bottle_app.get('/order')
+@bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
 def order():
     return {}
 
 @bottle_app.get('/trade/booking_history')
-@bottle.view(app.config.template_path + '/trade/booking_history.html')
+@bottle.view(app.config.template_path + 'trade/booking_history.html')
 def booking_history():
     return {}
 
@@ -263,9 +306,24 @@ def hotel_manage_json():
         if success:
             return {'status': 'succeeded', 'h_id': h_id}
     elif access_type == 'update':
-        pass
+        param = list(map(bottle.request.query.get, 
+            ['h_id', 'name', 'description', 'location']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_hotel(param[0], param[1], param[2], param[3])
+        if success:
+            return {'status': 'succeeded'}
     elif access_type == 'delete':
-        pass
+        param = list(map(bottle.request.query.get, ['h_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_hotel(param[0])
+        if success:
+            return {'status': 'succeeded'}
     elif access_type == 'search':
         return hotel_search_json()
     return {'status': 'failed'}
