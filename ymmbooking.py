@@ -316,7 +316,7 @@ def booking_history():
 @bottle_app.get('/trade/comment')
 @bottle.view(app.config.template_path + 'trade/comment.html')
 @Misc.auth_validate
-def trade_remark():
+def trade_comment():
     return {}
 
 @bottle_app.get('/trade/comment_history')
@@ -325,47 +325,47 @@ def trade_remark():
 def order():
     return {}
 
-<<<<<<< HEAD
-@bottle_app.get('/manage/flight/flight')
+@bottle_app.get('/manage/flight/info')
 @bottle.view(app.config.template_path + 'manage/flight/flight.html')
-=======
-@bottle_app.get('/manage/flight')
-@bottle.view(app.config.template_path + 'manage/flight.html')
 @Misc.auth_validate
->>>>>>> 191df62f8f59f0e0a0c0f4456dd9048d249e426c
 def trade_remark():
     return {}
 
 @bottle_app.get('/manage/flight/transaction')
 @bottle.view(app.config.template_path + 'manage/flight/transaction.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
 @bottle_app.get('/manage/flight/comment')
 @bottle.view(app.config.template_path + 'manage/flight/comment.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
-@bottle_app.get('/manage/hotel/hotel')
+@bottle_app.get('/manage/hotel/info')
 @bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
 @bottle_app.get('/manage/hotel/room')
 @bottle.view(app.config.template_path + 'manage/hotel/room.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
 @bottle_app.get('/manage/hotel/transaction')
 @bottle.view(app.config.template_path + 'manage/hotel/transaction.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
 @bottle_app.get('/manage/hotel/comment')
 @bottle.view(app.config.template_path + 'manage/hotel/comment.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
-
 
 @bottle_app.get('/manage/hotel')
 @bottle.view(app.config.template_path + 'manage/hotel.html')
@@ -373,7 +373,7 @@ def trade_remark():
 def trade_remark():
     return {}
 
-@bottle_app.get('/manage/hotel/async')
+@bottle_app.get('/manage/hotel/info/async')
 @Misc.auth_validate
 def hotel_manage_json():
     access_type = bottle.request.query.get('type')
