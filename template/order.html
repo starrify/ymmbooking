@@ -54,12 +54,6 @@
                   <input type="text" id="ID_NO"></input>
               </div>
           </div>
-          <div class="control-group">
-              <label class="control-label" for="user_name">生日</label>
-              <div class="controls">
-                  <input type="text" id="user_name" placeholder="YYYY-MM-DD"></input>
-              </div>
-          </div>
 
           <h4>填写联系人信息</h4>
           <div class="well sidebar-nav">
@@ -77,21 +71,11 @@
                       </div>
                   </div>
                   <div class="control-group">
-                      <label class="control-label" for="linkman_tel_2">备用手机号码</label>
-                      <div class="controls">
-                          <input type="text" id="linkman_tel_2"></input>
-                      </div>
-                  </div>
-                  <div class="control-group">
                       <label class="control-label" for="linkman_email">电子邮箱</label>
                       <div class="controls">
                           <input type="text" id="linkman_email" placeholder="通知状态和信息"></input>
                       </div>
                   </div>
-          
-
-      
-      
       </form>
       </div>
 	  <h4>确认订单信息</h4>
@@ -99,20 +83,23 @@
       
       	<table class="table table-striped">
        	 <thead>
-         	<th class="item_pic"></th>
-        	<th class="item_name">商品</th>
-            <th class="totalprice">价格</th>
+            <tr>
+            	<th>商品</th>
+                <th>价格</th>
+            </tr>
        	 </thead>
           <tbody>
-            <tr class="order_item">
-				<td class="item_name">aaaaaaaaaaaaaaaaaaaaa</td>
-				<td class="price">10.00</td>
+            <tr>
+    			<td id="item_name">{{item_name}}</td>
+	    		<td id="item_price">{{item_price}}</td>
+            </tr>
           </tbody>
 		</table>
       </div>
       
       <div class="order_bottom  text-right">
-		<h4><span>实付款:</span><span id="totalprice">&#65509;620 </span><input class="btn btn-success" type="submit"value="提交订单"></h4>
+		<h4><span>实付款:</span><span id="totalprice">{{total_price}}</span>
+        <input class="btn btn-success" type="submit"value="提交订单"></h4>
 	  </div>      
   </div>
   </div>

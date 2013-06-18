@@ -3,6 +3,7 @@
 # COPYLEFT, ALL WRONGS RESERVED
 
 import bottle
+import urllib
 import json
 import sqlite3
 import sys
@@ -170,7 +171,7 @@ class Misc(object):
         def decorator(*args, **kwargs):
             uid = bottle.request.get_cookie('uid', secret=app.config.secret)
             if not uid:
-                bottle.redirect('/login?redirect=%s' %bottle.request.url)
+                bottle.redirect('/login?redirect=%s' %urllib.parse.quote(bottle.request.url))
             return func(*args, **kwargs)
         return decorator
 
@@ -273,10 +274,8 @@ def flight_search():
 def hotel_search_json():
     param = list(map(bottle.request.query.get, 
         ['name', 'description', 'location', 'h_id']))
-
     if not any(param):
         return {'hotel': []}
-
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
 
     db = Database(app.config)
@@ -288,7 +287,25 @@ def hotel_search_json():
 @bottle.view(app.config.template_path + 'order.html')
 @Misc.auth_validate
 def order():
-    return {}
+    o_type = bottle.request.query.get('type')
+    if o_type == 'flight':
+        param = list(map(bottle.request.query.get, 
+            ['flight_number', 'date', 'price']))
+        if not any(param):
+            bottle.redirect('/')
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        return {'item_name': param[0] + 'at' + param[1], 'item_price': param[2], 'total_price': param[2]}
+    elif o_type == 'hotel':
+        param = list(map(bottle.request.query.get, 
+            ['name', 'description', 'location', 'h_id']))
+        if not any(param):
+            return {'hotel': []}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        bottle.redirect
+    else:   # invalid type or no type.
+        #bottle.redirect('/')
+        pass
+    return {'item_name': '', 'item_price': '', 'total_price': ''}
 
 @bottle_app.get('/trade/booking_history')
 @bottle.view(app.config.template_path + '/trade/booking_history.html')
