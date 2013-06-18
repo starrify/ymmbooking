@@ -30,7 +30,7 @@ class Config():
         self.view_path      = parser.get('Path', 'view_path')
         self.template_path  = parser.get('Path', 'template_path')
         self.debug  = parser.getboolean('Misc', 'debug')
-
+        self.secret = parser.get('Misc', 'secret')
 
 class Database(object):
     """A wrapper for accessing the database."""
@@ -164,10 +164,13 @@ class App(object):
 
 class Misc(object):
     """Miscellaneous items goes here."""
+
     @staticmethod
     def auth_validate(func):
         def decorator(*args, **kwargs):
-            # validation here
+            uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+            if not uid:
+                bottle.redirect('/login?redirect=%s' %bottle.request.url)
             return func(*args, **kwargs)
         return decorator
 
@@ -186,11 +189,31 @@ def static_css_img_js(category, filepath):
     return bottle.static_file(category + "/" + filepath, root=app.config.static_path)
 
 @bottle_app.route('/')
-@bottle_app.route('/index')
 @bottle.view(app.config.template_path + 'index.html')
-@Misc.auth_validate
 def index():
     return {}
+
+@bottle_app.route('/login')
+def login():
+    """Merely a test login form"""
+    redirect_url = bottle.request.query.get('redirect')
+    return """ This is a fake Login
+        <form method="get" action="/auth">
+        <input type="hidden" name="redirect" value="%s">
+        UID: <input type="text" name="uid">
+        <input type="submit" value="Login"/>
+        </form>""" %redirect_url
+
+@bottle_app.route('/auth')
+def auth():
+    """Merely for testing for now"""
+    uid = bottle.request.query.get('uid')
+    if uid:
+        bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=600)
+    redirect_url = bottle.request.query.get('redirect')
+    if not redirect_url:
+        redirect_url = '/'
+    bottle.redirect(redirect_url)
 
 @bottle_app.get('/flight/search')
 @bottle.view(app.config.template_path + 'flight/search.html')
@@ -241,16 +264,6 @@ def flight_search_json():
     
     return {'flight': ret_flights}
 
-#@bottle_app.get('/trade/remark_history')
-#@bottle.view(app.config.template_path + 'trade/remark_history.html')
-    #def order():
-#    return {}
-
-@bottle_app.get('/trade/comment_history')
-@bottle.view(app.config.template_path + 'trade/comment_history.html')
-def order():
-    return {}
-
 @bottle_app.get('/hotel/search')
 @bottle.view(app.config.template_path + 'hotel/search.html')
 def flight_search():
@@ -273,35 +286,42 @@ def hotel_search_json():
 
 @bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
+@Misc.auth_validate
 def order():
     return {}
 
 @bottle_app.get('/trade/booking_history')
 @bottle.view(app.config.template_path + '/trade/booking_history.html')
+@Misc.auth_validate
 def booking_history():
     return {}
 
 @bottle_app.get('/trade/comment')
 @bottle.view(app.config.template_path + 'trade/comment.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
-@bottle_app.get('/trade/remark_history')
-@bottle.view(app.config.template_path + 'trade/remark_history.html')
-def trade_remark():
+@bottle_app.get('/trade/comment_history')
+@bottle.view(app.config.template_path + 'trade/comment_history.html')
+@Misc.auth_validate
+def order():
     return {}
 
 @bottle_app.get('/manage/flight')
 @bottle.view(app.config.template_path + 'manage/flight.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
 @bottle_app.get('/manage/hotel')
 @bottle.view(app.config.template_path + 'manage/hotel.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
 
 @bottle_app.get('/manage/hotel/async')
+@Misc.auth_validate
 def hotel_manage_json():
     access_type = bottle.request.query.get('type')
     if access_type == 'add':
