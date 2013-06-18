@@ -167,6 +167,8 @@ var rowtmpl = '<tr><td class="text-cropped" rel="popover">__col1__</td>'
 var schema = ['hid', 'name', 'location', 'description'];
 var dbschema = ['h_id', 'name', 'description', 'location'];
 var rt = new ResultTable([]);
+var asyncURL = 'manage/hotel/info/async';
+
 </script>
 
 <script> //event handlers
@@ -246,7 +248,7 @@ $('#resultTable').focusout(function(e){
             
 $('#bsSearch').click(function(e) {
     $.getJSON(
-        '/manage/hotel/async',
+        asyncURL,
         {
             h_id: $('#bsHID').val(),
             name: $('#bsName').val(),
@@ -268,7 +270,7 @@ $('#atAdd').click(function(e) {
         type: 'add',
     };
     $.getJSON(
-        '/manage/hotel/async',
+        asyncURL,
         addobj,
         function(data) {
             console.log(data);
