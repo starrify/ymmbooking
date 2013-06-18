@@ -41,6 +41,7 @@ class Database(object):
         self._conn.row_factory = Database.dict_factory
 
     def __del__(self):
+        self._conn.commit()
         self._conn.close()
 
     @staticmethod
@@ -59,6 +60,7 @@ class Database(object):
             script = f.read()
             f.close()
             conn = sqlite3.connect(config.database_path)
+            conn.execute("PRAGMA journal_mode = wal;")
             conn.executescript(script)
             conn.commit()
             from data.data_import import data_import as dimport
@@ -70,7 +72,7 @@ class Database(object):
 
     def get_airport_by_city(self, city):
         cursor = self._conn.cursor()
-        cursor.execute("SELECT * FROM airport WHERE city_cn LIKE ?", ["%" + city + "%"])
+        cursor.execute("SELECT * FROM airport WHERE city_cn LIKE ?;", ["%"+city+"%"])
         airports = cursor.fetchall()
         cursor.close()
         return airports
@@ -79,18 +81,52 @@ class Database(object):
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flight "
-            "WHERE depatureAirport=? AND arrivalAirport=?",
+            "WHERE depatureAirport=? AND arrivalAirport=?;",
             [departure_airport, arrival_airport])
         flights = cursor.fetchall()
         cursor.close()
         return flights
 
+    def get_hotels(self, name="", description="", location="", h_id=None):
+        if h_id:
+            try:
+                h_id = int(h_id)
+            except:
+                return []
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "SELECT * FROM hotel "
+            "WHERE name LIKE ? AND description LIKE ? AND location LIKE ?;",
+            ["%"+name+"%", "%"+description+"%", "%"+location+"%"])
+        hotels = cursor.fetchall()
+        cursor.close()
+        if h_id:
+            hotels = [hotel for hotel in hotels if hotel['h_id'] == h_id]
+        return hotels
+
     def get_airline_by_code(self, code=""):
         cursor = self._conn.cursor()
-        cursor.execute("SELECT * FROM airline WHERE code=?", [code])
+        cursor.execute("SELECT * FROM airline WHERE code=?;", [code])
         airline = cursor.fetchall()
         cursor.close()
         return airline
+
+    def add_hotel(self, name="", desc="", location=""):
+        cursor = self._conn.cursor()
+        cursor.execute("SELECT MAX(h_id) from hotel;")
+        try:
+            h_id = cursor.fetchall()[0]['MAX(h_id)'] + 1
+        except: # the table may be empty
+            h_id = 1
+        try:
+            cursor.execute(
+                "INSERT INTO hotel (h_id,name,description,location) "
+                "VALUES(?,?,?,?);", [h_id, name, desc, location])
+            cursor.commit()
+            cursor.close()
+            return True, h_id
+        except:
+            return False, -1
 
 class App(object):
     """The main application."""
@@ -116,6 +152,8 @@ class Misc(object):
 
     @staticmethod
     def unicodify(string, code):
+        if not string:
+            return ""
         return bytes(map(ord, string)).decode(code)
 
 app = App('./config.cfg')
@@ -145,7 +183,7 @@ def flight_search_json():
         ['departure_city', 'arrival_city', 'departure_date']))
 
     if not all([d_city, a_city, d_date]):
-        return { 'flight': [] }
+        return {'flight': []}
 
     d_city, a_city, d_date = list(map(
         lambda x: Misc.unicodify(x, 'utf8'), [d_city, a_city, d_date]))
@@ -166,27 +204,34 @@ def flight_search_json():
                 ret_flights.append(list(flight.values())
                     + [d_airport['name_cn'], a_airport['name_cn'], airline['name_cn']])
     
-    return { 'flight': ret_flights }
-
-@bottle_app.get('/trade/remark_history')
-@bottle.view(app.config.template_path + 'trade/remark_history.html')
-def order():
-    return {}
-
+    return {'flight': ret_flights}
 
 @bottle_app.get('/hotel/search')
 @bottle.view(app.config.template_path + 'hotel/search.html')
 def flight_search():
     return {}
 
-@bottle_app.get('/order')
+@bottle_app.get('/hotel/search/async')
+def hotel_search_json():
+    param = list(map(bottle.request.query.get, 
+        ['name', 'description', 'location', 'h_id']))
+
+    if not any(param):
+        return {'hotel': []}
+
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+
+    db = Database(app.config)
+    hotels = db.get_hotels(param[0], param[1], param[2], param[3])
+    return {'hotel': [list(hotel.values()) for hotel in hotels]}
+
+@ bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
 def order():
     return {}
 
-
 @bottle_app.get('/trade/booking_history')
-@bottle.view(app.config.template_path + 'trade/booking_history.html')
+@bottle.view(app.config.template_path + '/trade/booking_history.html')
 def booking_history():
     return {}
 
@@ -195,6 +240,42 @@ def booking_history():
 def trade_remark():
     return {}
 
+@bottle_app.get('/trade/remark_history')
+@bottle.view(app.config.template_path + 'trade/remark_history.html')
+def trade_remark():
+    return {}
+
+
+@bottle_app.get('/manage/flight')
+@bottle.view(app.config.template_path + 'manage/flight.html')
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel')
+@bottle.view(app.config.template_path + 'manage/hotel.html')
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/async')
+def hotel_manage_json():
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, 
+            ['name', 'description', 'location']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, h_id = db.add_hotel(param[0], param[1], param[2])
+        if success:
+            return {'status': 'succeeded', 'h_id': h_id}
+    elif access_type == 'update':
+        pass
+    elif access_type == 'delete':
+        pass
+    elif access_type == 'search':
+        return hotel_search_json()
+    return {'status': 'failed'}
 
 if __name__ == '__main__':
     bottle.run(bottle_app, host='0.0.0.0', port=8080, debug=True)

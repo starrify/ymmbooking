@@ -16,6 +16,12 @@
             $(".radio").click(function(){
                     $("#display_flight_panel").hide()
             })
+            
+            function get_ID(){
+            
+            var parm1=document.getElementById("order_ID").value;
+                
+            }
 
             function fetch_history(b_date,e_date,typ,u_id)
             {
@@ -35,7 +41,7 @@
                           $('#booking_item').html('')
                           $('#booking_price').html('')
                           $('#booking_date').html('')
-                          strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>起飞时间</strong></td>"+"<td class=info_td><strong>降落时间</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价</strong></td>"+"<td style=\"width:15%;\"></td>"
+                          strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>评价</strong></td>"+"<td style=\"width:15%;\"></td>"
                           $("#flight_list").append($("<tr>",{html:strdata}))
 
                           for(var i in data.booking_history){
@@ -54,10 +60,10 @@
             
             function fill_list(history,i){
                 strdata = "<tr><td>"+i+"</td>"
+                strdata = strdata+"<td>"+history[1]+"</td>"
                 strdata = strdata+"<td>"+history[2]+"</td>"
-                strdata = strdata+"<td>"+history[4]+"</td>"
-                strdata = strdata+"<td>"+history[11]+"</td>"
-                strdata = strdata+"<td><a href="/trade/remark" class="btn" value="comment"> 评价 </a></td></tr>"
+                strdata = strdata+"<td>"+history[3]+"</td>"
+                strdata = strdata+"<td><a href="/trade/remark" class="btn" value="comment" onclick="get_ID()"> 评价 </a></td></tr>"
                 $("#flight_list").append($("<tbody>",{html:strdata}))
             }
         </script>
@@ -80,7 +86,7 @@
               <li><a href="../buyer/order_manage.html">我是买家</a></li>
               <li><a href="../seller/order_manage.html">我是卖家</a></li>
 			  <li class="active"><a href="#contact">淘宝贝</a></li>
-			  <li><a href="#contact">在线预订</a></li>
+			  <li><a href="index">在线预订</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -93,14 +99,14 @@
                   <div class="well sidebar-nav">
                       <ul class="nav nav-list">
                           <li class="nav-header">酒店</li>
-                          <li><a href="hotelbooking.html">酒店预定</a></li>
-                          <li><a href="innbooking.html">旅馆预定</a></li>
+                          <li><a href="/hotel/search">酒店预定</a></li>
+                          <li><a href="/hotel/search">旅馆预定</a></li>
                           <li class="nav-header">航班</li>
                           <li><a href="/flight/search">国际航班</a></li>
                           <li ><a href="/flight/search">国内航班</a></li>
                           <li class="nav-header">订单管理</li>
                           <li class="active"><a href="/trade/booking_history">订单历史</a></li>
-                          <li ><a href="/trade/remark">评价</a></li>
+                          <li ><a href="/trade/remark_history">评价历史</a></li>
                       </ul>
                   </div><!--/.well -->
               </div><!--/span-->
@@ -149,7 +155,7 @@
                 <th class="item" colspan="2"><div id ="booking_item"> 萧山国际机场 首都国际机场 中国国际航空 </div></th>
                 <th class="totalprice" colspan="1"><div id="booking_price">1234567</div></th>
                 <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment"> 评价 </a></div></th>
+                <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
             </tr>
             </div>
             <div id="history">
@@ -157,7 +163,7 @@
                     <th class="item" colspan="2"><div id ="booking_item"> 首都国际机场 萧山国际机场 中国国际航空</div></th>
                     <th class="totalprice" colspan="1"><div id="booking_price">123456</div></th>
                     <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                    <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment"> 评价 </a></div></th>
+                    <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
                 </tr>
             </div>
 		</tbody>
