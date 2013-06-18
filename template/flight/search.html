@@ -49,7 +49,7 @@
 			  <li><a href="#" onclick="show_inter()">国际航班</a></li>
               <li class="nav-header">订单管理</li>
               <li ><a href="/trade/booking_history">订单历史</a></li>
-              <li ><a href="/trade/comment">评价</a></li>
+              <li ><a href="/trade/comment_history">评价历史</a></li>
 
             </ul>
           </div><!--/.well -->
@@ -139,9 +139,8 @@
                               <li><a href="#">抵达：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
                               <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                               <li class="divider"></li>
-                              <li><a href="#">总时间：短到长&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li><a href="#">抵达：低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li><a href="#">总时：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-up"></i></a></li>
                           </ul>
                       </div>
                   </div>
@@ -228,6 +227,31 @@
         $("#optionsRadios2")[0].checked=true 
         $("#return").hide()
     }
+    
+    $("button").click(function(){
+                      if($(this).attr("count") == "0"){
+                      $(this).addClass("asc");
+                      $(this).attr("count","1");
+                      }else if($(this).attr("count") == "1"){
+                      $(this).removeClass("asc");
+                      $(this).addClass("desc");
+                      $(this).attr("count","2");
+                      }else if($(this).attr("count") == "2"){
+                      $(this).removeClass("desc");
+                      $(this).attr("count","0");
+                      }
+                      if($(this).hasClass('asc')){
+                      $(this).find(".icon-chevron-down").removeClass('icon-white');
+                      $(this).find(".icon-chevron-up").addClass('icon-white');
+                      }else if($(this).hasClass('desc')){
+                      $(this).find(".icon-chevron-up").removeClass('icon-white');
+                      $(this).find(".icon-chevron-down").addClass('icon-white');
+                      }else{
+                      $(this).find(".icon-chevron-up").addClass('icon-white');
+                      $(this).find(".icon-chevron-down").addClass('icon-white');
+                      }
+                      });
+    
     function fetch_flight(d_city, a_city, d_date) {
         $("#display_flight_panel").show()
         console.log(d_city);
@@ -288,6 +312,7 @@
         return strdata;
     }
     
+    $(".bookquery").hide()
     function submit_flight_book(flt_no){
         $(".bookquery").html($("<div>",{html:flt_no}))
         bookquery.submit()

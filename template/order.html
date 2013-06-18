@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>购物车</title>   
-    <meta charset=utf-8>  
+    <title>订单确认</title>   
+    <meta charset=utf-8> 
+    <script src="/js/pro_city.js"></script>
 	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
-    <link href="/css/3.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
   
@@ -19,13 +19,17 @@
             <p class="navbar-text pull-right">
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
-            <ul class="nav">
-              <li><a href="#">账户设置</a></li>
-              <li><a href="order_manage.html">我是买家</a></li>
-              <li><a href="../seller/order_manage.html">我是卖家</a></li>
-			  <li><a href="#contact">淘宝贝</a></li>
-			  <li class="active"><a href="/">在线预订</a></li>
-            </ul>
+              <ul class="nav nav-list">
+                  <li class="nav-header">酒店</li>
+                  <li><a href="/hotel/search">酒店预定</a></li>
+                  <li><a href="/hotel/search">旅馆预定</a></li>
+                  <li class="nav-header">航班</li>
+                  <li><a href="/flight/search">国际航班</a></li>
+                  <li ><a href="/flight/search">国内航班</a></li>
+                  <li class="nav-header">订单管理</li>
+                  <li ><a href="/trade/booking_history">订单历史</a></li>
+                  <li ><a href="/trade/comment_history">评价历史</a></li>
+              </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -34,49 +38,106 @@
 
   <div class="hero-unit"></div>
    <div class="container-fluid">
-       <div class="row-fluid">
-           <div class="span2">
-               <div class="well sidebar-nav">
-                   <ul class="nav nav-list">
-                       <li class="nav-header">酒店</li>
-                       <li><a href="/hotel/search">酒店预定</a></li>
-                       <li><a href="/hotel/search">旅馆预定</a></li>
-                       <li class="nav-header">航班</li>
-                       <li><a href="/flight/search">国内航班</a></li>
-                       <li><a href="/flight/search">国际航班</a></li>
-                       <li class="nav-header">订单管理</li>
-                       <li  class="active"><a href="/trade/booking_history">订单历史</a></li>
-                       <li ><a href="/trade/comment">评价</a></li>
-
-                   </ul>
-               </div><!--/.well -->
-           </div><!--/span-->
-        <div class="span10">
+	<div class="row-fluid">
+        <div class="span12">
 	<div class="main">
 	  <div class="rimidebox">
-          <a href="bookindex.html">预定系统</a><span>>></span><a href="bookindex.html"></a><span><a href="domeflight.html"> 机票预定</a></span>>><span><a href="domeflight.html"> 购物车</a></span>
+		<a  href="order_manage.html">搜索结果</a><span>></span><a href="order">订单确认</a>
+      </div>
+      <h4>填写使用者信息</h4>
+      <div class="well sidebar-nav">
+      <form class="form-horizontal">
+  	   <div class="control-group">
+   			<label class="control-label" for="user_type">使用人类型</label>
+            <div class="controls">
+                <input type="radio" name="optionsRadios" id="adult" value="option1" checked> 成人</input>
+                <input type="radio" name="optionsRadios" id="child" value="option2"> 儿童</input>
 
+            </div>
+  	   </div>
+       <div class="control-group">
+   			<label class="control-label" for="user_name">姓名</label>
+            <div class="controls">
+            <input type="text" id="user_name"></input>
+            </div>
+  	   </div>
+          <div class="control-group">
+              <label class="control-label" for="user_name">证件类型</label>
+              <div class="controls">
+                  <select id="ID_type">
+                      <option>身份证</option>
+                      <option>护照</option>
+                      <option>军官证</option>
+                      <option>回乡证</option>
+                      <option>台胞证</option>
+                  </select>
+            </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="ID_NO">证件号码</label>
+              <div class="controls">
+                  <input type="text" id="ID_NO"></input>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="user_name">生日</label>
+              <div class="controls">
+                  <input type="text" id="user_name" placeholder="YYYY-MM-DD"></input>
+              </div>
+          </div>
+
+          <h4>填写联系人信息</h4>
+          <div class="well sidebar-nav">
+              <form class="form-horizontal">
+                  <div class="control-group">
+                      <label class="control-label" for="linkman_name">姓名</label>
+                      <div class="controls">
+                          <input type="text" id="linkman_name"></input>
+                      </div>
+                  </div>
+                  <div class="control-group">
+                      <label class="control-label" for="linkman_tel">手机号码</label>
+                      <div class="controls">
+                          <input type="text" id="linkman_tel" placeholder="通知状态和信息"></input>
+                      </div>
+                  </div>
+                  <div class="control-group">
+                      <label class="control-label" for="linkman_tel_2">备用手机号码</label>
+                      <div class="controls">
+                          <input type="text" id="linkman_tel_2"></input>
+                      </div>
+                  </div>
+                  <div class="control-group">
+                      <label class="control-label" for="linkman_email">电子邮箱</label>
+                      <div class="controls">
+                          <input type="text" id="linkman_email" placeholder="通知状态和信息"></input>
+                      </div>
+                  </div>
+          
+
+      
+      
+      </form>
       </div>
-	  <div class="spcart_top  text-right">
-		<span>商品总价(不含运费) :</span><span>00000.00</span><span> &nbsp </span>
-		<input class="btn" type="submit"value="结算">
-      </div>
-      <div class="spcart_middle well sidebar-nav">
+	  <h4>确认订单信息</h4>
+      <div class="orderinfo well sidebar-nav">
+      
       	<table class="table table-striped">
        	 <thead>
          	<th class="item_pic"></th>
         	<th class="item_name">商品</th>
-            <th class="price">单价</th>
-            <th class="num">数量</th>
-            <th class="totalprice">小计</th>
-            <th>
-            </th>
+            <th class="totalprice">价格</th>
        	 </thead>
-            </table>
+          <tbody>
+            <tr class="order_item">
+				<td class="item_name">aaaaaaaaaaaaaaaaaaaaa</td>
+				<td class="price">10.00</td>
+          </tbody>
+		</table>
       </div>
       
-      <div class="spcart_bottom  text-right">
-		<h3><span>商品总价:</span><span id="totalprice">&#65509; </span><input class="btn btn-success" type="submit"value="结算"></h3>
+      <div class="order_bottom  text-right">
+		<h4><span>实付款:</span><span id="totalprice">&#65509;620 </span><input class="btn btn-success" type="submit"value="提交订单"></h4>
 	  </div>      
   </div>
   </div>

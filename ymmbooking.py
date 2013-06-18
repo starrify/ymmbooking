@@ -241,8 +241,13 @@ def flight_search_json():
     
     return {'flight': ret_flights}
 
-@bottle_app.get('/trade/remark_history')
-@bottle.view(app.config.template_path + 'trade/remark_history.html')
+#@bottle_app.get('/trade/remark_history')
+#@bottle.view(app.config.template_path + 'trade/remark_history.html')
+    #def order():
+#    return {}
+
+@bottle_app.get('/trade/comment_history')
+@bottle.view(app.config.template_path + 'trade/comment_history.html')
 def order():
     return {}
 
