@@ -1,0 +1,10 @@
+<li class="nav-header">酒店</li>
+<li id="nlHotel"><a href="/manage/hotel/hotel">酒店信息管理</a></li>
+<li id="nlHotelRoom"><a href="/manage/hotel/room">酒店房间信息管理</a></li>
+<li id="nlHotelTransaction"><a href="/manage/hotel/transaction">酒店订单管理</a></li>
+<li><a href="/manage/hotel/comment" id="nlHotelComment">酒店评论管理</a></li>
+<li class="nav-header">航班</li>
+<li id="nlFlight"><a href="/manage/flight/flight">航班信息管理</a></li>
+<li id="nlFlightTransaction"><a href="/manage/flight/transaction">航班订单管理</a></li>
+<li id="nlFlightComment"><a href="/manage/flight/comment">航班评论管理</a></li>
+<script> $('#{{active}}').addClass('active'); </script>
