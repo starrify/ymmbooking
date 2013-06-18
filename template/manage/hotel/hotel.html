@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title>酒店信息管理</title>
+        <meta content="text/html" charset=utf-8>   
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="/css/manage.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
+        <link href="/css/tran_history.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="/js/jquery.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script> <!-- test -->
+    </head>
+    <body>
+  
+  
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+
+                    <a class="brand" href="#">Online Payment</a>
+                    <div class="nav-collapse collapse">
+                        <p class="navbar-text pull-right">
+                            Logged in as <a href="#" class="navbar-link">Username</a>
+                        </p>
+                        <ul class="nav">
+                            <li><a href="#">账户设置</a></li>
+                            <li><a href="../buyer/order_manage.html">我是买家</a></li>
+                            <li class="active"><a href="../seller/order_manage.html">我是卖家</a></li>
+		        	        <li><a href="../flight/search.html">淘宝贝</a></li>
+			                <li><a href="#contact">在线预订</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="hero-unit"></div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">酒店</li>
+                        <li class="active"><a href="/manage/hotel">酒店信息管理</a></li>
+                            <li><a href="/manage/hotel_transaction">酒店订单管理</a></li>
+                            <li><a href="/manage/hotel_comment">酒店评论管理</a></li>
+                            <li class="nav-header">航班</li>
+                            <li><a href="/manage/flight">航班信息管理</a></li>
+                            <li><a href="/manage/flight_transaction">航班订单管理</a></li>
+                            <li><a href="/manage/flight_comment">航班评论管理</a></li>
+                        </ul>
+                    </div><!--/.well -->
+                </div><!--/span-->
+
+                <div class="span9">
+                    <div class="row-fluid"> <!-- search panel -->
+                        <div class="seller-search-form" id="basicSearch">
+                            <div class="row-fluid"> <!-- search inputs -->
+                                <table class="grid-form">
+                                    <tr>
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">酒店编号</label>
+                                                    <input class="search-input" type="text" id="bsHID" placeholder="编号">
+                                                </div>
+                                        </td>
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">酒店名称</label>
+                                                    <input class="search-input" type="text" id="bsName" placeholder="名称">
+                                                </div>
+                                        </td> <!-- span4 -->
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">酒店位置</label>
+                                                    <input class="search-input" type="text" id="bsLocation" placeholder="地点">
+                                                </div>
+                                        </td> <!-- span4 -->
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="row-fluid"> <!-- buttons -->
+                                <div class="grid-form" style="text-align:center;">
+                                    <button class="btn" style="width:20%" type="button" id="bsSearch">搜索</button>
+                                </div>
+                            </div>
+                        </div> <!-- seller-search-form -->
+                    </div> <!-- row-fluid -->
+                    <h3 id="resultVerbose">共有1个搜索结果</h3>
+                    <div class="row-fluid"> <!-- search result -->
+                        <table class="table table-hover" id="resultTable" style="table-layout:fixed">
+                            <colgroup>
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="12%" />
+                            </colgroup>
+                            <tr> <!-- header -->
+                                <th class="text-cropped">酒店编号</th>
+                                <th class="text-cropped">酒店名称</th>
+                                <th class="text-cropped">酒店位置</th>
+                                <th class="text-cropped">酒店描述</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row-fluid"> <!-- add result -->
+                        <table class="table" id="addTable" style="table-layout:fixed">
+                            <colgroup>
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="22%" />
+                                <col width="12%" />
+                            </colgroup>
+                            <tr>
+                                <td class="text-cropped">新的酒店</td>
+                                <td style="padding:0;"><input class="input-cropped" id="atName" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atDescription" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atLocation" type="text" placeholder="input"></td>
+                                <td>
+                                    <div>
+                                        <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
+                                        <button class="btn btn-icon" id="atRemove"><i class="icon-remove"></i></button>
+                                        <!--<button class="btn" style="width:10px;float:left;" id="atReset"><i class="icon-repeat"></i></button>-->
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div> <!-- span9 -->
+                
+            </div> 
+        </div>
+
+        <footer class="tail">
+            <hr>
+            <a href="">关于我们</a>
+            <a href="">合作伙伴</a>
+            <a href="">联系客服</a>
+            <a href="../other/connect_us.html">联系我们</a>
+            <a href="../other/map.html">网站地图</a>
+            <span>© 2013 Black.com 版权所有</span>
+        </footer>
+  
+    </body>
+  
+</html>
+<!--TODO: table sort -->
+<!--TODO: forbid multiple popover -->
+<script> // tools
+// checks overflow in our one-line context
+function checkOverflow(cell) {
+    return (cell.prop('scrollWidth') > cell.innerWidth() || cell.text().indexOf('\n') >= 0)
+}
+function cellPosition(cell) {
+    return { row: cell.closest('tr').prop('rowIndex'), col: cell.prop('cellIndex') };
+}
+function createArray(length) {
+    var arr = new Array(length || 0),
+    i = length;
+    
+    if (arguments.length > 1) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        while(i--) arr[length - 1 - i] = createArray.apply(this, args);
+    }
+    return arr;
+}
+function textToHtml(text) {
+    return text.replace(/\n/g, '<BR>');
+}
+
+function isInteger(str) {
+    return (str.length < 10 && /^[0-9]+$/.test(str));
+}
+function deepCopyArray(arr) {
+        return $.extend(true, {}, {0:arr})[0];
+}
+</script>
+
+<script> // page specified functions
+function editable(param) {
+    var col;
+    if(typeof param == 'number') {
+        col = param;
+    } else {
+        col = param.prop('cellIndex');
+    }
+    
+    if(col == 0 || col == 4)
+        return false;
+    else
+        return true;
+}
+
+function isRowValid(row) {
+    var zeroCnt = 0;
+
+    if(!isInteger(row.find('td:eq(0)').text())) return false;
+    for(var i = 1; i < 4; i++) {
+        var coltxt = row.find('td:eq(' + i + ')').text();
+
+        if(coltxt.length > 255) return false;
+        if(coltxt.length == 0) zeroCnt++;
+    }
+    if(zeroCnt == 3) return false;
+    return true;
+}
+function mapResult(res) {
+    return $.map(res, function(ele) {
+        return [[ele[0], ele[1], ele[3], ele[2]]];
+    });
+}
+var rowtmpl = '<tr><td class="text-cropped" rel="popover">__col1__</td>'
+    + '<td class="text-cropped">__col2__</td>'
+    + '<td class="text-cropped">__col3__</td>'
+    + '<td class="text-cropped">__col4__</td>'
+    + '<td><div><button class="btn btn-icon"><i class="icon-ok"></i></button>'
+    + '<button class="btn btn-icon"><i class="icon-remove"></i></button>'
+    + '<button class="btn btn-icon"><i class="icon-repeat"></i></button></div></td></tr>';
+var schema = ['hid', 'name', 'location', 'description'];
+</script>
+
+<script> // class ResultTable
+var rt;    
+function ResultTable(data) {
+    this.$table = $('#resultTable');
+    this.$verbose = $('#resultVerbose');
+    // model
+    this.data = [schema].concat(mapResult(data));
+    this.cache = deepCopyArray(this.data);
+    this.overflow = createArray(data.length + 1, schema.length);
+    // view
+    this.updateContentView();
+    this.updateResultVerbose();
+}
+ResultTable.prototype = {
+    getRow: function(row) {
+        return this.$table.find('tr:eq(' + row + ')');
+    },
+    
+    getRowCnt: function() {
+        return this.$table.find('tr').length;
+    },
+    
+    getCell: function(row, col) {
+        if(typeof row == 'number')
+            return this.$table.find('tr:eq(' + row + ') td:eq(' + col + ')');
+        else
+            return row.find('td:eq(' + col + ')');
+    },
+    
+    pushRow: function(rowData) { //TODO: animation
+        // model
+        this.overflow.push(new Array(schema.length));
+        this.cache.push(deepCopyArray(rowData));
+        this.data.push(deepCopyArray(rowData));
+        // view
+        this.$table.find('tbody').append(rowtmpl);
+        this.updateRowView(this.getRowCnt() - 1);
+        this.updateResultVerbose();
+    },
+    
+    /*pushRow: function(rowData) {
+        this.insertRow(rowData, this.getRowCnt().length);
+    },*/
+    
+    removeRow: function(rowid) { //TODO: animation
+        // model
+        //TODO: use lazy removal to speedup
+        this.overflow.splice(rowid, 1);
+        this.cache.splice(rowid, 1);
+        this.data.splice(rowid, 1);
+        // view
+        this.getRow(rowid).remove();
+        this.updateResultVerbose();
+    },
+    
+    popRow: function() {
+        this.removeRow(this.getRowCnt() - 1);
+    },
+    
+    resetRow: function(rowId) {
+        // model
+        this.cache[rowId] = deepCopyArray(this.data[rowId]);
+        // view
+        this.updateRowView(rowId);
+        this.getRow(rowId).removeClass();
+    },
+    
+    commitRow: function(rowId) { // write from buffer to data
+        // model
+        this.data[rowId] = deepCopyArray(this.cache[rowId]);
+        // view
+        var row = this.getRow(rowId);
+        row.removeClass().addClass('success');
+        setTimeout(function() { row.removeClass(); }, 3000);
+    },
+    
+    updateResultVerbose: function() {
+        this.$verbose.html('共有' + (this.getRowCnt() - 1) + '个搜索结果');
+    },
+
+    updateRowView: function(rowId) {
+        for(var colId = 0; colId < schema.length; colId++) {
+            this.setCell(this.getCell(rowId, colId), this.cache[rowId][colId]);
+        }
+    },
+    
+    updateContentView: function() {
+        var curRowCnt = this.getRowCnt();
+
+        var minRowCnt = Math.min(curRowCnt, this.data.length);
+        // skip header
+        for(var rowId = 1; rowId < minRowCnt; rowId++) {
+            this.updateRowView(rowId);
+        }
+        if(curRowCnt > this.data.length) {
+            for(var t = curRowCnt - this.data.length; t--; ) {
+                this.$table.find('tr:last').remove();
+            }
+        } else if(curRowCnt < this.data.length) {
+            for(var t = curRowCnt; t < this.data.length; t++) {
+                this.$table.find('tbody').append(rowtmpl);
+                this.updateRowView(t);
+            }
+        }
+    },
+    
+    addPopover: function(param1, param2) {
+        var obj;
+        if(typeof param1 == 'number') { // row col
+            obj = $($(this.$table.children()[param1]).children()[param2]);
+        } else { // obj
+            obj = param1;
+        }
+        
+        var edit = false;
+        var edittmpl = '<div><textarea style="height:100px">__texthere__</textarea></div>'
+            + '<div style="text-align:center;"><button class="btn btn-primary">保存</button>'
+            + '<button class="btn">放弃</button></div>';
+        var viewtmpl = '<div style="word-wrap:break-word;">__texthere__</div>'
+            + '<div style="font-size:8px;line-height:8px;color:#C0C0C0;text-align:right;">click to edit</div>'
+        
+        obj.popoverex({
+            trigger: 'hover', 
+            hoverReserve: "in in_popover",
+            delay: {show: 100, hide: 1000},
+            placement: 'bottom',
+            html: true,
+            container: 'body',
+            content: function() {
+                return viewtmpl.replace('__texthere__', textToHtml($(this).text()));
+            },
+            popover_click: function(e) {
+                if(!edit && $(e.target).prop('tagName') == 'DIV') {
+                    edit = true;
+                    
+                    var ele = e.data.ele, pop = e.data.pop;
+                    var popcontent = pop.find('[class=popover-content]');
+                    ele.popoverex('pin');
+                    popcontent.html(edittmpl.replace('__texthere__', ele.text())); //text()));
+                    var textarea = popcontent.find('textarea');
+                    textarea.focus().select();
+                    
+                    // register button events
+                    var buttons = pop.find('button');
+                    var close = function() {
+                        buttons.each(function() {
+                            $(this).off('click');
+                        });
+                        ele.popoverex('unpin');
+                        ele.popoverex('hide');
+                        edit = false;
+                    };
+                    $(buttons[0]).click(function() {
+                        close();
+                        rt.modifyCell(ele, textarea.val())
+                    });
+                    $(buttons[1]).click(close);
+                }
+            },
+        });
+    },
+
+    setCell: function(cell, text) { // with no checks
+        var pos = cellPosition(cell);
+
+        cell.html(text);
+        // popover
+
+        this.cache[pos.row][pos.col] = text;
+        
+        var cellOverflow = checkOverflow(cell);
+        if(!this.overflow[pos.row][pos.col] && cellOverflow)  {
+            this.overflow[pos.row][pos.col] = true;
+            this.addPopover(cell);
+        } else if(this.overflow[pos.row][pos.col] && !cellOverflow) {
+            this.overflow[pos.row][pos.col] = false;
+            cell.popoverex('destroy');
+        }
+    }, 
+    modifyCell: function(param1, param2, param3) {
+        var cell, pos, text, oritext;
+        if(typeof param1 == 'number') { // row col
+            pos.row = param1;
+            pos.col = param2;
+            text = param3;
+            cell = this.getCell(row, col);
+        } else { // cell
+            cell = param1;
+            text = param2;
+            pos = cellPosition(cell);
+        }
+        //TODO: if not changed then do not set or change class
+        if(this.cache[pos.row][pos.col] != text) {
+
+            this.setCell(cell, text);
+            if(isRowValid(this.getRow(pos.row))) {
+                cell.closest('tr').removeClass().addClass('warning');
+            } else {
+                cell.closest('tr').removeClass().addClass('error');
+            }
+        } else {
+            cell.html(text);
+        }
+    },
+}
+rt = new ResultTable([]);
+</script>
+
+<script> //event handlers
+$('#resultTable').click(function(e) {
+    console.log($(e.target).prop('tagName'));
+    switch($(e.target).prop('tagName')) {
+    case 'TD' : {
+        var pos = cellPosition($(e.target));
+        var cell = $(e.target);
+        if(!editable(cell) || rt.overflow[pos.row][pos.col]) return;
+                           
+        cell.css('padding', 0);
+        var text = cell.text();
+        cell.html('')
+            .append('<input type="text" class="input-cropped" value="' + text + '">');
+    
+        cell.find('input').focus().select();
+        break;
+    }
+    case 'I':
+        if($(e.target).parent().prop('tagName') != 'BUTTON')
+            break;
+    case 'BUTTON': {
+        //TODO: enable and disable of buttons
+        var btn = $(e.target).closest('button');
+        var rowId = btn.closest('tr').prop('rowIndex');
+        switch(btn.parent().children().index(btn)) {
+        case 0: { // submit
+            $.getJSON(
+                '/manage/hotel/async',
+                {
+                    h_id: rt.cache[rowId][0],
+                    name: rt.cache[rowId][1],
+                    location: rt.cache[rowId][2],
+                    description: rt.cache[rowId][3],
+                    type: 'update',
+                },
+                function(data) {
+                    console.log(data);
+                    if(data.status == 'succeeded')
+                        rt.commitRow(rowId);
+                    else
+                        alert('Submit failed');
+                });
+            break;
+        }
+        case 1: { // remove
+            $.getJSON(
+                '/manage/hotel/async',
+                {
+                    h_id: rt.cache[rowId][0],
+                    type: 'delete',
+                },
+                function(data) {
+                    console.log(data);
+                    rt.removeRow(rowId);
+                });
+            break;
+        }
+        case 2: { // reset
+            rt.resetRow(rowId);
+            break;
+        }
+        }
+    }
+    }
+});
+    
+$('#resultTable').focusout(function(e){
+    var text = $(e.target).val();
+    var cell = $(e.target).closest('td');
+    if(editable(cell)) {
+        cell.css('padding', 8);
+        rt.modifyCell(cell, text);
+    }
+});
+            
+$('#bsSearch').click(function(e) {
+    $.getJSON(
+        '/manage/hotel/async',
+        {
+            h_id: $('#bsHID').val(),
+            name: $('#bsName').val(),
+            location: $('#bsLocation').val(),
+            type: 'search',
+        },
+        function(data) {
+            rt = new ResultTable(data.hotel);
+        });
+});
+
+$('#atAdd').click(function(e) {
+    var row = $('#addTable tr:first');
+    var addobj = {
+        h_id: '',
+        name: row.find('td:eq(1) input:first').val(),
+        location: row.find('td:eq(2) input:first').val(),
+        description: row.find('td:eq(3) input:first').val(),
+        type: 'add',
+    };
+    $.getJSON(
+        '/manage/hotel/async',
+        addobj,
+        function(data) {
+            console.log(data);
+            if(data.status == 'succeeded') {
+                $('#addTable input').val('');
+                rt.pushRow([data.h_id, addobj.name, addobj.location, addobj.description]);
+            }
+            else
+                alert('Add failed');
+        });
+});
+$('#atRemove').click(function(e) {
+    $('#addTable input').val('');
+});
+</script>
