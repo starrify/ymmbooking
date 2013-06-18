@@ -47,7 +47,7 @@
                                         <td>
                                                 <div>
                                                     <label class="search-label">用户号</label>
-                                                    <input class="search-input" type="text" id="bs" placeholder="input">
+                                                    <input class="search-input" type="text" id="bsUID" placeholder="input">
                                                 </div>
                                         </td> <!-- span4 -->
                                     </tr>
@@ -94,9 +94,9 @@
                                 <col width="10%" />
                             </colgroup>
                             <tr> <!-- header -->
-                                <th class="text-cropped">订单号</th>
-                                <th class="text-cropped">航班号</th>
-                                <th class="text-cropped">用户号</th>
+                                <th class="text-cropped">订单编号</th>
+                                <th class="text-cropped">航班编号</th>
+                                <th class="text-cropped">用户标识</th>
                                 <th class="text-cropped">交易时间</th>
                                 <th class="text-cropped">交易金额</th>
                                 <th class="text-cropped">交易状态</th>
@@ -172,7 +172,7 @@ var rowtmpl = '\
     </td></tr>';
 var schema = ['TID', 'FID', 'UID', 'Time', 'Price', 'Status'];
 var dbschema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status'];
-var asyncURL = 'manage/flight/transaction/async';
+var asyncURL = '/manage/flight/transaction/async';
 var rt = new ResultTable([[1,2,3,4,5,6]]);
 
 function editable(col) {
@@ -184,8 +184,8 @@ function editable(col) {
 
 function isRowValid(row) {
     if(!isInt(row.find('td:eq(0)').text())) return false;
-    if(row.find('td:eq(1)').text().length > 255) return false;
-    if(row.find('td:eq(2)').text().length > 255) return false;
+    if(!inRange(row.find('td:eq(1)').text().length, 1, 255)) return false;
+    if(!inRange(row.find('td:eq(2)').text().length, 1, 255)) return false;
     if(!isDateTime(row.find('td:eq(3)').text())) return false;
     if(!isFloat(row.find('td:eq(4)').text())) return false;
     if(row.find('td:eq(5)').text().length > 255) return false;
@@ -259,7 +259,7 @@ $('#resultTable').click(function(e) {
             $.getJSON(
                 asyncURL,
                 {
-                    h_id: rt.cache[rowId][0],
+                    t_id: rt.cache[rowId][0],
                     type: 'delete',
                 },
                 function(data) {
@@ -299,6 +299,7 @@ $('#bsSearch').click(function(e) {
             type: 'search',
         },*/
         function(data) {
+            console.log(data);
             rt = new ResultTable(data.hotel);
         });
 });
