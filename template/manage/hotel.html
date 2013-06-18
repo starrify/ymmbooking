@@ -294,8 +294,8 @@ ResultTable.prototype = {
         this.data[rowId] = deepCopyArray(this.cache[rowId]);
         // view
         var row = this.getRow(rowId);
-        row.removeClass().addClass('succeeded');
-        setTimeout(function() { row.removeClass(); }, 1000);
+        row.removeClass().addClass('success');
+        setTimeout(function() { row.removeClass(); }, 3000);
     },
     
     updateResultVerbose: function() {
