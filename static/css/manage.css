@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import url(bootstrap.css);
+
+.seller-search-form .search-label {
+    padding-top: 5px;
+    float: left;
+    width: 33.33%;
+    text-align: right;
+}
+
+.seller-search-form .search-input {
+    *display: inline-block;
+    margin-left: 5%;
+    width: 50%;
+}
+
+.seller-search-form .grid-form {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.row-fluid .row-fluid-fix-bottom {
+    position: relative:
+    bottom: 0px;
+    text-align: center;
+    padding: 5px 0px;
+    z-index: 1;
+}
+
+.table .text-cropped {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+//    display: inline-block;
+}
+
+.table .input-cropped {
+    width: 90%;
+    margin: 0;
+}
+
+.table .btn-icon {
+    width: 25px;
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+    text-align: center;
+}
