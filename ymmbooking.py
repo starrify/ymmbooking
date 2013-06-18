@@ -277,12 +277,27 @@ def order():
     return {}
 
 @bottle_app.get('/trade/booking_history')
-@bottle.view(app.config.template_path + 'trade/booking_history.html')
+@bottle.view(app.config.template_path + '/trade/booking_history.html')
 def booking_history():
     return {}
 
 @bottle_app.get('/trade/comment')
 @bottle.view(app.config.template_path + 'trade/comment.html')
+def trade_remark():
+    return {}
+
+@bottle_app.get('/trade/remark_history')
+@bottle.view(app.config.template_path + 'trade/remark_history.html')
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/flight')
+@bottle.view(app.config.template_path + 'manage/flight.html')
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel')
+@bottle.view(app.config.template_path + 'manage/hotel.html')
 def trade_remark():
     return {}
 
