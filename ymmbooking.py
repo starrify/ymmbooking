@@ -294,7 +294,11 @@ def order():
         if not any(param):
             bottle.redirect('/')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        return {'item_name': param[0] + 'at' + param[1], 'item_price': param[2], 'total_price': param[2]}
+        return {
+            'item_name': param[0] + '航班: ' + param[1], 
+            'item_price': param[2],
+            'total_price': param[2], 
+            '_item_id': param[0]}
     elif o_type == 'hotel':
         param = list(map(bottle.request.query.get, 
             ['name', 'description', 'location', 'h_id']))
@@ -305,7 +309,21 @@ def order():
     else:   # invalid type or no type.
         #bottle.redirect('/')
         pass
-    return {'item_name': '', 'item_price': '', 'total_price': ''}
+    return {'item_name': '', 'item_price': '', 'total_price': '', '_item_id': ''}
+
+@bottle_app.get('/create_transaction')
+@Misc.auth_validate
+def create_transaction():
+    ct_type = bottle.request.query.get('type')
+    if ct_type == 'flight':
+        param = list(map(bottle.request.query.get,
+            ['_item_id']))
+        pass
+    elif ct_type == 'hotel':
+        pass
+    else:
+        pass
+    return {}
 
 @bottle_app.get('/trade/booking_history')
 @bottle.view(app.config.template_path + '/trade/booking_history.html')
