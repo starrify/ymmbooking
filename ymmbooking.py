@@ -325,14 +325,8 @@ def trade_remark():
 def order():
     return {}
 
-<<<<<<< HEAD
 @bottle_app.get('/manage/flight/flight')
 @bottle.view(app.config.template_path + 'manage/flight/flight.html')
-=======
-@bottle_app.get('/manage/flight')
-@bottle.view(app.config.template_path + 'manage/flight.html')
-@Misc.auth_validate
->>>>>>> 191df62f8f59f0e0a0c0f4456dd9048d249e426c
 def trade_remark():
     return {}
 
