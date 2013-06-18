@@ -291,7 +291,7 @@ def trade_remark():
 def trade_remark():
     return {}
 
-@bottle_app.get('/manage/flight/data')
+@bottle_app.get('/manage/flight/flight')
 @bottle.view(app.config.template_path + 'manage/flight/flight.html')
 def trade_remark():
     return {}
@@ -306,8 +306,13 @@ def trade_remark():
 def trade_remark():
     return {}
 
-@bottle_app.get('/manage/hotel/data')
+@bottle_app.get('/manage/hotel/hotel')
 @bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/room')
+@bottle.view(app.config.template_path + 'manage/hotel/room.html')
 def trade_remark():
     return {}
 
