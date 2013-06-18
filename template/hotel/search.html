@@ -15,51 +15,32 @@
   <body>
   
   
- <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-
-          <a class="brand" href="#">Online Payment</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
-            </p>
-            <ul class="nav">
-              <li><a href="#">账户设置</a></li>
-              <li><a href="order_manage.html">我是买家</a></li>
-              <li><a href="#contact">我是卖家</a></li>
-			  <li><a href="#contact">淘宝贝</a></li>
-			  <li class="active"><a href="#contact">在线预订</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-   <div class="hero-unit"></div>
+ %include head_bar.inc
+      <div class="hero-unit"></div>
    <div class="container-fluid">
 	<div class="row-fluid">
 		  <div class="span2">
           <div class="well sidebar-nav">
-              <ul class="nav nav-list">
-                  <li class="nav-header">酒店</li>
-                  <li class="active"><a href="/hotel/search">酒店预定</a></li>
-                  <li><a href="/hotel/search">旅馆预定</a></li>
-                  <li class="nav-header">航班</li>
-                  <li><a href="/flight/search">国际航班</a></li>
-                  <li ><a href="/flight/search">国内航班</a></li>
-                  <li class="nav-header">订单管理</li>
-                  <li ><a href="/trade/booking_history">订单历史</a></li>
-                  <li ><a href="/trade/remark_history">评价历史</a></li>
-              </ul>
+            <ul class="nav nav-list">
+              <li class="nav-header">酒店</li>
+              <li class="active"><a href="#" onclick="hide_inn()">酒店预定</a></li>
+              <li><a href="#" onclick="show_inn()">旅馆预定</a></li>			
+              <li class="nav-header">航班</li>
+              <li><a href="/flight/search">国内航班</a></li>
+			  <li><a href="/flight/search">国际航班</a></li>
+              <li class="nav-header">订单管理</li>
+              <li ><a href="/trade/booking_history">订单历史</a></li>
+              <li ><a href="/trade/comment_history">评价历史</a></li>
+            </ul>
           </div><!--/.well -->
           </div><!--/span-->
 <div class="span10">
   <div class="main">
       <div class="well sidebar-nav">
           <ul class="breadcrumb">
-              <li><a href="bookindex.html">预定系统</a><span class="divider">/</span></li>
-              <li><a href="domeflight.html">酒店预定</a><span class="divider">/</span></li>
-              <li class="active">酒店搜索</a></li>
+              <li><a href="#">预定系统</a><span class="divider">/</span></li>
+              <li><a href="#" onclick="hide_inn()">酒店预定</a><span class="divider">/</span></li>
+              <li class="active">酒店预定</a></li>
           </ul>
               <div class="row-fluid">
                   <div class="span2 offset1"><label class="radio"><input id="optionsRadios1" type="radio" checked="" value="option1" name="optionsRadios" onclick="hide_inn()">酒店预订</label></div>
@@ -189,6 +170,7 @@
         $(".nav-list li:eq(1)").removeClass('active')
         $(".breadcrumb li:eq(2)").html('旅馆预定')
         $("title").html('旅馆预定')
+        $("#optionsRadios2")[0].checked=true
         $("#return").show()
     }
     function hide_inn(){
@@ -196,6 +178,7 @@
         $(".nav-list li:eq(1)").addClass('active')
         $(".breadcrumb li:eq(2)").html('酒店预定')
         $("title").html('酒店预订')
+        $("#optionsRadios1")[0].checked=true
         $("#return").hide()
     }
     $(".form_datetime1").datetimepicker({
@@ -244,8 +227,8 @@
         $.getJSON(
             "/hotel/search/async",// ???
             {
-                hotel_city: city,
-                hotel_name: name,
+                city: location,
+                name: name,
             },
             function(data){
                 console.log(data);

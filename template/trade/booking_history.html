@@ -63,7 +63,7 @@
                 strdata = strdata+"<td>"+history[1]+"</td>"
                 strdata = strdata+"<td>"+history[2]+"</td>"
                 strdata = strdata+"<td>"+history[3]+"</td>"
-                strdata = strdata+"<td><a href="/trade/remark" class="btn" value="comment" onclick="get_ID()"> 评价 </a></td></tr>"
+                strdata = strdata+"<td><a href="/trade/comment" class="btn" value="comment" onclick="get_ID()"> 评价 </a></td></tr>"
                 $("#flight_list").append($("<tbody>",{html:strdata}))
             }
         </script>
@@ -72,26 +72,7 @@
   <body>
   
   
-  <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-
-          <a class="brand" href="#">Online Payment</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
-            </p>
-            <ul class="nav">
-              <li><a href="#">账户设置</a></li>
-              <li><a href="../buyer/order_manage.html">我是买家</a></li>
-              <li><a href="../seller/order_manage.html">我是卖家</a></li>
-			  <li class="active"><a href="#contact">淘宝贝</a></li>
-			  <li><a href="index">在线预订</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+%include head_bar.inc
       <div class="hero-unit"></div>
       <div class="container-fluid">
           <div class="row-fluid">
@@ -106,7 +87,7 @@
                           <li ><a href="/flight/search">国内航班</a></li>
                           <li class="nav-header">订单管理</li>
                           <li class="active"><a href="/trade/booking_history">订单历史</a></li>
-                          <li ><a href="/trade/remark_history">评价历史</a></li>
+                          <li ><a href="/trade/comment_history">评价历史</a></li>
                       </ul>
                   </div><!--/.well -->
               </div><!--/span-->
@@ -155,7 +136,7 @@
                 <th class="item" colspan="2"><div id ="booking_item"> 萧山国际机场 首都国际机场 中国国际航空 </div></th>
                 <th class="totalprice" colspan="1"><div id="booking_price">1234567</div></th>
                 <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
+                <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/comment" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
             </tr>
             </div>
             <div id="history">
@@ -163,7 +144,7 @@
                     <th class="item" colspan="2"><div id ="booking_item"> 首都国际机场 萧山国际机场 中国国际航空</div></th>
                     <th class="totalprice" colspan="1"><div id="booking_price">123456</div></th>
                     <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                    <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/remark" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
+                    <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/comment" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
                 </tr>
             </div>
 		</tbody>
