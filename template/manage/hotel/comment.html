@@ -21,7 +21,7 @@
                 <div class="span2">
                     <div class="well sidebar-nav">
                         <ul class="nav nav-list">
-%include template/manage/nav_list.inc active='nlFlightTransaction'
+%include template/manage/nav_list.inc active='nlHotelComment'
                         </ul>
                     </div><!--/.well -->
                 </div><!--/span-->
@@ -34,42 +34,36 @@
                                     <tr>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">订单号</label>
-                                                    <input class="search-input" type="text" id="bsTID" placeholder="input">
+                                                    <label class="search-label">评论编号</label>
+                                                    <input class="search-input" type="text" id="bsCID" placeholder="input">
                                                 </div>
                                         </td>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">航班号</label>
-                                                    <input class="search-input" type="text" id="bsFID" placeholder="input">
+                                                    <label class="search-label">酒店编号</label>
+                                                    <input class="search-input" type="text" id="bsHID" placeholder="input">
                                                 </div>
-                                        </td> <!-- span4 -->
+                                        </td>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">用户号</label>
+                                                    <label class="search-label">用户标识</label>
                                                     <input class="search-input" type="text" id="bsUID" placeholder="input">
                                                 </div>
-                                        </td> <!-- span4 -->
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">交易时间</label>
-                                                    <input class="search-input" type="datetime" id="bsTime" placeholder="yyyy/mm/dd">
+                                                    <label class="search-label">用户评论</label>
+                                                    <input class="search-input" type="text" id="bsMessage" placeholder="yyyy/mm/dd">
                                                 </div>
                                         </td>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">交易金额</label>
+                                                    <label class="search-label">用户评分</label>
                                                     <input class="search-input" type="text" id="bsPrice" placeholder="number">
                                                 </div>
-                                        </td> <!-- span4 -->
-                                        <td>
-                                                <div>
-                                                    <label class="search-label">交易状态</label>
-                                                    <input class="search-input" type="text" id="bsStatus" placeholder="input">
-                                                </div>
-                                        </td> <!-- span4 -->
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -88,18 +82,16 @@
                                 <col width="15%" />
                                 <col width="15%" />
                                 <col width="15%" />
-                                <col width="20%" />
-                                <col width="15%" />
-                                <col width="10%" />
+                                <col width="22%" />
+                                <col width="22%" />
                                 <col width="10%" />
                             </colgroup>
                             <tr> <!-- header -->
-                                <th class="text-cropped">订单编号</th>
-                                <th class="text-cropped">航班编号</th>
+                                <th class="text-cropped">评论编号</th>
+                                <th class="text-cropped">酒店编号</th>
                                 <th class="text-cropped">用户标识</th>
-                                <th class="text-cropped">交易时间</th>
-                                <th class="text-cropped">交易金额</th>
-                                <th class="text-cropped">交易状态</th>
+                                <th class="text-cropped">用户评论</th>
+                                <th class="text-cropped">用户评分</th>
                             </tr>
                         </table>
                     </div>
@@ -109,15 +101,13 @@
                                 <col width="15%" />
                                 <col width="15%" />
                                 <col width="15%" />
-                                <col width="20%" />
-                                <col width="15%" />
-                                <col width="10%" />
+                                <col width="22%" />
+                                <col width="22%" />
                                 <col width="10%" />
                             </colgroup>
                             <tr>
-                                <td class="text-cropped">新的航班订单</td>
+                                <td class="text-cropped">新的酒店评论</td>
                                 <td style="padding:0;"><input class="input-cropped" id="atTID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atFID" type="text" placeholder="input"></td>
                                 <td style="padding:0;"><input class="input-cropped" id="atUID" type="text" placeholder="input"></td>
                                 <td style="padding:0;"><input class="input-cropped" id="atTime" type="text" placeholder="input"></td>
                                 <td style="padding:0;"><input class="input-cropped" id="atPrice" type="text" placeholder="input"></td>
@@ -164,19 +154,18 @@ var rowtmpl = '\
     <td class="text-cropped">_2</td> \
     <td class="text-cropped">_3</td> \
     <td class="text-cropped">_4</td> \
-    <td class="text-cropped">_5</td> \
     <td><div> \
         <button class="btn btn-icon"><i class="icon-ok"></i></button> \
         <button class="btn btn-icon"><i class="icon-remove"></i></button> \
         <button class="btn btn-icon"><i class="icon-repeat"></i></button></div> \
     </td></tr>';
-var schema = ['TID', 'FID', 'UID', 'Time', 'Price', 'Status'];
-var dbschema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status'];
+var schema = ['CID', 'HID', 'UID', 'Message', 'Rate'];
+var dbschema = ['c_id', 'h_id', 'u_id', 'message', 'rate'];
 var asyncURL = '/manage/flight/transaction/async';
 var rt = new ResultTable([[1,2,3,4,5,6]]);
 
 function editable(col) {
-    if(col == 0 || col == 6)
+    if(col == 0 || col == 5)
         return false;
     else
         return true;
@@ -184,11 +173,10 @@ function editable(col) {
 
 function isRowValid(row) {
     if(!isInt(row.find('td:eq(0)').text())) return false;
-    if(!inRange(row.find('td:eq(1)').text().length, 1, 255)) return false;
-    if(!inRange(row.find('td:eq(2)').text().length, 1, 255)) return false;
-    if(!isDateTime(row.find('td:eq(3)').text())) return false;
-    if(!isFloat(row.find('td:eq(4)').text())) return false;
-    if(row.find('td:eq(5)').text().length > 255) return false;
+    if(!isInt(row.find('td:eq(1)').text())) return false;
+    if(row.find('td:eq(2)').text().length > 255) return false;
+    if(row.find('td:eq(3)').text().length > 500) return false;
+    if(row.find('td:eq(4)').text().length > 255) return false;
     
     return true;
 }
@@ -259,7 +247,7 @@ $('#resultTable').click(function(e) {
             $.getJSON(
                 asyncURL,
                 {
-                    t_id: rt.cache[rowId][0],
+                    c_id: rt.cache[rowId][0],
                     type: 'delete',
                 },
                 function(data) {
@@ -323,7 +311,7 @@ $('#atAdd').click(function(e) {
             console.log(data);
             if(data.status == 'succeeded') {
                 $('#addTable input').val('');
-                rt.pushRow([data.h_id, addobj.name, addobj.location, addobj.description]);
+                rt.pushRow([data.c_id, addobj.h_id, addobj.u_id, addobj.message, addobj.rate]);
             }
             else
                 alert('Add failed');

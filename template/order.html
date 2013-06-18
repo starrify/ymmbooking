@@ -1,120 +1,122 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-  <head>
-    <title>订单确认</title>   
-    <meta charset=utf-8> 
-    <script src="/js/pro_city.js"></script>
+    <head>
+        <title>订单确认</title>   
+        <meta charset=utf-8> 
+        <script src="/js/pro_city.js"></script>
 	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
+        <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
   
 %include template/head_bar.inc  
 
-  <div class="hero-unit"></div>
-   <div class="container-fluid">
-	<div class="row-fluid">
-        <div class="span12">
-	<div class="main">
-	  <div class="rimidebox">
-		<a  href="order_manage.html">搜索结果</a><span>></span><a href="order">订单确认</a>
-      </div>
-      <h4>填写使用者信息</h4>
-      <div class="well sidebar-nav">
-      <form class="form-horizontal">
-  	   <div class="control-group">
-   			<label class="control-label" for="user_type">使用人类型</label>
-            <div class="controls">
-                <input type="radio" name="optionsRadios" id="adult" value="option1" checked> 成人</input>
-                <input type="radio" name="optionsRadios" id="child" value="option2"> 儿童</input>
+        <div class="hero-unit"></div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="main">
+                        <div class="rimidebox">
+                            <a  href="order_manage.html">搜索结果</a><span>></span><a href="order">订单确认</a>
+                        </div>
+                        <h4>填写使用者信息</h4>
+                        <div class="well sidebar-nav">
+                            <form class="form-horizontal" action="/create_transaction" method="get">
+                                <input type="hidden" name="aaa" value="aaa"></input>
+                                <div class="control-group">
+                                    <label class="control-label" for="user_type">使用人类型</label>
+                                    <div class="controls">
+                                        <input type="radio" name="is_child" id="adult" value="false" checked> 成人</input>
+                                        <input type="radio" name="is_child" id="child" value="true"> 儿童</input>
 
-            </div>
-  	   </div>
-       <div class="control-group">
-   			<label class="control-label" for="user_name">姓名</label>
-            <div class="controls">
-            <input type="text" id="user_name"></input>
-            </div>
-  	   </div>
-          <div class="control-group">
-              <label class="control-label" for="user_name">证件类型</label>
-              <div class="controls">
-                  <select id="ID_type">
-                      <option>身份证</option>
-                      <option>护照</option>
-                      <option>军官证</option>
-                      <option>回乡证</option>
-                      <option>台胞证</option>
-                  </select>
-            </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label" for="ID_NO">证件号码</label>
-              <div class="controls">
-                  <input type="text" id="ID_NO"></input>
-              </div>
-          </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="user_name">姓名</label>
+                                    <div class="controls">
+                                        <input type="text" name="user_name" id="user_name"></input>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="ID_type">证件类型</label>
+                                    <div class="controls">
+                                        <select name="ID_type" id="ID_type">
+                                            <option value="ID_card">身份证</option>
+                                            <option value="passport">护照</option>
+                                            <option value="officer_ID_card">军官证</option>
+                                            <option value="home_return_permit">回乡证</option>
+                                            <option value="TW_ID">台胞证</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="ID_number">证件号码</label>
+                                    <div class="controls">
+                                        <input type="text" name="ID_number" id="ID_number"></input>
+                                    </div>
+                                </div>
 
-          <h4>填写联系人信息</h4>
-          <div class="well sidebar-nav">
-              <form class="form-horizontal">
-                  <div class="control-group">
-                      <label class="control-label" for="linkman_name">姓名</label>
-                      <div class="controls">
-                          <input type="text" id="linkman_name"></input>
-                      </div>
-                  </div>
-                  <div class="control-group">
-                      <label class="control-label" for="linkman_tel">手机号码</label>
-                      <div class="controls">
-                          <input type="text" id="linkman_tel" placeholder="通知状态和信息"></input>
-                      </div>
-                  </div>
-                  <div class="control-group">
-                      <label class="control-label" for="linkman_email">电子邮箱</label>
-                      <div class="controls">
-                          <input type="text" id="linkman_email" placeholder="通知状态和信息"></input>
-                      </div>
-                  </div>
-      </form>
-      </div>
-	  <h4>确认订单信息</h4>
-      <div class="orderinfo well sidebar-nav">
+                                <h4>填写联系人信息</h4>
+                                <div class="well sidebar-nav">
+                                    <!--<form class="form-horizontal">-->
+                                    <div class="control-group">
+                                        <label class="control-label" for="contact_name">姓名</label>
+                                        <div class="controls">
+                                            <input type="text" name="contact_name" id="contact_name"></input>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="contact_tel">手机号码</label>
+                                        <div class="controls">
+                                            <input type="text" name="contact_tel" id="contact_tel" placeholder="通知状态和信息"></input>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="contact_email">电子邮箱</label>
+                                        <div class="controls">
+                                            <input type="text" name="contact_email" id="contact_email" placeholder="通知状态和信息"></input>
+                                        </div>
+                                    </div>
+                                    <!--</form>-->
+                                </div>
+                                <h4>确认订单信息</h4>
+                                <div class="orderinfo well sidebar-nav">
+                
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>商品</th>
+                                            <th>价格</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td id="item_name">{{item_name}}</td>
+                                            <td id="item_price">{{item_price}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
       
-      	<table class="table table-striped">
-       	 <thead>
-            <tr>
-            	<th>商品</th>
-                <th>价格</th>
-            </tr>
-       	 </thead>
-          <tbody>
-            <tr>
-    			<td id="item_name">{{item_name}}</td>
-	    		<td id="item_price">{{item_price}}</td>
-            </tr>
-          </tbody>
-		</table>
-      </div>
-      
-      <div class="order_bottom  text-right">
-		<h4><span>实付款:</span><span id="totalprice">{{total_price}}</span>
-        <input class="btn btn-success" type="submit"value="提交订单"></h4>
-	  </div>      
-  </div>
-  </div>
-	</div>
-	</div>
-  <footer class="tail">
-		<hr>
-        <a href="">关于我们</a>
-        <a href="">合作伙伴</a>
-        <a href="">联系客服</a>
-        <a href="../other/connect_us.html">联系我们</a>
-        <a href="../other/map.html">网站地图</a>
-        <span>© 2013 Black.com 版权所有</span>
-   </footer>
-  </body>
-	
+                                <div class="order_bottom  text-right">
+                                    <h4><span>实付款:</span><span id="totalprice">{{total_price}}</span>
+                                    <input class="btn btn-success" type="submit" value="提交订单"></h4>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <footer class="tail">
+            <hr>
+            <a href="">关于我们</a>
+            <a href="">合作伙伴</a>
+            <a href="">联系客服</a>
+            <a href="../other/connect_us.html">联系我们</a>
+            <a href="../other/map.html">网站地图</a>
+            <span>© 2013 Black.com 版权所有</span>
+        </footer>
+    </body>
 	
 </html>

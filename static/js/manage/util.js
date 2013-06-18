@@ -22,11 +22,18 @@ function isInt(str) {
     return parseInt(str) == str;
     //return (str.length < 10 && /^[0-9]+$/.test(str));
 }
+function isBool(str) {
+    var lowstr = str.toLowerCase();
+    return (lowstr == 'true' || lowstr == 'false');
+}
 function isFloat(str) {
     return parseFloat(str) == str;
 }
 function isDateTime(str) {
     return /\d{2}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(str);
+}
+function inRange(num, low, high) {
+    return (num >= low && num <= high);
 }
 function deepCopyArray(arr) {
         return $.extend(true, {}, {0:arr})[0];
