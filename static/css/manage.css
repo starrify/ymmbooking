@@ -41,7 +41,12 @@
 
 .table .input-cropped {
     width: 90%;
-    margin: 0;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .table .btn-icon {

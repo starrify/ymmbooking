@@ -2,6 +2,10 @@
 __pycache__
 *.pyc
 
-# ignore temperary files by text editors like vim or gedit
+# ignore temporary files by text editors like vim or gedit
 *~
 .*.swp
+
+# ignore manual temporary files
+*.bck
+
