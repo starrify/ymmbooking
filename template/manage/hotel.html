@@ -41,13 +41,13 @@
                     <div class="well sidebar-nav">
                         <ul class="nav nav-list">
                             <li class="nav-header">酒店</li>
-                            <li class="active"><a href="hotel_manage.html">酒店信息管理</a></li>
-                            <li><a href="hotel_manage.html">酒店订单管理</a></li>
-                            <li><a href="hotel_manage.html">酒店评论管理</a></li>
+                            <li class="active"><a href="#">酒店信息管理</a></li>
+                            <li><a href="/manage/hotel_booking">酒店订单管理</a></li>
+                            <li><a href="/manage/hotel_comment">酒店评论管理</a></li>
                             <li class="nav-header">航班</li>
-                            <li><a href="#">航班信息管理</a></li>
-                            <li><a href="booking_manage.html">航班订单管理</a></li>
-                            <li><a href="comment_manage.html">航班评论管理</a></li>
+                            <li><a href="/manage/flight">航班信息管理</a></li>
+                            <li><a href="/manage/flight_booking">航班订单管理</a></li>
+                            <li><a href="/manage/flight_comment">航班评论管理</a></li>
                         </ul>
                     </div><!--/.well -->
                 </div><!--/span-->
@@ -87,12 +87,12 @@
                             </div>
                         </div> <!-- seller-search-form -->
                     </div> <!-- row-fluid -->
-                    <h3 id="searchVerbose">共有1个搜索结果</h3>
+                    <h3 id="resultVerbose">共有1个搜索结果</h3>
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
                                 <col width="22%" />
-                                <col width="22$" />
+                                <col width="22%" />
                                 <col width="22%" />
                                 <col width="22%" />
                                 <col width="12%" />
@@ -121,8 +121,8 @@
                                 <td style="padding:0;"><input class="input-cropped" id="atLocation" type="text" placeholder="input"></td>
                                 <td>
                                     <div>
-                                        <button class="btn" style="width:10px;float:left;" id="atAdd"><i class="icon-ok"></i></button>
-                                        <button class="btn" style="width:10px;float:left;" id="atRemove"><i class="icon-remove"></i></button>
+                                        <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
+                                        <button class="btn btn-icon" id="atRemove"><i class="icon-remove"></i></button>
                                         <!--<button class="btn" style="width:10px;float:left;" id="atReset"><i class="icon-repeat"></i></button>-->
                                     </div>
                                 </td>
@@ -155,9 +155,7 @@ function checkOverflow(cell) {
     return (cell.prop('scrollWidth') > cell.innerWidth() || cell.text().indexOf('\n') >= 0)
 }
 function cellPosition(cell) {
-    var col = cell.prop('cellIndex');
-    var row = cell.closest('tr').prop('rowIndex');
-    return [row, col];
+    return { row: cell.closest('tr').prop('rowIndex'), col: cell.prop('cellIndex') };
 }
 function createArray(length) {
     var arr = new Array(length || 0),
@@ -216,9 +214,9 @@ var rowtmpl = '<tr><td class="text-cropped" rel="popover">__col1__</td>'
     + '<td class="text-cropped">__col2__</td>'
     + '<td class="text-cropped">__col3__</td>'
     + '<td class="text-cropped">__col4__</td>'
-    + '<td><div><button class="btn" style="width:10px;float:left;"><i class="icon-ok"></i></button>'
-    + '<button class="btn" style="width:10px;float:left;"><i class="icon-remove"></i></button>'
-    + '<button class="btn" style="width:10px;float:left;"><i class="icon-repeat"></i></button></div></td></tr>';
+    + '<td><div><button class="btn btn-icon"><i class="icon-ok"></i></button>'
+    + '<button class="btn btn-icon"><i class="icon-remove"></i></button>'
+    + '<button class="btn btn-icon"><i class="icon-repeat"></i></button></div></td></tr>';
 var schema = ['hid', 'name', 'location', 'description'];
 </script>
 
@@ -226,12 +224,14 @@ var schema = ['hid', 'name', 'location', 'description'];
 var rt;    
 function ResultTable(data) {
     this.$table = $('#resultTable');
+    this.$verbose = $('#resultVerbose');
     // model
     this.data = [schema].concat(mapResult(data));
     this.cache = deepCopyArray(this.data);
     this.overflow = createArray(data.length + 1, schema.length);
     // view
     this.updateContentView();
+    this.updateResultVerbose();
 }
 ResultTable.prototype = {
     getRow: function(row) {
@@ -257,6 +257,7 @@ ResultTable.prototype = {
         // view
         this.$table.find('tbody').append(rowtmpl);
         this.updateRowView(this.getRowCnt() - 1);
+        this.updateResultVerbose();
     },
     
     /*pushRow: function(rowData) {
@@ -271,6 +272,7 @@ ResultTable.prototype = {
         this.data.splice(rowid, 1);
         // view
         this.getRow(rowid).remove();
+        this.updateResultVerbose();
     },
     
     popRow: function() {
@@ -294,6 +296,10 @@ ResultTable.prototype = {
         setTimeout(function() { row.removeClass(); }, 1000);
     },
     
+    updateResultVerbose: function() {
+        this.$verbose.html('共有' + (this.getRowCnt() - 1) + '个搜索结果');
+    },
+
     updateRowView: function(rowId) {
         for(var colId = 0; colId < schema.length; colId++) {
             this.setCell(this.getCell(rowId, colId), this.cache[rowId][colId]);
@@ -379,39 +385,39 @@ ResultTable.prototype = {
     },
 
     setCell: function(cell, text) { // with no checks
-        var row, col;
-        [row, col] = cellPosition(cell);
+        var pos = cellPosition(cell);
+
         cell.html(text);
         // popover
 
-        this.cache[row][col] = text;
+        this.cache[pos.row][pos.col] = text;
         
         var cellOverflow = checkOverflow(cell);
-        if(!this.overflow[row][col] && cellOverflow)  {
-            this.overflow[row][col] = true;
+        if(!this.overflow[pos.row][pos.col] && cellOverflow)  {
+            this.overflow[pos.row][pos.col] = true;
             this.addPopover(cell);
-        } else if(this.overflow[row][col] && !cellOverflow) {
-            this.overflow[row][col] = false;
+        } else if(this.overflow[pos.row][pos.col] && !cellOverflow) {
+            this.overflow[pos.row][pos.col] = false;
             cell.popoverex('destroy');
         }
     }, 
     modifyCell: function(param1, param2, param3) {
-        var cell, row, col, text, oritext;
+        var cell, pos, text, oritext;
         if(typeof param1 == 'number') { // row col
-            row = param1;
-            col = param2;
+            pos.row = param1;
+            pos.col = param2;
             text = param3;
             cell = this.getCell(row, col);
         } else { // cell
             cell = param1;
             text = param2;
-            [row, col] = cellPosition(cell);
+            pos = cellPosition(cell);
         }
         //TODO: if not changed then do not set or change class
-        if(this.cache[row][col] != text) {
+        if(this.cache[pos.row][pos.col] != text) {
 
             this.setCell(cell, text);
-            if(isRowValid(this.getRow(row))) {
+            if(isRowValid(this.getRow(pos.row))) {
                 cell.closest('tr').removeClass().addClass('warning');
             } else {
                 cell.closest('tr').removeClass().addClass('error');
@@ -426,11 +432,12 @@ rt = new ResultTable([]);
 
 <script> //event handlers
 $('#resultTable').click(function(e) {
+    console.log($(e.target).prop('tagName'));
     switch($(e.target).prop('tagName')) {
     case 'TD' : {
         var pos = cellPosition($(e.target));
         var cell = $(e.target);
-        if(!editable(cell) || rt.overflow[pos[0]][pos[1]]) return;
+        if(!editable(cell) || rt.overflow[pos.row][pos.col]) return;
                            
         cell.css('padding', 0);
         var text = cell.text();
@@ -440,11 +447,14 @@ $('#resultTable').click(function(e) {
         cell.find('input').focus().select();
         break;
     }
+    case 'I':
+        if($(e.target).parent().prop('tagName') != 'BUTTON')
+            break;
     case 'BUTTON': {
         //TODO: enable and disable of buttons
-        var btn = $(e.target);
+        var btn = $(e.target).closest('button');
         var rowId = btn.closest('tr').prop('rowIndex');
-        switch(btn.parent().children().index(e.target)) {
+        switch(btn.parent().children().index(btn)) {
         case 0: { // submit
             $.getJSON(
                 '/manage/hotel/async',

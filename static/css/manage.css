@@ -43,3 +43,11 @@
     width: 90%;
     margin: 0;
 }
+
+.table .btn-icon {
+    width: 25px;
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+    text-align: center;
+}
