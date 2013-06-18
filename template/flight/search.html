@@ -29,7 +29,7 @@
               <li><a href="order_manage.html">我是买家</a></li>
               <li><a href="#contact">我是卖家</a></li>
 			  <li><a href="#contact">淘宝贝</a></li>
-			  <li class="active"><a href="#contact">在线预订</a></li>
+			  <li class="active"><a href="/">在线预订</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -49,7 +49,7 @@
 			  <li><a href="#" onclick="show_inter()">国际航班</a></li>
               <li class="nav-header">订单管理</li>
               <li ><a href="/trade/booking_history">订单历史</a></li>
-              <li ><a href="/trade/comment">评价</a></li>
+              <li ><a href="/trade/comment_history">评价历史</a></li>
 
             </ul>
           </div><!--/.well -->
@@ -133,26 +133,34 @@
                           <ul class="dropdown-menu" style="font-size:12px;">
                               <li> <a href="#">默认排序</a></li>
                               <li class="divider"></li>
-                              <li><a href="#">星级：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
-                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li><a href="#">起飞：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                               <li class="divider"></li>
-                              <li><a href="#">评分：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li><a href="#">抵达：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                               <li class="divider"></li>
-                              <li><a href="#">价格：低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li><a href="#">总时：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-up"></i></a></li>
                           </ul>
                       </div>
                   </div>
                   
                   <div class="span2">
                       <div class="btn-group dropup">
-                          <button id="star" class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">星级<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          <button id="star" class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">起飞时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
                   </div>
                   <div class="span2">
                       <div class="btn-group dropup">
-                          <button id="score" class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">评分<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          <button id="score" class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">抵达时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          </button>
+                      </div>
+                  </div>
+                  
+                  <div class="span2">
+                      <div class="btn-group dropup">
+                          <button id="price" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">总时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
                   </div>
@@ -164,7 +172,9 @@
                       </div>
                   </div>
               </div>
+              
           </div><!--/#display_condition-->
+        <form class="bookquery"></form>
         <table id='flight_list' style="background-color:#ffffff;" class="table table-hover">
         </table>
 	  </div>
@@ -217,6 +227,31 @@
         $("#optionsRadios2")[0].checked=true 
         $("#return").hide()
     }
+    
+    $("button").click(function(){
+                      if($(this).attr("count") == "0"){
+                      $(this).addClass("asc");
+                      $(this).attr("count","1");
+                      }else if($(this).attr("count") == "1"){
+                      $(this).removeClass("asc");
+                      $(this).addClass("desc");
+                      $(this).attr("count","2");
+                      }else if($(this).attr("count") == "2"){
+                      $(this).removeClass("desc");
+                      $(this).attr("count","0");
+                      }
+                      if($(this).hasClass('asc')){
+                      $(this).find(".icon-chevron-down").removeClass('icon-white');
+                      $(this).find(".icon-chevron-up").addClass('icon-white');
+                      }else if($(this).hasClass('desc')){
+                      $(this).find(".icon-chevron-up").removeClass('icon-white');
+                      $(this).find(".icon-chevron-down").addClass('icon-white');
+                      }else{
+                      $(this).find(".icon-chevron-up").addClass('icon-white');
+                      $(this).find(".icon-chevron-down").addClass('icon-white');
+                      }
+                      });
+    
     function fetch_flight(d_city, a_city, d_date) {
         $("#display_flight_panel").show()
         console.log(d_city);
@@ -231,11 +266,12 @@
             function(data) {
                 console.log(data)
                 $("#flight_list").html('')
-                strdata="<td class=info_td></td><td class=info_td><strong>航班信息</strong></td>"+"<td class=info_td><strong>起飞时间</strong></td>"+"<td class=info_td><strong>降落时间</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价</strong></td>"+"<td style=\"width:15%;\"></td>"
+                strdata="<td class=info_td>航班号</td><td class=info_td><strong>航班信息</strong></td>"+"<td class=info_td><strong>起降时间</strong></td>"+"<td class=info_td><strong>总时长</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价(元)</strong></td>"+"<td style=\"width:15%;\"></td>"
                 $("#flight_list").append($("<tr>",{html:strdata}))
                 for (var i in data.flight) {
-                  fill_list (data.flight[i],i)
+                  fill_list (data.flight[i])
                 }
+                  //$("tr:even:gt(0)").hide()
                 if (data.flight.length == 0){
                   $("#flight_list").html('未查询到满足条件的航班')
                 }
@@ -243,18 +279,46 @@
         );
     }
     
-    function fill_list(flight,i){
-        strdata = "<tr><td>"+i+"</td>"// number
-        strdata = strdata+"<td>"+flight[13]+"</td>"// airline
-        strdata = strdata+"<td>"+flight[1]+"</td>" //d_time
-        strdata = strdata+"<td>"+flight[2]+"</td>" //a_time
-        strdata = strdata+"<td>"+flight[11]+"</td>" //d_city
-        strdata = strdata+"<td>"+flight[12]+"</td>" //a_city
-        strdata = strdata+"<td>"+flight[10]+"</td>" // lowest_price
-        strdata = strdata+"<td><button class=\"btn btn-primary\">查看详情</button></td></tr>"
+    function fill_list(flight){
+        strdata = "<tr><td id='flt_no'>"+flight[8]+"</td>"// number
+        strdata = strdata+"<td>"+flight[0]+"</td>"// airline
+        strdata = strdata+"<td>"+"起飞时间："+flight[1]+"<br>"+"抵达时间："+flight[2]+"</td>" //d_time
+        strdata = strdata+"<td>"+time_dif(flight[2],flight[1])+"</td>" //a_time
+        strdata = strdata+"<td>"+flight[3]+"</td>" //d_city
+        strdata = strdata+"<td>"+flight[4]+"</td>" //a_city
+        strdata = strdata+"<td style=\"color=#333333\">"+flight[5]+"<br>燃料费:"+flight[6]+"<br>机建费:"+flight[7]+"</td>" // price
+        strdata = strdata+"<td><a class=\"btn btn-info\" onclick=\"submit_flight_book($(this).parent().parent().children('#flt_no').html())\" href=\"/trade/booking_history\">订购 »</a></td></tr>"
         $("#flight_list").append($("<tbody>",{html:strdata}))
     }
-</script>
+
+    function time_dif(time1, time2){
+        // hh:mm
+        var h1, h2, h3, _m1, _m2, _m3;
+        var reg = /:/;
+        //dayinfo -  用正则分割
+        var T1 = time1.split(reg);
+        var T2 = time2.split(reg);
+        
+        var date1 = new Date("1998","01","01",T1[0],T1[1],"00");
+        var date2 = new Date("1998","01","01",T2[0],T2[1],"00");
+        
+        //用距标准时间差来获取相距时间
+        var minsec = Date.parse(date1) - Date.parse(date2);
+        var hh = Math.floor(minsec / 1000 / 60 / 60);
+        var mm = (minsec - hh * 60 * 60 * 1000) / 1000 / 60;
+        strdata = " " + hh + "小时"
+        if( mm != 0) strdata = strdata + mm + "分钟";
+        
+        return strdata;
+    }
+    
+    $(".bookquery").hide()
+    function submit_flight_book(flt_no){
+        $(".bookquery").html($("<div>",{html:flt_no}))
+        bookquery.submit()
+    }
+    
+    </script>
 
   </body>
   

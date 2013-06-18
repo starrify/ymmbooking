@@ -41,7 +41,7 @@
                     <div class="well sidebar-nav">
                         <ul class="nav nav-list">
                             <li class="nav-header">酒店</li>
-                            <li class="active"><a href="#">酒店信息管理</a></li>
+                        <li class="active"><a href="#">酒店信息管理</a></li>
                             <li><a href="/manage/hotel_booking">酒店订单管理</a></li>
                             <li><a href="/manage/hotel_comment">酒店评论管理</a></li>
                             <li class="nav-header">航班</li>
@@ -170,6 +170,7 @@ function createArray(length) {
 function textToHtml(text) {
     return text.replace(/\n/g, '<BR>');
 }
+
 function isInteger(str) {
     return (str.length < 10 && /^[0-9]+$/.test(str));
 }
@@ -192,6 +193,7 @@ function editable(param) {
     else
         return true;
 }
+
 function isRowValid(row) {
     var zeroCnt = 0;
 
@@ -352,7 +354,6 @@ ResultTable.prototype = {
                 return viewtmpl.replace('__texthere__', textToHtml($(this).text()));
             },
             popover_click: function(e) {
-
                 if(!edit && $(e.target).prop('tagName') == 'DIV') {
                     edit = true;
                     
@@ -372,7 +373,6 @@ ResultTable.prototype = {
                         ele.popoverex('unpin');
                         ele.popoverex('hide');
                         edit = false;
-
                     };
                     $(buttons[0]).click(function() {
                         close();
