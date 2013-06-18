@@ -13,41 +13,14 @@
     </head>
     <body>
   
-  
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-
-                    <a class="brand" href="#">Online Payment</a>
-                    <div class="nav-collapse collapse">
-                        <p class="navbar-text pull-right">
-                            Logged in as <a href="#" class="navbar-link">Username</a>
-                        </p>
-                        <ul class="nav">
-                            <li><a href="#">账户设置</a></li>
-                            <li><a href="../buyer/order_manage.html">我是买家</a></li>
-                            <li class="active"><a href="../seller/order_manage.html">我是卖家</a></li>
-		        	        <li><a href="../flight/search.html">淘宝贝</a></li>
-			                <li><a href="#contact">在线预订</a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
+%include template/head_bar.inc
         <div class="hero-unit"></div>
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
                     <div class="well sidebar-nav">
                         <ul class="nav nav-list">
-                            <li class="nav-header">酒店</li>
-                            <li><a href="/manage/hotel/data">酒店信息管理</a></li>
-                            <li><a href="/manage/hotel/transaction">酒店订单管理</a></li>
-                            <li><a href="/manage/hotel/comment">酒店评论管理</a></li>
-                            <li class="nav-header">航班</li>
-                            <li class="active"><a href="/manage/flight/data">航班信息管理</a></li>
-                            <li><a href="/manage/flight/transaction">航班订单管理</a></li>
-                            <li><a href="/manage/flight/comment">航班评论管理</a></li>
+%include template/manage/nav_list.inc active='nlFlight'
                         </ul>
                     </div><!--/.well -->
                 </div><!--/span-->
