@@ -262,9 +262,9 @@
     function submit_hotel_book(hotel_id,start_date,end_date,price){
         strdata = "<input type=\"text\" name=\"type\" value=\"hotel\">"
         strdata = strdata + "<input type=\"text\" name=\"hotel_id\" value=\"" + hotel_id + "\">"
-        strdata = strdata + "<input type=\"text\" name=\"start_date\" value=\">" + start_date + "\">"
-        strdata = strdata + "<input type=\"text\" name=\"end_date\" value=\">" + end_date + "\">"
-        strdata = strdata + "<input type=\"text\" name=\"price\" value=\">" + price + "\">"
+        strdata = strdata + "<input type=\"text\" name=\"start_date\" value=\"" + start_date + "\">"
+        strdata = strdata + "<input type=\"text\" name=\"end_date\" value=\"" + end_date + "\">"
+        strdata = strdata + "<input type=\"text\" name=\"price\" value=\"" + price + "\">"
         $("#bookquery").append(strdata)
         $("#bookquery").submit()
     }

@@ -166,7 +166,6 @@
 <!--jscode.-->
 <script>
     $("#display_history_panel").hide()
-    $("#orderquery").hide()
     $(".dropdown-toggle").click(function(){
         $("#display_history_panel").hide();
     })
@@ -192,13 +191,8 @@
                                case 1:$("#type").val('flight');$("#transaction_type").html('机票预定');break;
                                case 2:$("#type").val('hotel');$("#transaction_type").html($('酒店预定').val());break;
         }
-    })
-    function submit_comment(t_id){
-        $(".orderquery").append($("<input type='text' name='transaction_id'>",{html:t_id}))
-        $(".orderquery").submit()
-    }
-              
-    function fetch_history(b_date,e_date,typ,u_id){
+    })         
+    function fetch_history(b_date,e_date,typ){
         $("#display_history_panel").show()
         console.log(type);
         $("#trans_list").html('查询中，请稍候...')
@@ -208,7 +202,6 @@
                 begin_date: b_date,
                 end_date: e_date,
                 type:     typ,
-                Username: u_id,
             },
             function(data){
                 console.log(data);
@@ -236,6 +229,14 @@
         strdata = strdata+"<td><a href=\"/trade/remark\" class=\"btn\" value=\"comment\" onclick=\"submit_comment($(this).parent().parent().children('#t_id').html())\">评价</a></td></tr>" //
         $("#trans_list").append($("<tbody>",{html:strdata}))
     }
+    
+    $("#orderquery").hide()
+    function submit_comment(t_id){
+        strdata = "<input type='text' name='transaction_id' value=\""+t_id+"\">"
+        $(".orderquery").append(strdata)
+        $(".orderquery").submit()
+    }
+    
 </script>
   </body>
   

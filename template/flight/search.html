@@ -302,8 +302,8 @@
     function submit_flight_book(flt_no,d_date,f_price){
         strdata = "<input type=\"text\" name=\"type\" value=\"flight\">"
         strdata = strdata + "<input type=\"text\" name=\"flight_number\" value=\"" + flt_no + "\">"
-        strdata = strdata + "<input type=\"text\" name=\"date\" value=\">" + d_date + "\">"
-        strdata = strdata + "<input type=\"text\" name=\"price\" value=\">" + f_price + "\">"
+        strdata = strdata + "<input type=\"text\" name=\"date\" value=\"" + d_date + "\">"
+        strdata = strdata + "<input type=\"text\" name=\"price\" value=\"" + f_price + "\">"
         $("#bookquery").append(strdata)
         $("#bookquery").submit()
     }
