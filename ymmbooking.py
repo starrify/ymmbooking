@@ -379,6 +379,7 @@ def booking_history_async():
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
             ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         hist = db.get_flight_transaction_history(uid, param[0], param[1])
         ret = []
@@ -402,67 +403,6 @@ def trade_comment():
 @bottle_app.get('/trade/comment_history')
 @bottle.view(app.config.template_path + 'trade/comment_history.html')
 def trade_remark():
-    return {}
-
-@Misc.auth_validate
-def order():
-    return {}
-
-@bottle_app.get('/manage/flight/info')
-@bottle.view(app.config.template_path + 'manage/flight/flight.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/manage/flight/transaction')
-@bottle.view(app.config.template_path + 'manage/flight/transaction.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/manage/flight/comment')
-@bottle.view(app.config.template_path + 'manage/flight/comment.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/manage/hotel/info')
-@bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/manage/hotel/room')
-@bottle.view(app.config.template_path + 'manage/hotel/room.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/manage/hotel/transaction')
-@bottle.view(app.config.template_path + 'manage/hotel/transaction.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/manage/hotel/comment')
-@bottle.view(app.config.template_path + 'manage/hotel/comment.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/manage/hotel')
-@bottle.view(app.config.template_path + 'manage/hotel.html')
-@Misc.auth_validate
-def trade_remark():
-    return {}
-
-@bottle_app.get('/trade/comment_history')
-@bottle.view(app.config.template_path + 'trade/comment_history.html')
-def trade_remark():
-    return {}
-
-@Misc.auth_validate
-def order():
     return {}
 
 @bottle_app.get('/manage/flight/info')
