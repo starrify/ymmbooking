@@ -10,6 +10,7 @@
         <script type="text/javascript" src="/js/jquery.js"></script>
         <script type="text/javascript" src="/js/bootstrap.js"></script>
         <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script> <!-- test -->
+        <!--<script type="text/javascript" src="/js/manage/util.js"></script>-->
     </head>
     <body>
   
@@ -80,14 +81,14 @@
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
-                                <col width="13%" />
-                                <col width="13%" />
-                                <col width="13%" />
-                                <col width="8%" />
+                                <col width="10%" />
                                 <col width="13%" />
                                 <col width="13%" />
                                 <col width="8%" />
+                                <col width="10%" />
+                                <col width="13%" />
                                 <col width="8%" />
+                                <col width="13%" />
                                 <col width="11%" />
                             </colgroup>
                             <tr> <!-- header -->
@@ -105,25 +106,25 @@
                     <div class="row-fluid"> <!-- add result -->
                         <table class="table" id="addTable" style="table-layout:fixed">
                             <colgroup>
-                                <col width="13%" />
-                                <col width="13%" />
-                                <col width="13%" />
-                                <col width="8%" />
+                                <col width="10%" />
                                 <col width="13%" />
                                 <col width="13%" />
                                 <col width="8%" />
+                                <col width="10%" />
+                                <col width="13%" />
                                 <col width="8%" />
+                                <col width="13%" />
                                 <col width="11%" />
                             </colgroup>
                             <tr>
                                 <td class="text-cropped">新的航班</td>
-                                <td style="padding:0;"><input class="input-cropped" id="atID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atAirport" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atTime" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atAircraftType" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atSchedule" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atPunctuality" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atStop" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content" id="atID" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content" id="atAirport" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content" id="atTime" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content" id="atAircraftType" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content" id="atSchedule" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content" id="atPunctuality" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content" id="atStop" type="text" placeholder="input"></td>
                                 <td>
                                     <div>
                                         <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
@@ -154,13 +155,12 @@
 </html>
 <!--TODO: table sort -->
 <!--TODO: forbid multiple popover -->
-<script> // tools
-// checks overflow in our one-line context
-function checkOverflow(cell) {
-    return (cell.prop('scrollWidth') > cell.innerWidth() || cell.text().indexOf('\n') >= 0)
+<script> //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!temp
+function checkOverflow(ele) {
+    return (ele.prop('scrollWidth') > ele.innerWidth() || ele.text().indexOf('\n') >= 0)
 }
-function cellPosition(cell) {
-    return { row: cell.closest('tr').prop('rowIndex'), col: cell.prop('cellIndex') };
+function cellPosition(cellele) {
+    return { row: cellele.closest('tr').prop('rowIndex'), col: cellele.closest('td').prop('cellIndex') };
 }
 function createArray(length) {
     var arr = new Array(length || 0),
@@ -176,61 +176,75 @@ function textToHtml(text) {
     return text.replace(/\n/g, '<BR>');
 }
 
-function isInteger(str) {
-    return (str.length < 10 && /^[0-9]+$/.test(str));
+function isInt(str) {
+    return parseInt(str) == str;
+    //return (str.length < 10 && /^[0-9]+$/.test(str));
 }
+function isBool(str) {
+    var lowstr = str.toLowerCase();
+    return (lowstr == 'true' || lowstr == 'false');
+}
+function isFloat(str) {
+    return parseFloat(str) == str;
+}
+function isDateTime(str) {
+    return /\d{2}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(str);
+}
+function inRange(num, low, high) {
+    return (num >= low && num <= high);
+}
+function deepCopy(obj) {
+    if($.isPlainObject(obj)) {
+        return $.extend(true, {}, obj);
+    } else if($.isArray(obj)) {
+        return $.extend(true, {}, {0:obj})[0];
+    } else
+        return obj;
+}
+// for compatibility
 function deepCopyArray(arr) {
-        return $.extend(true, {}, {0:arr})[0];
+    return $.extend(true, {}, {0:arr})[0];
 }
-</script>
 
+</script>
 <script> // page specified functions
-function editable(param) {
-    var col;
-    if(typeof param == 'number') {
-        col = param;
-    } else {
-        col = param.prop('cellIndex');
-    }
-    
-    if(col == 0 || col == 4)
+function editable(col) {
+    if(col == 0 || col == 7)
         return false;
     else
         return true;
 }
 
 function isRowValid(row) {
-    var zeroCnt = 0;
+    /*var zeroCnt = 0;
 
-    if(!isInteger(row.find('td:eq(0)').text())) return false;
+    if(!isInt(row.find('td:eq(0)').text())) return false;
     for(var i = 1; i < 4; i++) {
         var coltxt = row.find('td:eq(' + i + ')').text();
 
         if(coltxt.length > 255) return false;
         if(coltxt.length == 0) zeroCnt++;
     }
-    if(zeroCnt == 3) return false;
+    if(zeroCnt == 3) return false;*/
     return true;
 }
 function mapResult(res) {
     /*return $.map(res, function(ele) {
         return [[ele[0], ele[1], ele[3], ele[2]]];
     });*/
-    return $.map(res, function(ele) {
-        ele[0], 
-    });
+    return res;
 }
 var rowtmpl = 
     ' \
     <tr> \
-        <td>_1</td> \
-        <td>_2</td> \
-        <td>_3</td> \
-        <td>_4</td> \
-        <td>_5</td> \
-        <td>_6</td> \
-        <td>_7</td> \
-        <td>_8</td> \
+        <td class="cell" style="padding:0"></td> \
+        <td class="cell" style="padding:0"></td> \
+        <td class="cell" style="padding:0"></td> \
+        <td class="cell" style="padding:0"></td> \
+        <td class="cell" style="padding:0"></td> \
+        <td class="cell" style="padding:0"></td> \
+        <td class="cell" style="padding:0"></td> \
+        <td class="cell" style="padding:0"></td> \
         <td><div> \
             <button class="btn btn-icon"><i class="icon-ok"></i></button> \
             <button class="btn btn-icon"><i class="icon-remove"></i></button> \
@@ -238,23 +252,91 @@ var rowtmpl =
         </div></td> \
     </tr>';
     
-var schema = ['f_ID', 'Airport', 'Time', 'AircraftType', 'Schedule', 'Punctuality', 'Stop', 'Price'];
+var schema = [{id:'f_ID', name:['航班号']}, {id:'Airport', name:['起飞机场', '到达机场']}, 
+                {id:'Time', name:['起飞时间', '到达时间']}, {id:'AircraftType', name:['机型']}, 
+                {id:'Schedule', name:['日程']}, {id:'Punctuality', name:['准点率']}, {id:'Stop', name:['中转']}, 
+                {id:'Price', name:['报价', '机场税', '燃油税']}];
 </script>
 
 <script> // class ResultTable
-var rt;    
+var rt;
+var manip = {
+    mode: 'view',
+    /*toDisplayObj: function(div) {
+     *   return div.find('input').val();
+},*/
+    getData: function(div) {
+        if(div.data('mode') == 'view') {
+            var len = div.data('view_prefix') ? div.data('view_prefix').length : 0;
+            return div.text().substring(len, div.text().length);
+        }
+        else return div.find('input').val();
+    },
+    edit: function(div, obj) {
+        obj = (obj ? obj : this.getData(div));
+        div.html('<input type="text" class="cell-content" value="' + this.getData(div) + '">');
+        div.removeClass().addClass('cell-content').css('padding', 0);
+        div.find('input').focus().select();
+        div.data('mode', 'edit');
+        return div;
+    },
+    view: function(div, obj) {
+        obj = (obj ? obj : this.getData(div));
+        var pos = cellPosition(div);
+        div.removeClass().addClass('cell-content text-cropped').css('padding', '2%');
+        if(schema[pos.col].name.length > 1) {
+            var prefix = schema[pos.col].name[ResultTable.prototype.divIndex(div)[0]] + ': ';
+            div.data('view_prefix', prefix);
+            div.html(prefix);
+            //console.log(schema[pos.col].name[ResultTable.prototype.divIndex(div)[0]]);
+            //div.html('');
+            div.append(obj);
+        } else {
+            div.html(obj);
+        }
+        //console.log(div.hasClass('text-cropped'));
+        div.data('mode', 'view');
+        return div;
+    }
+}
+
 function ResultTable(data) {
     this.$table = $('#resultTable');
     this.$verbose = $('#resultVerbose');
+    // callback
+    this.defaultManipulator = manip;
+    this.manipCallbackList = {};
     // model
     this.data = [schema].concat(mapResult(data));
-    this.cache = deepCopyArray(this.data);
+    this.cache = deepCopy(this.data);
     this.overflow = createArray(data.length + 1, schema.length);
     // view
     this.updateContentView();
     this.updateResultVerbose();
 }
 ResultTable.prototype = {
+    // callback related
+    divIndex: function(div) {
+        var indexMultiDim = [];
+        while(div.prop('tagName') == 'DIV') {
+            indexMultiDim.unshift(div.parent().children().index(div));
+            div = div.parent();
+        }
+        return indexMultiDim;
+    },
+    
+    manipFunc: function(indexMultiDim) { // get manip function by col and key
+        var func;
+        while(indexMultiDim.length && !(func = this.manipCallbackList[JSON.stringify(indexMultiDim)])) {
+            indexMultiDim = indexMultiDim.pop();
+        }
+        return (func ? func : this.defaultManipulator);
+    },
+    
+    addManipFunc: function(indexMultiDim, func) {
+        this.manipCallbackList[JSON.stringify(indexMultiDim)] = func;
+    },
+    
     getRow: function(row) {
         return this.$table.find('tr:eq(' + row + ')');
     },
@@ -273,8 +355,8 @@ ResultTable.prototype = {
     pushRow: function(rowData) { //TODO: animation
         // model
         this.overflow.push(new Array(schema.length));
-        this.cache.push(deepCopyArray(rowData));
-        this.data.push(deepCopyArray(rowData));
+        this.cache.push(deepCopy(rowData));
+        this.data.push(deepCopy(rowData));
         // view
         this.$table.find('tbody').append(rowtmpl);
         this.updateRowView(this.getRowCnt() - 1);
@@ -292,7 +374,7 @@ ResultTable.prototype = {
         this.cache.splice(rowid, 1);
         this.data.splice(rowid, 1);
         // view
-        this.getRow(rowid).remove();
+        this.getRow(rowid).remove(); //TODO: any uncleaned data? popover events?
         this.updateResultVerbose();
     },
     
@@ -302,7 +384,7 @@ ResultTable.prototype = {
     
     resetRow: function(rowId) {
         // model
-        this.cache[rowId] = deepCopyArray(this.data[rowId]);
+        this.cache[rowId] = deepCopy(this.data[rowId]);
         // view
         this.updateRowView(rowId);
         this.getRow(rowId).removeClass();
@@ -310,7 +392,7 @@ ResultTable.prototype = {
     
     commitRow: function(rowId) { // write from buffer to data
         // model
-        this.data[rowId] = deepCopyArray(this.cache[rowId]);
+        this.data[rowId] = deepCopy(this.cache[rowId]);
         // view
         var row = this.getRow(rowId);
         row.removeClass().addClass('success');
@@ -355,6 +437,7 @@ ResultTable.prototype = {
             obj = param1;
         }
         
+        //TODO: maybe not textarea
         var edit = false;
         var edittmpl = '<div><textarea style="height:100px">__texthere__</textarea></div>'
             + '<div style="text-align:center;"><button class="btn btn-primary">保存</button>'
@@ -395,75 +478,88 @@ ResultTable.prototype = {
                     };
                     $(buttons[0]).click(function() {
                         close();
-                        rt.modifyCell(ele, textarea.val())
+                        rt.modifyDiv(ele, textarea.val())
                     });
                     $(buttons[1]).click(close);
                 }
             },
         });
     },
-
-    setCell: function(cell, text) { // with no checks
-        var pos = cellPosition(cell);
-
-        cell.html(text);
+    
+    setDiv: function(div, obj) {
+        var pos = cellPosition(div);
+        var index = this.divIndex(div), strindex = JSON.stringify(index);
+        this.manipFunc(index).view(div, obj);
         // popover
-
-        this.cache[pos.row][pos.col] = text;
-        
-        var cellOverflow = checkOverflow(cell);
-        if(!this.overflow[pos.row][pos.col] && cellOverflow)  {
-            this.overflow[pos.row][pos.col] = true;
-            this.addPopover(cell);
-        } else if(this.overflow[pos.row][pos.col] && !cellOverflow) {
-            this.overflow[pos.row][pos.col] = false;
-            cell.popoverex('destroy');
+        var divOverflow = checkOverflow(div);
+        if(!this.overflow[pos.row][pos.col])
+            this.overflow[pos.row][pos.col] = {};
+        if(!this.overflow[pos.row][pos.col][strindex] && divOverflow)  {
+            this.overflow[pos.row][pos.col][strindex] = true;
+            this.addPopover(div);
+        } else if(this.overflow[pos.row][pos.col][strindex] && !divOverflow) {
+            this.overflow[pos.row][pos.col][strindex] = false;
+            div.popoverex('destroy');
         }
-    }, 
-    modifyCell: function(param1, param2, param3) {
-        var cell, pos, text, oritext;
-        if(typeof param1 == 'number') { // row col
-            pos.row = param1;
-            pos.col = param2;
-            text = param3;
-            cell = this.getCell(row, col);
-        } else { // cell
-            cell = param1;
-            text = param2;
-            pos = cellPosition(cell);
-        }
-        //TODO: if not changed then do not set or change class
-        if(this.cache[pos.row][pos.col] != text) {
-
-            this.setCell(cell, text);
+        this.cache[pos.row][pos.col][strindex] = deepCopy(obj);
+    },
+    
+    modifyDiv: function(div, obj) {
+        var pos = cellPosition(div);
+        obj = obj ? obj : this.manipFunc(this.divIndex(div)).getData(div);
+        if(this.cache[pos.row][pos.col][this.divIndex(div)] != obj) {
+            this.setDiv(div, obj);
             if(isRowValid(this.getRow(pos.row))) {
-                cell.closest('tr').removeClass().addClass('warning');
+                div.closest('tr').removeClass().addClass('warning');
             } else {
-                cell.closest('tr').removeClass().addClass('error');
+                div.closest('tr').removeClass().addClass('error');
             }
         } else {
-            cell.html(text);
+            var manip = this.manipFunc(this.divIndex(div));
+            manip.view(div, obj);
         }
     },
+    
+    setCell: function(cell, obj) { // with no checks, only one dim array supported
+        var pos = cellPosition(cell);
+        
+        var cnt = 0;
+        for(var index in obj) {
+            var div;
+            if(cnt < cell.children().length) {
+                div = $(cell.children()[cnt]);
+            } else {
+                div = $('<div></div>');
+                cell.append(div);
+            }
+            this.setDiv(div, obj[index]);
+            cnt++;
+        }
+        //TODO: how to clear if number of div changes
+        // one dim only
+        /*for(var i = cell.children().length - 1; i >= obj.length; i--) {
+            if(this.overflow[pos.row][pos.col]['[' + i + ']']) {
+                $(cell.children()[i]).popoverex('destroy');
+            }
+            this.overflow[pos.row][pos.col]['[' + i + ']'] = undefined;
+        }*/
+        
+    }, 
 }
-rt = new ResultTable([[1,2,3,4,5,6,7,8,9]]);
+rt = new ResultTable([[[1],[3,2],[2,3],[4],[5],[6],[7],[8,9,10]]]);
 </script>
 
 <script> //event handlers
 $('#resultTable').click(function(e) {
-    console.log($(e.target).prop('tagName'));
+    //console.log($(e.target).prop('tagName'));
     switch($(e.target).prop('tagName')) {
-    case 'TD' : {
+    case 'DIV' : {
         var pos = cellPosition($(e.target));
-        var cell = $(e.target);
-        if(!editable(cell) || rt.overflow[pos.row][pos.col]) return;
+        var div = $(e.target);
+        console.log(rt.divIndex(div));
+        if(!editable(pos.col) || rt.overflow[pos.row][pos.col][JSON.stringify(rt.divIndex(div))]) return;
                            
-        cell.css('padding', 0);
-        var text = cell.text();
-        cell.html('')
-            .append('<input type="text" class="input-cropped" value="' + text + '">');
-    
-        cell.find('input').focus().select();
+        rt.manipFunc(rt.divIndex(div)).edit(div);
         break;
     }
     case 'I':
@@ -517,10 +613,10 @@ $('#resultTable').click(function(e) {
     
 $('#resultTable').focusout(function(e){
     var text = $(e.target).val();
-    var cell = $(e.target).closest('td');
-    if(editable(cell)) {
-        cell.css('padding', 8);
-        rt.modifyCell(cell, text);
+    var div = $(e.target).closest('div');
+    if(editable(cellPosition(div).col)) {
+        //rt.manipFunc(rt.divIndex(div)).toDisplayObj(div);
+        rt.modifyDiv(div);
     }
 });
             
