@@ -3,6 +3,7 @@
 # COPYLEFT, ALL WRONGS RESERVED
 
 import bottle
+import urllib
 import json
 import sqlite3
 import sys
@@ -30,7 +31,7 @@ class Config():
         self.view_path      = parser.get('Path', 'view_path')
         self.template_path  = parser.get('Path', 'template_path')
         self.debug  = parser.getboolean('Misc', 'debug')
-
+        self.secret = parser.get('Misc', 'secret')
 
 class Database(object):
     """A wrapper for accessing the database."""
@@ -164,10 +165,13 @@ class App(object):
 
 class Misc(object):
     """Miscellaneous items goes here."""
+
     @staticmethod
     def auth_validate(func):
         def decorator(*args, **kwargs):
-            # validation here
+            uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+            if not uid:
+                bottle.redirect('/login?redirect=%s' %urllib.parse.quote(bottle.request.url))
             return func(*args, **kwargs)
         return decorator
 
@@ -186,11 +190,31 @@ def static_css_img_js(category, filepath):
     return bottle.static_file(category + "/" + filepath, root=app.config.static_path)
 
 @bottle_app.route('/')
-@bottle_app.route('/index')
 @bottle.view(app.config.template_path + 'index.html')
-@Misc.auth_validate
 def index():
     return {}
+
+@bottle_app.route('/login')
+def login():
+    """Merely a test login form"""
+    redirect_url = bottle.request.query.get('redirect')
+    return """ This is a fake Login
+        <form method="get" action="/auth">
+        <input type="hidden" name="redirect" value="%s">
+        UID: <input type="text" name="uid">
+        <input type="submit" value="Login"/>
+        </form>""" %redirect_url
+
+@bottle_app.route('/auth')
+def auth():
+    """Merely for testing for now"""
+    uid = bottle.request.query.get('uid')
+    if uid:
+        bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=600)
+    redirect_url = bottle.request.query.get('redirect')
+    if not redirect_url:
+        redirect_url = '/'
+    bottle.redirect(redirect_url)
 
 @bottle_app.get('/flight/search')
 @bottle.view(app.config.template_path + 'flight/search.html')
@@ -226,8 +250,8 @@ def flight_search_json():
                     airline['name_cn'],
                     flight['departureTime'],
                     flight['arrivalTime'],
-                    d_airport['city_cn'],
-                    a_airport['city_cn'],
+                    d_airport['name_cn'],
+                    a_airport['name_cn'],
                     "%.2f"%flight['price'],
                     flight['fuelTax'],
                     flight['airportTax'],
@@ -241,16 +265,6 @@ def flight_search_json():
     
     return {'flight': ret_flights}
 
-#@bottle_app.get('/trade/remark_history')
-#@bottle.view(app.config.template_path + 'trade/remark_history.html')
-    #def order():
-#    return {}
-
-@bottle_app.get('/trade/comment_history')
-@bottle.view(app.config.template_path + 'trade/comment_history.html')
-def order():
-    return {}
-
 @bottle_app.get('/hotel/search')
 @bottle.view(app.config.template_path + 'hotel/search.html')
 def flight_search():
@@ -260,10 +274,8 @@ def flight_search():
 def hotel_search_json():
     param = list(map(bottle.request.query.get, 
         ['name', 'description', 'location', 'h_id']))
-
     if not any(param):
         return {'hotel': []}
-
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
 
     db = Database(app.config)
@@ -273,20 +285,148 @@ def hotel_search_json():
 
 @bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
+@Misc.auth_validate
 def order():
-    return {}
+    o_type = bottle.request.query.get('type')
+    if o_type == 'flight':
+        param = list(map(bottle.request.query.get, 
+            ['flight_number', 'date', 'price']))
+        if not any(param):
+            bottle.redirect('/')
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        return {'item_name': param[0] + 'at' + param[1], 'item_price': param[2], 'total_price': param[2]}
+    elif o_type == 'hotel':
+        param = list(map(bottle.request.query.get, 
+            ['name', 'description', 'location', 'h_id']))
+        if not any(param):
+            return {'hotel': []}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        bottle.redirect
+    else:   # invalid type or no type.
+        #bottle.redirect('/')
+        pass
+    return {'item_name': '', 'item_price': '', 'total_price': ''}
 
 @bottle_app.get('/trade/booking_history')
-@bottle.view(app.config.template_path + 'trade/booking_history.html')
+@bottle.view(app.config.template_path + '/trade/booking_history.html')
+@Misc.auth_validate
 def booking_history():
     return {}
 
 @bottle_app.get('/trade/comment')
 @bottle.view(app.config.template_path + 'trade/comment.html')
+@Misc.auth_validate
+def trade_comment():
+    return {}
+
+@bottle_app.get('/trade/comment_history')
+@bottle.view(app.config.template_path + 'trade/comment_history.html')
 def trade_remark():
     return {}
 
-@bottle_app.get('/manage/hotel/async')
+@Misc.auth_validate
+def order():
+    return {}
+
+@bottle_app.get('/manage/flight/info')
+@bottle.view(app.config.template_path + 'manage/flight/flight.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/flight/transaction')
+@bottle.view(app.config.template_path + 'manage/flight/transaction.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/flight/comment')
+@bottle.view(app.config.template_path + 'manage/flight/comment.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/info')
+@bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/room')
+@bottle.view(app.config.template_path + 'manage/hotel/room.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/transaction')
+@bottle.view(app.config.template_path + 'manage/hotel/transaction.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/comment')
+@bottle.view(app.config.template_path + 'manage/hotel/comment.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel')
+@bottle.view(app.config.template_path + 'manage/hotel.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+def trade_remark():
+    return {}
+
+@Misc.auth_validate
+def order():
+    return {}
+
+@bottle_app.get('/manage/flight/info')
+@bottle.view(app.config.template_path + 'manage/flight/flight.html')
+@Misc.auth_validate
+def manage_flight_info():
+    return {}
+
+@bottle_app.get('/manage/flight/transaction')
+@bottle.view(app.config.template_path + 'manage/flight/transaction.html')
+@Misc.auth_validate
+def manage_flight_transaction():
+    return {}
+
+@bottle_app.get('/manage/flight/comment')
+@bottle.view(app.config.template_path + 'manage/flight/comment.html')
+@Misc.auth_validate
+def manage_flight_comment():
+    return {}
+
+@bottle_app.get('/manage/hotel/info')
+@bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
+@Misc.auth_validate
+def manage_hotel_info():
+    return {}
+
+@bottle_app.get('/manage/hotel/room')
+@bottle.view(app.config.template_path + 'manage/hotel/room.html')
+@Misc.auth_validate
+def manage_hotel_room():
+    return {}
+
+@bottle_app.get('/manage/hotel/transaction')
+@bottle.view(app.config.template_path + 'manage/hotel/transaction.html')
+@Misc.auth_validate
+def manage_hotel_transaction():
+    return {}
+
+@bottle_app.get('/manage/hotel/comment')
+@bottle.view(app.config.template_path + 'manage/hotel/comment.html')
+@Misc.auth_validate
+def manage_hotel_comment():
+    return {}
+
+@bottle_app.get('/manage/hotel/info/async')
+@Misc.auth_validate
 def hotel_manage_json():
     access_type = bottle.request.query.get('type')
     if access_type == 'add':

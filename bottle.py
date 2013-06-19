@@ -41,6 +41,7 @@ import base64, cgi, email.utils, functools, hmac, imp, itertools, mimetypes,\
 from datetime import date as datedate, datetime, timedelta
 from tempfile import TemporaryFile
 from traceback import format_exc, print_exc
+from inspect import getargspec
 
 try: from simplejson import dumps as json_dumps, loads as json_lds
 except ImportError: # pragma: no cover
@@ -260,13 +261,18 @@ class Router(object):
 
     default_pattern = '[^/]+'
     default_filter  = 're'
+  
+    #: The current CPython regexp implementation does not allow more
+    #: than 99 matching groups per regular expression. 
+    _MAX_GROUPS_PER_PATTERN = 99
 
     def __init__(self, strict=False):
         self.rules    = [] # All rules in order
-        self._groups  = {}
+        self._groups  = {} # index of regexes to find them in dyna_routes
         self.builder  = {} # Data structure for the url builder
         self.static   = {} # Search structure for static routes
-        self.dynamic  = [] # Search structure for dynamic routes
+        self.dyna_routes   = {}
+        self.dyna_regexes  = {} # Search structure for dynamic routes
         #: If true, static routes are no longer checked first.
         self.strict_order = strict
         self.filters = {
@@ -335,8 +341,8 @@ class Router(object):
         if name: self.builder[name] = builder
 
         if is_static and not self.strict_order:
-            group = self.static.setdefault(self.build(rule), {})
-            group[method] = (target, None)
+            self.static.setdefault(method, {})
+            self.static[method][self.build(rule)] = (target, None)
             return
 
         try:
@@ -361,24 +367,30 @@ class Router(object):
             getargs = None
 
         flatpat = _re_flatten(pattern)
-        if flatpat in self._groups:
-            # Info: Rule groups with previous rule
-            group = self._groups[flatpat]
-            if method in group:
-                if DEBUG:
-                    msg = 'Route <%s %s> overwrites a previously defined route'
-                    warnings.warn(msg % (method, rule), RuntimeWarning)
-            self._groups[flatpat][method] = (target, getargs)
-            return
+        whole_rule = (rule, flatpat, target, getargs)
 
-        mdict = self._groups[flatpat] = {method: (target, getargs)}
-        
-        try:
-            combined = '%s|(^%s$)' % (self.dynamic[-1][0].pattern, flatpat)
-            self.dynamic[-1] = (re.compile(combined), self.dynamic[-1][1])
-            self.dynamic[-1][1].append(mdict)
-        except (AssertionError, IndexError): # AssertionError: Too many groups
-            self.dynamic.append((re.compile('(^%s$)' % flatpat), [mdict]))
+        if (flatpat, method) in self._groups:
+            if DEBUG:
+                msg = 'Route <%s %s> overwrites a previously defined route'
+                warnings.warn(msg % (method, rule), RuntimeWarning)
+            self.dyna_routes[method][self._groups[flatpat, method]] = whole_rule
+        else:
+            self.dyna_routes.setdefault(method, []).append(whole_rule)
+            self._groups[flatpat, method] = len(self.dyna_routes[method]) - 1
+
+        self._compile(method)
+
+    def _compile(self, method):
+        all_rules = self.dyna_routes[method]
+        comborules = self.dyna_regexes[method] = []
+        maxgroups = self._MAX_GROUPS_PER_PATTERN
+        for x in range(0, len(all_rules), maxgroups):
+            some = all_rules[x:x+maxgroups]
+            combined = (flatpat for (_, flatpat, _, _) in some)
+            combined = '|'.join('(^%s$)' % flatpat for flatpat in combined)
+            combined = re.compile(combined).match
+            rules = [(target, getargs) for (_, _, target, getargs) in some]
+            comborules.append((combined, rules))
 
     def build(self, _name, *anons, **query):
         ''' Build an URL by filling the wildcards in a rule. '''
@@ -393,32 +405,39 @@ class Router(object):
 
     def match(self, environ):
         ''' Return a (target, url_agrs) tuple or raise HTTPError(400/404/405). '''
-        path, targets, urlargs = environ['PATH_INFO'] or '/', None, {}
-        if path in self.static:
-            targets = self.static[path]
-        else:
-            for combined, rules in self.dynamic:
-                match = combined.match(path)
-                if not match: continue
-                targets = rules[match.lastindex - 1]
-                break
+        verb = environ['REQUEST_METHOD'].upper()
+        path = environ['PATH_INFO'] or '/'
+        target = None
+        methods = [verb, 'GET', 'ANY'] if verb == 'HEAD' else [verb, 'ANY']
 
-        if not targets:
-            raise HTTPError(404, "Not found: " + repr(environ['PATH_INFO']))
-        method = environ['REQUEST_METHOD'].upper()
-        if method in targets:
-            target, getargs = targets[method]
-        elif method == 'HEAD' and 'GET' in targets:
-            target, getargs = targets['GET']
-        elif 'ANY' in targets:
-            target, getargs = targets['ANY']            
-        else:
-            allowed = [verb for verb in targets if verb != 'ANY']
-            if 'GET' in allowed and 'HEAD' not in allowed:
-                allowed.append('HEAD')
-            raise HTTPError(405, "Method not allowed.", Allow=",".join(allowed))
-        
-        return target, getargs(path) if getargs else {}
+        for method in methods:
+            if method in self.static and path in self.static[method]:
+                target, getargs = self.static[method][path]
+                return target, getargs(path) if getargs else {}
+            elif method in self.dyna_regexes:
+                for combined, rules in self.dyna_regexes[method]:
+                    match = combined(path)
+                    if match:
+                        target, getargs = rules[match.lastindex - 1]
+                        return target, getargs(path) if getargs else {}
+
+        # No matching route found. Collect alternative methods for 405 response
+        allowed = set([])
+        nocheck = set(methods)
+        for method in set(self.static) - nocheck:
+            if path in self.static[method]:
+                allowed.add(verb)
+        for method in set(self.dyna_regexes) - allowed - nocheck:
+            for combined, rules in self.dyna_regexes[method]:
+                match = combined(path)
+                if match:
+                    allowed.add(method)
+        if allowed:
+            allow_header = ",".join(sorted(allowed))
+            raise HTTPError(405, "Method not allowed.", Allow=allow_header)
+
+        # No matching route and no alternative method found. We give up
+        raise HTTPError(404, "Not found: " + repr(path))
 
 
 
@@ -506,6 +525,22 @@ class Route(object):
             if not callback is self.callback:
                 update_wrapper(callback, self.callback)
         return callback
+
+    def get_undecorated_callback(self):
+        ''' Return the callback. If the callback is a decorated function, try to
+            recover the original function. '''
+        func = self.callback
+        func = getattr(func, '__func__' if py3k else 'im_func', func)
+        closure_attr = '__closure__' if py3k else 'func_closure'
+        while hasattr(func, closure_attr) and getattr(func, closure_attr):
+            func = getattr(func, closure_attr)[0].cell_contents
+        return func
+        
+    def get_callback_args(self):
+        ''' Return a list of argument names the callback (most likely) accepts
+            as keyword arguments. If the callback is a decorated function, try
+            to recover the original function before inspection. '''
+        return getargspec(self.get_undecorated_callback())[0]
 
     def __repr__(self):
         return '<%s %r %r>' % (self.method, self.rule, self.callback)
@@ -1104,10 +1139,10 @@ class BaseRequest(object):
             if key in self.environ: safe_env[key] = self.environ[key]
         args = dict(fp=self.body, environ=safe_env, keep_blank_values=True)
         if py31:
-            args['fp'] = NCTextIOWrapper(args['fp'], encoding='ISO-8859-1',
+            args['fp'] = NCTextIOWrapper(args['fp'], encoding='latin1',
                                          newline='\n')
         elif py3k:
-            args['encoding'] = 'ISO-8859-1'
+            args['encoding'] = 'latin1'
         data = cgi.FieldStorage(**args)
         data = data.list or []
         if len(data) > self.MAX_PARAMS:
@@ -1349,12 +1384,14 @@ class BaseResponse(object):
             for name, value in more_headers.items():
                 self.add_header(name, value)
 
-    def copy(self):
+    def copy(self, cls=None):
         ''' Returns a copy of self. '''
-        # TODO
-        copy = Response()
+        cls = cls or BaseResponse
+        assert issubclass(cls, BaseResponse)
+        copy = cls()
         copy.status = self.status
         copy._headers = dict((k, v[:]) for (k, v) in self._headers.items())
+        copy.COOKIES.load(self.COOKIES.output())
         return copy
 
     def __iter__(self):
@@ -2189,10 +2226,13 @@ def abort(code=500, text='Unknown Error: Application stopped.'):
 def redirect(url, code=None):
     """ Aborts execution and causes a 303 or 302 redirect, depending on
         the HTTP protocol version. """
-    if code is None:
+    if not code:
         code = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
-    location = urljoin(request.url, url)
-    raise HTTPResponse("", status=code, Location=location)
+    res = response.copy(cls=HTTPResponse)
+    res.status = code
+    res.body = ""
+    res.set_header('Location', urljoin(request.url, url))
+    raise res
 
 
 def _file_iter_range(fp, offset, bytes, maxread=1024*1024):
@@ -2383,9 +2423,8 @@ def yieldroutes(func):
         c(x, y=5)   -> '/c/:x' and '/c/:x/:y'
         d(x=5, y=6) -> '/d' and '/d/:x' and '/d/:x/:y'
     """
-    import inspect # Expensive module. Only import if necessary.
     path = '/' + func.__name__.replace('__','/').lstrip('/')
-    spec = inspect.getargspec(func)
+    spec = getargspec(func)
     argc = len(spec[0]) - len(spec[3] or [])
     path += ('/:%s' * argc) % tuple(spec[0][:argc])
     yield path

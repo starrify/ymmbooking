@@ -15,27 +15,8 @@
   <body>
   
   
- <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-
-          <a class="brand" href="#">Online Payment</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
-            </p>
-            <ul class="nav">
-              <li><a href="#">账户设置</a></li>
-              <li><a href="order_manage.html">我是买家</a></li>
-              <li><a href="#contact">我是卖家</a></li>
-			  <li><a href="#contact">淘宝贝</a></li>
-			  <li class="active"><a href="/">在线预订</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-   <div class="hero-unit"></div>
+%include template/head_bar.inc
+      <div class="hero-unit"></div>
    <div class="container-fluid">
 	<div class="row-fluid">
 		  <div class="span2">
@@ -70,11 +51,11 @@
                   <div class="row-fluid">
                       <div class="span1"> 我想找</div>
                       <div class="span3">
-                          <input type="text" style="width: 100%;" placeholder="城市" title="请输入城市" size="20" id="hotel_city" value maxlength="30">
+                          <input type="text" style="width: 100%;" placeholder="城市" title="请输入城市" size="20" id="hotel_city" value="杭州" maxlength="30">
                               </div>
                       
                       <div class="span4">
-                          <input type="text" style="width: 100%;" placeholder="酒店名、地标、商圈" title="请输入酒店名称" size="30" id="hotel_name" value maxlength="30">
+                          <input type="text" style="width: 100%;" placeholder="酒店名、地标、商圈" title="请输入酒店名称" size="30" id="hotel_name" value="汉庭" maxlength="30">
                       </div>
                   </div><!--row1-->
                   <div class="row-fluid">
@@ -86,7 +67,7 @@
                                       <span class="add-on"><i class="icon-remove"></i></span>
                                       <span class="add-on"><i class="icon-th"></i></span>
                                       </div>
-                              <input type="hidden" value="" id="dtp_in"><br>
+                              <input type="hidden" value="1" id="dtp_in"><br>
                       </div>
                       </div>
                       <div class="span1">离店日期</div>
@@ -97,13 +78,14 @@
                                       <span class="add-on"><i class="icon-remove"></i></span>
                                       <span class="add-on"><i class="icon-th"></i></span>
                                       </div>
-                              <input type="hidden"  value="" id="dtp_leave"><br>
+                              <input type="hidden" value="1" id="dtp_leave"><br>
                                   </div>
                       </div>
                   </div><!--row2-->
           </div><!--/#hotel_order_list-->
           
-          <div class ="row-fluid" style="padding-left: 600px;">
+          <div class ="row-fluid">
+              <div class="span6"></div>
               <a class="btn btn-primary btn-middle" href="#"
                   onclick="fetch_hotel(
                   $('#hotel_city').val(),
@@ -239,18 +221,18 @@
     });
     
     //search result is restricted on hotel_city and hotel_name
-    function fetch_hotel(city,name,b_time,e_time){
+    function fetch_hotel(city,h_name,b_time,e_time){
         $("#display_hotel_panel").show()
         console.log(city);
         $("#hotel_list").html('查询中，请稍候...')
         $.getJSON(
-            "/hotel/search/async",// ???
+            "/hotel/search/async",// url
             {
-                city: location,
-                name: name,
-            },
-            function(data){
-                console.log(data);
+                location: city,
+                name: h_name,
+            }, // data 
+            function(data){ // callback
+                console.log(data)
                 $("#hotel_list").html('')
                 strdata="<td></td><td id='hotel_name'><strong>酒店名称</strong></td><td id='hotel_discription'><strong>酒店位置</strong></td><td id='hotel_rate'><strong>酒店星级</strong></td><td id='hotel_discount'><strong>折扣</strong></td><td id='hotel_price'><strong>最低报价</strong></td><td></td>"
                 $("#hotel_list").append($("<tr>",{html:strdata}))

@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title>酒店信息管理</title>
+        <meta content="text/html" charset=utf-8>   
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="/css/manage.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
+        <link href="/css/tran_history.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="/js/jquery.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script>
+        <script type="text/javascript" src="/js/manage/resulttable.js"></script>
+        <script type="text/javascript" src="/js/manage/util.js"></script>
+    </head>
+    <body>
+%include template/head_bar.inc
+        <div class="hero-unit"></div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+%include template/manage/nav_list.inc active='nlFlightTransaction'
+                        </ul>
+                    </div><!--/.well -->
+                </div><!--/span-->
+
+                <div class="span9">
+                    <div class="row-fluid"> <!-- search panel -->
+                        <div class="seller-search-form" id="basicSearch">
+                            <div class="row-fluid"> <!-- search inputs -->
+                                <table class="grid-form">
+                                    <tr>
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">订单号</label>
+                                                    <input class="search-input" type="text" id="bsTID" placeholder="input">
+                                                </div>
+                                        </td>
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">航班号</label>
+                                                    <input class="search-input" type="text" id="bsFID" placeholder="input">
+                                                </div>
+                                        </td> <!-- span4 -->
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">用户号</label>
+                                                    <input class="search-input" type="text" id="bsUID" placeholder="input">
+                                                </div>
+                                        </td> <!-- span4 -->
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">交易时间</label>
+                                                    <input class="search-input" type="datetime" id="bsTime" placeholder="yyyy/mm/dd">
+                                                </div>
+                                        </td>
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">交易金额</label>
+                                                    <input class="search-input" type="text" id="bsPrice" placeholder="number">
+                                                </div>
+                                        </td> <!-- span4 -->
+                                        <td>
+                                                <div>
+                                                    <label class="search-label">交易状态</label>
+                                                    <input class="search-input" type="text" id="bsStatus" placeholder="input">
+                                                </div>
+                                        </td> <!-- span4 -->
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="row-fluid"> <!-- buttons -->
+                                <div class="grid-form" style="text-align:center;">
+                                    <button class="btn" style="width:20%" type="button" id="bsSearch">搜索</button>
+                                </div>
+                            </div>
+                        </div> <!-- seller-search-form -->
+                    </div> <!-- row-fluid -->
+                    <h3 id="resultVerbose">共有1个搜索结果</h3>
+                    <div class="row-fluid"> <!-- search result -->
+                        <table class="table table-hover" id="resultTable" style="table-layout:fixed">
+                            <colgroup>
+                                <col width="15%" />
+                                <col width="15%" />
+                                <col width="15%" />
+                                <col width="20%" />
+                                <col width="15%" />
+                                <col width="10%" />
+                                <col width="10%" />
+                            </colgroup>
+                            <tr> <!-- header -->
+                                <th class="text-cropped">订单编号</th>
+                                <th class="text-cropped">航班编号</th>
+                                <th class="text-cropped">用户标识</th>
+                                <th class="text-cropped">交易时间</th>
+                                <th class="text-cropped">交易金额</th>
+                                <th class="text-cropped">交易状态</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row-fluid"> <!-- add result -->
+                        <table class="table" id="addTable" style="table-layout:fixed">
+                            <colgroup>
+                                <col width="15%" />
+                                <col width="15%" />
+                                <col width="15%" />
+                                <col width="20%" />
+                                <col width="15%" />
+                                <col width="10%" />
+                                <col width="10%" />
+                            </colgroup>
+                            <tr>
+                                <td class="text-cropped">新的航班订单</td>
+                                <td style="padding:0;"><input class="input-cropped" id="atTID" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atFID" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atUID" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atTime" type="text" placeholder="input"></td>
+                                <td style="padding:0;"><input class="input-cropped" id="atPrice" type="text" placeholder="input"></td>
+                                <td>
+                                    <div>
+                                        <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
+                                        <button class="btn btn-icon" id="atRemove"><i class="icon-remove"></i></button>
+                                        <!--<button class="btn" style="width:10px;float:left;" id="atReset"><i class="icon-repeat"></i></button>-->
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div> <!-- span9 -->
+                
+            </div> 
+        </div>
+
+        <footer class="tail">
+            <hr>
+            <a href="">关于我们</a>
+            <a href="">合作伙伴</a>
+            <a href="">联系客服</a>
+            <a href="../other/connect_us.html">联系我们</a>
+            <a href="../other/map.html">网站地图</a>
+            <span>© 2013 Black.com 版权所有</span>
+        </footer>
+  
+    </body>
+  
+</html>
+<!--TODO: table sort -->
+<!--TODO: forbid multiple popover -->
+<script> // tools
+// checks overflow in our one-line context
+
+</script>
+
+<script> // page specified functions
+var rowtmpl = '\
+<tr> \
+    <td class="text-cropped">_0</td> \
+    <td class="text-cropped">_1</td> \
+    <td class="text-cropped">_2</td> \
+    <td class="text-cropped">_3</td> \
+    <td class="text-cropped">_4</td> \
+    <td class="text-cropped">_5</td> \
+    <td><div> \
+        <button class="btn btn-icon"><i class="icon-ok"></i></button> \
+        <button class="btn btn-icon"><i class="icon-remove"></i></button> \
+        <button class="btn btn-icon"><i class="icon-repeat"></i></button></div> \
+    </td></tr>';
+var schema = ['TID', 'FID', 'UID', 'Time', 'Price', 'Status'];
+var dbschema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status'];
+var asyncURL = '/manage/flight/transaction/async';
+var rt = new ResultTable([[1,2,3,4,5,6]]);
+
+function editable(col) {
+    if(col == 0 || col == 6)
+        return false;
+    else
+        return true;
+}
+
+function isRowValid(row) {
+    if(!isInt(row.find('td:eq(0)').text())) return false;
+    if(!inRange(row.find('td:eq(1)').text().length, 1, 255)) return false;
+    if(!inRange(row.find('td:eq(2)').text().length, 1, 255)) return false;
+    if(!isDateTime(row.find('td:eq(3)').text())) return false;
+    if(!isFloat(row.find('td:eq(4)').text())) return false;
+    if(row.find('td:eq(5)').text().length > 255) return false;
+    
+    return true;
+}
+function mapResult(res) {
+    /*return $.map(res, function(ele) {
+        return [[ele[0], ele[1], ele[3], ele[2]]];
+    });*/
+    return res;
+}
+</script>
+
+
+<script> //event handlers
+function buildObject(iterFunc) {
+    var ret = {};
+    for(var i = 0; i < dbschema.length; i++) {
+        ret[dbschema[i]] = iterFunc(i);
+    }
+    return ret;
+}
+$('#resultTable').click(function(e) {
+    console.log($(e.target).prop('tagName'));
+    switch($(e.target).prop('tagName')) {
+    case 'TD' : {
+        var pos = cellPosition($(e.target));
+        var cell = $(e.target);
+        if(!editable(cell.prop('cellIndex')) || rt.overflow[pos.row][pos.col]) return;
+                           
+        cell.css('padding', 0);
+        var text = cell.text();
+        cell.html('')
+            .append('<input type="text" class="input-cropped" value="' + text + '">');
+    
+        cell.find('input').focus().select();
+        break;
+    }
+    case 'I':
+        if($(e.target).parent().prop('tagName') != 'BUTTON')
+            break;
+    case 'BUTTON': {
+        //TODO: enable and disable of buttons
+        var btn = $(e.target).closest('button');
+        var rowId = btn.closest('tr').prop('rowIndex');
+        switch(btn.parent().children().index(btn)) {
+        case 0: { // submit
+            $.getJSON(
+                asyncURL,
+                buildObject(function(index) {
+                    return rt.cache[rowId][index];
+                }),
+                /*{
+                    t_id: rt.cache[rowId][0],
+                    flightNumber: rt.cache[rowId][1],
+                    u_id: rt.cache[rowId][2],
+                    description: rt.cache[rowId][3],
+                    type: 'update',
+                },*/
+                function(data) {
+                    console.log(data);
+                    if(data.status == 'succeeded')
+                        rt.commitRow(rowId);
+                    else
+                        alert('Submit failed');
+                });
+            break;
+        }
+        case 1: { // remove
+            $.getJSON(
+                asyncURL,
+                {
+                    t_id: rt.cache[rowId][0],
+                    type: 'delete',
+                },
+                function(data) {
+                    console.log(data);
+                    rt.removeRow(rowId);
+                });
+            break;
+        }
+        case 2: { // reset
+            rt.resetRow(rowId);
+            break;
+        }
+        }
+    }
+    }
+});
+    
+$('#resultTable').focusout(function(e){
+    var text = $(e.target).val();
+    var cell = $(e.target).closest('td');
+    if(editable(cell.prop('cellIndex'))) {
+        cell.css('padding', 8);
+        rt.modifyCell(cell, text);
+    }
+});
+            
+$('#bsSearch').click(function(e) {
+    $.getJSON(
+        asyncURL,
+        buildObject(function(index) {
+            return $('#bs' + schema[index]).val();
+        }),
+        /*{
+            h_id: $('#bsHID').val(),
+            name: $('#bsName').val(),
+            location: $('#bsLocation').val(),
+            type: 'search',
+        },*/
+        function(data) {
+            console.log(data);
+            rt = new ResultTable(data.hotel);
+        });
+});
+
+$('#atAdd').click(function(e) {
+    var row = $('#addTable tr:first');
+    var addobj = buildObject(function(index) {
+        return row.find('td:eq(' + index + ') input:first').val();
+    });
+    /*{
+        h_id: '',
+        name: row.find('td:eq(1) input:first').val(),
+        location: row.find('td:eq(2) input:first').val(),
+        description: row.find('td:eq(3) input:first').val(),
+        type: 'add',
+    };*/
+    $.getJSON(
+        asyncURL,
+        addobj,
+        function(data) {
+            console.log(data);
+            if(data.status == 'succeeded') {
+                $('#addTable input').val('');
+                rt.pushRow([data.h_id, addobj.name, addobj.location, addobj.description]);
+            }
+            else
+                alert('Add failed');
+        });
+});
+$('#atRemove').click(function(e) {
+    $('#addTable input').val('');
+});
+</script>
