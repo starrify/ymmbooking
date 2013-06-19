@@ -34,8 +34,8 @@
 %include template/head_bar.inc
       <div class="hero-unit"></div>
       <div class="container-fluid">
-          <div class="row-fluid">
-              <div class="span2">
+       <div class="row-fluid">
+        <div class="span2">
                   <div class="well sidebar-nav">
                       <ul class="nav nav-list">
                           <li class="nav-header">酒店</li>
@@ -50,18 +50,15 @@
                       </ul>
                   </div><!--/.well -->
               </div><!--/span-->
-        <div class="span10">
+<div class="span10">
 	<div class="main">
-        
     <div class="well sidebar-nav">
-        <ul class="breadcrumb">
+      <ul class="breadcrumb">
             <li><a href="/hotel/search">预定系统</a><span class="divider">/</span></li>
             <li><a href="#">我的订单</a><span class="divider">/</span></li>
             <li class="active">订单查询</a></li>
         </ul>
-      
-	  <div class="order_list">
-		<form class="orderquery" method="get" action="/trade/comment"></form>
+	  <div id="order_list">
             <div class="row-fluid">
             <div class="span1">
                 <label class="control-label" for="time">成交时间</label>
@@ -76,18 +73,17 @@
                     <input type="hidden" value="1" id="begin_date"><br>
                         </div>
             </div>
-            <div id="return">
-                <div class="span1">&nbsp&nbsp;至</div>
-                <div class="span3">
-                    <div class="control-group">
-                        <div data-link-field="return_date" class="controls input-append date form_datetime1">
-                            <input type="text" style="width: 80%;" value="" readonly>
-                                <span class="add-on"><i class="icon-remove"></i></span>
-                                <span class="add-on"><i class="icon-th"></i></span>
-                                </div>
-                        <input type="hidden" value="1" id="end_date"><br>
-                            </div>
-                </div></div>
+            <div class="span1">&nbsp&nbsp;至</div>
+            <div class="span3">
+                <div class="control-group">
+                    <div data-link-field="return_date" class="controls input-append date form_datetime1">
+                        <input type="text" style="width: 80%;" value="" readonly>
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                    <input type="hidden" value="1" id="end_date"><br>
+                </div>
+            </div>
             <div class="btn-group span2">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="transaction_type" value="">
                     交易类型
@@ -101,58 +97,21 @@
                 <input type="hidden" id="type" value="all">
             </div>
             </div>
-            	<!--label class="control-label" for="time">交易类型</label>
-            	<select id="type">
-						<option data-msg="机票预定" value="ALL" id="flight_booking">机票预定</option>
-						<option data-msg="酒店预定" value="ALL" id="hotel_booking">酒店预定</option>
-                </select-->
-             <div>
-            <div id="Username" value=""></div>
-            <div class ="row-fluid">
+            <div class="row-fluid">
                  <div class="span6"></div>
-                <a class="btn btn-middle btn-primary" onclick="fetch_history($('#begin_date').val(),$('#end_date').val(),$('#type').val(),$('#Username').val())">搜索</a>
-             </div>
+                 <div class="span2 btn btn-middle btn-primary" onclick="fetch_history($('#begin_date').val(),$('#end_date').val(),$('#type').val(),$('#Username').val())">搜索</div>
             </div>
-      </div></div>
-        <div class="well sidebar-nav" id="display_history_panel">
+      </div>
+    </div><!--/.well sidebar-nav-->
+    <div class="well sidebar-nav" id="display_history_panel">
         <table id='trans_list' style="background-color:#ffffff;" class="table table-hover">
         </table>
-		<!--table class="table table-hover bought_list" style="background-color:#ffffff;" >
-		<thead>
-            <div><tr class="col_name">
-				<th class="item" colspan="2">商品</th>
-				<th class="totalprice" colspan="1">价格</th>
-                <th class="deal_time" colspan="1"> 成交时间</th>
-                <th class="remark" colspan="1"> 评价</th>
-                </tr>
-			</tr></div>
-		</thead>
-		<tbody>
-            <div id="history">
-            <tr class="order_item">
-                <th class="item" colspan="2"><div id ="booking_item"> 萧山国际机场 首都国际机场 中国国际航空 </div></th>
-                <th class="totalprice" colspan="1"><div id="booking_price">1234567</div></th>
-                <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/comment" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
-            </tr>
-            </div>
-            <div id="history">
-                <tr class="order_item">
-                    <th class="item" colspan="2"><div id ="booking_item"> 首都国际机场 萧山国际机场 中国国际航空</div></th>
-                    <th class="totalprice" colspan="1"><div id="booking_price">123456</div></th>
-                    <th class="deal_time" colspan="1"><div id="booking_date">null</div></th>
-                    <th class="remark" colspan="1"> <div id="booking_remark"><a href="/trade/comment" class="btn" value="comment" onclick="get_ID()"> 评价 </a></div></th>
-                </tr>
-            </div>
-		</tbody>
-		</table-->
 		<div class="pageNac"></div>
-      	</div>
-      </div>
-     </div>
-   		</div>
-    </div>
-	</div>
+      	</div><!--/.well sidebar-nav-->
+    </div><!--/.main-->
+</div><!--/.span10-->
+   		</div><!--/.row-fluid-->
+    </div><!--/.container-fluid-->
    <footer class="tail">
 		<hr>
         <a href="">关于我们</a>
@@ -163,6 +122,7 @@
         <span>© 2013 Black.com 版权所有</span>
    </footer>
       
+<form class="orderquery" method="get" action="/trade/comment"></form>
 <!--jscode.-->
 <script>
     $("#display_history_panel").hide()
