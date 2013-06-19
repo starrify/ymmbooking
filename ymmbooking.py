@@ -401,6 +401,66 @@ def trade_comment():
 
 @bottle_app.get('/trade/comment_history')
 @bottle.view(app.config.template_path + 'trade/comment_history.html')
+def trade_remark():
+    return {}
+
+@Misc.auth_validate
+def order():
+    return {}
+
+@bottle_app.get('/manage/flight/info')
+@bottle.view(app.config.template_path + 'manage/flight/flight.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/flight/transaction')
+@bottle.view(app.config.template_path + 'manage/flight/transaction.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/flight/comment')
+@bottle.view(app.config.template_path + 'manage/flight/comment.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/info')
+@bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/room')
+@bottle.view(app.config.template_path + 'manage/hotel/room.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/transaction')
+@bottle.view(app.config.template_path + 'manage/hotel/transaction.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel/comment')
+@bottle.view(app.config.template_path + 'manage/hotel/comment.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/manage/hotel')
+@bottle.view(app.config.template_path + 'manage/hotel.html')
+@Misc.auth_validate
+def trade_remark():
+    return {}
+
+@bottle_app.get('/trade/comment_history')
+@bottle.view(app.config.template_path + 'trade/comment_history.html')
+def trade_remark():
+    return {}
+
 @Misc.auth_validate
 def order():
     return {}

@@ -76,7 +76,7 @@
                 <div class="span1">&nbsp&nbsp;返回日期</div>
                 <div class="span3">
                     <div class="control-group">
-                        <div data-link-field="return_date" class="controls input-append date form_datetime1">
+                        <div data-link-field="return_date" class="controls input-append date form_datetime2">
                             <input type="text" style="width: 80%;" value="" readonly>
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-th"></i></span>
@@ -128,46 +128,32 @@
                   <div class="span2">
                       <div class="btn-group dropup">
                           <button id="star" class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">起飞时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
-<<<<<<< HEAD
                           </button>
                       </div>
                   </div>
                   <div class="span2">
                       <div class="btn-group dropup">
                           <button id="score" class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">抵达时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
-=======
->>>>>>> origin/czh
                           </button>
                       </div>
                   </div>
                   
                   <div class="span2">
                       <div class="btn-group dropup">
-<<<<<<< HEAD
-=======
-                          <button id="score" class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">抵达时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          <button id="list_condition_totaltime" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">总时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
-                  </div>
-                  
+                  </div>                  
                   <div class="span2">
                       <div class="btn-group dropup">
->>>>>>> origin/czh
-                          <button id="price" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">总时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
-                          </button>
-                      </div>
-                  </div>
-                  
-                  <div class="span2">
-                      <div class="btn-group dropup">
-                          <button id="price" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">价格<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          <button id="list_condition_price" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">价格<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
                   </div>
               </div>
               
           </div><!--/#display_condition-->
-        <form class="bookquery"></form>
+        <form id="bookquery" method="get" action="/order"></form>
         <table id='flight_list' style="background-color:#ffffff;" class="table table-hover">
         </table>
 	  </div>
@@ -198,6 +184,13 @@
                                         minView: 2,
                                         pickerPosition: "bottom-left"
                                         });
+    $(".form_datetime2").datetimepicker({
+                                        format: "yyyy/mm/dd",
+                                        todayBtn: 1,
+                                        autoclose: 1,
+                                        minView: 2,
+                                        pickerPosition: "bottom-left"
+                                        });
     function show_return(){
         $("#return").show()
     }
@@ -217,7 +210,7 @@
         $(".nav-list li:eq(4)").addClass('active')
         $(".breadcrumb li:eq(2)").html('国内航班搜索')
         $("title").html('国内航班搜索')
-        $("#optionsRadios2")[0].checked=true 
+        $("#optionsRadios1")[0].checked=true
         $("#return").hide()
     }
     
@@ -259,12 +252,11 @@
             function(data) {
                 console.log(data)
                 $("#flight_list").html('')
-                strdata="<td class=info_td>航班号</td><td class=info_td><strong>航班信息</strong></td>"+"<td class=info_td><strong>起降时间</strong></td>"+"<td class=info_td><strong>总时长</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价(元)</strong></td>"+"<td style=\"width:15%;\"></td>"
+                strdata="<td class=info_td>航班号</td><td class=info_td><strong>航班信息</strong></td>"+"<td class=info_td><strong>起降时间</strong></td>"+"<td class=info_td><strong>总时长</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价(元)</strong></td>"+"<td class=info_td><strong>其他费用</strong></td>"+"<td style=\"width:15%;\"></td>"
                 $("#flight_list").append($("<tr>",{html:strdata}))
                 for (var i in data.flight) {
                   fill_list (data.flight[i])
                 }
-                  //$("tr:even:gt(0)").hide()
                 if (data.flight.length == 0){
                   $("#flight_list").html('未查询到满足条件的航班')
                 }
@@ -279,8 +271,9 @@
         strdata = strdata+"<td>"+time_dif(flight[2],flight[1])+"</td>" //a_time
         strdata = strdata+"<td>"+flight[3]+"</td>" //d_city
         strdata = strdata+"<td>"+flight[4]+"</td>" //a_city
-        strdata = strdata+"<td style=\"color=#333333\">"+flight[5]+"<br>燃料费:"+flight[6]+"<br>机建费:"+flight[7]+"</td>" // price
-        strdata = strdata+"<td><a class=\"btn btn-info\" onclick=\"submit_flight_book($(this).parent().parent().children('#flt_no').html())\" href=\"/trade/booking_history\">订购 »</a></td></tr>"
+        strdata = strdata+"<td id='price' style=\"color=#333333\">"+flight[5]+"</td>"//price
+        strdata = strdata+"<td>燃料费:"+flight[6]+"<br>机建费:"+flight[7]+"</td>"
+        strdata = strdata+"<td><button class=\"btn btn-info\" onclick=\"submit_flight_book($(this).parent().parent().children('#flt_no').html(),$('#departure_date').val(),$(this).parent().parent().children('#price').html())\">订购 »</a></td></tr>"
         $("#flight_list").append($("<tbody>",{html:strdata}))
     }
 
@@ -305,10 +298,14 @@
         return strdata;
     }
     
-    $(".bookquery").hide()
-    function submit_flight_book(flt_no){
-        $(".bookquery").html($("<div>",{html:flt_no}))
-        bookquery.submit()
+    $("#bookquery").hide()
+    function submit_flight_book(flt_no,d_date,f_price){
+        strdata = "<input type=\"text\" name=\"type\" value=\"flight\">"
+        strdata = strdata + "<input type=\"text\" name=\"flight_number\" value=\"" + flt_no + "\">"
+        strdata = strdata + "<input type=\"text\" name=\"date\" value=\">" + d_date + "\">"
+        strdata = strdata + "<input type=\"text\" name=\"price\" value=\">" + f_price + "\">"
+        $("#bookquery").append(strdata)
+        $("#bookquery").submit()
     }
     
     </script>

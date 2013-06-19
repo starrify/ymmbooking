@@ -9,69 +9,28 @@
 	<script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8" ></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<!--jscode.-->
- 
-        <script>
-            $("#display_history_panel").hide()
-            $(".radio").click(function(){
-                    $("#display_flight_panel").hide()
-            })
-            
-            function get_ID(){
-            
-            var parm1=document.getElementById("order_ID").value;
-                
-            }
-
-            function fetch_history(b_date,e_date,typ,u_id)
-            {
-                $("#display_history_panel").show()
-                console.log(type);
-                $('#history_list').html('查询中，请稍候...')
-                $.getJSON(
-                "/trade/booking_history/async",
-                    {
-                          begin_date: b_date,
-                          end_date: e_date,
-                          type:     typ,
-                          Username: u_id,   
-                    },
-                          function(data){
-                          console.log(data)
-                          $('#booking_item').html('')
-                          $('#booking_price').html('')
-                          $('#booking_date').html('')
-                          strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>评价</strong></td>"+"<td style=\"width:15%;\"></td>"
-                          $("#flight_list").append($("<tr>",{html:strdata}))
-
-                          for(var i in data.booking_history){
-                            fill_list (data.booking_history[i])
-//                          booking_history = data.booking_history[i]
-//                          $(#booking_item).append($("<div>",{html:booking_history[0]}))
-//                          $(#booking_price).append($("<div>",{html:booking_history[1]}))
-//                          $(#booking_date).append($("<div>",{html:booking_history[2]}))
-                          }
-                          if(data.info.length== 0)
-                          $('#booing_item').html('未查询到满足条件的记录')
-                          }
-                          
-                );
-            }
-            
-            function fill_list(history,i){
-                strdata = "<tr><td>"+i+"</td>"
-                strdata = strdata+"<td>"+history[1]+"</td>"
-                strdata = strdata+"<td>"+history[2]+"</td>"
-                strdata = strdata+"<td>"+history[3]+"</td>"
-                strdata = strdata+"<td><a href="/trade/comment" class="btn" value="comment" onclick="get_ID()"> 评价 </a></td></tr>"
-                $("#flight_list").append($("<tbody>",{html:strdata}))
-            }
-        </script>
-        
   </head>
   <body>
-  
-  
+  <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="#">Online Payment</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav">
+              <li><a href="#">账户设置</a></li>
+              <li><a href="../buyer/order_manage.html">我是买家</a></li>
+              <li><a href="../seller/order_manage.html">我是卖家</a></li>
+			  <li><a href="#">淘宝贝</a></li>
+			  <li class="active"><a href="/">在线预订</a></li>
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 %include template/head_bar.inc
       <div class="hero-unit"></div>
       <div class="container-fluid">
@@ -93,34 +52,70 @@
               </div><!--/span-->
         <div class="span10">
 	<div class="main">
-  	
-	  <div class="rimidebox">
-		<a href="order_manage.html">我的订单</a><span>>></span><a href="tran_history.html">订单记录</a>
-      </div>
+        
+    <div class="well sidebar-nav">
+        <ul class="breadcrumb">
+            <li><a href="/hotel/search">预定系统</a><span class="divider">/</span></li>
+            <li><a href="#">我的订单</a><span class="divider">/</span></li>
+            <li class="active">订单查询</a></li>
+        </ul>
       
 	  <div class="order_list">
-		<form class="orderquery">
-            	<label class="control-label" for="time">成交时间</label>
-                <input type="text" placeholder="Begin date" id="begin_date">
-                <input type="text" placeholder="End date" id="end_date">
-            
-            	<label class="control-label" for="time">交易类型</label>
+		<form class="orderquery" method="get" action="/trade/comment"></form>
+            <div class="row-fluid">
+            <div class="span1">
+                <label class="control-label" for="time">成交时间</label>
+            </div>
+            <div class="span3">
+                <div class="control-group">
+                    <div data-link-field="departure_date" class="controls input-append date form_datetime1">
+                        <input type="text" style="width: 80%;" value="" readonly>
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                    <input type="hidden" value="" id="begin_date"><br>
+                        </div>
+            </div>
+            <div id="return">
+                <div class="span1">&nbsp&nbsp;至</div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div data-link-field="return_date" class="controls input-append date form_datetime1">
+                            <input type="text" style="width: 80%;" value="" readonly>
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                        <input type="hidden" value="" id="end_date"><br>
+                            </div>
+                </div></div>
+            <div class="btn-group span2">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    交易类型
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" id="type" value="">
+                    <li id="flight_booking"><a>机票预定</a></li>
+                    <li id="hotel_booking"><a>酒店预定</a></li>
+                </ul>
+            </div>
+            </div>
+            	<!--label class="control-label" for="time">交易类型</label>
             	<select id="type">
 						<option data-msg="机票预定" value="ALL" id="flight_booking">机票预定</option>
 						<option data-msg="酒店预定" value="ALL" id="hotel_booking">酒店预定</option>
-                </select>
+                </select-->
              <div>
-			 <a class="btn" type="button"
-                        onclick="fetch_history(
-                            $('#begin_date').val(),
-                            $('#end_date').val(),
-                            $('#type').val(),
-                            $('#Username').val(),
-                 )">搜索</a>
+            <div id="Username"></div>
+            <div class ="row-fluid">
+                 <div class="span6"></div>
+                <a class="btn btn-middle btn-primary" onclick="fetch_history($('#begin_date').val(),$('#end_date').val(),$('#type').val(),$('#Username').val())">搜索</a>
              </div>
-		</form>
-        <div class="well" id="display_history_panel">
-		<table class="table bought_list " id="order_list">
+            </div>
+      </div></div>
+        <div class="well sidebar-nav" id="display_history_panel">
+        <table id='trans_list' style="background-color:#ffffff;" class="table table-hover">
+        </table>
+		<!--table class="table table-hover bought_list" style="background-color:#ffffff;" >
 		<thead>
             <div><tr class="col_name">
 				<th class="item" colspan="2">商品</th>
@@ -148,7 +143,7 @@
                 </tr>
             </div>
 		</tbody>
-		</table>
+		</table-->
 		<div class="pageNac"></div>
       	</div>
       </div>
@@ -165,7 +160,73 @@
         <a href="../other/map.html">网站地图</a>
         <span>© 2013 Black.com 版权所有</span>
    </footer>
-  
+      
+<!--jscode.-->
+<script>
+    $("#display_history_panel").hide()
+    $("#orderquery").hide()
+    $(".dropdown-toggle").click(function(){
+        $("#display_history_panel").hide();
+    })
+    $(".form_datetime1").datetimepicker({
+        format: "yyyy/mm/dd",
+        todayBtn: 1,
+        autoclose: 1,
+        minView: 2,
+        pickerPosition: "bottom-left",
+    });
+    $(".form_datetime2").datetimepicker({
+        format: "yyyy/mm/dd",
+        todayBtn: 1,
+        autoclose: 1,
+        minView: 2,
+        pickerPosition: "bottom-left",
+    });
+              
+    function submit_comment(t_id){
+        $(".orderquery").append($("<input type='text' name='transaction_id'>",{html:t_id}))
+        $(".orderquery").submit()
+    }
+              
+    function fetch_history(b_date,e_date,typ,u_id){
+        $("#display_history_panel").show()
+        console.log(type);
+        $("#trans_list").html('查询中，请稍候...')
+        $.getJSON(
+            "/trade/booking_history/async",
+            {
+                begin_date: b_date,
+                end_date: e_date,
+                type:     typ,
+                Username: u_id,
+            },
+            function(data){
+                console.log(data);
+                $("#trans_list").html('')
+                //$('#booking_item').html('')
+                //$('#booking_price').html('')
+                //$('#booking_date').html('')
+                strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>评价</strong></td>"+"<td style=\"width:15%;\"></td>"
+                $("#trans_list").append($("<tr>",{html:strdata}))
+                for(var i in data.booking_history){
+                  fill_list (data.booking_history[i],i)
+                }
+                if(data.info.length== 0){
+                  $('#booing_item').html('未查询到满足条件的记录')
+                }
+            }
+        );
+    }
+              
+    function fill_list(history,i){
+        strdata = "<tr><td id='t_id'>"+i+"</td>" // 商品编号 history[0]=t_id
+        strdata = strdata+"<td>"+history[1]+"</td>" // 价格
+        strdata = strdata+"<td>"+history[2]+"</td>" // 提交时间
+        strdata = strdata+"<td>"+history[3]+"</td>" // 评价
+        strdata = strdata+"<td><a href=\"/trade/remark\" class=\"btn\" value=\"comment\" onclick=\"submit_comment($(this).parent().parent().children('#t_id').html())\">评价</a></td></tr>" //
+        $("#trans_list").append($("<tbody>",{html:strdata}))
+    }
+</script>
   </body>
   
 </html>
