@@ -72,21 +72,23 @@
                                 </div>
                     </div></div>
                 <div class="btn-group span2">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="transaction_type" value="">
                         交易类型
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" id="type" value="">
-                        <li id="flight_booking"><a>机票预定</a></li>
-                        <li id="hotel_booking"><a>酒店预定</a></li>
+                        <li class="booking-option" value="0"><a>全部</a></li>
+                        <li class="booking-option" value="1"><a>机票预定</a></li>
+                        <li class="booking-option" value="2"><a>酒店预定</a></li>
                     </ul>
+                    <input type="hidden" id="type" value="all">
                 </div>
             </div>
             <div>
                 <div id="Username"></div>
                 <div class ="row-fluid">
                     <div class="span6"></div>
-                    <a class="btn btn-middle btn-primary" onclick="fetch_history($('#begin_date').val(),$('#end_date').val(),$('#type').val(),$('#Username').val())">搜索</a>
+                    <a class="btn btn-middle btn-primary" onclick="fetch_history()">搜索</a>
                 </div>
             </div>
 
@@ -175,17 +177,25 @@
                                               minView: 2,
                                               pickerPosition: "bottom-left",
                                               });
-          function fetch_history(b_date,e_date,typ,u_id){
+          $(".booking-option").click(function(){
+                                     $(".choosed").removeClass("choosed")
+                                     $(this).addClass("choosed")
+                                     switch($(".choosed").val()){
+                                     case 0:$("#type").val('all');$("#transaction_type").html('全部&nbsp&nbsp;<span class="caret"></span>');break;
+                                     case 1:$("#type").val('flight');$("#transaction_type").html('机票预定&nbsp&nbsp;<span class="caret"></span>');break;
+                                     case 2:$("#type").val('hotel');$("#transaction_type").html('酒店预定&nbsp&nbsp;<span class="caret"></span>');break;
+                                     }
+                                     })
+          function fetch_history(){
               $("#display_history_panel").show()
-              console.log(type);
+              console.log($('#type').val());
               $("#comment_list").html('查询中，请稍候...')
               $.getJSON(
                         "/trade/booking_history/async",
                         {
-                            begin_date: b_date,
-                            end_date: e_date,
-                            type:     typ,
-                            Username: u_id,
+                            begin_date: $('#begin_date').val(),
+                            end_date: $('#end_date').val(),
+                            type:     $('#type').val(),
                         },
                         function(data){
                         console.log(data)

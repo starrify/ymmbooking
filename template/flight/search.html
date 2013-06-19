@@ -106,17 +106,17 @@
                               默认排序
                               <span class="caret"></span>
                           </a>
-                          <ul id="display-options" class="dropdown-menu" style="font-size:12px;">
-                              <li id="default"> <a href="#">默认排序</a></li>
+                          <ul val="0" id="display-options" class="dropdown-menu" style="font-size:12px;">
+                              <li val="0"> <a href="#">默认排序</a></li>
                               <li class="divider"></li>
-                              <li id="d-time-asc"><a href="#">起飞：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li id="d-time-desc"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li val="1"><a href="#">起飞：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li val="2"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                               <li class="divider"></li>
-                              <li id="a-time-asc"><a href="#">抵达：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li id="a-time-desc"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li val="3"><a href="#">抵达：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li val="4"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                               <li class="divider"></li>
-                              <li id="total-time-asc"><a href="#">总时：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li id="total-time-desc"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li val="5"><a href="#">总时：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li val="6"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                           </ul>
                       </div>
                   </div>
@@ -233,6 +233,24 @@
                       $(this).find(".icon-chevron-down").addClass('icon-white');
                       }
                       });
+    $("#display-options li").click(function(){
+        $(".choosed").removeClass("choosed")
+        $(this).addClass("choosed")
+        $("#display-options").val($(".choosed").val())
+    });
+    
+    function sort(data){
+        switch($("#display-options").val()){
+            case 0: break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+        }
+        return data;
+    }
     
     function fetch_flight() {
         $("#display_flight_panel").show()
@@ -248,6 +266,7 @@
             },
             function(data) {
                 console.log(data)
+                sort(data)
                 $("#flight_list").html('')
                 strdata="<td class=info_td>航班号</td><td class=info_td><strong>航班信息</strong></td>"+"<td class=info_td><strong>起降时间</strong></td>"+"<td class=info_td><strong>总时长</strong></td>"+"<td class=info_td><strong>起飞机场</strong></td>"+"<td class=info_td><strong>降落机场</strong></td>"+"<td class=info_td><strong>最低报价(元)</strong></td>"+"<td class=info_td><strong>其他费用</strong></td>"+"<td style=\"width:15%;\"></td>"
                 $("#flight_list").append($("<tr>",{html:strdata}))
