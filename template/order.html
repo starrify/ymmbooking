@@ -22,7 +22,10 @@
                         <h4>填写使用者信息</h4>
                         <div class="well sidebar-nav">
                             <form class="form-horizontal" action="/create_transaction" method="get">
-                                <input type="hidden" name="aaa" value="aaa"></input>
+                                <input type="hidden" name="type" value="{{order_type}}"></input>
+                                <input type="hidden" name="_item_id" value="{{_item_id}}"></input>
+                                <input type="hidden" name="_item_date" value="{{_item_date}}"></input>
+                                <input type="hidden" name="_item_price" value="{{_item_price}}"></input>
                                 <div class="control-group">
                                     <label class="control-label" for="user_type">使用人类型</label>
                                     <div class="controls">
