@@ -87,12 +87,7 @@
           <div class ="row-fluid">
               <div class="span6"></div>
               <a class="btn btn-primary btn-middle" href="#"
-                  onclick="fetch_hotel(
-                  $('#hotel_city').val(),
-                  $('#hotel_name').val(),
-                  $('#dtp_in').val(),
-                  $('#dtp_leave').val()
-                  )" >搜  索 »</a>
+                  onclick="fetch_hotel()" >搜  索 »</a>
           </div><!--/*search button-->
       </div>
       <div class="well sidebar-nav" id="display_hotel_panel">
@@ -222,9 +217,9 @@
     });
     
     //search result is restricted on hotel_city and hotel_name
-    function fetch_hotel(city,h_name,b_time,e_time){
+    function fetch_hotel(){
         $("#display_hotel_panel").show()
-        console.log(city);
+        console.log($("#hotel_city").val());
         $("#hotel_list").html('查询中，请稍候...')
         $.getJSON(
             "/hotel/search/async",// url

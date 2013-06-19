@@ -101,7 +101,7 @@
             </div>
             <div class="row-fluid">
                  <div class="span6"></div>
-                 <div class="span2 btn btn-middle btn-primary" onclick="fetch_history($('#begin_date').val(),$('#end_date').val(),$('#type').val(),$('#Username').val())">搜索</div>
+                 <div class="btn btn-middle btn-primary" onclick="fetch_history()">搜 索  »</div>
             </div>
       </div>
     </div><!--/.well sidebar-nav-->
@@ -149,21 +149,21 @@
         $(".choosed").removeClass("choosed")
         $(this).addClass("choosed")
         switch($(".choosed").val()){
-                               case 0:$("#type").val('all');$("#transaction_type").html('全部');break;
-                               case 1:$("#type").val('flight');$("#transaction_type").html('机票预定');break;
-                               case 2:$("#type").val('hotel');$("#transaction_type").html($('酒店预定').val());break;
+                               case 0:$("#type").val('all');$("#transaction_type").html('全部&nbsp&nbsp;<span class="caret"></span>');break;
+                               case 1:$("#type").val('flight');$("#transaction_type").html('机票预定&nbsp&nbsp;<span class="caret"></span>');break;
+                               case 2:$("#type").val('hotel');$("#transaction_type").html('酒店预定&nbsp&nbsp;<span class="caret"></span>');break;
         }
     })         
-    function fetch_history(b_date,e_date,typ){
+    function fetch_history(){
         $("#display_history_panel").show()
         console.log(type);
         $("#trans_list").html('查询中，请稍候...')
         $.getJSON(
             "/trade/booking_history/async",
             {
-                begin_date: b_date,
-                end_date: e_date,
-                type:     typ,
+                begin_date: $("#begin_date").val(),
+                end_date:   $("#end_date").val(),
+                type:       $("#type").val(),
             },
             function(data){
                 console.log(data);

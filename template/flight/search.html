@@ -86,11 +86,7 @@
                 </div></div>
             <div class ="span3">
                  <a class="btn btn-primary btn-middle"
-                        onclick="fetch_flight(
-                            $('#departure_city').val(),
-                            $('#arrival_city').val(),
-                            $('#departure_date').val()
-                            )">搜  索 »</a>
+                        onclick="fetch_flight()">搜  索 »</a>
             </div><!--search button-->
                 </div>
 		</div>
@@ -110,37 +106,37 @@
                               默认排序
                               <span class="caret"></span>
                           </a>
-                          <ul class="dropdown-menu" style="font-size:12px;">
-                              <li> <a href="#">默认排序</a></li>
+                          <ul id="display-options" class="dropdown-menu" style="font-size:12px;">
+                              <li id="default"> <a href="#">默认排序</a></li>
                               <li class="divider"></li>
-                              <li><a href="#">起飞：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li id="d-time-asc"><a href="#">起飞：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li id="d-time-desc"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                               <li class="divider"></li>
-                              <li><a href="#">抵达：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
+                              <li id="a-time-asc"><a href="#">抵达：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li id="a-time-desc"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-down"></i></a></li>
                               <li class="divider"></li>
-                              <li><a href="#">总时：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
-                              <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li id="total-time-asc"><a href="#">总时：升序&nbsp;<i class="icon-arrow-up"></i></a></li>
+                              <li id="total-time-desc"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;降序&nbsp;<i class="icon-arrow-up"></i></a></li>
                           </ul>
                       </div>
                   </div>
                   
                   <div class="span2">
                       <div class="btn-group dropup">
-                          <button id="star" class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">起飞时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          <button class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">起飞时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
                   </div>
                   <div class="span2">
                       <div class="btn-group dropup">
-                          <button id="score" class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">抵达时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          <button class="btn btn-info btn-small desc" title="点击按评分从高到低排序" count="0">抵达时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
                   </div>
                   
                   <div class="span2">
                       <div class="btn-group dropup">
-                          <button id="list_condition_totaltime" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">总时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
+                          <button class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">总时间<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
                   </div>                  
@@ -238,16 +234,17 @@
                       }
                       });
     
-    function fetch_flight(d_city, a_city, d_date) {
+    function fetch_flight() {
         $("#display_flight_panel").show()
-        console.log(d_city);
+        console.log($("#departure_city").val());
         $("#flight_list").html('查询中, 请稍候...')
         $.getJSON(
             "/flight/search/async",
             {
-            departure_city: d_city,
-            arrival_city:   a_city,
-            departure_date: d_date,
+                departure_city: $("#departure_city").val(),
+                arrival_city:   $("#arrival_city").val(),
+                departure_date: $("#departure_date").val(),
+                type:  'search',
             },
             function(data) {
                 console.log(data)
@@ -290,6 +287,7 @@
         
         //用距标准时间差来获取相距时间
         var minsec = Date.parse(date1) - Date.parse(date2);
+        if(minsec < 0)minsec = minsec + 1*24*60*60*1000;
         var hh = Math.floor(minsec / 1000 / 60 / 60);
         var mm = (minsec - hh * 60 * 60 * 1000) / 1000 / 60;
         strdata = " " + hh + "小时"
