@@ -184,9 +184,8 @@
     });
               
     function submit_comment(t_id){
-        $(".orderquery").append($("<input name='transaction_id'>",{html:t_id}))
+        $(".orderquery").append($("<input type='text' name='transaction_id'>",{html:t_id}))
         $(".orderquery").submit()
-        
     }
               
     function fetch_history(b_date,e_date,typ,u_id){

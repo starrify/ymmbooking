@@ -376,12 +376,11 @@ def trade_remark():
 def trade_remark():
     return {}
 
+@bottle_app.get('/trade/comment_history')
+@bottle.view(app.config.template_path + 'trade/comment_history.html')
 def trade_remark():
     return {}
 
-@bottle_app.get('/trade/comment_history')
-@bottle.view(app.config.template_path + 'trade/comment_history.html')
->>>>>>> master
 @Misc.auth_validate
 def order():
     return {}
