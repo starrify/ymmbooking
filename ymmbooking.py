@@ -186,7 +186,16 @@ class Database(object):
             return ret[0]
         except:
             return []
-
+    def get_flight_comment(self, uid="", start_date="", end_date="2999-12-31"):
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "SELECT * FROM flightComment "
+            "WHERE u_id = ?",
+            [uid])
+        ret = cursor.fetchall()
+        cursor.close()
+        return ret
+ 
     def add_flight_comment(self, uid='', flight_number='', message='', rate=''):
         cursor = self._conn.cursor()
         cursor.execute(
@@ -456,12 +465,11 @@ def comment_submit():
         if not param[1]:
             bottle.redirect("/trade/booking_history")
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        print(param)
         db = Database(app.config)
         db.add_flight_comment(uid, param[1], param[2], param[3])
         bottle.redirect("/trade/booking_history")
     elif comment_type == "hotel":
-        bottle.redirect("/trade/booking_history")
+        pass
     else:
         #bottle.redirect('/trade/booking_history')
         pass
@@ -470,8 +478,31 @@ def comment_submit():
 
 @bottle_app.get('/trade/comment_history')
 @bottle.view(app.config.template_path + 'trade/comment_history.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
+
+@bottle_app.get('/trade/comment_history/async')
+@Misc.auth_validate
+def comment_history_asycn():
+    comment_type = bottle.request.query.get('type')
+    if comment_type == 'flight':
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        raw_comments = db.get_flight_comment(uid, param[0], param[1])
+        comments = [[
+            comment['c_id'], comment['flightNumber'], comment['u_id'], 
+            comment['message'], comment['rate']] for comment in raw_comments]
+        return {'comments': comments}
+    elif comment_type == "hotel":
+        pass
+    else:
+        pass
+    
+    return {'comments': []}
 
 @bottle_app.get('/manage/flight/info')
 @bottle.view(app.config.template_path + 'manage/flight/flight.html')
