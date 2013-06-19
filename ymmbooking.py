@@ -174,6 +174,38 @@ class Database(object):
         ret = cursor.fetchall()
         cursor.close()
         return ret
+    def get_flight_transaction(self, uid="", tid=""):
+        try:
+            cursor.self._conn.cursor()
+            cursor.execute(
+                "SELECT FROM flightTranscation "
+                "WHERE uid=? AND tid=?",
+                [uid, tid])
+            ret = cursor.fetchall()
+            cursor.close()
+            return ret[0]
+        except:
+            return []
+    def get_flight_comment(self, uid="", start_date="", end_date="2999-12-31"):
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "SELECT * FROM flightComment "
+            "WHERE u_id = ?",
+            [uid])
+        ret = cursor.fetchall()
+        cursor.close()
+        return ret
+ 
+    def add_flight_comment(self, uid='', flight_number='', message='', rate=''):
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "INSERT INTO flightComment "
+            "VALUES("
+                "NULL," # auto increment
+                "?,?,?,?)",
+            [flight_number, uid, message, rate])
+        cursor.close()
+        return
 
 class App(object):
     """The main application."""
@@ -339,6 +371,7 @@ def order():
     else:   # invalid type or no type.
         #bottle.redirect('/')
         pass
+    #bottle.redirect('/')
     return {
         'item_name': '', 'item_price': '', 'total_price': '', 
         'order_type': '', '_item_id':  '', '_item_date': '', '_item_price': ''}
@@ -398,12 +431,78 @@ def booking_history_async():
 @bottle.view(app.config.template_path + 'trade/comment.html')
 @Misc.auth_validate
 def trade_comment():
+    comment_type = bottle.request.query.get('type')
+    if comment_type == 'flight':
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        tid = bottle.request.query.get('tid')
+        tid = Misc.unicodify(tid, 'utf8')
+        db = Database(app.config)
+        trans = db.get_flight_transaction(uid, tid)
+        if not trans: # error accessing database
+            bottle.redirect('/trade/booking_history')
+        #if not trans['status'] == 'paid':
+        #    bottle.redirect('/trade/booking_history')
+        return {'_tid': tid, '_item_id': trans['flightNumber'], 
+            'item_id': trans['flightNumber'], 'user_name': trans['user_name'],
+            'time': trans['time'], 'price': trans['price']}
+        
+    elif comment_type == "hotel":
+        bottle.redirect("/trade/booking_history")
+    else:
+        #bottle.redirect('/trade/booking_history')
+        pass
     return {}
+
+@bottle_app.get('/trade/comment/submit')
+@bottle.view(app.config.template_path + 'trade/comment.html')
+@Misc.auth_validate
+def comment_submit():
+    comment_type = bottle.request.query.get('type')
+    if comment_type == 'flight':
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['_tid', '_item_id', 'message', 'rate']))
+        if not param[1]:
+            bottle.redirect("/trade/booking_history")
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        db.add_flight_comment(uid, param[1], param[2], param[3])
+        bottle.redirect("/trade/booking_history")
+    elif comment_type == "hotel":
+        pass
+    else:
+        #bottle.redirect('/trade/booking_history')
+        pass
+    bottle.redirect("/trade/booking_history")
+
 
 @bottle_app.get('/trade/comment_history')
 @bottle.view(app.config.template_path + 'trade/comment_history.html')
+@Misc.auth_validate
 def trade_remark():
     return {}
+
+@bottle_app.get('/trade/comment_history/async')
+@Misc.auth_validate
+def comment_history_asycn():
+    comment_type = bottle.request.query.get('type')
+    if comment_type == 'flight':
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        raw_comments = db.get_flight_comment(uid, param[0], param[1])
+        comments = [[
+            comment['c_id'], comment['flightNumber'], comment['u_id'], 
+            comment['message'], comment['rate']] for comment in raw_comments]
+        return {'comments': comments}
+    elif comment_type == "hotel":
+        pass
+    else:
+        pass
+    
+    return {'comments': []}
 
 @bottle_app.get('/manage/flight/info')
 @bottle.view(app.config.template_path + 'manage/flight/flight.html')
