@@ -67,12 +67,12 @@
             </div>
             <div class="span3">
                 <div class="control-group">
-                    <div data-link-field="begin_date" class="controls input-append date form_datetime1">
+                    <div data-link-field="start_date" class="controls input-append date form_datetime1">
                         <input type="text" style="width: 80%;" value="" readonly>
                             <span class="add-on"><i class="icon-remove"></i></span>
                             <span class="add-on"><i class="icon-th"></i></span>
                             </div>
-                    <input type="hidden" value="1" id="begin_date"><br>
+                    <input type="hidden" value="" id="start_date"><br>
                         </div>
             </div>
             <div class="span1">&nbsp&nbsp;至</div>
@@ -83,7 +83,7 @@
                             <span class="add-on"><i class="icon-remove"></i></span>
                             <span class="add-on"><i class="icon-th"></i></span>
                     </div>
-                    <input type="hidden" value="1" id="end_date"><br>
+                    <input type="hidden" value="" id="end_date"><br>
                 </div>
             </div>
             <div class="btn-group span2">
@@ -124,7 +124,7 @@
         <span>© 2013 Black.com 版权所有</span>
    </footer>
       
-<form class="orderquery" method="get" action="/trade/comment"></form>
+<form id="orderquery" method="get" action="/trade/comment"></form>
 <!--jscode.-->
 <script>
     $("#display_history_panel").hide()
@@ -161,20 +161,17 @@
         $.getJSON(
             "/trade/booking_history/async",
             {
-                begin_date: $("#begin_date").val(),
+                start_date: $("#start_date").val(),
                 end_date:   $("#end_date").val(),
                 type:       $("#type").val(),
             },
             function(data){
                 console.log(data);
                 $("#trans_list").html('')
-                //$('#booking_item').html('')
-                //$('#booking_price').html('')
-                //$('#booking_date').html('')
-                strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>评价</strong></td>"+"<td style=\"width:15%;\"></td>"
+                strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>交易状态</strong></td>"+"<td class=info_td><strong>评价</strong></td>"+"<td style=\"width:15%;\"></td>"
                 $("#trans_list").append($("<tr>",{html:strdata}))
-                for(var i in data.booking_history){
-                  fill_list (data.booking_history[i],i)
+                for(var i in data.flights){
+                  fill_list (data.flights[i])
                 }
                 if(data.length== 0){
                   $('#booing_item').html('未查询到满足条件的记录')
@@ -183,20 +180,21 @@
         );
     }
               
-    function fill_list(history,i){
-        strdata = "<tr><td id='t_id'>"+i+"</td>" // 商品编号 history[0]=t_id
-        strdata = strdata+"<td>"+history[1]+"</td>" // 价格
-        strdata = strdata+"<td>"+history[2]+"</td>" // 提交时间
-        strdata = strdata+"<td>"+history[3]+"</td>" // 评价
-        strdata = strdata+"<td><a href=\"/trade/remark\" class=\"btn\" value=\"comment\" onclick=\"submit_comment($(this).parent().parent().children('#t_id').html())\">评价</a></td></tr>" //
+    function fill_list(history){
+        strdata = "<tr><td id='_tid'>"+history[0]+"</td>" // 交易编号 history[0]=t_id
+        strdata = strdata+"<td>"+history[1]+"</td>"
+        strdata = strdata+"<td>"+history[2]+"</td>" // 成交时间
+        strdata = strdata+"<td>"+history[3]+"</td>" // 价格
+        strdata = strdata+"<td>"+history[4]+"</td>" // 状态
+        strdata = strdata+"<td><button href=\"/trade/remark\" class=\"btn\" value=\"comment\" onclick=\"submit_comment($(this).parent().parent().children('#_tid').html())\">评价</button></td></tr>" //
         $("#trans_list").append($("<tbody>",{html:strdata}))
     }
     
     $("#orderquery").hide()
     function submit_comment(t_id){
         strdata = "<input type='text' name='transaction_id' value=\""+t_id+"\">"
-        $(".orderquery").append(strdata)
-        $(".orderquery").submit()
+        $("#orderquery").append(strdata)
+        $("#orderquery").submit()
     }
     
 </script>

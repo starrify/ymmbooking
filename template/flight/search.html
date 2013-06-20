@@ -289,7 +289,7 @@
         strdata = strdata+"<td>"+flight[4]+"</td>" //a_city
         strdata = strdata+"<td id='price' style=\"color=#333333\">"+flight[5]+"</td>"//price
         strdata = strdata+"<td>燃料费:"+flight[6]+"<br>机建费:"+flight[7]+"</td>"
-        strdata = strdata+"<td><button class=\"btn btn-info\" onclick=\"submit_flight_book($(this).parent().parent().children('#flt_no').html(),$('#departure_date').val(),$(this).parent().parent().children('#price').html())\">订购 »</a></td></tr>"
+        strdata = strdata+"<td><button class=\"btn btn-info\" onclick=\"submit_flight_book($(this).parent().parent().children('#flt_no').html(),$('#departure_date').val(),$(this).parent().parent().children('#price').html())\">订购 »</button></td></tr>"
         $("#flight_list").append($("<tbody>",{html:strdata}))
     }
 
