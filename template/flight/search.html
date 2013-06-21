@@ -187,6 +187,16 @@
                                         minView: 2,
                                         pickerPosition: "bottom-left"
                                         });
+    $("#departure_date").val(function(){
+                     var dd = new Date();
+                     var y = 1900+dd.getYear();
+                     var m = dd.getMonth()+1;//获取当前月份的日期
+                     if (m<10) m = "0"+m;
+                     var d = dd.getDate();
+                     if (d<10) d = "0"+d;
+                     return y+"-"+m+"-"+d+" 00:00:00";
+                     })
+    $("#return_date").val('');
     function show_return(){
         $("#return").show()
     }

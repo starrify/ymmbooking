@@ -145,6 +145,24 @@
         minView: 2,
         pickerPosition: "bottom-left",
     });
+    $("#start_date").val(function(){
+                             var dd = new Date();
+                             var y = 1900+dd.getYear();
+                             var m = dd.getMonth();//获取当前月份的日期
+                             if (m<10) m = "0"+m;
+                             var d = dd.getDate();
+                             if (d<10) d = "0"+d;
+                             return y+"-"+m+"-"+d+" 00:00:00";
+                             })
+    $("#end_date").val(function(){
+                             var dd = new Date();
+                             var y = 1900+dd.getYear();
+                             var m = dd.getMonth()+1;//获取当前月份的日期
+                             if (m<10) m = "0"+m;
+                             var d = dd.getDate()+1;
+                             if (d<10) d = "0"+d;
+                             return y+"-"+m+"-"+d+" 00:00:00";
+                             })
     $(".booking-option").click(function(){
         $(".choosed").removeClass("choosed")
         $(this).addClass("choosed")
@@ -168,7 +186,7 @@
             function(data){
                 console.log(data);
                 $("#trans_list").html('')
-                strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>交易状态</strong></td>"+"<td class=info_td><strong>评价</strong></td>"+"<td style=\"width:15%;\"></td>"
+                strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>交易状态</strong></td>"+"<td class=info_td><strong>评价</strong></td>"
                 $("#trans_list").append($("<tr>",{html:strdata}))
                 for(var i in data.flights){
                   fill_list (data.flights[i])
@@ -182,17 +200,18 @@
               
     function fill_list(history){
         strdata = "<tr><td id='_tid'>"+history[0]+"</td>" // 交易编号 history[0]=t_id
-        strdata = strdata+"<td>"+history[1]+"</td>"
+        strdata = strdata+"<td>"+history[1]+"</td>" // 商品描述
         strdata = strdata+"<td>"+history[2]+"</td>" // 成交时间
         strdata = strdata+"<td>"+history[3]+"</td>" // 价格
         strdata = strdata+"<td>"+history[4]+"</td>" // 状态
-        strdata = strdata+"<td><button href=\"/trade/remark\" class=\"btn\" value=\"comment\" onclick=\"submit_comment($(this).parent().parent().children('#_tid').html())\">评价</button></td></tr>" //
+        strdata = strdata+"<td><button class=\"btn\" value=\"comment\" onclick=\"submit_comment($(this).parent().parent().children('#_tid').html())\">评价</button></td></tr>" 
         $("#trans_list").append($("<tbody>",{html:strdata}))
     }
     
     $("#orderquery").hide()
-    function submit_comment(t_id){
-        strdata = "<input type='text' name='transaction_id' value=\""+t_id+"\">"
+    function submit_comment(transaction_id){
+        strdata = "<input type='text' name='tid' value=\""+transaction_id+"\">"
+        strdata = strdata + "<input type='text' name='type' value=\"flight\">"
         $("#orderquery").append(strdata)
         $("#orderquery").submit()
     }

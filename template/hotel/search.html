@@ -67,7 +67,7 @@
                                       <span class="add-on"><i class="icon-remove"></i></span>
                                       <span class="add-on"><i class="icon-th"></i></span>
                                       </div>
-                              <input type="hidden" value="1" id="dtp_in"><br>
+                              <input type="hidden" value="" id="dtp_in"><br>
                       </div>
                       </div>
                       <div class="span1">离店日期</div>
@@ -78,7 +78,7 @@
                                       <span class="add-on"><i class="icon-remove"></i></span>
                                       <span class="add-on"><i class="icon-th"></i></span>
                                       </div>
-                              <input type="hidden" value="1" id="dtp_leave"><br>
+                              <input type="hidden" value="" id="dtp_leave"><br>
                                   </div>
                       </div>
                   </div><!--row2-->
@@ -159,6 +159,25 @@
 <script type="text/javascript">
     // " " for selector
     $("#display_hotel_panel").hide()
+    $("#dtp_in").val(function(){
+                     var dd = new Date();
+                     var y = 1900+dd.getYear();
+                     var m = dd.getMonth()+1;//获取当前月份的日期
+                     if (m<10) m = "0"+m;
+                     var d = dd.getDate();
+                     if (d<10) d = "0"+d;
+                     return y+"-"+m+"-"+d+" 08:00:00";
+                     })
+    $("#dtp_leave").val(function(){
+                     var dd = new Date();
+                     dd.setDate(dd.getDate()+2);//获取AddDayCount天后的日期
+                     var y = 1900+dd.getYear();
+                     var m = dd.getMonth()+1;//获取当前月份的日期
+                        if (m<10) m = "0"+m;
+                     var d = dd.getDate();
+                        if (d<10) d = "0"+d;
+                     return y+"-"+m+"-"+d+" 12:00:00";
+                     })
     $(".radio").click(function(){
         $("#display_hotel_panel").hide()
     })
