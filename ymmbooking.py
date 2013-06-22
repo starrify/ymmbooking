@@ -25,13 +25,22 @@ class Config():
 
         # to ensure all these entries are exising in the config file
         # or at least one of the following parseings would fail 
+
         self.database_path  = parser.get('Path', 'database_path')
         self.db_schema_path = parser.get('Path', 'db_schema_path')
         self.static_path    = parser.get('Path', 'static_path')
         self.view_path      = parser.get('Path', 'view_path')
         self.template_path  = parser.get('Path', 'template_path')
+
         self.debug  = parser.getboolean('Misc', 'debug')
         self.secret = parser.get('Misc', 'secret')
+        self.coockie_age    = parser.getint('Misc', 'cookie_age')
+        
+        self.integration_test   = parser.getboolean('Integration', 'integration_test')
+        self.main_deploy    = parser.get('Integration', 'main_deploy')
+        self.main_timeout   = parser.getint('Integration', 'main_timeout')
+        self.login_url      = parser.get('Integration', 'login_url')
+        #self.integration_test = parser.getboolean('Integration', 'integration_test')
 
 class Database(object):
     """A wrapper for accessing the database."""
@@ -257,19 +266,37 @@ def login():
     redirect_url = bottle.request.query.get('redirect')
     if not redirect_url:
         redirect_url = '/'
-    return """ This is a fake Login
-        <form method="get" action="/auth">
+    return """ This is a temporary login page. For testing usage only.
+        <form method="post" action="/auth">
         <input type="hidden" name="redirect" value="%s">
-        UID: <input type="text" name="uid">
+        Username: <input type="text" name="username">
+        Password: <input type="text" name="passwd">
         <input type="submit" value="Login"/>
         </form>""" %redirect_url
 
-@bottle_app.route('/auth')
+@bottle_app.post('/auth')
 def auth():
     """Merely for testing for now"""
-    uid = bottle.request.query.get('uid')
-    if uid:
-        bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=600)
+    uid = ''
+    param = list(map(bottle.request.forms.get, ['username', 'passwd']))
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+    if app.config.integration_test:
+        """stupid API from group 1"""
+        jdata = json.dumps({'Username': param[0], 'userpassword': param[1]})
+        try:
+            ret = urllib.request.urlopen(app.config.login_url, jdata, app.config.main_timeout)
+            jdata = json.loads(ret.read())
+            if jdata['err'] == "True":
+                return "Authentication failed."
+            uid = jdata['uid']
+        except:
+            return "Error communicating with auth API by group 1"
+            pass
+    else:
+        """authentication always pass"""
+        uid = param[0]
+        pass
+    bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=app.config.cookie_age)
     redirect_url = bottle.request.query.get('redirect')
     if not redirect_url:
         redirect_url = '/'
