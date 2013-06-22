@@ -193,20 +193,19 @@
               console.log($('#type').val());
               $("#comment_list").html('查询中，请稍候...')
               $.getJSON(
-                        "/trade/booking_history/async",
+                        "/trade/comment_history/async",
                         {
                             start_date: $('#start_date').val(),
-                            end_date: $('#end_date').val(),
-                            type:     $('#type').val(),
+                            end_date:   $('#end_date').val(),
+                            type:       $('#type').val(),
                         },
                         function(data){
                         console.log(data)
                         $("#comment_list").html('')
-                        //$("#booking_item").html('')
-                        //$("#booking_price").html('')
-                        //$("#booking_date").html('')
-                        for(var i in data.booking_history){
-                            fill_list (data.booking_history[i],i)
+                        strdata="<td class=info_td>商品编号</td><td class=info_td><strong>商品描述</strong></td>"+"<td class=info_td><strong>商品评价</strong></td>"+"<td class=info_td><strong>商品评分</strong></td>"
+                        $("#comment_list").append($("<tr>",{html:strdata}))
+                        for(var i in data.comments){
+                            fill_list (data.comments[i],i)
                         }
                         if(data.length== 0){
                             $('#booing_item').html('未查询到满足条件的记录')
@@ -215,12 +214,12 @@
                 );
           }
           
-          function fill_list(history,i){
+          function fill_list(comment,i){
               strdata = "<tr><td id='t_id'>"+i+"</td>" // 商品编号 history[0]=t_id
-              strdata = strdata+"<td>"+history[1]+"</td>" // 商品内容
-              strdata = strdata+"<td>"+history[2]+"</td>" // 商品评价
-              strdata = strdata+"<td>"+history[3]+"</td></tr>" // 评分
-              $("#trans_list").append($("<tbody>",{html:strdata}))
+              strdata = strdata+"<td>"+comment[1]+"</td>" // 商品描述
+              strdata = strdata+"<td>"+comment[3]+"</td>" // 商品评价
+              strdata = strdata+"<td>"+comment[4]+"</td></tr>" // 评分
+              $("#comment_list").append($("<tbody>",{html:strdata}))
           }
           </script>
 

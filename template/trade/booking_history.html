@@ -210,6 +210,7 @@
     
     $("#orderquery").hide()
     function submit_comment(transaction_id){
+        $("#orderquery").html('')
         strdata = "<input type='text' name='tid' value=\""+transaction_id+"\">"
         strdata = strdata + "<input type='text' name='type' value=\"flight\">"
         $("#orderquery").append(strdata)
