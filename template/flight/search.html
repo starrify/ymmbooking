@@ -95,9 +95,8 @@
         </div><!--order-list-->
             
         </div>
-      <div class="well sidebar-nav" id="display_flight_panel">
-          
-          <div id='display_condition' class="row-fluid" style="color:#333333;" >
+      <div class="well sidebar-nav" id="display_flight_panel" style="color:#333333;">          
+          <div id='display_condition' class="row-fluid" >
               <div class="span8">
                   <div class="span1"></div>
                   <div class="span2">
@@ -147,9 +146,8 @@
                           <button id="list_condition_price" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">价格<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                           </button>
                       </div>
-                  </div>
-              </div-->
-              
+                  </div-->
+              </div>
           </div><!--/#display_condition-->
         <form id="bookquery" method="get" action="/order"></form>
         <table id='flight_list' style="background-color:#ffffff;" class="table table-hover">
@@ -332,7 +330,7 @@
         strdata = strdata+"<td>"+time_strformat(time_dif_day(time_dif(flight[2],flight[1])))+"</td>" //a_time
         strdata = strdata+"<td>"+flight[3]+"</td>" //d_city
         strdata = strdata+"<td>"+flight[4]+"</td>" //a_city
-        strdata = strdata+"<td id='price' style=\"color=#333333\">"+flight[5]+"</td>"//price
+        strdata = strdata+"<td id='price'>"+flight[5]+"</td>"//price
         strdata = strdata+"<td>燃料费:"+flight[6]+"<br>机建费:"+flight[7]+"</td>"
         strdata = strdata+"<td><button class=\"btn btn-info\" onclick=\"submit_flight_book($(this).parent().parent().children('#flt_no').html(),$('#departure_date').val(),$(this).parent().parent().children('#price').html())\">订购 »</button></td></tr>"
         $("#flight_list").append($("<tbody>",{html:strdata}))
