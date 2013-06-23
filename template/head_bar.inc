@@ -42,7 +42,7 @@
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
          <h4 id="H1">用户登出</h4>
-         <h4 href="/manage/hotel/info">
+         <h4 href="/manage/hotel/info">|管理员</h4>
        </div>
        <div class="modal-body">
           <p>是否确定登出？</p>
@@ -53,7 +53,7 @@
        </div>
   </div>
 
-<div class="item">
+<div class="toppic">
     <img src="/img/logo1.jpg" width="100%">
     </img>
 </div>
