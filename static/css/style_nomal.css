@@ -10,7 +10,7 @@ body{
 	background-color: #f7fcf8;
 }
  body {
-        padding-top: 60px;
+        padding-top: 0px;
         padding-bottom: 40px;
       }
       .sidebar-nav {
@@ -26,6 +26,9 @@ body{
         }
       }
 
+.toppic{
+    padding-bottom:15px;
+}
 .tail{
 	text-align:center;
 }

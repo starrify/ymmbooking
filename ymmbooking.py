@@ -261,18 +261,13 @@ def index():
     return {}
 
 @bottle_app.route('/login')
+@bottle.view(app.config.template_path + 'login.html')
 def login():
     """Merely a test login form"""
     redirect_url = bottle.request.query.get('redirect')
     if not redirect_url:
         redirect_url = '/'
-    return """ This is a temporary login page. For testing usage only.
-        <form method="post" action="/auth">
-        <input type="hidden" name="redirect" value="%s">
-        Username: <input type="text" name="username">
-        Password: <input type="text" name="passwd">
-        <input type="submit" value="Login"/>
-        </form>""" %redirect_url
+    return {'redirect_url': redirect_url}
 
 @bottle_app.post('/auth')
 def auth():
@@ -282,13 +277,15 @@ def auth():
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
     if app.config.integration_test:
         """stupid API from group 1"""
-        jdata = json.dumps({'Username': param[0], 'userpassword': param[1]})
+        jdata = json.dumps({'uname': param[0], 'password': param[1], 'group': 0})
         try:
-            ret = urllib.request.urlopen(app.config.login_url, jdata, app.config.main_timeout)
+            auth_url = app.config.main_deploy + app.config.login_url
+            ret = urllib.request.urlopen(auth_url, jdata, app.config.main_timeout)
             jdata = json.loads(ret.read())
-            if jdata['err'] == "True":
+            if jdata['err'] == "100":
+                uid = jdata['uid']
+            else:
                 return "Authentication failed."
-            uid = jdata['uid']
         except:
             return "Error communicating with auth API by group 1"
             pass
@@ -297,7 +294,7 @@ def auth():
         uid = param[0]
         pass
     bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=app.config.cookie_age)
-    redirect_url = bottle.request.query.get('redirect')
+    redirect_url = bottle.request.forms.get('redirect')
     if not redirect_url:
         redirect_url = '/'
     bottle.redirect(redirect_url)
