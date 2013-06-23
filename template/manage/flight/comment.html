@@ -33,13 +33,13 @@
                                     <tr>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">日期上限</label>
+                                                    <label class="search-label">起始日期</label>
                                                     <input class="search-input" type="text" id="bs_beginDate" placeholder="input">
                                                 </div>
                                         </td>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">日期下限</label>
+                                                    <label class="search-label">结束日期</label>
                                                     <input class="search-input" type="text" id="bs_endDate" placeholder="input">
                                                 </div>
                                         </td>
@@ -74,7 +74,7 @@
                             </div>
                         </div> <!-- seller-search-form -->
                     </div> <!-- row-fluid -->
-                    <h3 id="resultVerbose">共有0个搜索结果</h3>
+                    <h3 id="resultVerbose">共有0个结果</h3>
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
@@ -231,7 +231,7 @@ $('#resultTable').click(function(e) {
                 function(data) {
                     //console.log(data);
                     rt.removeRow(rowId);
-                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
+                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
                 });
             break;
         }
@@ -266,7 +266,7 @@ $('#bsSearch').click(function(e) {
             if(data.status == 'succeeded') {
                 console.log(mapDbToTable(data.flightComment));
                 rt.setData(mapDbToTable(data.flightComment));
-                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
             }
         });
 });
@@ -287,7 +287,7 @@ $('#atAdd').click(function(e) {
                 $('#addTable input').val('');
                 queryObj.c_id = data.c_id;
                 rt.pushRow(mapDbToTable([queryObj])[0]);
-                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
             }
             else
                 alert('Add failed');

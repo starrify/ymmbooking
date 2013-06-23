@@ -222,9 +222,10 @@ class Database(object):
         return
     def get_flight_transaction_history(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
+        print([uid, start_date, end_date])
         cursor.execute(
             "SELECT * FROM flightTransaction "
-            "WHERE u_id = ? AND ? <= time AND time <= ?",
+            "WHERE u_id = ? AND time BETWEEN ? AND ?",
             [uid, start_date, end_date])
         ret = cursor.fetchall()
         cursor.close()
@@ -761,7 +762,54 @@ def flight_comment_manage_json():
         cmt = db.get_flight_comment(param[0], param[1], param[2])
 
         return { 'status': 'succeeded', 'flightComment': cmt }
-    return {'status': 'succeeded', 'status': 'failed'}
+    return {'status': 'failed'}
+
+@bottle_app.get('/manage/flight/transaction/async')
+@Misc.auth_validate
+def flight_comment_manage_json():
+    schema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status', 'is_child', 'user_name',
+                    'ID_type', 'ID_number', 'contact_name', 'contact_tel', 'contact_email'];
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('flightTransaction', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded', 't_id': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('flightTransaction', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['t_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('flightTransaction', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, 
+            ['u_id', 'beginDate', 'endDate']))
+        print(param)
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        
+        db = Database(app.config)
+        trans = db.get_flight_transaction_history(param[0], param[1], param[2])
+
+        return { 'status': 'succeeded', 'flightTransaction': trans }
+    return {'status': 'failed'}
 
 if __name__ == '__main__':
     bottle.run(bottle_app, host='0.0.0.0', port=8080, debug=True)
