@@ -37,12 +37,12 @@
       </div>
       
 	  <div class="order_list">
-          <form class="orderquery" action="/comment/submit" method="get">
-              <input type="hidden" name="_t_id" value="{{_t_id}}">
-              <input type="hidden" name="type" value="{{order_type}}">
-              <input type="hidden" name="item_id" value="{{item_id}}">
+          <form class="orderquery" action="/trade/comment/submit" method="get">
+              <input type="hidden" name="type" value="flight">
+              <input type="hidden" name="_tid" value="{{_tid}}">
+              <input type="hidden" name="_item_id" value="{{_item_id}}">
               <input type="hidden" name="user_name" value="{{user_name}}">
-                          
+                              
           <div class="comment">
                 <div> 订单信息</div>
               <table class="table table-striped">
@@ -56,10 +56,10 @@
                   </thead>
                   <tbody>
                       <tr>
-                          <td id="_t_id">{{_tid}}</td>
-                          <td id="_item_id">{{item_id}}</td>
-                          <td id="_t_time">{{time}}</td>
-                          <td id="_item_price">{{price}}</td>
+                          <td>{{_tid}}</td>
+                          <td>{{item_id}}</td>
+                          <td>{{time}}</td>
+                          <td>{{price}}</td>
                       </tr>
                   </tbody>
               </table>

@@ -176,10 +176,10 @@ class Database(object):
         return ret
     def get_flight_transaction(self, uid="", tid=""):
         try:
-            cursor.self._conn.cursor()
+            cursor = self._conn.cursor()
             cursor.execute(
-                "SELECT FROM flightTranscation "
-                "WHERE uid=? AND tid=?",
+                "SELECT * FROM flightTransaction "
+                "WHERE u_id=? AND t_id=?",
                 [uid, tid])
             ret = cursor.fetchall()
             cursor.close()
@@ -467,7 +467,7 @@ def comment_submit():
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         db.add_flight_comment(uid, param[1], param[2], param[3])
-        bottle.redirect("/trade/booking_history")
+        bottle.redirect("/trade/comment_history")
     elif comment_type == "hotel":
         pass
     else:

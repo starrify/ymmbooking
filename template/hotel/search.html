@@ -102,20 +102,20 @@
                                   <span class="caret"></span>
                               </a>
                               <ul class="dropdown-menu" style="font-size:12px;">
-                                  <li> <a href="#">默认排序</a></li>
+                                  <li value="0" class="choosed"> <a href="#">默认排序</a></li>
                                   <li class="divider"></li>
-                                  <li><a href="#">星级：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
-                                  <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
+                                  <li value="1" class=""><a href="#">价格：低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
+                                  <li value="2" class=""><a href="#">价格：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
                                   <li class="divider"></li>
-                                  <li><a href="#">评分：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                                  <li value="3" class=""><a href="#">星级：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                                  <li value="4" class=""><a href="#">星级：低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
                                   <li class="divider"></li>
-                                  <li><a href="#">价格：低到高&nbsp;<i class="icon-arrow-up"></i></a></li>
-                                  <li><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
+                                  <li value="5" class=""><a href="#">评分：高到低&nbsp;<i class="icon-arrow-down"></i></a></li>
                               </ul>
                           </div>
                       </div>
                       
-                      <div class="span2">
+                      <!--div class="span2">
                           <div class="btn-group dropup">
                               <button id="list_condition_star" class="btn btn-info btn-small asc" title="点击按星级从高到低排序" count="0">星级<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                               </button>
@@ -133,7 +133,7 @@
                               <button id="list_condition_price" class="btn btn-info btn-small asc" title="点击按价格从低到高排序" count="0">价格<i class="icon-chevron-up icon-white"></i><i class="icon-chevron-down icon-white"></i></button>
                               </button>
                           </div>
-                      </div>
+                      </div-->
                   </div>
               </div>
           </div><!--/#display_condition-->
@@ -166,17 +166,29 @@
                      if (m<10) m = "0"+m;
                      var d = dd.getDate();
                      if (d<10) d = "0"+d;
-                     return y+"-"+m+"-"+d+" 08:00:00";
+                     var h = dd.getHours();
+                     if (h<10) h = "0"+h;
+                     var mm = dd.getMinutes();
+                     if (mm<10) mm = "0"+mm;
+                     var s = dd.getSeconds();
+                     if (s<10) s = "0"+s;
+                     return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
                      })
     $("#dtp_leave").val(function(){
                      var dd = new Date();
                      dd.setDate(dd.getDate()+2);//获取AddDayCount天后的日期
                      var y = 1900+dd.getYear();
                      var m = dd.getMonth()+1;//获取当前月份的日期
-                        if (m<10) m = "0"+m;
+                     if (m<10) m = "0"+m;
                      var d = dd.getDate();
-                        if (d<10) d = "0"+d;
-                     return y+"-"+m+"-"+d+" 12:00:00";
+                     if (d<10) d = "0"+d;
+                     var h = dd.getHours();
+                     if (h<10) h = "0"+h;
+                     var mm = dd.getMinutes();
+                     if (mm<10) mm = "0"+mm;
+                     var s = dd.getSeconds();
+                     if (s<10) s = "0"+s;
+                     return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
                      })
     $(".radio").click(function(){
         $("#display_hotel_panel").hide()
@@ -235,6 +247,13 @@
         }
     });
     
+    $(".dropdown-menu li").click(function(){
+        $(".choosed").removeClass("choosed")
+        $(this).addClass("choosed")
+        $(".dropdown-toggle").html($(".choosed a").html())
+        fetch_hotel()
+    });
+    
     //search result is restricted on hotel_city and hotel_name
     function fetch_hotel(){
         $("#display_hotel_panel").show()
@@ -246,9 +265,18 @@
                 location: $("#hotel_city").val(),//city,
                 name: $("#hotel_name").val(),//h_name,
                 type: 'search',
-            }, // data 
+            }, // data
             function(data){ // callback
                 console.log(data)
+                  switch($(".choosed").val()){
+                  case 0:
+                        break;
+                  case 1:
+                        data.hotel.sort(function(a,b){
+                            return (a[3]-b[3])
+                        });
+                        break;
+                  data.hotel.sort()}
                 $("#hotel_list").html('')
                 strdata="<td></td><td id='hotel_name'><strong>酒店名称</strong></td><td id='hotel_discription'><strong>酒店位置</strong></td><td><strong>最低报价</strong></td><td></td>"/*"<td id='hotel_rate'><strong>酒店星级</strong></td><td id='hotel_discount'><strong>折扣</strong></td><td id='hotel_price'>"+*/
                 $("#hotel_list").append($("<tr>",{html:strdata}))
