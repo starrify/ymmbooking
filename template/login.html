@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Shopping Search</title>
+        <meta content="charset=utf-8"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style_nomal.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="/js/jquery.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function submit_login(){
+                strdata = "<input type='hidden' name='redirect' value='{{redirect_url}}'>"
+                strdata = strdata + "<input type='hidden' name='username' value='"+$('#inputUsername').val()+"'>"
+                strdata = strdata + "<input type='hidden' name='passwd' value='"+$('#inputUserPassword').val()+"'>"
+                var groupnode = document.getElementsByName("optionsRadios");
+                var group = "user"
+                for (var i = 0; i < groupnode.length; i++) {
+                    if (groupnode[i].checked)
+                    group = (groupnode[i].value);
+                }
+                strdata = strdata + "<input type='hidden' name='group' value='"+group+"'>"
+                
+                $("#loginquery").html('')
+                $("#loginquery").append(strdata)
+                console.log($("#loginquery"))
+                $("#loginquery").submit()
+            }
+            function mOver(idname)
+            {
+                var tmp;
+                tmp="img/item_"+idname+"_click.png";
+                
+                document.getElementById(idname).src=tmp;
+            }
+            function mOut(idname)
+            {
+                var tmp;
+                tmp="img/item_"+idname+".png";
+                document.getElementById(idname).src=tmp;
+            }
+            </script>
+        <style type="text/css">
+            body
+            {
+                background-image:url("img/backguand.jpg");
+            }
+            </style>
+    </head>
+    
+    
+    <body>
+        
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    
+                    <a class="brand" href="#">Online Payment</a>
+                    <div class="nav-collapse collapse">
+                        <p class="navbar-text pull-right">
+                        <a href="account/register.html"  class="navbar-link">Register</a>
+                        </p>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid login_back" >
+            <div class="row-fluid">
+                <div class="span4 offset4">
+                    <div class="main">
+                        <div class="information_list">
+                            <div class="title">
+                                <h3 class="text-center">支付宝登陆</h3>
+                                <div class="infor_block">
+                                    <div class="personal_info">
+                                        
+                                        <br/>
+                                        <div id="Div1" class="">
+                                            <table width="800" border="0">
+                                                <tr class="text-center">
+                                                    <td colspan="1"><input type="text" id="inputUsername" class="input input-xlarge " placeholder="输入账户名"/></td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td colspan="1"><input type="password" id="inputUserPassword" class="input input-xlarge " placeholder="密码"/></td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td colspan="1">
+                                                        <form>
+                                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="user" checked/>普通用户
+                                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="admin"/>管理员
+                                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="auth"/>仲裁
+                                                            
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr class="text-center">
+                                                    <td colspan="1"><button type="button" class="btn btn-large" onclick="submit_login()">登陆</button>&nbsp;<a href="../buyer/account/register.html" class="" >注册</a></td>
+                                                    
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                        <div class="alert"id="alertbody"style="display:none"></div>
+                                    </div>	  
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div></div></div>
+        <br />
+        <div id="term" style="text-align:center; ">
+            <center>
+                <table width="500" border="0" >
+                    <tr>
+                        <td><img src="img/item_cloth.png" id="cloth" width="100" height="100" alt="cloth" onmouseover="mOver('cloth')" onmouseout="mOut('cloth')"/></td>
+                        <td><img src="img/item_shoe.png" id="shoe" width="100" height="100" alt="shoe"  onmouseover="mOver('shoe')" onmouseout="mOut('shoe')"/></td>
+                        <td><img src="img/item_bag.png" id="bag" width="100" height="100" alt="bag"  onmouseover="mOver('bag')" onmouseout="mOut('bag')"/></td>
+                        <td><img src="img/item_skin.png" id="skin" width="100" height="100" alt="skin"  onmouseover="mOver('skin')" onmouseout="mOut('skin')"/></td>
+                        <td><img src="img/item_sport.png" id="sport" width="100" height="100" alt="sport"  onmouseover="mOver('sport')" onmouseout="mOut('sport')"/></td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/item_food.png" id="food" width="100" height="100" alt="food"  onmouseover="mOver('food')" onmouseout="mOut('food')"/></td>
+                        <td><img src="img/item_groceries.png" id="groceries" width="100" height="100" alt="groceries"  onmouseover="mOver('groceries')" onmouseout="mOut('groceries')"/></td>
+                        <td><img src="img/item_edu.png" id="edu" width="100" height="100" alt="edu"  onmouseover="mOver('edu')" onmouseout="mOut('edu')"/></td>
+                        <td><img src="img/item_phone.png" id="phone" width="100" height="100" alt="phone"  onmouseover="mOver('phone')" onmouseout="mOut('phone')"/></td>
+                        <td><img src="img/item_hot.png" id="hot" width="100" height="100" alt="hot"  onmouseover="mOver('hot')" onmouseout="mOut('hot')"/></td>
+                    </tr>
+                </table>
+            </center>
+        </div>
+        <form id="loginquery" method="post" action="/auth"></form>
+            
+    </body>
+</html>
