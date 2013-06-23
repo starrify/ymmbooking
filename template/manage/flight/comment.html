@@ -15,7 +15,6 @@
     </head>
     <body>
 %include template/head_bar.inc
-        <div class="hero-unit"></div>
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
@@ -107,10 +106,10 @@
                             </colgroup>
                             <tr>
                                 <td class="text-cropped">新的航班评论</td>
-                                <td class="cell"><input class="cell-content input" id="atTID" type="text" placeholder="input"></td>
-                                <td class="cell"><input class="cell-content input" id="atFID" type="text" placeholder="input"></td>
-                                <td class="cell"><input class="cell-content input" id="atUID" type="text" placeholder="input"></td>
-                                <td class="cell"><input class="cell-content input" id="atTime" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content input" id="at_flightNumber" type="text" placeholder="航班编号"></td>
+                                <td class="cell"><input class="cell-content input" id="at_u_id" type="text" placeholder="用户标识"></td>
+                                <td class="cell"><input class="cell-content input" id="at_message" type="text" placeholder="用户评论"></td>
+                                <td class="cell"><input class="cell-content input" id="at_rate" type="text" placeholder="用户评分"></td>
                                 <td>
                                     <div>
                                         <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
@@ -145,7 +144,7 @@
 function mapDbToTable(dbdata) {
     //console.log(dbdata);
     return $.map(dbdata, function(ele, index) {
-        return parseObject(ele);
+        return [parseObject(ele)];
     });
 }
 
@@ -174,9 +173,9 @@ function parseObject(obj) {
 var dbschema = ['c_id', 'flightNumber', 'u_id', 'message', 'rate'];
 var schema = [{id:'c_id', name:'评价编号', type: 'int', primaryKey: true}, 
                 {id:'flightNumber', name:'航班编号'},
-                {id:'u_id', name:'用户名'},
-                {id: 'message', name: '评价', type: 'string'}, 
-                {id: 'rate', name: '评分', type: 'string'},
+                {id:'u_id', name:'用户标识'},
+                {id: 'message', name: '用户评价', type: 'string', popover: true}, 
+                {id: 'rate', name: '用户评分', type: 'string', popover: true},
                 ];
 var asyncURL = '/manage/flight/comment/async';
 var rt = new ResultTable('resultTable', schema, []);
@@ -265,6 +264,7 @@ $('#bsSearch').click(function(e) {
         function(data) {
             console.log(data);
             if(data.status == 'succeeded') {
+                console.log(mapDbToTable(data.flightComment));
                 rt.setData(mapDbToTable(data.flightComment));
                 $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
             }
@@ -282,9 +282,10 @@ $('#atAdd').click(function(e) {
         asyncURL,
         queryObj,
         function(data) {
-            //console.log(data);
+            console.log(data);
             if(data.status == 'succeeded') {
                 $('#addTable input').val('');
+                queryObj.c_id = data.c_id;
                 rt.pushRow(mapDbToTable([queryObj])[0]);
                 $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
             }

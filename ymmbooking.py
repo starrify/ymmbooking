@@ -134,7 +134,7 @@ class Database(object):
                         , data)
             cursor.close()
         except:
-            #print(sys.exc_info())
+            print(sys.exc_info())
             return False, -1
         
         return True, list(map(lambda x: data[x], pkey_cols))
@@ -730,23 +730,23 @@ def flight_comment_manage_json():
         db = Database(app.config)
         success, pkey = db.add_item('flightComment', schema, param, [0], fillpkey_autoinc)
         if success:
-            return {'status': 'succeeded', 'flightNumber': pkey[0]}
+            return {'status': 'succeeded', 'c_id': pkey[0]}
     elif access_type == 'update':
         param = list(map(bottle.request.query.get, schema))
         if not param[0]:
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success = db.update_item('flight', schema, param, [0], fillpkey_autoinc)
+        success = db.update_item('flightComment', schema, param, [0])
         if success:
             return {'status': 'succeeded'}
     elif access_type == 'delete':
-        param = list(map(bottle.request.query.get, ['flightNumber']))
+        param = list(map(bottle.request.query.get, ['c_id']))
         if not param[0]:
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success = db.delete_item('flight', schema, param, [0], fillpkey_autoinc)
+        success = db.delete_item('flightComment', schema, param, [0])
         if success:
             return {'status': 'succeeded'}
     elif access_type == 'search':
@@ -760,7 +760,7 @@ def flight_comment_manage_json():
         db = Database(app.config)
         cmt = db.get_flight_comment(param[0], param[1], param[2])
 
-        return {'flightComment': cmt }
+        return { 'status': 'succeeded', 'flightComment': cmt }
     return {'status': 'succeeded', 'status': 'failed'}
 
 if __name__ == '__main__':

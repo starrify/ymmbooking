@@ -16,15 +16,17 @@ function textToHtml(text) {
 }
 
 function isInt(str) {
-    return parseInt(str) == str;
-    //return (str.length < 10 && /^[0-9]+$/.test(str));
+    return /^\d+$/.test(str);
 }
 function isBool(str) {
+    if(str == '1' || str == '0') return true;
+    
     var lowstr = str.toLowerCase();
     return (lowstr == 'true' || lowstr == 'false');
 }
 function isFloat(str) {
-    return parseFloat(str) == str;
+    return /^\d+(\.\d+)?$/.test(str);
+    //return parseFloat(str) == str;
 }
 function isDateTime(str) {
     return /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(str);
@@ -33,11 +35,13 @@ function isTime(str) {
     return /\d{2}:\d{2}/.test(str);
 }
 function checkType(str, type) {
+    str += ''; // convert to string
     switch(type) {
     case 'int': return isInt(str);
     case 'float': return isFloat(str);
     case 'datetime': return isDateTime(str);
     case 'bool': return isBool(str);
+    case 'time': return isTime(str);
     }
     return true;
 }
@@ -60,7 +64,6 @@ function deepCmp(obj1, obj2) {
     var str1 = JSON.stringify(obj1), str2 = JSON.stringify(obj2);
     if(str1 == undefined) str1 = '';
     if(str2 == undefined) str2 = '';
-    console.log(str1, str2);
     return str1.localeCompare(str2);
 }
 

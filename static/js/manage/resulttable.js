@@ -6,18 +6,12 @@ function ResultTable(tableid, schema, data) {
     //this.$verbose = $('#resultVerbose');
     // callback
     this.defaultCallback = {
-        cellData: function(cell) {
-            if(cell.data('mode') == 'edit')
-                return cell.find('input').val();
-            else {
-                var len = cell.data('view_prefix') ? cell.data('view_prefix').length : 0;
-                return cell.text().substring(len, cell.text().length);
-            }
+        cellDataFromEdit: function(cell) {
+            return cell.find('input').val();
         },
         editLeaf: function(cell, obj) {
             if(cell.data('mode') == 'edit') return cell;
             
-            obj = (obj != undefined ? obj : outer.cellData(cell));
             cell.html('<input type="text" class="cell-content input" value="' + obj + '">');
             //cell.css('padding', 0);
             cell.find('input').focus().select();
@@ -49,11 +43,8 @@ function ResultTable(tableid, schema, data) {
             return cell;
         },
         
-        popover_cellData: function(pop) {
-            if(pop.data('mode') == 'edit') 
-                return pop.find('textarea').val();
-            else 
-                return 'not implemented';
+        popover_cellDataFromEdit: function(pop) {
+            return pop.find('textarea').val();
         },
         popover_edit: function(ele, pop) {
             if(pop.data('mode') == 'edit') return pop;
@@ -62,7 +53,7 @@ function ResultTable(tableid, schema, data) {
             pop.find('.popover-content')
                 .html('<div><textarea style="height:100px">_text</textarea></div> \
                     <div style="text-align:center;"><button class="btn btn-primary">保存</button> \
-                    <button class="btn">放弃</button></div>'.replace('_text', outer.cellData(ele)));
+                    <button class="btn">放弃</button></div>'.replace('_text', outer.getCellCache(ele)));
             pop.find('textarea').focus().select();
             
             ele.popoverex('pin');
@@ -72,12 +63,13 @@ function ResultTable(tableid, schema, data) {
                 buttons.each(function() {
                     $(this).off('click');
                 });
+                pop.data('mode', 'view');
                 ele.popoverex('unpin');
                 ele.popoverex('hide');
             };
             $(buttons[0]).click(function() {
-                close();
-                outer.modifyCell(ele, outer.callback(ele, 'popover_cellData')(pop));
+                close(); // we must close first or popover information may be overwritten by modifyCell
+                outer.modifyCell(ele, outer.callback(ele, 'popover_cellDataFromEdit')(pop));
             });
             $(buttons[1]).click(close);
             
@@ -88,7 +80,7 @@ function ResultTable(tableid, schema, data) {
             return '<div style="word-wrap:break-word;">_text</div> \
                 <div style="font-size:8px;line-height:8px;color:#C0C0C0; \
                 text-align:right;">click to edit</div>'
-                .replace('_text', textToHtml(outer.cellData($(this))));
+                .replace('_text', textToHtml(outer.getCellCache($(this))));
         },
         popover_title: function() {
             return outer.attrAt(outer.cellIndex($(this))).name;
@@ -112,7 +104,6 @@ function ResultTable(tableid, schema, data) {
     //this.updateResultVerbose();
 }
 
-var glb = {};
 ResultTable.prototype = {
     buildSchema: function(schema, self) {
         var outer = this;
@@ -188,11 +179,7 @@ ResultTable.prototype = {
     },
     
     // callback wrapper
-    cellData: function(cell) {
-        return this.callback(cell, 'cellData')(cell);
-    },
-    
-    edit: function(cell, obj) { // wrapper for edit callback
+    edit: function(cell) { // wrapper for edit callback
         var children = this.cellChildren(cell);
         if(children.length != 0) { // not leaf
             var editable = true;
@@ -203,11 +190,13 @@ ResultTable.prototype = {
                 }
             }
             if(editable)
-                return this.callback(cell, 'editNonLeaf')(cell, obj);
+                return this.callback(cell, 'editNonLeaf')(cell);
             else
                 return cell;
         } else { // leaf
-            if(!this.editable(cell)) return cell; // if not editable
+            if(!this.editable(cell) || (cell.data('overflow') && this.popoverEnabled(cell)))
+                return cell; // if not editable or there is popover
+            var obj = (cell.data('cache') ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
             return this.callback(cell, 'editLeaf')(cell, obj);
         }
     },
@@ -215,15 +204,12 @@ ResultTable.prototype = {
     view: function(cell) {
         if(this.cellChildren(cell).length != 0) { // not leaf
             this.callback(cell, 'viewNonLeaf')(cell);
-            glb.viewnonleaf = glb.viewnonleaf ? glb.viewnonleaf + 1 : 1
         } else {
             var obj = (cell.data('cache') ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
             this.callback(cell, 'viewLeaf')(cell, obj);
-            glb.viewleaf = glb.viewleaf ? glb.viewleaf + 1 : 1
         }
         
         if(this.popoverEnabled(cell)) {
-            glb.checkoverflow = glb.checkoverflow ? glb.checkoverflow + 1 : 1;
             var of = this.overflow(cell);
             if(!cell.data('overflow') && of)  {
                 cell.data('overflow', true);
@@ -352,7 +338,8 @@ ResultTable.prototype = {
             container: 'body',
             content: outer.callback(div, 'popover_content'),
             popover_click: function(e) {
-                outer.callback(div, 'popover_edit')(e.data.ele, e.data.pop);
+                if($(e.target).prop('tagName') == 'DIV') 
+                    outer.callback(div, 'popover_edit')(e.data.ele, e.data.pop);
             },
         });
     },
@@ -437,33 +424,37 @@ ResultTable.prototype = {
     setCell: function(cell, obj) {
         this.setCellCache(cell, obj);
         //cell.data('cache', deepCopy(obj));
-        this.view(cell, obj);
+        this.view(cell);
     },
     
-    modifyCell: function(cell, obj) {
+    modifyCell: function(cell, obj) { // param obj is used when data src is from popover etc.
         var pos = cellPosition(cell);
-        obj = obj ? obj : this.cellData(cell);
+        obj = (obj != undefined ? obj : this.callback(cell, 'cellDataFromEdit')(cell));
         var cache = this.getCellCache(cell);
 
         if(deepCmp(cache, obj) != 0) {
+            this.setCell(cell, obj);
             if(this.checkRow(pos.row)) {
                 this.getRow(pos.row).removeClass().addClass('warning');
             } else {
                 this.getRow(pos.row).removeClass().addClass('error');
             }
+        } else {
+            this.view(cell);
         }
-        this.setCell(cell, obj);        
     },
     
     checkCell: function(cell, attr) { // use attr as parameter in order to speed up the recursion
         attr = attr ? attr : this.attrAt(this.cellIndex(cell));
-
-        if(!checkType(this.cellData(cell), attr.type)) return false;
-        
         var children = this.cellChildren(cell);
-        for(var i = 0; i < children.length; i++) {
-            var child = $(children[i]);
-            if(!this.checkCell(child, attr[i])) return false;
+        
+        if(children.length == 0) {
+            if(!checkType(this.getCellCache(cell), attr.type)) return false;
+        } else {
+            for(var i = 0; i < children.length; i++) {
+                var child = $(children[i]);
+                if(!this.checkCell(child, attr[i])) return false;
+            }
         }
         return true;
     },
@@ -489,8 +480,10 @@ ResultTable.prototype = {
     // popover related
     popoverEnabled: function(cell) {
         var attr = this.attrAt(this.cellIndex(cell));
-        for(var curAttr = attr; curAttr; curAttr = curAttr.parent) {
+        if(!attr.popover) return false;
+        for(var curAttr = attr.parent; curAttr; curAttr = curAttr.parent) {
             if(curAttr.popover) return false;
         }
+        return true;
     },
 }
