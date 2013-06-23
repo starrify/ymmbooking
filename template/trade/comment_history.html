@@ -94,55 +94,12 @@
                 </div>
             </div>
 
-            	<!--label class="control-label" for="time">评价时间</label>
-                <input type="text" placeholder="Begin date" id="start_date">
-                <input type="text" placeholder="End date" id="end_date">
-            
-            	<label class="control-label" for="time">交易类型</label>
-            	<select id="type">
-						<option data-msg="机票预定" value="ALL" id="flight_booking">机票预定</option>
-						<option data-msg="酒店预定" value="ALL" id="hotel_booking">酒店预定</option>
-                </select>
-             <div>
-			 <button class="btn" type="button"
-                        onclick="fetch_history(
-                            $('#start_date').val(),
-                            $('#end_date').val(),
-                            $('#type').val(),
-                            $('#Username').val(),
-                 )">搜索</button>
-             </div-->
 		</form>
         </div></div>
         <div class="well sidebar-nav" id="display_history_panel">
             <table id='comment_list' style="background-color:#ffffff;" class="table table-hover">
             </table>
-		<!--table class="table bought_list " id="order_list">
-		<thead>
-            <div><tr class="col_name">
-				<th class="item" colspan="1.8">商品</th>
-                <th class="comment" colspan="2"> 评论内容</th>
-				<th class="rate"colspan="1">评分</th>
-                </tr>
-			</tr></div>
-		</thead>
-		<tbody>
-            <div id="history">
-            <tr class="order_item">
-                <th class="item" colspan="1.8"><div id ="booking_item">dsf</div></th>
-                <th class="comment" colspan="2" rows="2"><div id="booking_price">fsdff</div></th>
-                <th class="rate" colspan="1"><div id="booking_date">dsff</div></th>
-            </tr>
-            </div>
-            <div id="history">
-                <tr class="order_item">
-                    <th class="item" colspan="1.8"><div id ="booking_item">dsf</div></th>
-                    <th class="comment" colspan="2"><div id="booking_price">fsdff</div></th>
-                    <th class="rate" colspan="1"><div id="booking_date">dsff</div></th>
-                </tr>
-            </div>
-		</tbody>
-		</table-->
+
 		<div class="pageNac"></div>
       	</div>
       </div>
@@ -179,6 +136,7 @@
                                               minView: 2,
                                               pickerPosition: "bottom-left",
                                               });
+          
           $(".booking-option").click(function(){
                                      $(".choosed").removeClass("choosed")
                                      $(this).addClass("choosed")
@@ -188,6 +146,36 @@
                                      case 2:$("#type").val('hotel');$("#transaction_type").html('酒店预定&nbsp&nbsp;<span class="caret"></span>');break;
                                      }
                                      })
+          $("#start_date").val(function(){
+                               var dd = new Date();
+                               var y = 1900+dd.getYear();
+                               var m = dd.getMonth();//获取当前月份-1的日期
+                               if (m<10) m = "0"+m;
+                               var d = dd.getDate();
+                               if (d<10) d = "0"+d;
+                               var h = dd.getHours();
+                               if (h<10) h = "0"+h;
+                               var mm = dd.getMinutes();
+                               if (mm<10) mm = "0"+mm;
+                               var s = dd.getSeconds();
+                               if (s<10) s = "0"+s;
+                               return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
+                               })
+          $("#end_date").val(function(){
+                             var dd = new Date();
+                             var y = 1900+dd.getYear();
+                             var m = dd.getMonth()+1;//获取当前月份的日期
+                             if (m<10) m = "0"+m;
+                             var d = dd.getDate();
+                             if (d<10) d = "0"+d;
+                             var h = dd.getHours();
+                             if (h<10) h = "0"+h;
+                             var mm = dd.getMinutes();
+                             if (mm<10) mm = "0"+mm;
+                             var s = dd.getSeconds();
+                             if (s<10) s = "0"+s;
+                             return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
+                             })
           function fetch_history(){
               $("#display_history_panel").show()
               console.log($('#type').val());

@@ -118,12 +118,12 @@ CREATE TABLE flightTransaction(
 /*==============================================================*/
 DROP TABLE IF EXISTS flightComment;
 CREATE TABLE flightComment(
-    c_id            INTEGER         PRIMARY KEY,
+    c_id            INTEGER         AUTO_INCREMENT,
     flightNumber    VARCHAR(255)    not null,
     u_id            VARCHAR(255)    not null,
     message         VARCHAR(500)    null,
     rate            VARCHAR(500)    null,
-    /* PRIMARY KEY (c_id), */
+    PRIMARY KEY (c_id), 
     FOREIGN KEY (flightNumber) REFERENCES flight(flightNumber)
 );
 
