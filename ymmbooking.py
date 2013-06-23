@@ -34,7 +34,7 @@ class Config():
 
         self.debug  = parser.getboolean('Misc', 'debug')
         self.secret = parser.get('Misc', 'secret')
-        self.coockie_age    = parser.getint('Misc', 'cookie_age')
+        self.cookie_age    = parser.getint('Misc', 'cookie_age')
         
         self.integration_test   = parser.getboolean('Integration', 'integration_test')
         self.main_deploy    = parser.get('Integration', 'main_deploy')
