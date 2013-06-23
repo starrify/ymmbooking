@@ -25,15 +25,13 @@
                 console.log($("#loginquery"))
                 $("#loginquery").submit()
             }
-            function mOver(idname)
-            {
+            function mOver(idname){
                 var tmp;
                 tmp="img/item_"+idname+"_click.png";
                 
                 document.getElementById(idname).src=tmp;
             }
-            function mOut(idname)
-            {
+            function mOut(idname){
                 var tmp;
                 tmp="img/item_"+idname+".png";
                 document.getElementById(idname).src=tmp;
@@ -44,13 +42,9 @@
             {
                 background-image:url("img/backguand.jpg");
             }
-            </style>
+        </style>
     </head>
-    
-    
     <body>
-        
-        
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -64,11 +58,12 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="container-fluid login_back" >
             <div class="row-fluid">
                 <div class="span4 offset4">
                     <div class="main">
+                        
                         <div class="information_list">
                             <div class="title">
                                 <h3 class="text-center">支付宝登陆</h3>
@@ -87,23 +82,22 @@
                                                 <tr class="text-center">
                                                     <td colspan="1">
                                                         <form>
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="user" checked/>普通用户
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="admin"/>管理员
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="auth"/>仲裁
-                                                            
+                                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked/>普通用户
+                                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" />管理员
+                                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4"/>仲裁
                                                         </form>
                                                     </td>
                                                 </tr>
                                                 
                                                 <tr class="text-center">
-                                                    <td colspan="1"><button type="button" class="btn btn-large" onclick="submit_login()">登陆</button>&nbsp;<a href="../buyer/account/register.html" class="" >注册</a></td>
+                                                    <td colspan="1"><button type="button" class="btn btn-large login">登陆</button>&nbsp;<a href="../buyer/account/register.html" class="" >注册</a></td>
                                                     
                                                 </tr>
                                             </table>
                                         </div>
                                         
                                         <div class="alert"id="alertbody"style="display:none"></div>
-                                    </div>	  
+                                    </div>
                                 </div>
                             </div>
                             
@@ -132,6 +126,7 @@
             </center>
         </div>
         <form id="loginquery" method="post" action="/auth"></form>
-            
+        
     </body>
+    
 </html>
