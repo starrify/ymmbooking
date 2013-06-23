@@ -2,7 +2,6 @@
 /* CSS Document */
 /*nomal CSS don't modify it!*/
 body{
-	color: #999999;
 	background-attachment: scroll;
 	background-image: url(../img/backgurand.jpg);
 	background-repeat: repeat;
@@ -10,7 +9,7 @@ body{
 	background-color: #f7fcf8;
 }
  body {
-        padding-top: 0px;
+        padding-top: 40px;
         padding-bottom: 40px;
       }
       .sidebar-nav {
@@ -26,9 +25,6 @@ body{
         }
       }
 
-.toppic{
-    padding-bottom:15px;
-}
 .tail{
 	text-align:center;
 }
@@ -38,4 +34,8 @@ label{
 .hero-unit
 {
 	  background-image:url(../img/glyphicons-halflings.png);
+}
+.rimidebox
+{
+	margin-bottom:20px;
 }
