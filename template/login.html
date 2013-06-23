@@ -9,20 +9,20 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript">
             function submit_login(){
-                strdata = "<input name='redirect' value='{{redirect_url}}'><input type='submit' value='Login'/>"
-                strdata = strdata + "<input type='text' name='username' value='"+$('#inputUsername').val()+"'>"
-                strdata = strdata + "<input type='text' name='passwd' value='"+$('#inputUserPassword').val()+"'>"
-                              
+                strdata = "<input type='hidden' name='redirect' value='{{redirect_url}}'>"
+                strdata = strdata + "<input type='hidden' name='username' value='"+$('#inputUsername').val()+"'>"
+                strdata = strdata + "<input type='hidden' name='passwd' value='"+$('#inputUserPassword').val()+"'>"
                 var groupnode = document.getElementsByName("optionsRadios");
                 var group = "user"
                 for (var i = 0; i < groupnode.length; i++) {
                     if (groupnode[i].checked)
                     group = (groupnode[i].value);
                 }
-                strdata = strdata + "<input type='text' name='group' value='"+group+"'>"
+                strdata = strdata + "<input type='hidden' name='group' value='"+group+"'>"
                 
                 $("#loginquery").html('')
                 $("#loginquery").append(strdata)
+                console.log($("#loginquery"))
                 $("#loginquery").submit()
             }
             function mOver(idname)
@@ -131,8 +131,7 @@
                 </table>
             </center>
         </div>
-        <from id="loginquery" type="hidden" method="post" action="/auth">
-            </form>
+        <form id="loginquery" method="post" action="/auth"></form>
             
     </body>
 </html>
