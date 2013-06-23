@@ -30,23 +30,40 @@
     z-index: 1;
 }
 
+.table .cell {
+//    padding-left: 0 
+//    padding-right: 0;
+    padding: 0;
+    vertical-align: middle;
+//    text-align: center;
+}
+
 .table .text-cropped {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
+    padding: 2px;
 //    display: inline-block;
 }
 
-.table .input-cropped {
-    width: 88%;
-    padding-left: 3%;
-    padding-right: 3%;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    margin-left: 1px;
-    margin-right: 1px;
+.table .input {
+    padding: 0;
+}
+
+.table .cell-content {
+    width: 95%;
+//    height: 90%;
+//    padding-left: 3%;
+//    padding-right: 3%;
+//    border-left-width: 1px;
+//    border-right-width: 1px;
+//    margin-left: 2px;
+//    margin-right: 2px;
+//    padding: 0;
+    border: 2px;
+    margin: 1px;
 }
 
 .table .btn-icon {
@@ -56,3 +73,4 @@
     float: left;
     text-align: center;
 }
+

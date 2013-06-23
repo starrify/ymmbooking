@@ -79,6 +79,7 @@ class Database(object):
         return airports
 
     def get_flights(self, departure_airport="", arrival_airport=""):
+        print(departure_airport, arrival_airport)
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flight "
@@ -111,6 +112,51 @@ class Database(object):
         airline = cursor.fetchall()
         cursor.close()
         return airline
+    
+    def add_item(self, table, schema, data, pkey_cols, fillpkey = None):
+        cursor = self._conn.cursor()
+        
+        if(fillpkey):
+            fillpkey(table, schema, pkey_cols[0], data, cursor)
+        
+        #print("INSERT INTO %s (%s) VALUES(%s);"%(table, ','.join(schema), ','.join(['?'] * len(schema))), data)
+        try:
+            cursor.execute("INSERT INTO %s (%s) VALUES(%s);"%(table, ','.join(schema), ','.join(['?'] * len(schema)))
+                        , data)
+            cursor.close()
+        except:
+            #print(sys.exc_info())
+            return False, -1
+        
+        return True, list(map(lambda x: data[x], pkey_cols))
+
+    def update_item(self, table, schema, data, pkey_cols):
+        cursor = self._conn.cursor()
+        attr_non_pri = [i for i in range(len(schema)) if i not in pkey_cols]
+        try:
+            qstr = "UPDATE %s SET %s WHERE %s"%(table, 
+                ','.join(map(lambda x: "%s=?"%schema[x], attr_non_pri)),
+                " AND ".join(map(lambda x: "%s=?"%schema[x], pkey_cols)))
+            print("qstr=", qstr)
+            cursor.execute(qstr, [data[attr] for attr in attr_non_pri] +
+                [data[attr] for attr in pkey_cols]);
+            cursor.close()
+            return True
+        except:
+            print(sys.exc_info())
+            return False
+
+    def delete_item(self, table, schema, data, pkey_cols):
+        cursor = self._conn.cursor()
+        try:
+            cursor.execute(
+                "DELETE FROM %s WHERE %s"%(table, 
+                    ' AND '.join(map(lambda x: "%s=?"%schema[x], pkey_cols)))
+                , [data[i] for i in pkey_cols])
+            cursor.close()
+            return True
+        except None:
+            return False
 
     def add_hotel(self, name="", description="", location=""):
         cursor = self._conn.cursor()
@@ -367,6 +413,15 @@ def manage_hotel_transaction():
 def manage_hotel_comment():
     return {}
 
+#default primary key filler, assume autoinc on col 0
+def fillpkey_autoinc(table, schema, col, data, cursor):    
+    cursor.execute("SELECT MAX(%s) from %s;"%(schema[col], table))
+    try:
+        pkey = cursor.fetchall()[0]['MAX(%s)'%schema[col]] + 1
+    except: # the table may be empty
+        pkey = 1
+    data[col] = pkey
+        
 @bottle_app.get('/manage/hotel/info/async')
 @Misc.auth_validate
 def hotel_manage_json():
@@ -402,6 +457,60 @@ def hotel_manage_json():
             return {'status': 'succeeded'}
     elif access_type == 'search':
         return hotel_search_json()
+    return {'status': 'failed'}
+
+@bottle_app.get('/manage/flight/info/async')
+@Misc.auth_validate
+def flight_manage_json():
+    schema = ['flightNumber', 'fuelTax', 'airportTax', 'departureAirport', 'departureTime', 'arrivalAirport', 
+             'arrivalTime', 'aircraftType', 'schedule', 'punctuality', 'stop', 'price']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('flight', schema, param, [0])
+        if success:
+            return {'status': 'succeeded', 'flightNumber': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('flight', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['flightNumber']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('flight', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, 
+            ['flightNumber', 'departureAirport', 'arrivalAirport']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        
+        db = Database(app.config)
+        # get airports belong to city
+        d_airports = db.get_airport_by_city(param[1])
+        a_airports = db.get_airport_by_city(param[2])
+
+        # get flights between airports
+        ret_flights = []
+        for d_airport in d_airports:
+            for a_airport in a_airports:
+                ret_flights += db.get_flights(d_airport['code'], a_airport['code'])
+
+        return {'flight': ret_flights }
     return {'status': 'failed'}
 
 if __name__ == '__main__':
