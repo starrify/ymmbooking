@@ -34,7 +34,7 @@ class Config():
 
         self.debug  = parser.getboolean('Misc', 'debug')
         self.secret = parser.get('Misc', 'secret')
-        self.coockie_age    = parser.getint('Misc', 'cookie_age')
+        self.cookie_age    = parser.getint('Misc', 'cookie_age')
         
         self.integration_test   = parser.getboolean('Integration', 'integration_test')
         self.main_deploy    = parser.get('Integration', 'main_deploy')
@@ -697,15 +697,16 @@ def flight_manage_json():
             return {'status': 'succeeded'}
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
-            ['flightNumber', 'departureAirport', 'arrivalAirport']))
+            ['departureCity', 'arrivalCity']))
+        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         
         db = Database(app.config)
         # get airports belong to city
-        d_airports = db.get_airport_by_city(param[1])
-        a_airports = db.get_airport_by_city(param[2])
+        d_airports = db.get_airport_by_city(param[0])
+        a_airports = db.get_airport_by_city(param[1])
 
         # get flights between airports
         ret_flights = []
@@ -713,8 +714,54 @@ def flight_manage_json():
             for a_airport in a_airports:
                 ret_flights += db.get_flights(d_airport['code'], a_airport['code'])
 
-        return {'flight': ret_flights }
+        return { 'status': 'succeeded', 'flight': ret_flights }
     return {'status': 'failed'}
+
+@bottle_app.get('/manage/flight/comment/async')
+@Misc.auth_validate
+def flight_comment_manage_json():
+    schema = ['c_id', 'flightNumber', 'u_id', 'message', 'rate']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('flightComment', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded', 'flightNumber': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('flight', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['flightNumber']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('flight', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, 
+            ['u_id', 'beginDate', 'endDate']))
+        print(param)
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        
+        db = Database(app.config)
+        cmt = db.get_flight_comment(param[0], param[1], param[2])
+
+        return {'flightComment': cmt }
+    return {'status': 'succeeded', 'status': 'failed'}
 
 if __name__ == '__main__':
     bottle.run(bottle_app, host='0.0.0.0', port=8080, debug=True)

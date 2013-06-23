@@ -35,14 +35,14 @@
                                     <tr>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">起飞机场</label>
-                                                    <input class="search-input" type="text" id="bs_departureAirport" placeholder="机场">
+                                                    <label class="search-label">出发城市</label>
+                                                    <input class="search-input" type="text" id="bs_departureCity" placeholder="城市">
                                                 </div>
                                         </td>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">到达机场</label>
-                                                    <input class="search-input" type="text" id="bs_arrivalAirport" placeholder="机场">
+                                                    <label class="search-label">到达城市</label>
+                                                    <input class="search-input" type="text" id="bs_arrivalCity" placeholder="城市">
                                                 </div>
                                         </td>
                                     </tr>
@@ -208,23 +208,23 @@ function parseObject(obj) {
 
 var dbschema = ['flightNumber', 'fuelTax', 'airportTax', 'departureAirport', 'departureTime',
                 'arrivalAirport', 'arrivalTime', 'aircraftType', 'schedule', 'punctuality', 'stop', 'price'];
-var schema = [{id:'f_ID', name:'航班号', type: 'string', primaryKey: true}, 
-                {id:'Airport', name:'机场', children: [
-                    {id: 'DepartureAirport', name: '起飞机场', type: 'string'},
-                    {id: 'ArrivalAirport', name:'到达机场', type: 'string'}
+var schema = [{id:'flightNumber', name:'航班号', type: 'string', primaryKey: true}, 
+                {id:'airport', name:'机场', children: [
+                    {id: 'departureAirport', name: '起飞机场', type: 'string'},
+                    {id: 'arrivalAirport', name:'到达机场', type: 'string'}
                 ]}, 
-                {id:'Time', name:'时间', children: [
-                    {id: 'DepartureTime', name: '起飞时间', type: 'datetime'}, 
-                    {id: 'ArrivalTime', name: '到达时间', type: 'datetime'}
+                {id:'time', name:'时间', children: [
+                    {id: 'departureTime', name: '起飞时间', type: 'time'}, 
+                    {id: 'arrivalTime', name: '到达时间', type: 'time'}
                 ]}, 
-                {id: 'AircraftType', name: '机型', type: 'string'}, 
-                {id: 'Schedule', name: '日程', type: 'string'},
-                {id: 'Punctuality', name: '准点率', type: 'float'},
-                {id: 'Stop', name: '中转', type: 'bool'}, 
-                {id: 'Price', name: '价格', children: [
-                    {id: 'Price', name: '报价', type: 'float'},
-                    {id: 'FuelTax', name: '燃油税', type: 'float'},
-                    {id: 'AirportTax', name: '机场税', type: 'float'},
+                {id: 'aircraftType', name: '机型', type: 'string'}, 
+                {id: 'schedule', name: '日程', type: 'string'},
+                {id: 'punctuality', name: '准点率', type: 'float'},
+                {id: 'stop', name: '中转', type: 'bool'}, 
+                {id: 'price', name: '价格', children: [
+                    {id: 'price', name: '报价', type: 'float'},
+                    {id: 'fuelTax', name: '燃油税', type: 'float'},
+                    {id: 'airportTax', name: '机场税', type: 'float'},
                 ]}];
 var asyncURL = '/manage/flight/info/async';
 var rt = new ResultTable('resultTable', schema, []);
@@ -254,7 +254,7 @@ $('#resultTable').click(function(e) {
         }
         //var dbdata = mapTableToDb([tbdata]);
         var queryObj = mapTableToDb([tbdata])[0];
-        console.log(queryObj);
+        //console.log(queryObj);
         
         switch(btn.parent().children().index(btn)) {
         case 0: { // submit
@@ -278,7 +278,7 @@ $('#resultTable').click(function(e) {
                     type: 'delete',
                 },
                 function(data) {
-                    console.log(data);
+                    //console.log(data);
                     rt.removeRow(rowId);
                     $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
                 });
@@ -304,15 +304,18 @@ $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,
         {
-            flightNumber: $('#bs_flightNumber').val(),
-            departureAirport: $('#bs_departureAirport').val(),
-            arrivalAirport: $('#bs_arrivalAirport').val(),
+            //flightNumber: $('#bs_flightNumb').val(),
+            departureCity: $('#bs_departureCity').val(),
+            arrivalCity: $('#bs_arrivalCity').val(),
             type: 'search',
         },
         function(data) {
-            console.log(mapDbToTable(data.flight));
-            rt.setData(mapDbToTable(data.flight));
-            $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
+            //console.log(mapDbToTable(data.flight));
+            console.log(data);
+            if(data.status == 'succeeded') {
+                rt.setData(mapDbToTable(data.flight));
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条搜索结果');
+            }
         });
 });
 
@@ -327,7 +330,7 @@ $('#atAdd').click(function(e) {
         asyncURL,
         queryObj,
         function(data) {
-            console.log(data);
+            //console.log(data);
             if(data.status == 'succeeded') {
                 $('#addTable input').val('');
                 rt.pushRow(mapDbToTable([queryObj])[0]);

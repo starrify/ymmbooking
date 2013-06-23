@@ -27,7 +27,10 @@ function isFloat(str) {
     return parseFloat(str) == str;
 }
 function isDateTime(str) {
-    return /\d{2}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(str);
+    return /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(str);
+}
+function isTime(str) {
+    return /\d{2}:\d{2}/.test(str);
 }
 function checkType(str, type) {
     switch(type) {
