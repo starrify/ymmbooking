@@ -60,11 +60,11 @@ CREATE TABLE flight(
 /*==============================================================*/
 DROP TABLE IF EXISTS hotel;
 CREATE TABLE hotel(
-    h_id            INT UNSIGNED    AUTO_INCREMENT,
+    h_id            INTEGER         PRIMARY KEY,
     name            VARCHAR(255)    null,
     description     VARCHAR(255)    null,
-    location        VARCHAR(255)    null,
-    PRIMARY KEY (h_id)
+    location        VARCHAR(255)    null
+    /* PRIMARY KEY (h_id) */
 );
 
 DROP TABLE IF EXISTS room;
@@ -96,13 +96,20 @@ CREATE TABLE hotelTransaction(
 
 DROP TABLE IF EXISTS flightTransaction;
 CREATE TABLE flightTransaction(
-    t_id            INT UNSIGNED    AUTO_INCREMENT,
+    t_id            INTEGER         PRIMARY KEY,
     flightNumber    VARCHAR(255)    not null,
     u_id            VARCHAR(255)    not null,
     time            DATETIME        null,
     price           FLOAT           null,
     status          VARCHAR(255)    null,
-    PRIMARY KEY (t_id),
+    is_child        BOOL,
+    user_name       VARCHAR(255),
+    ID_type         VARCHAR(255),
+    ID_number       VARCHAR(255),
+    contact_name    VARCHAR(255),
+    contact_tel     VARCHAR(255),
+    contact_email   VARCHAR(255),
+/*    PRIMARY KEY (t_id),*/
     FOREIGN KEY (flightNumber) REFERENCES flight(flightNumber)
 );
 
@@ -111,12 +118,12 @@ CREATE TABLE flightTransaction(
 /*==============================================================*/
 DROP TABLE IF EXISTS flightComment;
 CREATE TABLE flightComment(
-    c_id            INT UNSIGNED    AUTO_INCREMENT,
+    c_id            INTEGER         PRIMARY KEY,
     flightNumber    VARCHAR(255)    not null,
     u_id            VARCHAR(255)    not null,
     message         VARCHAR(500)    null,
     rate            VARCHAR(500)    null,
-    PRIMARY KEY (c_id),
+    /* PRIMARY KEY (c_id), */
     FOREIGN KEY (flightNumber) REFERENCES flight(flightNumber)
 );
 
