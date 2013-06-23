@@ -25,13 +25,22 @@ class Config():
 
         # to ensure all these entries are exising in the config file
         # or at least one of the following parseings would fail 
+
         self.database_path  = parser.get('Path', 'database_path')
         self.db_schema_path = parser.get('Path', 'db_schema_path')
         self.static_path    = parser.get('Path', 'static_path')
         self.view_path      = parser.get('Path', 'view_path')
         self.template_path  = parser.get('Path', 'template_path')
+
         self.debug  = parser.getboolean('Misc', 'debug')
         self.secret = parser.get('Misc', 'secret')
+        self.coockie_age    = parser.getint('Misc', 'cookie_age')
+        
+        self.integration_test   = parser.getboolean('Integration', 'integration_test')
+        self.main_deploy    = parser.get('Integration', 'main_deploy')
+        self.main_timeout   = parser.getint('Integration', 'main_timeout')
+        self.login_url      = parser.get('Integration', 'login_url')
+        #self.integration_test = parser.getboolean('Integration', 'integration_test')
 
 class Database(object):
     """A wrapper for accessing the database."""
@@ -222,10 +231,10 @@ class Database(object):
         return ret
     def get_flight_transaction(self, uid="", tid=""):
         try:
-            cursor.self._conn.cursor()
+            cursor = self._conn.cursor()
             cursor.execute(
-                "SELECT FROM flightTranscation "
-                "WHERE uid=? AND tid=?",
+                "SELECT * FROM flightTransaction "
+                "WHERE u_id=? AND t_id=?",
                 [uid, tid])
             ret = cursor.fetchall()
             cursor.close()
@@ -298,25 +307,40 @@ def index():
     return {}
 
 @bottle_app.route('/login')
+@bottle.view(app.config.template_path + 'login.html')
 def login():
     """Merely a test login form"""
     redirect_url = bottle.request.query.get('redirect')
     if not redirect_url:
         redirect_url = '/'
-    return """ This is a fake Login
-        <form method="get" action="/auth">
-        <input type="hidden" name="redirect" value="%s">
-        UID: <input type="text" name="uid">
-        <input type="submit" value="Login"/>
-        </form>""" %redirect_url
+    return {'redirect_url': redirect_url}
 
-@bottle_app.route('/auth')
+@bottle_app.post('/auth')
 def auth():
     """Merely for testing for now"""
-    uid = bottle.request.query.get('uid')
-    if uid:
-        bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=600)
-    redirect_url = bottle.request.query.get('redirect')
+    uid = ''
+    param = list(map(bottle.request.forms.get, ['username', 'passwd']))
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+    if app.config.integration_test:
+        """stupid API from group 1"""
+        jdata = json.dumps({'uname': param[0], 'password': param[1], 'group': 0})
+        try:
+            auth_url = app.config.main_deploy + app.config.login_url
+            ret = urllib.request.urlopen(auth_url, jdata, app.config.main_timeout)
+            jdata = json.loads(ret.read())
+            if jdata['err'] == "100":
+                uid = jdata['uid']
+            else:
+                return "Authentication failed."
+        except:
+            return "Error communicating with auth API by group 1"
+            pass
+    else:
+        """authentication always pass"""
+        uid = param[0]
+        pass
+    bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=app.config.cookie_age)
+    redirect_url = bottle.request.forms.get('redirect')
     if not redirect_url:
         redirect_url = '/'
     bottle.redirect(redirect_url)
@@ -513,7 +537,7 @@ def comment_submit():
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         db.add_flight_comment(uid, param[1], param[2], param[3])
-        bottle.redirect("/trade/booking_history")
+        bottle.redirect("/trade/comment_history")
     elif comment_type == "hotel":
         pass
     else:
