@@ -1,6 +1,7 @@
 function cellPosition(cellele) {
     return { row: cellele.closest('tr').prop('rowIndex'), col: cellele.closest('td').prop('cellIndex') };
 }
+
 function createArray(length) {
     var arr = new Array(length || 0),
     i = length;
@@ -11,6 +12,7 @@ function createArray(length) {
     }
     return arr;
 }
+
 function textToHtml(text) {
     return text.replace(/\n/g, '<BR>');
 }
@@ -18,22 +20,27 @@ function textToHtml(text) {
 function isInt(str) {
     return /^\d+$/.test(str);
 }
+
 function isBool(str) {
     if(str == '1' || str == '0') return true;
     
     var lowstr = str.toLowerCase();
     return (lowstr == 'true' || lowstr == 'false');
 }
+
 function isFloat(str) {
     return /^\d+(\.\d+)?$/.test(str);
     //return parseFloat(str) == str;
 }
+
 function isDateTime(str) {
     return /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(str);
 }
+
 function isTime(str) {
     return /\d{2}:\d{2}/.test(str);
 }
+
 function checkType(str, type) {
     str += ''; // convert to string
     switch(type) {
@@ -44,6 +51,15 @@ function checkType(str, type) {
     case 'time': return isTime(str);
     }
     return true;
+}
+
+function checkData(data, attr) {
+    if(!data) {
+        if(attr.not_null || attr.primaryKey) return false;
+        else return true;
+    } else {
+        return checkType(data, attr.type);
+    }
 }
 
 function inRange(num, low, high) {

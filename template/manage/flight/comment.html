@@ -158,8 +158,8 @@ function parseObject(obj) {
 
 var dbschema = ['c_id', 'flightNumber', 'u_id', 'message', 'rate'];
 var schema = [{id:'c_id', name:'评价编号', type: 'int', primaryKey: true}, 
-                {id:'flightNumber', name:'航班编号', type: 'string'},
-                {id:'u_id', name:'用户标识', type: 'string'},
+                {id:'flightNumber', name:'航班编号', type: 'string', not_null: true},
+                {id:'u_id', name:'用户标识', type: 'string', not_null: true},
                 {id: 'message', name: '用户评价', type: 'string', popover: true}, 
                 {id: 'rate', name: '用户评分', type: 'string', popover: true},
                 ];
