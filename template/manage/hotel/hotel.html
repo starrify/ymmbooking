@@ -15,7 +15,6 @@
     </head>
     <body>
 %include template/head_bar.inc
-        <div class="hero-unit"></div>
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
@@ -90,9 +89,9 @@
                             </colgroup>
                             <tr>
                                 <td class="text-cropped">新的酒店</td>
-                                <td class="cell"><input class="cell-content input" id="at_name" type="text" placeholder="input"></td>
-                                <td class="cell"><input class="cell-content input" id="at_description" type="text" placeholder="input"></td>
-                                <td class="cell"><input class="cell-content input" id="at_location" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content input" id="at_name" type="text" placeholder="酒店名称"></td>
+                                <td class="cell"><input class="cell-content input" id="at_location" type="text" placeholder="酒店位置"></td>
+                                <td class="cell"><input class="cell-content input" id="at_description" type="text" placeholder="酒店描述"></td>
                                 <td>
                                     <div>
                                         <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
@@ -218,7 +217,7 @@ $('#resultTable').click(function(e) {
                     type: 'delete',
                 },
                 function(data) {
-                    //console.log(data);
+                    console.log(data);
                     rt.removeRow(rowId);
                     $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
                 });
@@ -270,11 +269,12 @@ $('#atAdd').click(function(e) {
         asyncURL,
         queryObj,
         function(data) {
-            //console.log(data);
+            console.log(data);
             if(data.status == 'succeeded') {
                 $('#addTable input').val('');
                 queryObj.h_id = data.h_id;
                 rt.pushRow(mapDbToTable([queryObj])[0]);
+                console.log(mapDbToTable([queryObj])[0]);
                 $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
             }
             else

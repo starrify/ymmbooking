@@ -15,7 +15,6 @@
     </head>
     <body>
 %include template/head_bar.inc
-        <div class="hero-unit"></div>
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
@@ -35,13 +34,13 @@
                                         <td>
                                                 <div>
                                                     <label class="search-label">酒店编号</label>
-                                                    <input class="search-input" type="text" id="bsHID" placeholder="input">
+                                                    <input class="search-input" type="text" id="bs_h_id" placeholder="input">
                                                 </div>
                                         </td>
                                         <td>
                                                 <div>
                                                     <label class="search-label">房间类型</label>
-                                                    <input class="search-input" type="text" id="bsRoomType" placeholder="input">
+                                                    <input class="search-input" type="text" id="bs_roomType" placeholder="input">
                                                 </div>
                                         </td>
                                     </tr>
@@ -55,15 +54,14 @@
                             </div>
                         </div> <!-- seller-search-form -->
                     </div> <!-- row-fluid -->
-                    <h3 id="resultVerbose">共有1个搜索结果</h3>
+                    <h3 id="resultVerbose">共有0个结果</h3>
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
                                 <col width="15%" />
                                 <col width="20%" />
                                 <col width="20%" />
-                                <col width="10%" />
-                                <col width="10%" />
+                                <col width="20%" />
                                 <col width="15%" />
                                 <col width="10%" />
                             </colgroup>
@@ -71,8 +69,7 @@
                                 <th class="text-cropped">酒店编号</th>
                                 <th class="text-cropped">房间类型</th>
                                 <th class="text-cropped">床类型</th>
-                                <th class="text-cropped">早餐</th>
-                                <th class="text-cropped">无限网络</th>
+                                <th class="text-cropped">服务</th>
                                 <th class="text-cropped">价格</th>
                             </tr>
                         </table>
@@ -83,18 +80,19 @@
                                 <col width="15%" />
                                 <col width="20%" />
                                 <col width="20%" />
-                                <col width="10%" />
-                                <col width="10%" />
+                                <col width="20%" />
                                 <col width="15%" />
                                 <col width="10%" />
                             </colgroup>
                             <tr>
-                                <td class="text-cropped">新的房间</td>
-                                <td style="padding:0;"><input class="input-cropped" id="atTID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atFID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atUID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atTime" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atPrice" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content input" id="at_h_id" type="text" placeholder="酒店编号"></td>
+                                <td class="cell"><input class="cell-content input" id="at_roomType" type="text" placeholder="房间类型"></td>
+                                <td class="cell"><input class="cell-content input" id="at_bedType" type="text" placeholder="床型"></td>
+                                <td class="cell">
+                                    <div class="cell cell-content"><input class="cell-content input" id="at_breakfast" type="text" placeholder="早餐"></div>
+                                    <div class="cell cell-content"><input class="cell-content input" id="at_wifi" type="text" placeholder="无线网络"></div>
+                                </td>
+                                <td class="cell"><input class="cell-content input" id="at_price" type="text" placeholder="价格"></td>
                                 <td>
                                     <div>
                                         <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
@@ -125,57 +123,31 @@
 </html>
 <!--TODO: table sort -->
 <!--TODO: forbid multiple popover -->
-<script> // tools
-// checks overflow in our one-line context
-
-</script>
-
 <script> // page specified functions
-var rowtmpl = '\
-<tr> \
-    <td class="text-cropped">_0</td> \
-    <td class="text-cropped">_1</td> \
-    <td class="text-cropped">_2</td> \
-    <td class="text-cropped">_3</td> \
-    <td class="text-cropped">_4</td> \
-    <td class="text-cropped">_5</td> \
-    <td><div> \
-        <button class="btn btn-icon"><i class="icon-ok"></i></button> \
-        <button class="btn btn-icon"><i class="icon-remove"></i></button> \
-        <button class="btn btn-icon"><i class="icon-repeat"></i></button></div> \
-    </td></tr>';
-var schema = ['HID', 'RoomType', 'BedType', 'Breakfast', 'Wifi', 'Price'];
-var dbschema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status'];
-var asyncURL = '/manage/hotel/room/async';
-var rt = new ResultTable([[1,2,3,4,5,6]]);
-
-function editable(col) {
-    if(col == 0 || col == 1 || col == 6)
-        return false;
-    else
-        return true;
+function mapDbToTable(dbdata) {
+    //console.log(dbdata);
+    return $.map(dbdata, function(ele, index) {
+        return [[
+            ele['h_id'], ele['roomType'], ele['bedType'],
+            [ele['breakfast'], ele['wifi']],
+            ele['price'],
+        ]];
+    });
 }
 
-function isRowValid(row) {
-    if(!isInt(row.find('td:eq(0)').text())) return false;
-    if(row.find('td:eq(1)').text().length > 255) return false;
-    if(row.find('td:eq(2)').text().length > 255) return false;
-    if(!isBool(row.find('td:eq(3)').text())) return false;
-    if(!isBool(row.find('td:eq(4)').text())) return false;
-    if(!isFloat(row.find('td:eq(5)').text())) return false;
-    
-    return true;
+function mapTableToDb(tbdata) {
+    return $.map(tbdata, function(ele, index) {
+        return {
+            h_id: ele[0], 
+            roomType: ele[1], 
+            bedType: ele[2], 
+            breakfast: ele[3][0],
+            wifi: ele[3][1],
+            price: ele[4][0],
+        };
+    });
 }
-function mapResult(res) {
-    /*return $.map(res, function(ele) {
-        return [[ele[0], ele[1], ele[3], ele[2]]];
-    });*/
-    return res;
-}
-</script>
 
-
-<script> //event handlers
 function buildObject(iterFunc) {
     var ret = {};
     for(var i = 0; i < dbschema.length; i++) {
@@ -183,20 +155,37 @@ function buildObject(iterFunc) {
     }
     return ret;
 }
+
+function parseObject(obj) {
+    var ret = [];
+    for(var key in dbschema) {
+        ret.push(obj[dbschema[key]]);
+    }   
+    return ret;
+}
+
+var dbschema = ['h_id', 'roomType', 'bedType', 'breakfast', 'wifi', 'price'];
+var schema = [{id:'h_id', name:'酒店编号', type: 'int', primaryKey: true}, 
+                {id:'roomType', name:'房间类型', type: 'string', primaryKey: true},
+                {id:'bedType', name:'床型', type: 'string'},
+                {id: 'service', name: '服务', children: [
+                    {id: 'breakfast', name: '早餐', type: 'bool'},
+                    {id: 'wifi', name: '无线网络', type: 'bool'},
+                ]},
+                {id: 'price', name: '价格', type: 'float'},
+                ];
+var asyncURL = '/manage/hotel/room/async';
+var rt = new ResultTable('resultTable', schema, []);
+//var at = new ResultTable('addTable', schema, [[[1],[3,2],[2,3],[4],[5],[6],[7],[8,9,10]]]);
+</script>
+
+<script> //event handlers
 $('#resultTable').click(function(e) {
-    console.log($(e.target).prop('tagName'));
     switch($(e.target).prop('tagName')) {
-    case 'TD' : {
-        var pos = cellPosition($(e.target));
-        var cell = $(e.target);
-        if(!editable(cell.prop('cellIndex')) || rt.overflow[pos.row][pos.col]) return;
-                           
-        cell.css('padding', 0);
-        var text = cell.text();
-        cell.html('')
-            .append('<input type="text" class="input-cropped" value="' + text + '">');
-    
-        cell.find('input').focus().select();
+    case 'TD':
+    case 'DIV': {
+        var div = $(e.target);
+        rt.edit(div);
         break;
     }
     case 'I':
@@ -206,22 +195,22 @@ $('#resultTable').click(function(e) {
         //TODO: enable and disable of buttons
         var btn = $(e.target).closest('button');
         var rowId = btn.closest('tr').prop('rowIndex');
+        var children = rt.getRow(rowId).children();
+        var tbdata = [];
+        for(var i = 0; i < schema.length; i++) {
+            tbdata.push(rt.getCellCache($(children[i])));
+        }
+        //var dbdata = mapTableToDb([tbdata]);
+        var queryObj = mapTableToDb([tbdata])[0];
+        //console.log(queryObj);
+        
         switch(btn.parent().children().index(btn)) {
         case 0: { // submit
+            //var queryObj = buildObject(function(index) { return dbdata[0][index]; });
+            queryObj.type = 'update';
             $.getJSON(
-                asyncURL,
-                buildObject(function(index) {
-                    return rt.cache[rowId][index];
-                }),
-                /*{
-                    t_id: rt.cache[rowId][0],
-                    flightNumber: rt.cache[rowId][1],
-                    u_id: rt.cache[rowId][2],
-                    description: rt.cache[rowId][3],
-                    type: 'update',
-                },*/
+                asyncURL, queryObj,
                 function(data) {
-                    console.log(data);
                     if(data.status == 'succeeded')
                         rt.commitRow(rowId);
                     else
@@ -233,13 +222,14 @@ $('#resultTable').click(function(e) {
             $.getJSON(
                 asyncURL,
                 {
-                    h_id: rt.cache[rowId][0],
-                    roomType: rt.cache[rowId][1],
+                    h_id: queryObj.h_id,
+                    roomType: queryObj.roomType,
                     type: 'delete',
                 },
                 function(data) {
-                    console.log(data);
+                    //console.log(data);
                     rt.removeRow(rowId);
+                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
                 });
             break;
         }
@@ -254,51 +244,45 @@ $('#resultTable').click(function(e) {
     
 $('#resultTable').focusout(function(e){
     var text = $(e.target).val();
-    var cell = $(e.target).closest('td');
-    if(editable(cell.prop('cellIndex'))) {
-        cell.css('padding', 8);
-        rt.modifyCell(cell, text);
-    }
+    var div = $(e.target).closest('div, td');
+    if(cellPosition(div).col < schema.length)
+        rt.modifyCell(div);
 });
             
 $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,
-        buildObject(function(index) {
-            return $('#bs' + schema[index]).val();
-        }),
-        /*{
-            h_id: $('#bsHID').val(),
-            name: $('#bsName').val(),
-            location: $('#bsLocation').val(),
+        {
+            //flightNumber: $('#bs_flightNumb').val(),
+            h_id: $('#bs_h_id').val(),
+            roomType: $('#bs_roomType').val(),
             type: 'search',
-        },*/
+        },
         function(data) {
             console.log(data);
-            rt = new ResultTable(data.hotel);
+            if(data.status == 'succeeded') {
+                rt.setData(mapDbToTable(data.room));
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
+            }
         });
 });
 
 $('#atAdd').click(function(e) {
     var row = $('#addTable tr:first');
-    var addobj = buildObject(function(index) {
-        return row.find('td:eq(' + index + ') input:first').val();
+    var queryObj = buildObject(function(index) { 
+        var input = $('#at_' + dbschema[index]);
+        return (input.length ? input.val() : undefined); 
     });
-    /*{
-        h_id: '',
-        name: row.find('td:eq(1) input:first').val(),
-        location: row.find('td:eq(2) input:first').val(),
-        description: row.find('td:eq(3) input:first').val(),
-        type: 'add',
-    };*/
+    queryObj.type = 'add';
     $.getJSON(
         asyncURL,
-        addobj,
+        queryObj,
         function(data) {
             console.log(data);
             if(data.status == 'succeeded') {
                 $('#addTable input').val('');
-                rt.pushRow([data.h_id, data.roomType, addobj.bedType, addobj.breakfast, addobj.wifi, addobj.price]);
+                rt.pushRow(mapDbToTable([queryObj])[0]);
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
             }
             else
                 alert('Add failed');

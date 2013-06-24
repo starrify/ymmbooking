@@ -114,6 +114,29 @@ class Database(object):
         if h_id:
             hotels = [hotel for hotel in hotels if hotel['h_id'] == h_id]
         return hotels
+    
+    def get_hotel_rooms(self, h_id=None, roomType=""):
+        cond, data = [], []
+        if h_id:
+            try:
+                h_id = int(h_id)
+            except:
+                return []
+            cond.append("h_id=?")
+            data.append(h_id)
+
+        if roomType:
+            cond.append("roomType=?")
+            data.append(roomType)
+
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "SELECT * FROM room "
+            "WHERE " + " AND ".join(cond),
+            data)
+        rooms = cursor.fetchall()
+        cursor.close()
+        return rooms
 
     def get_airline_by_code(self, code=""):
         cursor = self._conn.cursor()
@@ -161,7 +184,7 @@ class Database(object):
             cursor.execute(
                 "DELETE FROM %s WHERE %s"%(table, 
                     ' AND '.join(map(lambda x: "%s=?"%schema[x], pkey_cols)))
-                , [data[i] for i in pkey_cols])
+                , data) # data consists of primary key values in order
             cursor.close()
             return True
         except:
@@ -637,9 +660,9 @@ def hotel_manage_json():
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success, h_id = db.add_item('hotel', schema, param, [0], fillpkey_autoinc)
+        success, pkey = db.add_item('hotel', schema, param, [0], fillpkey_autoinc)
         if success:
-            return {'status': 'succeeded', 'h_id': h_id}
+            return {'status': 'succeeded', 'h_id': pkey[0]}
     elif access_type == 'update':
         param = list(map(bottle.request.query.get, schema))
         if not param[0]:
@@ -666,6 +689,49 @@ def hotel_manage_json():
         db = Database(app.config)
         hotels = db.get_hotels(param[1], param[2], '', param[0])
         return {'status': 'succeeded', 'hotel': hotels }
+         
+    return {'status': 'failed'}
+
+@bottle_app.get('/manage/hotel/room/async')
+@Misc.auth_validate
+def room_manage_json():
+    schema = ['h_id', 'roomType', 'bedType', 'breakfast', 'wifi', 'price']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('room', schema, param, [0, 1])
+        if success:
+            return {'status': 'succeeded', 'h_id': pkey[0], 'roomType': pkey[1]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('room', schema, param, [0, 1])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['h_id', 'roomType']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('room', schema, param, [0, 1])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, ['h_id', 'roomType']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        rooms = db.get_hotel_rooms(param[0], param[1])
+        return {'status': 'succeeded', 'room': rooms }
          
     return {'status': 'failed'}
 
