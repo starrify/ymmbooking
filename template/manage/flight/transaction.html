@@ -51,26 +51,6 @@
                                                 </div>
                                         </td> <!-- span4 -->
                                     </tr>
-                                    <!--<tr>
-                                        <td>
-                                                <div>
-                                                    <label class="search-label">交易时间</label>
-                                                    <input class="search-input" type="datetime" id="bsTime" placeholder="yyyy/mm/dd">
-                                                </div>
-                                        </td>
-                                        <td>
-                                                <div>
-                                                    <label class="search-label">交易金额</label>
-                                                    <input class="search-input" type="text" id="bsPrice" placeholder="number">
-                                                </div>
-                                        </td>
-                                        <td>
-                                                <div>
-                                                    <label class="search-label">交易状态</label>
-                                                    <input class="search-input" type="text" id="bsStatus" placeholder="input">
-                                                </div>
-                                        </td>
-                                    </tr>-->
                                 </table>
                             </div>
                             
@@ -81,7 +61,7 @@
                             </div>
                         </div> <!-- seller-search-form -->
                     </div> <!-- row-fluid -->
-                    <h3 id="resultVerbose">共有0个结果</h3>
+                    <h3 id="resultVerbose">共0条结果</h3>
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
@@ -100,8 +80,8 @@
                                 <th class="text-cropped">航班编号</th>
                                 <th class="text-cropped">用户标识</th>
                                 <th class="text-cropped">交易时间</th>
-                                <th class="text-cropped">交易金额</th>
-                                <th class="text-cropped">交易状态</th>
+                                <th class="text-cropped">订单金额</th>
+                                <th class="text-cropped">订单状态</th>
                                 <th class="text-cropped">用户信息</th>
                                 <th class="text-cropped">联系人信息</th>
                             </tr>
@@ -125,8 +105,8 @@
                                 <td class="cell"><input class="cell-content input" id="at_flightNumber" type="text" placeholder="航班编号"></td>
                                 <td class="cell"><input class="cell-content input" id="at_u_id" type="text" placeholder="用户标识"></td>
                                 <td class="cell"><input class="cell-content input" id="at_time" type="datetime" placeholder="交易时间"></td>
-                                <td class="cell"><input class="cell-content input" id="at_price" type="text" placeholder="交易金额"></td>
-                                <td class="cell"><input class="cell-content input" id="at_status" type="text" placeholder="交易状态"></td>
+                                <td class="cell"><input class="cell-content input" id="at_price" type="text" placeholder="订单金额"></td>
+                                <td class="cell"><input class="cell-content input" id="at_status" type="text" placeholder="订单状态"></td>
                                 <td class="cell">
                                     <div class="cell cell-content"><input class="cell-content input" id="at_is_child" type="text" placeholder="未成年"></div>
                                     <div class="cell cell-content"><input class="cell-content input" id="at_user_name" type="text" placeholder="用户姓名"></div>
@@ -227,8 +207,8 @@ var schema = [{id: 't_id', name: '订单编号', type: 'int', primaryKey: true},
                 {id: 'flightNumber', name: '航班编号', type: 'string'},
                 {id: 'u_id', name: '用户标识', type: 'string'},
                 {id: 'time', name: '交易时间', type: 'datetime'},
-                {id: 'price', name: '交易金额', type: 'float'},
-                {id: 'status', name: '交易状态', type: 'string'},
+                {id: 'price', name: '订单金额', type: 'float'},
+                {id: 'status', name: '订单状态', type: 'string'},
                 {id: 'user_info', name: '用户信息', children: [
                     {id: 'is_child', name: '未成年', type: 'bool'},
                     {id: 'user_name', name: '用户姓名', type: 'string'},

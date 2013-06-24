@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-        <title>酒店信息管理</title>
+        <title>酒店订单管理</title>
         <meta content="text/html" charset=utf-8>   
         <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="/css/manage.css" rel="stylesheet" type="text/css" />
@@ -15,7 +15,6 @@
     </head>
     <body>
 %include template/head_bar.inc
-        <div class="hero-unit"></div>
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
@@ -34,40 +33,20 @@
                                     <tr>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">订单编号</label>
-                                                    <input class="search-input" type="text" id="bsTID" placeholder="input">
-                                                </div>
-                                        </td>
-                                        <td>
-                                                <div>
-                                                    <label class="search-label">酒店编号</label>
-                                                    <input class="search-input" type="text" id="bsHID" placeholder="input">
-                                                </div>
-                                        </td> <!-- span4 -->
-                                        <td>
-                                                <div>
                                                     <label class="search-label">用户标识</label>
-                                                    <input class="search-input" type="text" id="bsUID" placeholder="input">
-                                                </div>
-                                        </td> <!-- span4 -->
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                                <div>
-                                                    <label class="search-label">交易时间</label>
-                                                    <input class="search-input" type="datetime" id="bsTime" placeholder="yyyy/mm/dd">
+                                                    <input class="search-input" type="text" id="bs_u_id" placeholder="input">
                                                 </div>
                                         </td>
                                         <td>
                                                 <div>
-                                                    <label class="search-label">交易金额</label>
-                                                    <input class="search-input" type="text" id="bsPrice" placeholder="number">
+                                                    <label class="search-label">起始时间</label>
+                                                    <input class="search-input" type="datetime" id="bs_beginDate" placeholder="input">
                                                 </div>
                                         </td> <!-- span4 -->
                                         <td>
                                                 <div>
-                                                    <label class="search-label">交易状态</label>
-                                                    <input class="search-input" type="text" id="bsStatus" placeholder="input">
+                                                    <label class="search-label">结束时间</label>
+                                                    <input class="search-input" type="datetime" id="bs_endDate" placeholder="input">
                                                 </div>
                                         </td> <!-- span4 -->
                                     </tr>
@@ -81,7 +60,7 @@
                             </div>
                         </div> <!-- seller-search-form -->
                     </div> <!-- row-fluid -->
-                    <h3 id="resultVerbose">共有1个搜索结果</h3>
+                    <h3 id="resultVerbose">共0条结果</h3>
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
@@ -98,8 +77,8 @@
                                 <th class="text-cropped">酒店编号</th>
                                 <th class="text-cropped">用户标识</th>
                                 <th class="text-cropped">交易时间</th>
-                                <th class="text-cropped">交易金额</th>
-                                <th class="text-cropped">交易状态</th>
+                                <th class="text-cropped">订单金额</th>
+                                <th class="text-cropped">订单状态</th>
                             </tr>
                         </table>
                     </div>
@@ -116,11 +95,11 @@
                             </colgroup>
                             <tr>
                                 <td class="text-cropped">新的酒店订单</td>
-                                <td style="padding:0;"><input class="input-cropped" id="atTID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atFID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atUID" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atTime" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atPrice" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content input" id="at_h_id" type="text" placeholder="酒店编号"></td>
+                                <td class="cell"><input class="cell-content input" id="at_u_id" type="text" placeholder="用户标识"></td>
+                                <td class="cell"><input class="cell-content input" id="at_time" type="text" placeholder="交易时间"></td>
+                                <td class="cell"><input class="cell-content input" id="at_price" type="text" placeholder="交易金额"></td>
+                                <td class="cell"><input class="cell-content input" id="at_status" type="text" placeholder="订单状态"></td>
                                 <td>
                                     <div>
                                         <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
@@ -151,57 +130,20 @@
 </html>
 <!--TODO: table sort -->
 <!--TODO: forbid multiple popover -->
-<script> // tools
-// checks overflow in our one-line context
-
-</script>
-
 <script> // page specified functions
-var rowtmpl = '\
-<tr> \
-    <td class="text-cropped">_0</td> \
-    <td class="text-cropped">_1</td> \
-    <td class="text-cropped">_2</td> \
-    <td class="text-cropped">_3</td> \
-    <td class="text-cropped">_4</td> \
-    <td class="text-cropped">_5</td> \
-    <td><div> \
-        <button class="btn btn-icon"><i class="icon-ok"></i></button> \
-        <button class="btn btn-icon"><i class="icon-remove"></i></button> \
-        <button class="btn btn-icon"><i class="icon-repeat"></i></button></div> \
-    </td></tr>';
-var schema = ['TID', 'HID', 'UID', 'Time', 'Price', 'Status'];
-var dbschema = ['t_id', 'h_id', 'u_id', 'time', 'price', 'status'];
-var asyncURL = '/manage/flight/transaction/async';
-var rt = new ResultTable([[1,2,3,4,5,6]]);
-
-function editable(col) {
-    if(col == 0 || col == 6)
-        return false;
-    else
-        return true;
+function mapDbToTable(dbdata) {
+    //console.log(dbdata);
+    return $.map(dbdata, function(ele, index) {
+        return [parseObject(ele)];
+    });
 }
 
-function isRowValid(row) {
-    if(!isInt(row.find('td:eq(0)').text())) return false;
-    if(!isInt(row.find('td:eq(1)').text())) return false;
-    if(!inRange(row.find('td:eq(2)').text().length, 1, 255)) return false;
-    if(!isDateTime(row.find('td:eq(3)').text())) return false;
-    if(!isFloat(row.find('td:eq(4)').text())) return false;
-    if(row.find('td:eq(5)').text().length > 255) return false;
-    
-    return true;
+function mapTableToDb(tbdata) {
+    return $.map(tbdata, function(ele, index) {
+        return buildObject(function(index) { return ele[index]; });
+    });
 }
-function mapResult(res) {
-    /*return $.map(res, function(ele) {
-        return [[ele[0], ele[1], ele[3], ele[2]]];
-    });*/
-    return res;
-}
-</script>
 
-
-<script> //event handlers
 function buildObject(iterFunc) {
     var ret = {};
     for(var i = 0; i < dbschema.length; i++) {
@@ -209,20 +151,35 @@ function buildObject(iterFunc) {
     }
     return ret;
 }
+
+function parseObject(obj) {
+    var ret = [];
+    for(var key in dbschema) {
+        ret.push(obj[dbschema[key]]);
+    }   
+    return ret;
+}
+
+var dbschema = ['t_id', 'h_id', 'u_id', 'time', 'price', 'status'];
+var schema = [{id: 't_id', name: '订单编号', type: 'int', primaryKey: true},
+                {id: 'h_id', name: '酒店编号', type: 'string'},
+                {id: 'u_id', name: '用户标识', type: 'string'},
+                {id: 'time', name: '交易时间', type: 'datetime'},
+                {id: 'price', name: '订单金额', type: 'float'},
+                {id: 'status', name: '订单状态', type: 'string'},
+                ];
+var asyncURL = '/manage/hotel/transaction/async';
+var rt = new ResultTable('resultTable', schema, []);
+//var at = new ResultTable('addTable', schema, [[[1],[3,2],[2,3],[4],[5],[6],[7],[8,9,10]]]);
+</script>
+
+<script> //event handlers
 $('#resultTable').click(function(e) {
-    console.log($(e.target).prop('tagName'));
     switch($(e.target).prop('tagName')) {
-    case 'TD' : {
-        var pos = cellPosition($(e.target));
-        var cell = $(e.target);
-        if(!editable(cell.prop('cellIndex')) || rt.overflow[pos.row][pos.col]) return;
-                           
-        cell.css('padding', 0);
-        var text = cell.text();
-        cell.html('')
-            .append('<input type="text" class="input-cropped" value="' + text + '">');
-    
-        cell.find('input').focus().select();
+    case 'TD':
+    case 'DIV': {
+        var div = $(e.target);
+        rt.edit(div);
         break;
     }
     case 'I':
@@ -232,22 +189,19 @@ $('#resultTable').click(function(e) {
         //TODO: enable and disable of buttons
         var btn = $(e.target).closest('button');
         var rowId = btn.closest('tr').prop('rowIndex');
+        var children = rt.getRow(rowId).children();
+        var tbdata = [];
+        for(var i = 0; i < schema.length; i++) {
+            tbdata.push(rt.getCellCache($(children[i])));
+        }
+        var queryObj = mapTableToDb([tbdata])[0];
+        
         switch(btn.parent().children().index(btn)) {
         case 0: { // submit
+            queryObj.type = 'update';
             $.getJSON(
-                asyncURL,
-                buildObject(function(index) {
-                    return rt.cache[rowId][index];
-                }),
-                /*{
-                    t_id: rt.cache[rowId][0],
-                    flightNumber: rt.cache[rowId][1],
-                    u_id: rt.cache[rowId][2],
-                    description: rt.cache[rowId][3],
-                    type: 'update',
-                },*/
+                asyncURL, queryObj,
                 function(data) {
-                    console.log(data);
                     if(data.status == 'succeeded')
                         rt.commitRow(rowId);
                     else
@@ -256,15 +210,13 @@ $('#resultTable').click(function(e) {
             break;
         }
         case 1: { // remove
+            queryObj.type = 'delete';
             $.getJSON(
-                asyncURL,
-                {
-                    t_id: rt.cache[rowId][0],
-                    type: 'delete',
-                },
+                asyncURL, queryObj,
                 function(data) {
-                    console.log(data);
+                    //console.log(data);
                     rt.removeRow(rowId);
+                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
                 });
             break;
         }
@@ -279,51 +231,46 @@ $('#resultTable').click(function(e) {
     
 $('#resultTable').focusout(function(e){
     var text = $(e.target).val();
-    var cell = $(e.target).closest('td');
-    if(editable(cell.prop('cellIndex'))) {
-        cell.css('padding', 8);
-        rt.modifyCell(cell, text);
-    }
+    var div = $(e.target).closest('div, td');
+    if(cellPosition(div).col < schema.length)
+        rt.modifyCell(div);
 });
             
 $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,
-        buildObject(function(index) {
-            return $('#bs' + schema[index]).val();
-        }),
-        /*{
-            h_id: $('#bsHID').val(),
-            name: $('#bsName').val(),
-            location: $('#bsLocation').val(),
+        {
+            u_id: $('#bs_u_id').val(),
+            beginDate: $('#bs_beginDate').val(),
+            endDate: $('#bs_endDate').val(),
             type: 'search',
-        },*/
+        },
         function(data) {
             console.log(data);
-            rt = new ResultTable(data.hotel);
+            if(data.status == 'succeeded') {
+                rt.setData(mapDbToTable(data.hotelTransaction));
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
+            }
         });
 });
 
 $('#atAdd').click(function(e) {
     var row = $('#addTable tr:first');
-    var addobj = buildObject(function(index) {
-        return row.find('td:eq(' + index + ') input:first').val();
+    var queryObj = buildObject(function(index) { 
+        var input = $('#at_' + dbschema[index]);
+        return (input.length ? input.val() : undefined); 
     });
-    /*{
-        h_id: '',
-        name: row.find('td:eq(1) input:first').val(),
-        location: row.find('td:eq(2) input:first').val(),
-        description: row.find('td:eq(3) input:first').val(),
-        type: 'add',
-    };*/
+    queryObj.type = 'add';
     $.getJSON(
         asyncURL,
-        addobj,
+        queryObj,
         function(data) {
-            console.log(data);
+            //console.log(data);
             if(data.status == 'succeeded') {
                 $('#addTable input').val('');
-                rt.pushRow([data.t_id, addobj.h_id, addobj.u_id, addobj.time, addobj.price, addobj.status]);
+                queryObj.t_id = data.t_id;
+                rt.pushRow(mapDbToTable([queryObj])[0]);
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
             }
             else
                 alert('Add failed');
@@ -333,3 +280,4 @@ $('#atRemove').click(function(e) {
     $('#addTable input').val('');
 });
 </script>
+

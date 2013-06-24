@@ -206,9 +206,10 @@ class Database(object):
             [flight_number, uid, date, price] + user_info)
         cursor.close()
         return
-    def get_flight_transaction_history(self, uid="", start_date="", end_date="2999-12-31"):
+
+    # unlike the method for admin, uid must be provided
+    def get_user_flight_transaction_history(self, uid="", start_date="", end_end="2999-12-31"):
         cursor = self._conn.cursor()
-        print([uid, start_date, end_date])
         cursor.execute(
             "SELECT * FROM flightTransaction "
             "WHERE u_id = ? AND time BETWEEN ? AND ?",
@@ -216,6 +217,28 @@ class Database(object):
         ret = cursor.fetchall()
         cursor.close()
         return ret
+
+    # uid may be empty here
+    def get_flight_transaction_history(self, uid="", start_date="", end_date=""):
+        cond, data = [], []
+        cursor = self._conn.cursor()
+        if uid:
+            cond.append("u_id=?")
+            data.append(uid)
+        if start_date or end_date:
+            if not start_date: start_date = "0000-00-00"
+            if not end_date: end_date = "2999-12-31"
+            cond.append("time BETWEEN ? AND ?")
+            data += [start_date, end_date]
+
+        cursor.execute(
+            "SELECT * FROM flightTransaction "
+            "WHERE " + " AND ".join(cond),
+            data)
+        ret = cursor.fetchall()
+        cursor.close()
+        return ret
+
     def get_flight_transaction(self, uid="", tid=""):
         try:
             cursor = self._conn.cursor()
@@ -229,7 +252,7 @@ class Database(object):
         except:
             return []
     
-    # different from the method for admin, user id must be provided here
+    # unlike the method for admin, user id must be provided here
     def get_user_flight_comment(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
         cursor.execute(
@@ -239,18 +262,50 @@ class Database(object):
         ret = cursor.fetchall()
         cursor.close()
         return ret
-     
-    # different from the method for admin, u_id must be provided here
-    def get_user_hotel_comment(self, uid="", beginDate="", endDate=""):
+    
+    # unlike the method for admin, uid must be provided
+    def get_user_hotel_transaction_history(self, uid="", start_date="", end_end="2999-12-31"):
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "SELECT * FROM hotelTransaction "
+            "WHERE u_id = ? AND time BETWEEN ? AND ?",
+            [uid, start_date, end_date])
+        ret = cursor.fetchall()
+        cursor.close()
+        return ret
+
+    # uid may be empty here
+    def get_hotel_transaction_history(self, uid="", start_date="", end_date=""):
+        cond, data = [], []
+        cursor = self._conn.cursor()
+        if uid:
+            cond.append("u_id=?")
+            data.append(uid)
+        if start_date or end_date:
+            if not start_date: start_date = "0000-00-00"
+            if not end_date: end_date = "2999-12-31"
+            cond.append("time BETWEEN ? AND ?")
+            data += [start_date, end_date]
+
+        cursor.execute(
+            "SELECT * FROM hotelTransaction "
+            "WHERE " + " AND ".join(cond),
+            data)
+        ret = cursor.fetchall()
+        cursor.close()
+        return ret
+
+    # unlike the method for admin, u_id must be provided here
+    def get_user_hotel_comment(self, uid="", start_date="", end_date=""):
         cond, data = [], []
         cursor = self._conn.cursor()
         
         # oops but date is not yet supported in this table
-        #if beginDate or endDate:
-        #    beginDate = beginDate if beginDate else "0000-00-00"
-        #    endDate = endDate if endDate else "2999-12-31"
+        #if start_date or end_date:
+        #    start_date = start_date if start_date else "0000-00-00"
+        #    end_date = end_date if end_date else "2999-12-31"
         #    cond.append("time BETWEEN ? AND ?")
-        #    data += [beginDate, endDate]
+        #    data += [start_date, end_date]
         
         cursor.execute(
             "SELECT * FROM hotelComment "
@@ -493,7 +548,7 @@ def booking_history_async():
             ['begin_date', 'end_date']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        hist = db.get_flight_transaction_history(uid, param[0], param[1])
+        hist = db.get_user_flight_transaction_history(uid, param[0], param[1])
         ret = []
         for h in hist:
             ret.append([
@@ -583,48 +638,6 @@ def comment_history_asycn():
     
     return {'comments': []}
 
-@bottle_app.get('/manage/flight/info')
-@bottle.view(app.config.template_path + 'manage/flight/flight.html')
-@Misc.auth_validate
-def manage_flight_info():
-    return {}
-
-@bottle_app.get('/manage/flight/transaction')
-@bottle.view(app.config.template_path + 'manage/flight/transaction.html')
-@Misc.auth_validate
-def manage_flight_transaction():
-    return {}
-
-@bottle_app.get('/manage/flight/comment')
-@bottle.view(app.config.template_path + 'manage/flight/comment.html')
-@Misc.auth_validate
-def manage_flight_comment():
-    return {}
-
-@bottle_app.get('/manage/hotel/info')
-@bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
-@Misc.auth_validate
-def manage_hotel_info():
-    return {}
-
-@bottle_app.get('/manage/hotel/room')
-@bottle.view(app.config.template_path + 'manage/hotel/room.html')
-@Misc.auth_validate
-def manage_hotel_room():
-    return {}
-
-@bottle_app.get('/manage/hotel/transaction')
-@bottle.view(app.config.template_path + 'manage/hotel/transaction.html')
-@Misc.auth_validate
-def manage_hotel_transaction():
-    return {}
-
-@bottle_app.get('/manage/hotel/comment')
-@bottle.view(app.config.template_path + 'manage/hotel/comment.html')
-@Misc.auth_validate
-def manage_hotel_comment():
-    return {}
-
 #default primary key filler, assume autoinc on col 0
 def fillpkey_autoinc(table, schema, col, data, cursor):    
     cursor.execute("SELECT MAX(%s) from %s;"%(schema[col], table))
@@ -633,135 +646,12 @@ def fillpkey_autoinc(table, schema, col, data, cursor):
     except: # the table may be empty
         pkey = 1
     data[col] = pkey
-        
-@bottle_app.get('/manage/hotel/info/async')
+ 
+@bottle_app.get('/manage/flight/info')
+@bottle.view(app.config.template_path + 'manage/flight/flight.html')
 @Misc.auth_validate
-def hotel_manage_json():
-    schema = ['h_id', 'name', 'description', 'location']
-    access_type = bottle.request.query.get('type')
-    if access_type == 'add':
-        param = list(map(bottle.request.query.get, schema))
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success, pkey = db.add_item('hotel', schema, param, [0], fillpkey_autoinc)
-        if success:
-            return {'status': 'succeeded', 'h_id': pkey[0]}
-    elif access_type == 'update':
-        param = list(map(bottle.request.query.get, schema))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.update_item('hotel', schema, param, [0])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'delete':
-        param = list(map(bottle.request.query.get, ['h_id']))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.delete_item('hotel', schema, param, [0])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'search':
-        param = list(map(bottle.request.query.get, ['h_id', 'name', 'location']))
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        hotels = db.get_hotels(param[1], param[2], '', param[0])
-        return {'status': 'succeeded', 'hotel': hotels }
-         
-    return {'status': 'failed'}
-
-@bottle_app.get('/manage/hotel/room/async')
-@Misc.auth_validate
-def room_manage_json():
-    schema = ['h_id', 'roomType', 'bedType', 'breakfast', 'wifi', 'price']
-    access_type = bottle.request.query.get('type')
-    if access_type == 'add':
-        param = list(map(bottle.request.query.get, schema))
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success, pkey = db.add_item('room', schema, param, [0, 1])
-        if success:
-            return {'status': 'succeeded', 'h_id': pkey[0], 'roomType': pkey[1]}
-    elif access_type == 'update':
-        param = list(map(bottle.request.query.get, schema))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.update_item('room', schema, param, [0, 1])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'delete':
-        param = list(map(bottle.request.query.get, ['h_id', 'roomType']))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.delete_item('room', schema, param, [0, 1])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'search':
-        param = list(map(bottle.request.query.get, ['h_id', 'roomType']))
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        rooms = db.get_hotel_rooms(param[0], param[1])
-        return {'status': 'succeeded', 'room': rooms }
-         
-    return {'status': 'failed'}
-
-@bottle_app.get('/manage/hotel/comment/async')
-@Misc.auth_validate
-def hotel_comment_manage_json():
-    schema = ['c_id', 'h_id', 'u_id', 'message', 'rate']
-    access_type = bottle.request.query.get('type')
-    if access_type == 'add':
-        param = list(map(bottle.request.query.get, schema))
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success, pkey = db.add_item('hotelComment', schema, param, [0], fillpkey_autoinc)
-        if success:
-            return {'status': 'succeeded', 'c_id': pkey[0]}
-    elif access_type == 'update':
-        param = list(map(bottle.request.query.get, schema))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.update_item('hotelComment', schema, param, [0])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'delete':
-        param = list(map(bottle.request.query.get, ['c_id']))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.delete_item('hotelComment', schema, param, [0])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'search':
-        param = list(map(bottle.request.query.get, ['u_id', 'beginDate', 'endDate']))
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        cmt = db.get_user_hotel_comment(param[0], param[1], param[2])
-        return {'status': 'succeeded', 'hotelComment': cmt }
-         
-    return {'status': 'failed'}
+def manage_flight_info():
+    return {}
 
 @bottle_app.get('/manage/flight/info/async')
 @Misc.auth_validate
@@ -818,51 +708,12 @@ def flight_manage_json():
         return { 'status': 'succeeded', 'flight': ret_flights }
     return {'status': 'failed'}
 
-@bottle_app.get('/manage/flight/comment/async')
-@Misc.auth_validate
-def flight_comment_manage_json():
-    schema = ['c_id', 'flightNumber', 'u_id', 'message', 'rate']
-    access_type = bottle.request.query.get('type')
-    if access_type == 'add':
-        param = list(map(bottle.request.query.get, schema))
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success, pkey = db.add_item('flightComment', schema, param, [0], fillpkey_autoinc)
-        if success:
-            return {'status': 'succeeded', 'c_id': pkey[0]}
-    elif access_type == 'update':
-        param = list(map(bottle.request.query.get, schema))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.update_item('flightComment', schema, param, [0])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'delete':
-        param = list(map(bottle.request.query.get, ['c_id']))
-        if not param[0]:
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
-        success = db.delete_item('flightComment', schema, param, [0])
-        if success:
-            return {'status': 'succeeded'}
-    elif access_type == 'search':
-        param = list(map(bottle.request.query.get, 
-            ['u_id', 'beginDate', 'endDate']))
-        print(param)
-        if not any(param):
-            return {'status': 'failed'}
-        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        
-        db = Database(app.config)
-        cmt = db.get_user_flight_comment(param[0], param[1], param[2])
 
-        return { 'status': 'succeeded', 'flightComment': cmt }
-    return {'status': 'failed'}
+@bottle_app.get('/manage/flight/transaction')
+@bottle.view(app.config.template_path + 'manage/flight/transaction.html')
+@Misc.auth_validate
+def manage_flight_transaction():
+    return {}
 
 @bottle_app.get('/manage/flight/transaction/async')
 @Misc.auth_validate
@@ -910,6 +761,258 @@ def flight_transaction_manage_json():
 
         return { 'status': 'succeeded', 'flightTransaction': trans }
     return {'status': 'failed'}
+
+@bottle_app.get('/manage/flight/comment')
+@bottle.view(app.config.template_path + 'manage/flight/comment.html')
+@Misc.auth_validate
+def manage_flight_comment():
+    return {}
+
+@bottle_app.get('/manage/flight/comment/async')
+@Misc.auth_validate
+def flight_comment_manage_json():
+    schema = ['c_id', 'flightNumber', 'u_id', 'message', 'rate']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('flightComment', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded', 'c_id': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('flightComment', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['c_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('flightComment', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, 
+            ['u_id', 'beginDate', 'endDate']))
+        print(param)
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        
+        db = Database(app.config)
+        cmt = db.get_user_flight_comment(param[0], param[1], param[2])
+
+        return { 'status': 'succeeded', 'flightComment': cmt }
+    return {'status': 'failed'}
+
+@bottle_app.get('/manage/hotel/info')
+@bottle.view(app.config.template_path + 'manage/hotel/hotel.html')
+@Misc.auth_validate
+def manage_hotel_info():
+    return {}
+
+@bottle_app.get('/manage/hotel/info/async')
+@Misc.auth_validate
+def hotel_manage_json():
+    schema = ['h_id', 'name', 'description', 'location']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('hotel', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded', 'h_id': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('hotel', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['h_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('hotel', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, ['h_id', 'name', 'location']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        hotels = db.get_hotels(param[1], param[2], '', param[0])
+        return {'status': 'succeeded', 'hotel': hotels }
+         
+    return {'status': 'failed'}
+
+@bottle_app.get('/manage/hotel/room')
+@bottle.view(app.config.template_path + 'manage/hotel/room.html')
+@Misc.auth_validate
+def manage_hotel_room():
+    return {}
+
+@bottle_app.get('/manage/hotel/room/async')
+@Misc.auth_validate
+def room_manage_json():
+    schema = ['h_id', 'roomType', 'bedType', 'breakfast', 'wifi', 'price']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('room', schema, param, [0, 1])
+        if success:
+            return {'status': 'succeeded', 'h_id': pkey[0], 'roomType': pkey[1]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('room', schema, param, [0, 1])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['h_id', 'roomType']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('room', schema, param, [0, 1])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, ['h_id', 'roomType']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        rooms = db.get_hotel_rooms(param[0], param[1])
+        return {'status': 'succeeded', 'room': rooms }
+         
+    return {'status': 'failed'}
+
+@bottle_app.get('/manage/hotel/transaction')
+@bottle.view(app.config.template_path + 'manage/hotel/transaction.html')
+@Misc.auth_validate
+def manage_hotel_transaction():
+    return {}
+
+@bottle_app.get('/manage/hotel/transaction/async')
+@Misc.auth_validate
+def hotel_transaction_manage_json():
+    schema = ['t_id', 'h_id', 'u_id', 'time', 'price', 'status']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('hotelTransaction', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded', 't_id': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('hotelTransaction', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['t_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('hotelTransaction', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, 
+            ['u_id', 'beginDate', 'endDate']))
+        print(param)
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        
+        db = Database(app.config)
+        trans = db.get_hotel_transaction_history(param[0], param[1], param[2])
+
+        return { 'status': 'succeeded', 'hotelTransaction': trans }
+    return {'status': 'failed'}
+
+@bottle_app.get('/manage/hotel/comment')
+@bottle.view(app.config.template_path + 'manage/hotel/comment.html')
+@Misc.auth_validate
+def manage_hotel_comment():
+    return {}
+
+@bottle_app.get('/manage/hotel/comment/async')
+@Misc.auth_validate
+def hotel_comment_manage_json():
+    schema = ['c_id', 'h_id', 'u_id', 'message', 'rate']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('hotelComment', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded', 'c_id': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('hotelComment', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['c_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('hotelComment', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, ['u_id', 'beginDate', 'endDate']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        cmt = db.get_user_hotel_comment(param[0], param[1], param[2])
+        return {'status': 'succeeded', 'hotelComment': cmt }
+         
+    return {'status': 'failed'}
+
 
 if __name__ == '__main__':
     bottle.run(bottle_app, host='0.0.0.0', port=8080, debug=True)
