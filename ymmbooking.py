@@ -137,7 +137,7 @@ class Database(object):
         rooms = cursor.fetchall()
         cursor.close()
         return rooms
-
+    
     def get_airline_by_code(self, code=""):
         cursor = self._conn.cursor()
         cursor.execute("SELECT * FROM airline WHERE code=?;", [code])
@@ -190,43 +190,6 @@ class Database(object):
         except:
             return False
 
-    def add_hotel(self, name="", description="", location=""):
-        cursor = self._conn.cursor()
-        cursor.execute("SELECT MAX(h_id) from hotel;")
-        try:
-            h_id = cursor.fetchall()[0]['MAX(h_id)'] + 1
-        except: # the table may be empty
-            h_id = 1
-        try:
-            cursor.execute(
-                "INSERT INTO hotel (h_id,name,description,location) "
-                "VALUES(?,?,?,?);", [h_id, name, description, location])
-            cursor.close()
-            return True, h_id
-        except:
-            return False, -1
-    def update_hotel(self, h_id="", name="", description="", location=""):
-        cursor = self._conn.cursor()
-        try:
-            cursor.execute(
-                "UPDATE hotel "
-                "SET name=?, description=?, location=? "
-                "WHERE h_id=?",
-                [name, description, location, h_id])
-            cursor.close()
-            return True
-        except:
-            return False
-    def delete_hotel(self, h_id=""):
-        cursor = self._conn.cursor()
-        try:
-            cursor.execute(
-                "DELETE FROM hotel "
-                "WHERE h_id=?", [h_id])
-            cursor.close()
-            return True
-        except None:
-            return False
     def create_transaction_flight(self, 
         flight_number="", uid="", date="", price="", user_info=None):
         if not user_info:
@@ -265,7 +228,9 @@ class Database(object):
             return ret[0]
         except:
             return []
-    def get_flight_comment(self, uid="", start_date="", end_date="2999-12-31"):
+    
+    # different from the method for admin, user id must be provided here
+    def get_user_flight_comment(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flightComment "
@@ -274,7 +239,27 @@ class Database(object):
         ret = cursor.fetchall()
         cursor.close()
         return ret
- 
+     
+    # different from the method for admin, u_id must be provided here
+    def get_user_hotel_comment(self, uid="", beginDate="", endDate=""):
+        cond, data = [], []
+        cursor = self._conn.cursor()
+        
+        # oops but date is not yet supported in this table
+        #if beginDate or endDate:
+        #    beginDate = beginDate if beginDate else "0000-00-00"
+        #    endDate = endDate if endDate else "2999-12-31"
+        #    cond.append("time BETWEEN ? AND ?")
+        #    data += [beginDate, endDate]
+        
+        cursor.execute(
+            "SELECT * FROM hotelComment "
+            "WHERE u_id=?",
+            [uid])
+        ht_cmt = cursor.fetchall()
+        cursor.close()
+        return ht_cmt
+
     def add_flight_comment(self, uid='', flight_number='', message='', rate=''):
         cursor = self._conn.cursor()
         cursor.execute(
@@ -586,7 +571,7 @@ def comment_history_asycn():
             ['begin_date', 'end_date']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        raw_comments = db.get_flight_comment(uid, param[0], param[1])
+        raw_comments = db.get_user_flight_comment(uid, param[0], param[1])
         comments = [[
             comment['c_id'], comment['flightNumber'], comment['u_id'], 
             comment['message'], comment['rate']] for comment in raw_comments]
@@ -735,6 +720,49 @@ def room_manage_json():
          
     return {'status': 'failed'}
 
+@bottle_app.get('/manage/hotel/comment/async')
+@Misc.auth_validate
+def hotel_comment_manage_json():
+    schema = ['c_id', 'h_id', 'u_id', 'message', 'rate']
+    access_type = bottle.request.query.get('type')
+    if access_type == 'add':
+        param = list(map(bottle.request.query.get, schema))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success, pkey = db.add_item('hotelComment', schema, param, [0], fillpkey_autoinc)
+        if success:
+            return {'status': 'succeeded', 'c_id': pkey[0]}
+    elif access_type == 'update':
+        param = list(map(bottle.request.query.get, schema))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.update_item('hotelComment', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'delete':
+        param = list(map(bottle.request.query.get, ['c_id']))
+        if not param[0]:
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        success = db.delete_item('hotelComment', schema, param, [0])
+        if success:
+            return {'status': 'succeeded'}
+    elif access_type == 'search':
+        param = list(map(bottle.request.query.get, ['u_id', 'beginDate', 'endDate']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        cmt = db.get_user_hotel_comment(param[0], param[1], param[2])
+        return {'status': 'succeeded', 'hotelComment': cmt }
+         
+    return {'status': 'failed'}
+
 @bottle_app.get('/manage/flight/info/async')
 @Misc.auth_validate
 def flight_manage_json():
@@ -831,14 +859,14 @@ def flight_comment_manage_json():
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         
         db = Database(app.config)
-        cmt = db.get_flight_comment(param[0], param[1], param[2])
+        cmt = db.get_user_flight_comment(param[0], param[1], param[2])
 
         return { 'status': 'succeeded', 'flightComment': cmt }
     return {'status': 'failed'}
 
 @bottle_app.get('/manage/flight/transaction/async')
 @Misc.auth_validate
-def flight_comment_manage_json():
+def flight_transaction_manage_json():
     schema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status', 'is_child', 'user_name',
                     'ID_type', 'ID_number', 'contact_name', 'contact_tel', 'contact_email'];
     access_type = bottle.request.query.get('type')
