@@ -164,7 +164,7 @@ class Database(object):
                 , [data[i] for i in pkey_cols])
             cursor.close()
             return True
-        except None:
+        except:
             return False
 
     def add_hotel(self, name="", description="", location=""):
@@ -629,25 +629,24 @@ def fillpkey_autoinc(table, schema, col, data, cursor):
 @bottle_app.get('/manage/hotel/info/async')
 @Misc.auth_validate
 def hotel_manage_json():
+    schema = ['h_id', 'name', 'description', 'location']
     access_type = bottle.request.query.get('type')
     if access_type == 'add':
-        param = list(map(bottle.request.query.get, 
-            ['name', 'description', 'location']))
+        param = list(map(bottle.request.query.get, schema))
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success, h_id = db.add_hotel(param[0], param[1], param[2])
+        success, h_id = db.add_item('hotel', schema, param, [0], fillpkey_autoinc)
         if success:
             return {'status': 'succeeded', 'h_id': h_id}
     elif access_type == 'update':
-        param = list(map(bottle.request.query.get, 
-            ['h_id', 'name', 'description', 'location']))
+        param = list(map(bottle.request.query.get, schema))
         if not param[0]:
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success = db.update_hotel(param[0], param[1], param[2], param[3])
+        success = db.update_item('hotel', schema, param, [0])
         if success:
             return {'status': 'succeeded'}
     elif access_type == 'delete':
@@ -656,11 +655,18 @@ def hotel_manage_json():
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success = db.delete_hotel(param[0])
+        success = db.delete_item('hotel', schema, param, [0])
         if success:
             return {'status': 'succeeded'}
     elif access_type == 'search':
-        return hotel_search_json()
+        param = list(map(bottle.request.query.get, ['h_id', 'name', 'location']))
+        if not any(param):
+            return {'status': 'failed'}
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        hotels = db.get_hotels(param[1], param[2], '', param[0])
+        return {'status': 'succeeded', 'hotel': hotels }
+         
     return {'status': 'failed'}
 
 @bottle_app.get('/manage/flight/info/async')

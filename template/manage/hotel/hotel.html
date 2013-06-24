@@ -35,19 +35,19 @@
                                         <td>
                                                 <div>
                                                     <label class="search-label">酒店编号</label>
-                                                    <input class="search-input" type="text" id="bsHID" placeholder="编号">
+                                                    <input class="search-input" type="text" id="bs_h_id" placeholder="编号">
                                                 </div>
                                         </td>
                                         <td>
                                                 <div>
                                                     <label class="search-label">酒店名称</label>
-                                                    <input class="search-input" type="text" id="bsName" placeholder="名称">
+                                                    <input class="search-input" type="text" id="bs_name" placeholder="名称">
                                                 </div>
                                         </td> <!-- span4 -->
                                         <td>
                                                 <div>
                                                     <label class="search-label">酒店位置</label>
-                                                    <input class="search-input" type="text" id="bsLocation" placeholder="地点">
+                                                    <input class="search-input" type="text" id="bs_location" placeholder="地点">
                                                 </div>
                                         </td> <!-- span4 -->
                                     </tr>
@@ -61,7 +61,7 @@
                             </div>
                         </div> <!-- seller-search-form -->
                     </div> <!-- row-fluid -->
-                    <h3 id="resultVerbose">共有1个搜索结果</h3>
+                    <h3 id="resultVerbose">共有0个结果</h3>
                     <div class="row-fluid"> <!-- search result -->
                         <table class="table table-hover" id="resultTable" style="table-layout:fixed">
                             <colgroup>
@@ -90,9 +90,9 @@
                             </colgroup>
                             <tr>
                                 <td class="text-cropped">新的酒店</td>
-                                <td style="padding:0;"><input class="input-cropped" id="atName" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atDescription" type="text" placeholder="input"></td>
-                                <td style="padding:0;"><input class="input-cropped" id="atLocation" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content input" id="at_name" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content input" id="at_description" type="text" placeholder="input"></td>
+                                <td class="cell"><input class="cell-content input" id="at_location" type="text" placeholder="input"></td>
                                 <td>
                                     <div>
                                         <button class="btn btn-icon" id="atAdd"><i class="icon-ok"></i></button>
@@ -125,67 +125,59 @@
 <!--TODO: forbid multiple popover -->
 
 <script> // page specified functions
-function editable(param) {
-    var col;
-    if(typeof param == 'number') {
-        col = param;
-    } else {
-        col = param.prop('cellIndex');
-    }
-    
-    if(col == 0 || col == 4)
-        return false;
-    else
-        return true;
-}
-
-function isRowValid(row) {
-    var zeroCnt = 0;
-
-    if(!isInt(row.find('td:eq(0)').text())) return false;
-    for(var i = 1; i < 4; i++) {
-        var coltxt = row.find('td:eq(' + i + ')').text();
-
-        if(coltxt.length > 255) return false;
-        if(coltxt.length == 0) zeroCnt++;
-    }
-    if(zeroCnt == 3) return false;
-    return true;
-}
-function mapResult(res) {
-    return $.map(res, function(ele) {
-        return [[ele[0], ele[1], ele[3], ele[2]]];
+function mapDbToTable(dbdata) {
+    //console.log(dbdata);
+    return $.map(dbdata, function(ele, index) {
+        //ele = parseObject(ele);
+        return [[ele['h_id'], ele['name'], ele['location'], ele['description']]];
     });
 }
-var rowtmpl = '<tr><td class="text-cropped" rel="popover">__col1__</td>'
-    + '<td class="text-cropped">__col2__</td>'
-    + '<td class="text-cropped">__col3__</td>'
-    + '<td class="text-cropped">__col4__</td>'
-    + '<td><div><button class="btn btn-icon"><i class="icon-ok"></i></button>'
-    + '<button class="btn btn-icon"><i class="icon-remove"></i></button>'
-    + '<button class="btn btn-icon"><i class="icon-repeat"></i></button></div></td></tr>';
-var schema = ['hid', 'name', 'location', 'description'];
-var dbschema = ['h_id', 'name', 'description', 'location'];
-var rt = new ResultTable([]);
-var asyncURL = '/manage/hotel/info/async';
 
+function mapTableToDb(tbdata) {
+    return $.map(tbdata, function(ele, index) {
+        return {
+            h_id: ele[0],
+            name: ele[1],
+            description: ele[3],
+            location: ele[2],
+        };
+    });
+}
+
+function buildObject(iterFunc) {
+    var ret = {};
+    for(var i = 0; i < dbschema.length; i++) {
+        ret[dbschema[i]] = iterFunc(i);
+    }
+    return ret;
+}
+
+function parseObject(obj) {
+    var ret = [];
+    for(var key in dbschema) {
+        ret.push(obj[dbschema[key]]);
+    }   
+    return ret;
+}
+
+var dbschema = ['h_id', 'name', 'description', 'location'];
+var schema = [{id: 'h_id', name: '酒店编号', type: 'int', primaryKey: true},
+                {id: 'name', name: '酒店名称', type: 'string', popover: true},
+                {id: 'location', name: '酒店位置', type: 'string', popover: true},
+                {id: 'description', name: '酒店描述', type: 'string', popover: true},
+                ];
+var asyncURL = '/manage/hotel/info/async';
+var rt = new ResultTable('resultTable', schema, []);
+//var at = new ResultTable('addTable', schema, [[[1],[3,2],[2,3],[4],[5],[6],[7],[8,9,10]]]);
 </script>
 
 <script> //event handlers
 $('#resultTable').click(function(e) {
-    console.log($(e.target).prop('tagName'));
     switch($(e.target).prop('tagName')) {
-    case 'TD' : {
-        var pos = cellPosition($(e.target));
-        var cell = $(e.target);
-        if(!editable(cell) || rt.overflow[pos.row][pos.col]) return;
-                           
-        cell.css('padding', 0);
-        var text = cell.text();
-        cell.html('')
-            .append('<input type="text" class="input-cropped" value="' + text + '">');
-    
-        cell.find('input').focus().select();
+    case 'TD':
+    case 'DIV': {
+        var div = $(e.target);
+        rt.edit(div);
         break;
     }
     case 'I':
@@ -195,19 +187,22 @@ $('#resultTable').click(function(e) {
         //TODO: enable and disable of buttons
         var btn = $(e.target).closest('button');
         var rowId = btn.closest('tr').prop('rowIndex');
+        var children = rt.getRow(rowId).children();
+        var tbdata = [];
+        for(var i = 0; i < schema.length; i++) {
+            tbdata.push(rt.getCellCache($(children[i])));
+        }
+        //var dbdata = mapTableToDb([tbdata]);
+        var queryObj = mapTableToDb([tbdata])[0];
+        //console.log(queryObj);
+        
         switch(btn.parent().children().index(btn)) {
         case 0: { // submit
+            //var queryObj = buildObject(function(index) { return dbdata[0][index]; });
+            queryObj.type = 'update';
             $.getJSON(
-                asyncURL,
-                {
-                    h_id: rt.cache[rowId][0],
-                    name: rt.cache[rowId][1],
-                    location: rt.cache[rowId][2],
-                    description: rt.cache[rowId][3],
-                    type: 'update',
-                },
+                asyncURL, queryObj,
                 function(data) {
-                    console.log(data);
                     if(data.status == 'succeeded')
                         rt.commitRow(rowId);
                     else
@@ -219,12 +214,13 @@ $('#resultTable').click(function(e) {
             $.getJSON(
                 asyncURL,
                 {
-                    h_id: rt.cache[rowId][0],
+                    h_id: queryObj.h_id,
                     type: 'delete',
                 },
                 function(data) {
-                    console.log(data);
+                    //console.log(data);
                     rt.removeRow(rowId);
+                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
                 });
             break;
         }
@@ -239,45 +235,47 @@ $('#resultTable').click(function(e) {
     
 $('#resultTable').focusout(function(e){
     var text = $(e.target).val();
-    var cell = $(e.target).closest('td');
-    if(editable(cell)) {
-        cell.css('padding', 8);
-        rt.modifyCell(cell, text);
-    }
+    var div = $(e.target).closest('div, td');
+    if(cellPosition(div).col < schema.length)
+        rt.modifyCell(div);
 });
             
 $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,
         {
-            h_id: $('#bsHID').val(),
-            name: $('#bsName').val(),
-            location: $('#bsLocation').val(),
+            //flightNumber: $('#bs_flightNumb').val(),
+            h_id: $('#bs_h_id').val(),
+            name: $('#bs_name').val(),
+            location: $('#bs_location').val(),
             type: 'search',
         },
         function(data) {
             console.log(data);
-            rt = new ResultTable(data.hotel);
+            if(data.status == 'succeeded') {
+                rt.setData(mapDbToTable(data.hotel));
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
+            }
         });
 });
 
 $('#atAdd').click(function(e) {
     var row = $('#addTable tr:first');
-    var addobj = {
-        h_id: '',
-        name: row.find('td:eq(1) input:first').val(),
-        location: row.find('td:eq(2) input:first').val(),
-        description: row.find('td:eq(3) input:first').val(),
-        type: 'add',
-    };
+    var queryObj = buildObject(function(index) { 
+        var input = $('#at_' + dbschema[index]);
+        return (input.length ? input.val() : undefined); 
+    });
+    queryObj.type = 'add';
     $.getJSON(
         asyncURL,
-        addobj,
+        queryObj,
         function(data) {
-            console.log(data);
+            //console.log(data);
             if(data.status == 'succeeded') {
                 $('#addTable input').val('');
-                rt.pushRow([data.h_id, addobj.name, addobj.location, addobj.description]);
+                queryObj.h_id = data.h_id;
+                rt.pushRow(mapDbToTable([queryObj])[0]);
+                $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
             }
             else
                 alert('Add failed');
@@ -287,3 +285,4 @@ $('#atRemove').click(function(e) {
     $('#addTable input').val('');
 });
 </script>
+
