@@ -208,7 +208,7 @@ class Database(object):
         return
 
     # unlike the method for admin, uid must be provided
-    def get_user_flight_transaction_history(self, uid="", start_date="", end_end="2999-12-31"):
+    def get_user_flight_transaction_history(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flightTransaction "
