@@ -57,7 +57,6 @@
     <img src="/img/toplogo.jpg" width="100%">
     </img>
 </div>
-<script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript">
 		var buid;//全局变量
 		buid = getCookie("uid");
