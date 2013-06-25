@@ -162,8 +162,8 @@ function parseObject(obj) {
 
 var dbschema = ['t_id', 'h_id', 'u_id', 'time', 'price', 'status'];
 var schema = [{id: 't_id', name: '订单编号', type: 'int', primaryKey: true},
-                {id: 'h_id', name: '酒店编号', type: 'string'},
-                {id: 'u_id', name: '用户标识', type: 'string'},
+                {id: 'h_id', name: '酒店编号', type: 'int', not_null: true},
+                {id: 'u_id', name: '用户标识', type: 'string', not_null: true},
                 {id: 'time', name: '交易时间', type: 'datetime'},
                 {id: 'price', name: '订单金额', type: 'float'},
                 {id: 'status', name: '订单状态', type: 'string'},
@@ -174,61 +174,6 @@ var rt = new ResultTable('resultTable', schema, []);
 </script>
 
 <script> //event handlers
-$('#resultTable').click(function(e) {
-    switch($(e.target).prop('tagName')) {
-    case 'TD':
-    case 'DIV': {
-        var div = $(e.target);
-        rt.edit(div);
-        break;
-    }
-    case 'I':
-        if($(e.target).parent().prop('tagName') != 'BUTTON')
-            break;
-    case 'BUTTON': {
-        //TODO: enable and disable of buttons
-        var btn = $(e.target).closest('button');
-        var rowId = btn.closest('tr').prop('rowIndex');
-        var children = rt.getRow(rowId).children();
-        var tbdata = [];
-        for(var i = 0; i < schema.length; i++) {
-            tbdata.push(rt.getCellCache($(children[i])));
-        }
-        var queryObj = mapTableToDb([tbdata])[0];
-        
-        switch(btn.parent().children().index(btn)) {
-        case 0: { // submit
-            queryObj.type = 'update';
-            $.getJSON(
-                asyncURL, queryObj,
-                function(data) {
-                    if(data.status == 'succeeded')
-                        rt.commitRow(rowId);
-                    else
-                        alert('Submit failed');
-                });
-            break;
-        }
-        case 1: { // remove
-            queryObj.type = 'delete';
-            $.getJSON(
-                asyncURL, queryObj,
-                function(data) {
-                    //console.log(data);
-                    rt.removeRow(rowId);
-                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
-                });
-            break;
-        }
-        case 2: { // reset
-            rt.resetRow(rowId);
-            break;
-        }
-        }
-    }
-    }
-});
-    
 $('#resultTable').focusout(function(e){
     var text = $(e.target).val();
     var div = $(e.target).closest('div, td');

@@ -100,6 +100,65 @@ function ResultTable(tableid, schema, data) {
                 return true;
         },
     };
+    // event
+    this.$table.click(function(e) {
+        switch($(e.target).prop('tagName')) {
+        case 'TD':
+        case 'DIV': {
+            var div = $(e.target);
+            outer.edit(div);
+            break;
+        }
+        case 'I':
+            if($(e.target).parent().prop('tagName') != 'BUTTON')
+                break;
+        case 'BUTTON': {
+            //TODO: enable and disable of buttons
+            var btn = $(e.target).closest('button');
+            var rowId = btn.closest('tr').prop('rowIndex');
+            var children = outer.getRow(rowId).children();
+            var tbdata = [];
+            for(var i = 0; i < schema.length; i++) {
+                tbdata.push(outer.getCellCache($(children[i])));
+            }
+            var queryObj = mapTableToDb([tbdata])[0];
+            
+            switch(btn.parent().children().index(btn)) {
+            case 0: { // submit
+                queryObj.type = 'update';
+                $.getJSON(
+                    asyncURL, queryObj,
+                    function(data) {
+                        if(data.status == 'succeeded')
+                            outer.commitRow(rowId);
+                        else
+                            alert('Submit failed');
+                    });
+                break;
+            }
+            case 1: { // reset
+                outer.resetRow(rowId);
+                break;
+            }
+            case 2: { // remove
+                queryObj.type = 'delete';
+                $.getJSON(
+                    asyncURL, queryObj,
+                    function(data) {
+                        console.log(data);
+                        outer.removeRow(rowId);
+                        $('#resultVerbose').text('共' + (outer.getRowCnt() - 1) + '条结果');
+                    });
+                break;
+            }}
+        }}
+    });
+    this.$table.focusout(function(e){
+        var cell = $(e.target).closest('div, td');
+        if(cellPosition(cell).col < schema.length)
+            outer.modifyCell(cell);
+    });
+    // model
     this.setData(data);
     //this.updateResultVerbose();
 }
@@ -125,14 +184,6 @@ ResultTable.prototype = {
     
     // table access
     cellIndex: function(cell) { // index of a cell in result table
-        /*var pos = cellPosition(cell);
-        var index = [];
-        cell = cell.closest('[rtLevel]');
-        while(cell.length) {
-            index.unshift(cell.attr('rtIndex'));
-            cell = this.cellParent(cell);
-        }
-        return [pos.row].concat(index);*/
         return cell.data('rtIndex');
     },
     
@@ -140,9 +191,7 @@ ResultTable.prototype = {
 
         var attr = this.schema[index[1]]; // start from rowId
         for(var i = 2; i < index.length; i++) { // skip rowId and colId
-            //if(!attr.children) return undefined;
             attr = attr.children[index[i]];
-            //if(!attr) return undefined;
         }
         return attr;
     },
@@ -196,7 +245,7 @@ ResultTable.prototype = {
         } else { // leaf
             if(!this.editable(cell) || (cell.data('overflow') && this.popoverEnabled(cell)))
                 return cell; // if not editable or there is popover
-            var obj = (cell.data('cache') ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
+            var obj = (cell.data('cache') != undefined ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
             return this.callback(cell, 'editLeaf')(cell, obj);
         }
     },
@@ -205,7 +254,7 @@ ResultTable.prototype = {
         if(this.cellChildren(cell).length != 0) { // not leaf
             this.callback(cell, 'viewNonLeaf')(cell);
         } else {
-            var obj = (cell.data('cache') ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
+            var obj = (cell.data('cache') != undefined ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
             this.callback(cell, 'viewLeaf')(cell, obj);
         }
         
@@ -242,9 +291,9 @@ ResultTable.prototype = {
             this.createCell(col);
         }
         row.append('<td><div> \
-            <button class="btn btn-icon"><i class="icon-ok"></i></button> \
+            <button class="btn btn-icon" disabled="disabled"><i class="icon-ok"></i></button> \
+            <button class="btn btn-icon" disabled="disabled"><i class="icon-repeat"></i></button> \
             <button class="btn btn-icon"><i class="icon-remove"></i></button> \
-            <button class="btn btn-icon"><i class="icon-repeat"></i></button> \
             </div></td>');
         return row;
     },
@@ -275,7 +324,12 @@ ResultTable.prototype = {
     resetRow: function(rowId) {
         this.removeRowCache(rowId);
         this.updateRowView(rowId);
-        this.getRow(rowId).removeClass();
+        // assume the original data is correct
+        for(var i = 0; i < this.schema.length; i++) {
+            this.cellStatus(this.getCell(rowId, i), 'clean');
+        }
+        $(this.getRow(rowId).find('button')[1]).attr('disabled', 'disabled'); // disable button reset
+        $(this.getRow(rowId).find('button')[0]).attr('disabled', 'disabled'); // disable button submit 
     },
     
     commitRow: function(rowId) { // write from buffer to data
@@ -284,14 +338,19 @@ ResultTable.prototype = {
         for(var i = 0; i < this.schema.length; i++) {
             this.data[rowId][i] = deepCopy(this.getCellCache($(children[i])));
         }
+        
+        for(var i = 0; i < this.schema.length; i++)
+            this.cellStatus($(row.children()[i]), 'clean');
+        $(this.getRow(rowId).find('button')[1]).attr('disabled', 'disabled'); // disable button reset
+        $(this.getRow(rowId).find('button')[0]).attr('disabled', 'disabled'); // disable submit button
         row.removeClass().addClass('success');
         setTimeout(function() { row.removeClass(); }, 3000);
     },
     
-    checkRow: function(rowId) {
+    checkRow: function(rowId, modified) {
         var children = this.getRow(rowId).children();
         for(var i = 0; i < this.schema.length; i++) {
-            if(!this.checkCell($(children[i]))) return false;
+            if(!this.checkCell($(children[i]), modified)) return false;
         }
         return true;
     },
@@ -316,7 +375,9 @@ ResultTable.prototype = {
         }
     },
     
+    // view related
     // display current cached data
+    // no viewing effects for the sake of efficiency
     updateRowView: function(rowId) {
         var row = this.getRow(rowId);
         for(var i = 0; i < this.schema.length; i++) {
@@ -360,10 +421,13 @@ ResultTable.prototype = {
         var outer = this;
         var children = this.cellChildren(cell);
         if(children.length == 0) {
-            if(obj == undefined) return cell;
-            if(typeof obj != 'object' && typeof obj != 'string') // non-string primitive typeof
-                obj += ''; // convert to string
-            cell.data('cache', deepCopy(obj));
+            if(obj == undefined) {
+                cell.removeData('cache');
+            } else {
+                if(typeof obj != 'object' && typeof obj != 'string') // non-string primitive typeof
+                    obj += ''; // convert to string
+                cell.data('cache', deepCopy(obj));
+            }
         }
         else {
             if(!isArray(obj) || obj.length == 0) return cell;
@@ -379,7 +443,7 @@ ResultTable.prototype = {
         var outer = this;
         var children = this.cellChildren(cell);
         if(children.length == 0) {
-            return cell.data('cache') ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell));
+            return cell.data('cache') != undefined ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell));
         }
         else {
             var ret = [];
@@ -414,16 +478,54 @@ ResultTable.prototype = {
     // cell manipulator
     cellChildren: function(cell) {
         return cell.data('rtChildren');
-        //return cell.find('[rtLevel=' + (parseInt(cell.attr('rtLevel')) + 1) + ']');
     },
     
     cellParent: function(cell) {
         return cell.parents('[rtLevel="' + (parseInt(cell.attr('rtLevel')) - 1) + '"]');
     },
     
+    cellStatus: function(cell, status) {
+        var children = this.cellChildren(cell);
+        if(children.length == 0) { // leaf
+            if(!status) return cell.data('status');
+            
+            // set view
+            switch(status) {
+            case 'error': 
+                cell.css('background-color', '#ff0000')
+                    .css('color', '#000000')
+                    .css('font-style', 'italic')
+                    .css('font-weight', 'bold'); 
+                break;
+            case 'dirty': 
+                cell.css('background-color', '')
+                    .css('color', '#ffb810')
+                    .css('font-style', 'italic')
+                    .css('font-weight', 'normal'); 
+                break;
+            case 'clean':
+            default: 
+                cell.css('background-color', '')
+                    .css('color', '#000000')
+                    .css('font-style', 'normal')
+                    .css('font-weight', 'normal'); 
+                break;
+            }
+            cell.data('status', status);
+        } else { // non-leaf
+            var outer = this;
+            if(!status) {
+                var ret = [];
+                $.each(children, function(key, value) { ret.push(outer.cellStatus(value)); });
+                return ret;
+            } else {
+                $.each(children, function(key, value) { outer.cellStatus(value, status); });
+            }
+        }
+    },
+    
     setCell: function(cell, obj) {
         this.setCellCache(cell, obj);
-        //cell.data('cache', deepCopy(obj));
         this.view(cell);
     },
     
@@ -431,29 +533,40 @@ ResultTable.prototype = {
         var pos = cellPosition(cell);
         obj = (obj != undefined ? obj : this.callback(cell, 'cellDataFromEdit')(cell));
         var cache = this.getCellCache(cell);
-
+        
         if(deepCmp(cache, obj) != 0) {
             this.setCell(cell, obj);
-            if(this.checkRow(pos.row)) {
-                this.getRow(pos.row).removeClass().addClass('warning');
-            } else {
-                this.getRow(pos.row).removeClass().addClass('error');
-            }
+            // view
+            var row = this.getRow(pos.row);
+            if(!this.checkCell(cell, true))
+                this.cellStatus(cell, 'error');
+            else
+                this.cellStatus(cell, 'dirty');
+            $(row.find('button')[1]).removeAttr('disabled'); // enable reset button
+            if(this.checkRow(pos.row))
+                $(row.find('button')[0]).removeAttr('disabled'); // enable submit button
+            else
+                $(row.find('button')[0]).attr('disabled', 'disabled');
         } else {
             this.view(cell);
         }
     },
     
-    checkCell: function(cell, attr) { // use attr as parameter in order to speed up the recursion
+    // if arg modified is not specified, this method checks the cached status
+    checkCell: function(cell, modified, attr) { // use attr as parameter in order to speed up the recursion
         attr = attr ? attr : this.attrAt(this.cellIndex(cell));
         var children = this.cellChildren(cell);
         
         if(children.length == 0) {
-            if(!checkType(this.getCellCache(cell), attr.type)) return false;
+            if(modified) {
+                var cache = this.getCellCache(cell);
+                return checkData(this.getCellCache(cell), attr);
+            } else
+                return cell.data('status') != 'error';
         } else {
             for(var i = 0; i < children.length; i++) {
                 var child = $(children[i]);
-                if(!this.checkCell(child, attr[i])) return false;
+                if(!this.checkCell(child, modified, attr[i])) return false;
             }
         }
         return true;
