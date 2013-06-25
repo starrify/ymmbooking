@@ -12,6 +12,7 @@
         <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script>
         <script type="text/javascript" src="/js/manage/resulttable.js"></script>
         <script type="text/javascript" src="/js/manage/util.js"></script>
+        <script type="text/javascript" src="/js/jquery-maskedinput.js"></script>
     </head>
     <body>
 %include template/head_bar.inc
@@ -146,6 +147,17 @@
     </body>
   
 </html>
+
+<script> // shared and static elements settings
+$.mask.definitions['b'] = '[0|1]';
+$('#at_time').mask("9999-99-99 99:99:99");
+$('#at_is_child').mask('b');
+var inputDatetime = $('<input type="text" class="cell-content input">');
+var inputBool = $('<input type="text" class="cell-content input">');
+inputDatetime.mask("9999-99-99 99:99:99");
+inputBool.mask('b');
+</script>
+
 <script> // page specified functions
 function mapDbToTable(dbdata) {
     //console.log(dbdata);
@@ -180,8 +192,6 @@ function mapTableToDb(tbdata) {
             contact_tel: ele[7][1],
             contact_email: ele[7][2],
         }
-        //var arr = [ele[0], ele[7][2], ele[7][1], ele[1][0], ele[2][0], ele[1][1], ele[2][1], ele[3], ele[4], ele[5], ele[6], ele[7][0]];
-        //return buildObject(function(index) { return arr[index]; });
     });
 }
 
@@ -206,11 +216,11 @@ var dbschema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status', 'is_c
 var schema = [{id: 't_id', name: '订单编号', type: 'int', primaryKey: true},
                 {id: 'flightNumber', name: '航班编号', type: 'string', not_null: true},
                 {id: 'u_id', name: '用户标识', type: 'string', not_null: true},
-                {id: 'time', name: '交易时间', type: 'datetime'},
+                {id: 'time', name: '交易时间', type: 'datetime', input: inputDatetime},
                 {id: 'price', name: '订单金额', type: 'float'},
                 {id: 'status', name: '订单状态', type: 'string'},
                 {id: 'user_info', name: '用户信息', children: [
-                    {id: 'is_child', name: '未成年', type: 'bool'},
+                    {id: 'is_child', name: '未成年', type: 'bool', input: inputBool},
                     {id: 'user_name', name: '用户姓名', type: 'string'},
                     {id: 'ID_type', name: '证件类型', type: 'string'}, 
                     {id: 'ID_number', name: '证件号', type: 'string'},
@@ -226,6 +236,21 @@ var rt = new ResultTable('resultTable', schema, []);
 </script>
 
 <script> //event handlers
+/*console.log('abcd');
+$.ajax({
+    url: 'http://10.202.18.203:65535/OnlinePayment/api/User/Login',
+    type: 'POST',
+    dataType: 'json',
+    async: false,
+    data: {
+        "username": 'aaa',
+        "password": 'bbb',
+        "group": 1,
+    }}).done(function(msg) {
+        console.log(msg);
+    });
+       
+  */  
 $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,

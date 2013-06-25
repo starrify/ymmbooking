@@ -12,6 +12,7 @@
         <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script>
         <script type="text/javascript" src="/js/manage/resulttable.js"></script>
         <script type="text/javascript" src="/js/manage/util.js"></script>
+        <script type="text/javascript" src="/js/jquery-maskedinput.js"></script>
     </head>
     <body>
 %include template/head_bar.inc
@@ -130,6 +131,16 @@
 </html>
 <!--TODO: table sort -->
 <!--TODO: forbid multiple popover -->
+<script> // static and shared element settings
+//$.mask.definitions['b'] = '[0|1]';
+$('#at_time').mask('9999-99-99 99:99:99');
+//$('#at_wifi').mask('b');
+var inputDatetime = $('<input type="text" class="cell-content input">');
+//var inputBool = $('<input type="text" class="cell-content input">');
+inputDatetime.mask("9999-99-99 99:99:99");
+//inputBool.mask('b');
+</script>
+
 <script> // page specified functions
 function mapDbToTable(dbdata) {
     //console.log(dbdata);
@@ -164,7 +175,7 @@ var dbschema = ['t_id', 'h_id', 'u_id', 'time', 'price', 'status'];
 var schema = [{id: 't_id', name: '订单编号', type: 'int', primaryKey: true},
                 {id: 'h_id', name: '酒店编号', type: 'int', not_null: true},
                 {id: 'u_id', name: '用户标识', type: 'string', not_null: true},
-                {id: 'time', name: '交易时间', type: 'datetime'},
+                {id: 'time', name: '交易时间', type: 'datetime', input: inputDatetime},
                 {id: 'price', name: '订单金额', type: 'float'},
                 {id: 'status', name: '订单状态', type: 'string'},
                 ];

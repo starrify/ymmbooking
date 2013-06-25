@@ -10,37 +10,35 @@ function ResultTable(tableid, schema, data) {
             return cell.find('input').val();
         },
         editLeaf: function(cell, obj) {
-            if(cell.data('mode') == 'edit') return cell;
+            var attr = outer.attrAt(outer.cellIndex(cell)), input;
             
-            cell.html('<input type="text" class="cell-content input" value="' + obj + '">');
-            //cell.css('padding', 0);
-            cell.find('input').focus().select();
-            cell.data('mode', 'edit');
-            return cell;
+            // add input element cache in order to speedup
+            if(!attr.input) {
+                attr.input = $('<input type="' + attr.type + '" class="cell-content input">');
+            }   
+            attr.input.val(obj);
+            cell.html(attr.input)
+                .find('input').focus().select()
         },
         editNonLeaf: function(cell, obj) {
-            return cell;
         },
         viewNonLeaf: function(cell, obj) {
             $.each(outer.cellChildren(cell), function(key, value) {
                 outer.view(value, obj ? obj[key] : undefined);
             });
-            return cell;
         },
         viewLeaf: function(cell, obj) {
-            //if(cell.data('mode') == 'view') return cell;
             var attr = outer.attrAt(outer.cellIndex(cell));
-            //cell.removeClass().addClass('cell text-cropped').css('padding', '2%');
+            if(cell.data('mode') == 'edit') {
+                attr.input.detach(); // detach current input
+            }
             if(cell.attr('rtLevel') == 1) {
                 cell.html(obj);
             } else {
                 var prefix = attr.name + ': ';
-                cell.data('view_prefix', prefix);
-                cell.html(prefix + obj);
-                //cell.append(obj);
+                cell.data('view_prefix', prefix)
+                    .html(prefix + obj);
             }
-            cell.data('mode', 'view');
-            return cell;
         },
         
         popover_cellDataFromEdit: function(pop) {
@@ -220,11 +218,13 @@ ResultTable.prototype = {
         return func ? func : this.defaultCallback[funcname];
     },
     
-    addCallback: function(index, funcname, func) {
+    addCallback: function(index, obj) {
         var attr = this.attrAt(index);
         if(!attr.callback)
             attr.callback = {};
-        attr.callback[funcname] = func;
+        for(var funcname in obj) {
+            attr.callback[funcname] = obj[funcname];
+        }
     },
     
     // callback wrapper
@@ -239,15 +239,16 @@ ResultTable.prototype = {
                 }
             }
             if(editable)
-                return this.callback(cell, 'editNonLeaf')(cell);
-            else
-                return cell;
+                this.callback(cell, 'editNonLeaf')(cell);
         } else { // leaf
+            if(cell.data('mode') == 'edit') return cell;
             if(!this.editable(cell) || (cell.data('overflow') && this.popoverEnabled(cell)))
                 return cell; // if not editable or there is popover
             var obj = (cell.data('cache') != undefined ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
-            return this.callback(cell, 'editLeaf')(cell, obj);
+            this.callback(cell, 'editLeaf')(cell, obj);
+            cell.data('mode', 'edit');
         }
+        return cell;
     },
     
     view: function(cell) {
@@ -256,6 +257,7 @@ ResultTable.prototype = {
         } else {
             var obj = (cell.data('cache') != undefined ? cell.data('cache') : arrayAt(this.data, this.cellIndex(cell)));
             this.callback(cell, 'viewLeaf')(cell, obj);
+            cell.data('mode', 'view');
         }
         
         if(this.popoverEnabled(cell)) {
