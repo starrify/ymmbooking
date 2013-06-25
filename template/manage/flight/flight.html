@@ -12,6 +12,7 @@
         <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script> <!-- test -->
         <script type="text/javascript" src="/js/manage/util.js"></script>
         <script type="text/javascript" src="/js/manage/resulttable.js"></script>
+        <script type="text/javascript" src="/js/jquery-maskedinput.js"></script>
     </head>
     <body>
   
@@ -144,9 +145,20 @@
 </html>
 <!--TODO: table sort -->
 <!--TODO: forbid multiple popover -->
+
+<script> // shared and static elements settings
+$.mask.definitions['b'] = '[0|1]';
+$('#at_departureTime').mask("99:99");
+$('#at_arrivalTime').mask('99:99');
+$('#at_stop').mask('b');
+var inputTime = $('<input type="text" class="cell-content input">');
+var inputBool = $('<input type="text" class="cell-content input">');
+inputTime.mask('99:99');
+inputBool.mask('b');
+</script>
+
 <script> // page specified functions
 function mapDbToTable(dbdata) {
-    //console.log(dbdata);
     return $.map(dbdata, function(ele, index) {
         ele = parseObject(ele);
         return [[ele[0], 
@@ -191,13 +203,13 @@ var schema = [{id:'flightNumber', name:'航班号', type: 'string', primaryKey: 
                     {id: 'arrivalAirport', name:'到达机场', type: 'string'}
                 ]}, 
                 {id:'time', name:'时间', children: [
-                    {id: 'departureTime', name: '起飞时间', type: 'time'}, 
-                    {id: 'arrivalTime', name: '到达时间', type: 'time'}
+                    {id: 'departureTime', name: '起飞时间', type: 'time', input: inputTime}, 
+                    {id: 'arrivalTime', name: '到达时间', type: 'time', input: inputTime},
                 ]}, 
                 {id: 'aircraftType', name: '机型', type: 'string'}, 
                 {id: 'schedule', name: '日程', type: 'string'},
                 {id: 'punctuality', name: '准点率', type: 'float'},
-                {id: 'stop', name: '中转', type: 'bool'}, 
+                {id: 'stop', name: '中转', type: 'bool', input: inputBool}, 
                 {id: 'price', name: '价格', children: [
                     {id: 'price', name: '报价', type: 'float'},
                     {id: 'fuelTax', name: '燃油税', type: 'float'},
@@ -208,7 +220,7 @@ var rt = new ResultTable('resultTable', schema, []);
 //var at = new ResultTable('addTable', schema, [[[1],[3,2],[2,3],[4],[5],[6],[7],[8,9,10]]]);
 </script>
 
-<script> //event handlers   
+<script> //event handlers  
 $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,
