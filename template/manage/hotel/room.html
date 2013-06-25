@@ -12,6 +12,7 @@
         <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script>
         <script type="text/javascript" src="/js/manage/resulttable.js"></script>
         <script type="text/javascript" src="/js/manage/util.js"></script>
+        <script type="text/javascript" src="/js/jquery-maskedinput.js"></script>
     </head>
     <body>
 %include template/head_bar.inc
@@ -123,6 +124,16 @@
 </html>
 <!--TODO: table sort -->
 <!--TODO: forbid multiple popover -->
+<script> // shared and static elements settings
+$.mask.definitions['b'] = '[0|1]';
+$('#at_breakfast').mask('b');
+$('#at_wifi').mask('b');
+//var inputDateTime = $('<input type="text" class="cell-content input">');
+var inputBool = $('<input type="text" class="cell-content input">');
+//inputDateTime.mask("9999-99-99 99:99:99");
+inputBool.mask('b');
+</script>
+
 <script> // page specified functions
 function mapDbToTable(dbdata) {
     //console.log(dbdata);
@@ -169,8 +180,8 @@ var schema = [{id:'h_id', name:'酒店编号', type: 'int', primaryKey: true},
                 {id:'roomType', name:'房间类型', type: 'string', primaryKey: true},
                 {id:'bedType', name:'床型', type: 'string'},
                 {id: 'service', name: '服务', children: [
-                    {id: 'breakfast', name: '早餐', type: 'bool'},
-                    {id: 'wifi', name: '无线网络', type: 'bool'},
+                    {id: 'breakfast', name: '早餐', type: 'bool', input: inputBool},
+                    {id: 'wifi', name: '无线网络', type: 'bool', input: inputBool},
                 ]},
                 {id: 'price', name: '价格', type: 'float'},
                 ];
@@ -180,75 +191,6 @@ var rt = new ResultTable('resultTable', schema, []);
 </script>
 
 <script> //event handlers
-$('#resultTable').click(function(e) {
-    switch($(e.target).prop('tagName')) {
-    case 'TD':
-    case 'DIV': {
-        var div = $(e.target);
-        rt.edit(div);
-        break;
-    }
-    case 'I':
-        if($(e.target).parent().prop('tagName') != 'BUTTON')
-            break;
-    case 'BUTTON': {
-        //TODO: enable and disable of buttons
-        var btn = $(e.target).closest('button');
-        var rowId = btn.closest('tr').prop('rowIndex');
-        var children = rt.getRow(rowId).children();
-        var tbdata = [];
-        for(var i = 0; i < schema.length; i++) {
-            tbdata.push(rt.getCellCache($(children[i])));
-        }
-        //var dbdata = mapTableToDb([tbdata]);
-        var queryObj = mapTableToDb([tbdata])[0];
-        //console.log(queryObj);
-        
-        switch(btn.parent().children().index(btn)) {
-        case 0: { // submit
-            //var queryObj = buildObject(function(index) { return dbdata[0][index]; });
-            queryObj.type = 'update';
-            $.getJSON(
-                asyncURL, queryObj,
-                function(data) {
-                    if(data.status == 'succeeded')
-                        rt.commitRow(rowId);
-                    else
-                        alert('Submit failed');
-                });
-            break;
-        }
-        case 1: { // remove
-            $.getJSON(
-                asyncURL,
-                {
-                    h_id: queryObj.h_id,
-                    roomType: queryObj.roomType,
-                    type: 'delete',
-                },
-                function(data) {
-                    //console.log(data);
-                    rt.removeRow(rowId);
-                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
-                });
-            break;
-        }
-        case 2: { // reset
-            rt.resetRow(rowId);
-            break;
-        }
-        }
-    }
-    }
-});
-    
-$('#resultTable').focusout(function(e){
-    var text = $(e.target).val();
-    var div = $(e.target).closest('div, td');
-    if(cellPosition(div).col < schema.length)
-        rt.modifyCell(div);
-});
-            
 $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,

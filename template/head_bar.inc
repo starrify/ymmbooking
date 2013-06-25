@@ -21,7 +21,7 @@
             <a class="brand" href="#">Online Payment</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#Login"  data-toggle="modal" class="navbar-link" id="Username">Username</a>
+              Logged in as <a href="#login"  data-toggle="modal" class="navbar-link" id="Username">Username</a>
 
                 </p>
                 <ul class="nav">
@@ -29,7 +29,8 @@
                     <li><a href="order_manage.html">我是买家</a></li>
                     <li><a href="#contact">我是卖家</a></li>
                     <li><a href="#contact">淘宝贝</a></li>
-                    <li class="active"><a href="/">在线预订</a></li>
+                    <li><a href="/">在线预订</a></li>
+                    <li><a href="/manage/hotel/info">订单管理</a></li>
                     <li><a data-toggle="modal" href="#notification" id="notify" onclick="viewNotification()">消息:0</a></li>
 
                 </ul>

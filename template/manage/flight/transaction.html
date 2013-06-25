@@ -12,10 +12,11 @@
         <script type="text/javascript" src="/js/bootstrap-popoverex.js"></script>
         <script type="text/javascript" src="/js/manage/resulttable.js"></script>
         <script type="text/javascript" src="/js/manage/util.js"></script>
+        <script type="text/javascript" src="/js/jquery-maskedinput.js"></script>
     </head>
     <body>
 %include template/head_bar.inc
-        <div class="hero-unit"></div>
+
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
@@ -146,6 +147,17 @@
     </body>
   
 </html>
+
+<script> // shared and static elements settings
+$.mask.definitions['b'] = '[0|1]';
+$('#at_time').mask("9999-99-99 99:99:99");
+$('#at_is_child').mask('b');
+var inputDatetime = $('<input type="text" class="cell-content input">');
+var inputBool = $('<input type="text" class="cell-content input">');
+inputDatetime.mask("9999-99-99 99:99:99");
+inputBool.mask('b');
+</script>
+
 <script> // page specified functions
 function mapDbToTable(dbdata) {
     //console.log(dbdata);
@@ -180,8 +192,6 @@ function mapTableToDb(tbdata) {
             contact_tel: ele[7][1],
             contact_email: ele[7][2],
         }
-        //var arr = [ele[0], ele[7][2], ele[7][1], ele[1][0], ele[2][0], ele[1][1], ele[2][1], ele[3], ele[4], ele[5], ele[6], ele[7][0]];
-        //return buildObject(function(index) { return arr[index]; });
     });
 }
 
@@ -204,16 +214,16 @@ function parseObject(obj) {
 var dbschema = ['t_id', 'flightNumber', 'u_id', 'time', 'price', 'status', 'is_child', 'user_name',
                 'ID_type', 'ID_number', 'contact_name', 'contact_tel', 'contact_email'];
 var schema = [{id: 't_id', name: '订单编号', type: 'int', primaryKey: true},
-                {id: 'flightNumber', name: '航班编号', type: 'string'},
-                {id: 'u_id', name: '用户标识', type: 'string'},
-                {id: 'time', name: '交易时间', type: 'datetime'},
+                {id: 'flightNumber', name: '航班编号', type: 'string', not_null: true},
+                {id: 'u_id', name: '用户标识', type: 'string', not_null: true},
+                {id: 'time', name: '交易时间', type: 'datetime', input: inputDatetime},
                 {id: 'price', name: '订单金额', type: 'float'},
                 {id: 'status', name: '订单状态', type: 'string'},
                 {id: 'user_info', name: '用户信息', children: [
-                    {id: 'is_child', name: '未成年', type: 'bool'},
+                    {id: 'is_child', name: '未成年', type: 'bool', input: inputBool},
                     {id: 'user_name', name: '用户姓名', type: 'string'},
-                    {id: 'ID_type', name: '证件类型', type: 'time'}, 
-                    {id: 'ID_number', name: '证件号', type: 'time'},
+                    {id: 'ID_type', name: '证件类型', type: 'string'}, 
+                    {id: 'ID_number', name: '证件号', type: 'string'},
                 ]}, 
                 {id: 'contact_info', name: '联系人信息', children: [ 
                     {id: 'contact_name', name: '姓名', type: 'string', popover: true},
@@ -226,74 +236,21 @@ var rt = new ResultTable('resultTable', schema, []);
 </script>
 
 <script> //event handlers
-$('#resultTable').click(function(e) {
-    switch($(e.target).prop('tagName')) {
-    case 'TD':
-    case 'DIV': {
-        var div = $(e.target);
-        rt.edit(div);
-        break;
-    }
-    case 'I':
-        if($(e.target).parent().prop('tagName') != 'BUTTON')
-            break;
-    case 'BUTTON': {
-        //TODO: enable and disable of buttons
-        var btn = $(e.target).closest('button');
-        var rowId = btn.closest('tr').prop('rowIndex');
-        var children = rt.getRow(rowId).children();
-        var tbdata = [];
-        for(var i = 0; i < schema.length; i++) {
-            tbdata.push(rt.getCellCache($(children[i])));
-        }
-        //var dbdata = mapTableToDb([tbdata]);
-        var queryObj = mapTableToDb([tbdata])[0];
-        //console.log(queryObj);
-        
-        switch(btn.parent().children().index(btn)) {
-        case 0: { // submit
-            //var queryObj = buildObject(function(index) { return dbdata[0][index]; });
-            queryObj.type = 'update';
-            $.getJSON(
-                asyncURL, queryObj,
-                function(data) {
-                    if(data.status == 'succeeded')
-                        rt.commitRow(rowId);
-                    else
-                        alert('Submit failed');
-                });
-            break;
-        }
-        case 1: { // remove
-            $.getJSON(
-                asyncURL,
-                {
-                    t_id: queryObj.t_id,
-                    type: 'delete',
-                },
-                function(data) {
-                    //console.log(data);
-                    rt.removeRow(rowId);
-                    $('#resultVerbose').text('共' + (rt.getRowCnt() - 1) + '条结果');
-                });
-            break;
-        }
-        case 2: { // reset
-            rt.resetRow(rowId);
-            break;
-        }
-        }
-    }
-    }
-});
-    
-$('#resultTable').focusout(function(e){
-    var text = $(e.target).val();
-    var div = $(e.target).closest('div, td');
-    if(cellPosition(div).col < schema.length)
-        rt.modifyCell(div);
-});
-            
+/*console.log('abcd');
+$.ajax({
+    url: 'http://10.202.18.203:65535/OnlinePayment/api/User/Login',
+    type: 'POST',
+    dataType: 'json',
+    async: false,
+    data: {
+        "username": 'aaa',
+        "password": 'bbb',
+        "group": 1,
+    }}).done(function(msg) {
+        console.log(msg);
+    });
+       
+  */  
 $('#bsSearch').click(function(e) {
     $.getJSON(
         asyncURL,
