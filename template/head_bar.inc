@@ -54,7 +54,7 @@
   </div>
 
 <div class="toppic">
-    <img src="/img/logo1.jpg" width="100%">
+    <img src="/img/toplogo.jpg" width="100%">
     </img>
 </div>
 <script type="text/javascript" src="/js/jquery.js"></script>
