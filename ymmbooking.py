@@ -298,8 +298,9 @@ class Database(object):
         return ret
     
     # unlike the method for admin, uid must be provided
-    def get_user_hotel_transaction_history(self, uid="", start_date="", end_end="2999-12-31"):
+    def get_user_hotel_transaction_history(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
+        print(uid, start_date, end_date)
         cursor.execute(
             "SELECT * FROM hotelTransaction "
             "WHERE u_id = ? AND time BETWEEN ? AND ?",
@@ -635,7 +636,17 @@ def booking_history_async():
                 h['status']])
         return {'flights': ret}
     elif search_type == 'hotel':
-        return {'hotels': []}
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        hist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
+        ret = []
+        for h in hist:
+            ret.append([
+                h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
+        return {'hotels': ret}
     else:
         pass
     return {}
@@ -768,7 +779,6 @@ def flight_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['departureCity', 'arrivalCity']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
@@ -830,7 +840,6 @@ def flight_transaction_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['u_id', 'beginDate', 'endDate']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
@@ -882,7 +891,6 @@ def flight_comment_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['u_id', 'beginDate', 'endDate']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
@@ -1032,7 +1040,6 @@ def hotel_transaction_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['u_id', 'beginDate', 'endDate']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))

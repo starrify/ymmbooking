@@ -44,7 +44,7 @@ CREATE TABLE flight(
     PRIMARY KEY (flightNumber)
 );
 
-DROP TABLE IF EXISTS flightCusion
+/*DROP TABLE IF EXISTS flightCusion*/
 
 /*==============================================================*/
 /* Table: hotel                                                 */
@@ -60,7 +60,7 @@ CREATE TABLE hotel(
 
 DROP TABLE IF EXISTS room;
 CREATE TABLE room(
-    h_id            INTEGER         PRIMARY KEY,
+    h_id            INTEGER         ,
     roomType        VARCHAR(255)    not null,
     bedType         VARCHAR(255)    null,
     breakfast       BOOL            null,
