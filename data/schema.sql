@@ -60,7 +60,7 @@ CREATE TABLE hotel(
 
 DROP TABLE IF EXISTS room;
 CREATE TABLE room(
-    h_id            INTEGER         ,
+    h_id            INTEGER         not null,
     roomType        VARCHAR(255)    not null,
     bedType         VARCHAR(255)    null,
     breakfast       BOOL            null,
