@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>酒店搜索</title>
+    <meta charset=utf-8>        
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style_nomal.css" rel="stylesheet" type="text/css" />
+    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/datetimepicker.css" rel="stylesheet" type="text/css" />
+<!--what a mess code.-->
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8" ></script>
+  </head>
+  <body>
+  
+  
+%include template/head_bar.inc
+   <div class="container-fluid">
+        <div class="row-fluid">
+                  <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">酒店</li>
+              <li class="active"><a href="#" onclick="hide_inn()">酒店预定</a></li>
+              <li><a href="#" onclick="show_inn()">旅馆预定</a></li>                        
+              <li class="nav-header">航班</li>
+              <li><a href="/flight/search">国内航班</a></li>
+                          <li><a href="/flight/search">国际航班</a></li>
+              <li class="nav-header">订单管理</li>
+              <li ><a href="/trade/booking_history">订单历史</a></li>
+              <li ><a href="/trade/comment_history">评价历史</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span10">
+            <div class="main">
+                <div class="well sidebar-nav container-fluid">
+                    <div class="span3">
+                        <div class="row-fluid" style="line-height:50px">
+                            <h3 id="view_name"></h3>
+                        </div>
+                        <div class="row-fluid">
+                            <h5 id="view_location"></h5>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <h3 id="view_price">酒店价格</h3>
+                    </div>
+                    <div class="span3" id="view_description">
+                    </div>
+                </div><!--/#hotel_order_list-->
+                <form id="submit" method="get" action="/order" class="well sidebar-nav">
+                    <input type="hidden" id="submit_type" name="type">
+                    <input type="hidden" id="submit_date" name="date">
+                    <input type="hidden" id="submit_h_id" name="h_id">
+                    <input type="hidden" id="submit_price" name="price">
+                    <input type="hidden" id="submit_roomType" name="roomType">
+                    <div class="row-fluid">
+                        <div class="span1">入住日期</div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <div data-link-field="dtp_in" id="datetimeFrom" class="controls input-append date">
+                                    <input type="text" style="width: 80%;" value="" readonly>
+                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                                <!--<input type="hidden" value="" id="dtp_in"><br>-->
+                            </div>
+                        </div>
+                        <div class="span1">离店日期</div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <div data-link-field="dtp_leave" id="datetimeTo" class="controls input-append date">
+                                    <input type="text" style="width: 80%;" value="" readonly>
+                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                                <!--<input type="hidden" value="" id="dtp_leave"><br>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <table id="roomList" class="table table-hover">
+                    <tr>
+                        <th>房型</th>
+                        <th>床型</th>
+                        <th>早餐</th>
+                        <th>无线网络</th>
+                        <th>价格</th>
+                        <th></th> <!-- button -->
+                    </tr>
+                </table>
+            </div><!--/.main-->
+        </div><!--/span10-->
+
+        <footer class="tail">
+            <hr>
+            <a href="">关于我们</a>
+            <a href="">合作伙伴</a>
+            <a href="">联系客服</a>
+            <a href="../other/connect_us.html">联系我们</a>
+            <a href="../other/map.html">网站地图</a>
+            <span>© 2013 Black.com 版权所有</span>
+        </footer>
+       
+    </body>
+  
+</html>
+<script type="text/javascript">
+var hotel, roomList;
+$('#roomList').click(function(e) {
+    var target = $(e.target);
+    if(target.prop('tagName') == 'BUTTON') {
+        bookRoom(roomList[target.closest('tr').prop('rowIndex') - 1]);
+    }
+});
+    
+$.getJSON('/hotel/search/async', {
+    h_id: {{h_id}},
+}, function(data) {
+    console.log(data);
+    if(data.status == 'succeeded') {
+        hotel = data.hotel[0];
+        setHotel(hotel);
+    }
+});
+
+$.getJSON('/hotel/room/search/async', {
+    h_id: {{h_id}},
+    roomType: '', // none for all
+}, function(data) {
+    console.log(data);
+    if(data.status == 'succeeded') {
+        roomList = data.room;
+        $.each(roomList, function(key, value) { addRoom(value); });
+    }
+});
+    
+function setHotel(hotel) { // [id, name, desc, loc, minpri]
+    $('#view_name').html(hotel[1]);
+    $('#view_description').html(hotel[2]);
+    $('#view_location').html(hotel[3]);
+    $('#view_price').html('最低' + hotel[4] + '元');
+}
+
+var roomSchema = ['h_id', 'roomType', 'bedType', 'breakfast', 'wifi', 'price']
+function addRoom(room) { // [h_id, roomType, bedType, breakfast, wifi, price]
+    var str = '<tr>'
+    for(var key in roomSchema) {
+        if(key != 0) {
+            str += '<td>' + room[roomSchema[key]] + '</td>';
+        }
+    }
+    
+    str += '<td><button class="btn btn-primary">预订</button></td><tr>';
+    console.log(str);
+    $('#roomList').find('tbody').append(str);
+}
+
+function bookRoom(room) {
+    $('#submit_type').val('hotel');
+    $('#submit_h_id').val(room.h_id);
+    $('#submit_date').val(formatDate(new Date()));
+    $('#submit_price').val(room.price);
+    $('#submit_roomType').val(room.roomType); // but roomType is not in our db -_-!
+    $('#submit').submit();
+}
+
+function formatDate(dd) {
+    var y = 1900+dd.getYear();
+    var m = dd.getMonth()+1;//获取当前月份的日期
+    if (m<10) m = "0"+m;
+    var d = dd.getDate();
+    if (d<10) d = "0"+d;
+    var h = dd.getHours();
+    if (h<10) h = "0"+h;
+    var mm = dd.getMinutes();
+    if (mm<10) mm = "0"+mm;
+    var s = dd.getSeconds();
+    if (s<10) s = "0"+s;
+    return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
+}
+// " " for selector
+$("#dtp_in").val(function(){
+                    return formatDate(new Date())
+                    })
+$("#dtp_leave").val(function(){
+                    var dd = new Date();
+                    dd.setDate(dd.getDate()+2);//获取AddDayCount天后的日期
+                    return formatDate(dd);
+                    })
+
+$("#datetimeFrom").datetimepicker({
+    format: "yyyy/mm/dd",
+    todayBtn: 1,
+    autoclose: 1,
+    minView: 2,
+    pickerPosition: "bottom-left"
+});
+$("#datetimeTo").datetimepicker({
+    format: "yyyy/mm/dd",
+    todayBtn: 1,
+    autoclose: 1,
+    minView: 2,
+    pickerPosition: "bottom-left"
+});
+$("button").click(function(){
+    if($(this).attr("count") == "0"){
+        $(this).addClass("asc");
+        $(this).attr("count","1");
+    }else if($(this).attr("count") == "1"){
+        $(this).removeClass("asc");
+        $(this).addClass("desc");
+        $(this).attr("count","2");
+    }else if($(this).attr("count") == "2"){
+        $(this).removeClass("desc");
+        $(this).attr("count","0");
+    }
+    if($(this).hasClass('asc')){
+        $(this).find(".icon-chevron-down").removeClass('icon-white');
+        $(this).find(".icon-chevron-up").addClass('icon-white');
+    }else if($(this).hasClass('desc')){
+        $(this).find(".icon-chevron-up").removeClass('icon-white');
+        $(this).find(".icon-chevron-down").addClass('icon-white');
+    }else{
+        $(this).find(".icon-chevron-up").addClass('icon-white');
+        $(this).find(".icon-chevron-down").addClass('icon-white');
+    }
+});
+
+$("#bookquery").hide()
+function submit_hotel_book(hotel_id,start_date,end_date){
+    /*strdata = "<input type=\"text\" name=\"order_type\" value=\"hotel\">"
+    strdata = strdata + "<input type=\"text\" name=\"hotel_id\" value=\"" + hotel_id + "\">"
+    strdata = strdata + "<input type=\"text\" name=\"start_date\" value=\"" + start_date + "\">"
+    strdata = strdata + "<input type=\"text\" name=\"end_date\" value=\"" + end_date + "\">"
+    strdata = strdata + "<input type=\"text\" name=\"price\" value=\"" + price + "\">"*/
+    //$("#bookquery").append(strdata)
+    var form = $("#bookquery");
+    form.find('input').val(hotel_id);
+    form.submit()
+}
+</script>
