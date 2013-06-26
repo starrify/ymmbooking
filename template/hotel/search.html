@@ -57,30 +57,6 @@
                           <input type="text" style="width: 100%;" placeholder="酒店名、地标、商圈" title="请输入酒店名称" size="30" id="hotel_name" value="%" maxlength="30">
                       </div>
                   </div><!--row1-->
-                  <div class="row-fluid">
-                      <div class="span1">入住日期</div>
-                      <div class="span3">
-                          <div class="control-group">
-                              <div data-link-field="dtp_in" class="controls input-append date form_datetime1">
-                                  <input type="text" style="width: 80%;" value="" readonly>
-                                      <span class="add-on"><i class="icon-remove"></i></span>
-                                      <span class="add-on"><i class="icon-th"></i></span>
-                                      </div>
-                              <input type="hidden" value="" id="dtp_in"><br>
-                      </div>
-                      </div>
-                      <div class="span1">离店日期</div>
-                      <div class="span3">
-                          <div class="control-group">
-                              <div data-link-field="dtp_leave" class="controls input-append date form_datetime2">
-                                  <input type="text" style="width: 80%;" value="" readonly>
-                                      <span class="add-on"><i class="icon-remove"></i></span>
-                                      <span class="add-on"><i class="icon-th"></i></span>
-                                      </div>
-                              <input type="hidden" value="" id="dtp_leave"><br>
-                                  </div>
-                      </div>
-                  </div><!--row2-->
           </div><!--/#hotel_order_list-->
           
           <div class ="row-fluid">
@@ -136,7 +112,9 @@
                   </div>
               </div>
           </div><!--/#display_condition-->
-          <form id="bookquery" method="get" action="/order"></form>
+          <form id="bookquery" method="get" action="/hotel/hotel_info">
+            <input type="hidden" id="submit_h_id" name="h_id">
+          </form>
           <table id='hotel_list' style="background-color:#ffffff;" class="table table-hover">
           </table>
       </div><!--/#display_hotel panel-->
@@ -277,7 +255,7 @@
                         break;
                   data.hotel.sort()}
                 $("#hotel_list").html('')
-                strdata="<td></td><td id='hotel_name'><strong>酒店名称</strong></td><td id='hotel_discription'><strong>酒店位置</strong></td><td><strong>最低报价</strong></td><td></td>"/*"<td id='hotel_rate'><strong>酒店星级</strong></td><td id='hotel_discount'><strong>折扣</strong></td><td id='hotel_price'>"+*/
+                strdata=/*"<td></td>"*/"<th>酒店名称</th><th>酒店位置</th><th>最低报价</th><th>酒店描述</th><th></th>"/*"<td id='hotel_rate'><strong>酒店星级</strong></td><td id='hotel_discount'><strong>折扣</strong></td><td id='hotel_price'>"+*/
                 $("#hotel_list").append($("<tr>",{html:strdata}))
                 for( var i in data.hotel) {
                   fill_list(data.hotel[i],i)
@@ -291,23 +269,31 @@
     
     
     function fill_list(hotel,i){//编号 名称 描述 位置
-        strdata = "<tr><td id=\"hotel_id\">"+hotel[0]+"</td>" // hotel[0] hotel_id
-        strdata = strdata+"<td id=\"hotel_name\">"+ hotel[1] +"</td>"//name
-        strdata = strdata+"<td>"+ hotel[2] +"</td>"//description
-        strdata = strdata+"<td id=\"price\">"+ hotel[3] +"</td>"//price
-        strdata = strdata+"<td><button class=\"btn btn-info\" onclick=\"submit_hotel_book($(this).parent().parent().children('#hotel_id').html(),$('#dtp_in').val(),$('#dtp_leave').val(),$(this).parent().parent().children('#price').html())\">订购 »</button></td></tr>"
+        //strdata = "<tr><td id=\"hotel_id\">"+hotel[0]+"</td>" // hotel[0] hotel_id //i think this need not be displayed
+        var strdata = "<tr>";
+        strdata += "<td>"+ hotel[1] +"</td>"//name
+        strdata += "<td>"+ hotel[2] +"</td>"//description
+        strdata += "<td>最低"+ hotel[4] +"起</td>"//price
+        strdata += "<td>" + hotel[3] + "</td>" // description
+        strdata = strdata+"<td><button class=\"btn btn-info\" onclick=\"submit_hotel_book( \
+                " + hotel[0] + ", \
+                $('#dtp_in').val(), \
+                $('#dtp_leave').val())\">订购 »</button></td></tr>"
         $("#hotel_list").append($("<tbody>",{html:strdata}))
     }
     
     $("#bookquery").hide()
-    function submit_hotel_book(hotel_id,start_date,end_date,price){
-        strdata = "<input type=\"text\" name=\"order_type\" value=\"hotel\">"
+    function submit_hotel_book(hotel_id,start_date,end_date){
+        /*strdata = "<input type=\"text\" name=\"order_type\" value=\"hotel\">"
         strdata = strdata + "<input type=\"text\" name=\"hotel_id\" value=\"" + hotel_id + "\">"
         strdata = strdata + "<input type=\"text\" name=\"start_date\" value=\"" + start_date + "\">"
         strdata = strdata + "<input type=\"text\" name=\"end_date\" value=\"" + end_date + "\">"
-        strdata = strdata + "<input type=\"text\" name=\"price\" value=\"" + price + "\">"
-        $("#bookquery").append(strdata)
-        $("#bookquery").submit()
+        strdata = strdata + "<input type=\"text\" name=\"price\" value=\"" + price + "\">"*/
+        //$("#bookquery").append(strdata)
+        var form = $("#bookquery");
+        console.log(hotel_id);
+        $('#submit_h_id').val(hotel_id);
+        form.submit()
     }
 </script>
   </body>
