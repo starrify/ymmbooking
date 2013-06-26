@@ -294,7 +294,7 @@
         strdata = "<tr><td id=\"hotel_id\">"+hotel[0]+"</td>" // hotel[0] hotel_id
         strdata = strdata+"<td id=\"hotel_name\">"+ hotel[1] +"</td>"//name
         strdata = strdata+"<td>"+ hotel[2] +"</td>"//description
-        strdata = strdata+"<td id=\"price\">最低"+ hotel[3] +"起</td>"//price
+        strdata = strdata+"<td id=\"price\">"+ hotel[3] +"</td>"//price
         strdata = strdata+"<td><button class=\"btn btn-info\" onclick=\"submit_hotel_book($(this).parent().parent().children('#hotel_id').html(),$('#dtp_in').val(),$('#dtp_leave').val(),$(this).parent().parent().children('#price').html())\">订购 »</button></td></tr>"
         $("#hotel_list").append($("<tbody>",{html:strdata}))
     }
