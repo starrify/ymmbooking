@@ -57,30 +57,6 @@
                           <input type="text" style="width: 100%;" placeholder="酒店名、地标、商圈" title="请输入酒店名称" size="30" id="hotel_name" value="%" maxlength="30">
                       </div>
                   </div><!--row1-->
-                  <div class="row-fluid">
-                      <div class="span1">入住日期</div>
-                      <div class="span3">
-                          <div class="control-group">
-                              <div data-link-field="dtp_in" class="controls input-append date form_datetime1">
-                                  <input type="text" style="width: 80%;" value="" readonly>
-                                      <span class="add-on"><i class="icon-remove"></i></span>
-                                      <span class="add-on"><i class="icon-th"></i></span>
-                                      </div>
-                              <input type="hidden" value="" id="dtp_in"><br>
-                      </div>
-                      </div>
-                      <div class="span1">离店日期</div>
-                      <div class="span3">
-                          <div class="control-group">
-                              <div data-link-field="dtp_leave" class="controls input-append date form_datetime2">
-                                  <input type="text" style="width: 80%;" value="" readonly>
-                                      <span class="add-on"><i class="icon-remove"></i></span>
-                                      <span class="add-on"><i class="icon-th"></i></span>
-                                      </div>
-                              <input type="hidden" value="" id="dtp_leave"><br>
-                                  </div>
-                      </div>
-                  </div><!--row2-->
           </div><!--/#hotel_order_list-->
           
           <div class ="row-fluid">
@@ -136,8 +112,8 @@
                   </div>
               </div>
           </div><!--/#display_condition-->
-          <form id="bookquery" method="get" action="/hotel/hotel_detail">
-            <input type="hidden" id="submid_h_id">
+          <form id="bookquery" method="get" action="/hotel/hotel_info">
+            <input type="hidden" id="submit_h_id" name="h_id">
           </form>
           <table id='hotel_list' style="background-color:#ffffff;" class="table table-hover">
           </table>
@@ -315,7 +291,8 @@
         strdata = strdata + "<input type=\"text\" name=\"price\" value=\"" + price + "\">"*/
         //$("#bookquery").append(strdata)
         var form = $("#bookquery");
-        form.find('input').val(hotel_id);
+        console.log(hotel_id);
+        $('#submit_h_id').val(hotel_id);
         form.submit()
     }
 </script>

@@ -112,7 +112,8 @@ var hotel, roomList;
 $('#roomList').click(function(e) {
     var target = $(e.target);
     if(target.prop('tagName') == 'BUTTON') {
-        bookRoom(roomList[target.closest('tr').prop('rowIndex') - 1]);
+        console.log(target.closest('tr').prop('rowIndex'));
+        bookRoom(roomList[target.closest('tr').prop('rowIndex')]);
     }
 });
     
@@ -153,12 +154,13 @@ function addRoom(room) { // [h_id, roomType, bedType, breakfast, wifi, price]
         }
     }
     
-    str += '<td><button class="btn btn-primary">预订</button></td><tr>';
+    str += '<td><button class="btn btn-primary">预订</button></td></tr>';
     console.log(str);
     $('#roomList').find('tbody').append(str);
 }
 
 function bookRoom(room) {
+    console.log(room);
     $('#submit_type').val('hotel');
     $('#submit_h_id').val(room.h_id);
     $('#submit_date').val(formatDate(new Date()));
