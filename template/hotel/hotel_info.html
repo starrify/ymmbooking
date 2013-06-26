@@ -28,7 +28,7 @@
                 <li><a href="/flight/search">国际航班</a></li>
                 <li ><a href="/flight/search">国内航班</a></li>
                 <li class="nav-header">订单管理</li>
-                <li class="active"><a href="/trade/booking_history">订单历史</a></li>
+                <li><a href="/trade/booking_history">订单历史</a></li>
                 <li ><a href="/trade/comment_history">评价历史</a></li>
             </ul>
           </div><!--/.well -->
@@ -160,12 +160,11 @@ function addRoom(room) { // [h_id, roomType, bedType, breakfast, wifi, price]
 }
 
 function bookRoom(room) {
-    console.log(room);
     $('#submit_type').val('hotel');
     $('#submit_h_id').val(room.h_id);
     $('#submit_date').val(formatDate(new Date()));
     $('#submit_price').val(room.price);
-    $('#submit_roomType').val(room.roomType); // but roomType is not in our db -_-!
+    $('#submit_roomType').val(room.roomType);
     $('#submit').submit();
 }
 
@@ -184,15 +183,6 @@ function formatDate(dd) {
     return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
 }
 // " " for selector
-$("#dtp_in").val(function(){
-                    return formatDate(new Date())
-                    })
-$("#dtp_leave").val(function(){
-                    var dd = new Date();
-                    dd.setDate(dd.getDate()+2);//获取AddDayCount天后的日期
-                    return formatDate(dd);
-                    })
-
 $("#datetimeFrom").datetimepicker({
     format: "yyyy/mm/dd",
     todayBtn: 1,
