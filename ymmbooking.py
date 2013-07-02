@@ -3,7 +3,8 @@
 # COPYLEFT, ALL WRONGS RESERVED
 
 import bottle
-import urllib
+import urllib.request
+import urllib.parse
 import json
 import sqlite3
 import sys
@@ -418,20 +419,28 @@ def login():
 def auth():
     """Merely for testing for now"""
     uid = ''
-    param = list(map(bottle.request.forms.get, ['username', 'passwd']))
+    param = list(map(bottle.request.forms.get, ['username', 'passwd', 'group']))
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+    # poor compatibility layer....
+    if param[2] == 'user':
+        param[2] = '1'
+    elif param[2] == 'admin':
+        param[2] = '2'
+    elif param[2] == 'auditor':
+        param[2] = '3'
     if app.config.integration_test:
         """stupid API from group 1"""
-        jdata = json.dumps({'uname': param[0], 'password': param[1], 'group': 0})
+        postdata = urllib.parse.urlencode({'username': param[0], 'password': param[1], 'group': param[2]}).encode('utf8')
         try:
             auth_url = app.config.main_deploy + app.config.login_url
-            ret = urllib.request.urlopen(auth_url, jdata, app.config.main_timeout)
-            jdata = json.loads(ret.read())
+            ret = urllib.request.urlopen(auth_url, postdata, app.config.main_timeout)
+            jdata = json.loads(json.loads(ret.read().decode('utf8')))
+            print(jdata)
             if jdata['err'] == "100":
                 uid = jdata['uid']
             else:
                 return "Authentication failed."
-        except:
+        except None:
             return "Error communicating with auth API by group 1"
             pass
     else:
