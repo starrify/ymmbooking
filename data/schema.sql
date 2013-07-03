@@ -75,7 +75,7 @@ CREATE TABLE room(
 /*==============================================================*/
 DROP TABLE IF EXISTS hotelTransaction;
 CREATE TABLE hotelTransaction(
-    t_id            INTEGER         PRIMARY KEY,
+    t_id            VARCHAR(255),
     h_id            INT UNSIGNED    not null,
     u_id            VARCHAR(255)    not null,
     time            DATETIME        null,
@@ -87,7 +87,7 @@ CREATE TABLE hotelTransaction(
 
 DROP TABLE IF EXISTS flightTransaction;
 CREATE TABLE flightTransaction(
-    t_id            INTEGER         PRIMARY KEY,
+    t_id            VARCHAR(255),
     flightNumber    VARCHAR(255)    not null,
     u_id            VARCHAR(255)    not null,
     time            DATETIME        null,

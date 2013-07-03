@@ -41,6 +41,9 @@ class Config():
         self.main_deploy    = parser.get('Integration', 'main_deploy')
         self.main_timeout   = parser.getint('Integration', 'main_timeout')
         self.login_url      = parser.get('Integration', 'login_url')
+        self.order_url      = parser.get('Integration', 'order_url')
+        self.pay_url        = parser.get('Integration', 'pay_url')
+        self.localhost      = parser.get('Integration', 'localhost')
         #self.integration_test = parser.getboolean('Integration', 'integration_test')
 
 class Database(object):
@@ -397,6 +400,21 @@ class Misc(object):
             return ""
         return bytes(map(ord, string)).decode(code)
 
+    @staticmethod
+    def post_new_order(uid, otype, onum, ourl, oprice):
+        postdata = urllib.parse.urlencode({
+            'buid': uid,
+            'type': 1,
+            'num': 1,
+            'url': 'http://aaa.com/',
+            'oprice': 1
+        }).encode('utf8')
+        order_url = app.config.main_deploy + app.config.order_url
+        ret = urllib.request.urlopen(order_url, postdata, app.config.main_timeout)
+        jdata = json.loads(json.loads(ret.read().decode('utf8')))
+        print(jdata)
+        return jdata['err'], jdata['oid']
+
 app = App('./config.cfg')
 bottle_app = bottle.Bottle()
 
@@ -623,7 +641,14 @@ def create_transaction():
            bottle.redirect('/trade/booking_history')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
-        tid = 1
+        #try:
+        if True:
+            err, tid = Misc.post_new_order(uid, 1, 1, app.config.localhost + '/trade/booking_history?type=flight', param[2])
+            print(tid)
+            if err != '300':
+                return "Error creating order"
+        #except:
+        #    return "Error commmunicating with group 2"
         db = Database(app.config)
         db.create_transaction_flight(tid, param[0], uid, param[1], param[2], param[3:])
         bottle.redirect('/trade/booking_history?type=flight')
@@ -636,10 +661,15 @@ def create_transaction():
         if not all(param[:3]):
             bottle.redirect('/trade/booking_history?type=hotel')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
-        tid = 1
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        try:
+            err, tid = Misc.post_new_order(uid, 2, 1, app.config.localhost + '/trade/booking_history?type=hotel', param[2])
+            if err != '300':
+                return "Error creating order"
+        except:
+            return "Error commmunicating with group 2"
         db = Database(app.config)
-        db.create_transaction_hotel(tid, param[0], u_id, param[1], param[2])
+        db.create_transaction_hotel(tid, param[0], uid, param[1], param[2])
         bottle.redirect('/trade/booking_history')
     else:
         pass
