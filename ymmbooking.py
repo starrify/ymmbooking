@@ -369,6 +369,24 @@ class Database(object):
         cursor.close()
         return
 
+    def set_transaction_status(self, tid='', status=''):
+        try:
+            cursor = self._conn.cursor()
+            cursor.execute(
+                "UPDATE flightTransaction "
+                "SET status = ? "
+                "WHERE t_id = ? ",
+                [status, tid])
+            cursor.execute(
+                "UPDATE hotelTransaction "
+                "SET status = ? "
+                "WHERE t_id = ? ",
+                [status, tid])
+            cursor.close()
+        except:
+            pass
+        return
+
 class App(object):
     """The main application."""
     def __init__(self, config_path='./config.cfg'):
@@ -624,24 +642,30 @@ def pay():
 @bottle_app.post('/pay')
 @Misc.auth_validate
 def pay_post():
-    tid = bottle.request.query.get('_tid')
+    param = list(map(bottle.request.forms.get, ['_tid', 'paypassword']))
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
     uid = bottle.request.get_cookie('uid', secret=app.config.secret)
     
     try:
         postdata = urllib.parse.urlencode({
+            'type': 0,
             'buid': uid,
-            'type': otype,
-            'num': onum,
-            'url': ourl,
-            'oprice': oprice
+            'passwd': param[1],
+            'oids[]': param[0]
         }).encode('utf8')
-        order_url = app.config.main_deploy + app.config.order_url
-        ret = urllib.request.urlopen(order_url, postdata, app.config.main_timeout)
+        print(postdata)
+        pay_url = app.config.main_deploy + app.config.pay_url
+        ret = urllib.request.urlopen(pay_url, postdata, app.config.main_timeout)
         jdata = json.loads(json.loads(ret.read().decode('utf8')))
         print(jdata)
+        if jdata['err'] != '300':
+            return "Error paying: %s" %jdata['err']
     except:
+        return "Error commmunicating with group 2"
         pass
     
+    db = Database(app.config)
+    db.set_transaction_status(param[0], 'not_commented')
  
     bottle.redirect('/trade/booking_history')
     return
