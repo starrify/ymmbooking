@@ -22,6 +22,7 @@
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
               Logged in as <a href="#login"  data-toggle="modal" class="navbar-link" id="Username">Username</a>
+                <a href="/manage/hotel/info">| Admin</a>
 
                 </p>
                 <ul class="nav">
@@ -30,7 +31,6 @@
                     <li><a href="http://10.202.18.203:88/OnlinePayment/Pages/web/seller/order_manage.html">我是卖家</a></li>
                     <li><a href="http://10.202.18.203:88/OnlinePayment/Pages/web/goods/ViewItemlist.aspx?category=all">淘宝贝</a></li>
                     <li><a href="/">在线预订</a></li>
-                    <li><a href="/manage/hotel/info">订单管理</a></li>
                     <li><a data-toggle="modal" href="#notification" id="notify" onclick="viewNotification()">消息:0</a></li>
 
                 </ul>
@@ -43,7 +43,6 @@
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
          <h4 id="H1">用户登出</h4>
-         <h4 href="/manage/hotel/info">|管理员</h4>
        </div>
        <div class="modal-body">
           <p>是否确定登出？</p>
