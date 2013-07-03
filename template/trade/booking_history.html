@@ -66,23 +66,23 @@
             </div>
             <div class="span3">
                 <div class="control-group">
-                    <div data-link-field="begin_date" class="controls input-append date form_datetime1">
-                        <input type="text" style="width: 80%;" id="begin_date_view" value="" readonly>
+                    <div data-link-field="search_begin_date" class="controls input-append date form_datetime1">
+                        <input type="text" style="width: 80%;" id="search_begin_date_view" value="" readonly>
                             <span class="add-on"><i class="icon-remove"></i></span>
                             <span class="add-on"><i class="icon-th"></i></span>
                             </div>
-                    <input type="hidden" value="" id="begin_date"><br>
+                    <input type="hidden" value="" id="search_begin_date"><br>
                         </div>
             </div>
             <div class="span1">&nbsp&nbsp;至</div>
             <div class="span3">
                 <div class="control-group">
-                    <div data-link-field="end_date" class="controls input-append date form_datetime2">
-                        <input type="text" style="width: 80%;" id="end_date_view" value="" readonly>
+                    <div data-link-field="search_end_date" class="controls input-append date form_datetime2">
+                        <input type="text" style="width: 80%;" id="search_end_date_view" value="" readonly>
                             <span class="add-on"><i class="icon-remove"></i></span>
                             <span class="add-on"><i class="icon-th"></i></span>
                     </div>
-                    <input type="hidden" value="" id="end_date"><br>
+                    <input type="hidden" value="" id="search_end_date"><br>
                 </div>
             </div>
             <div class="btn-group span2">
@@ -95,9 +95,9 @@
                     <li class="booking-option" value="1" name="flight"><a>机票预定</a></li>
                     <li class="booking-option" value="2" name="hotel"><a>酒店预定</a></li>
                 </ul>
-                <input type="hidden" id="type" value="flight">
+                <input type="hidden" id="search_type" value="flight">
             </div>
-            <input type="hidden" id="t_id">
+            <input type="hidden" id="search_t_id">
             </div>
             <div class="row-fluid">
                  <div class="span6"></div>
@@ -124,13 +124,16 @@
         <span>© 2013 Black.com 版权所有</span>
    </footer>
 
-<form id="commentForm" method="get" action="/trade/comment">
-    <input type="hidden" name="t_id" id="comment_t_id">
-    <input type="hidden" name="type" id="comment_type">
-</form>
 <form id="payForm" method="get" action="/pay">
     <input type="hidden" name="t_id" id="pay_t_id">
     <input type="hidden" name="type" id="pay_type">
+    <input type="hidden" name="item_name" id="pay_item_name">
+    <input type="hidden" name="item_price" id="pay_item_price">
+    <input type="hidden" name="item_date" id="pay_item_date">
+</form>
+<form id="commentForm" method="get" action="/trade/comment">
+    <input type="hidden" name="t_id" id="comment_t_id">
+    <input type="hidden" name="type" id="comment_type">
 </form>
 <!--jscode.-->
 <script>
@@ -160,14 +163,14 @@
     function fetch_history(){
         $("#display_history_panel").show()
         $("#trans_list").html('查询中，请稍候...')
-        console.log($("#begin_date").val(), $("#end_date").val(), $("#type").val());
+        console.log($("#search_begin_date").val(), $("#search_end_date").val(), $("#search_type").val());
         $.getJSON(
             "/trade/booking_history/async",
             {
-                t_id:       $('#t_id').val(),
-                begin_date: $("#begin_date").val(),
-                end_date:   $("#end_date").val(),
-                type:       $("#type").val(),
+                t_id:       $('#search_t_id').val(),
+                begin_date: $("#search_begin_date").val(),
+                end_date:   $("#search_end_date").val(),
+                type:       $("#search_type").val(),
             },
             function(data){
                 console.log(data);
@@ -198,11 +201,11 @@
     
     function setSearchDate(begin, datestr) {
         if(begin) {
-            $('#begin_date_view').val(datestr);
-            $('#begin_date').val(datestr);
+            $('#search_begin_date_view').val(datestr);
+            $('#search_begin_date').val(datestr);
         } else {
-            $('#end_date_view').val(datestr);
-            $('#end_date').val(datestr);
+            $('#search_end_date_view').val(datestr);
+            $('#search_end_date').val(datestr);
         }
     }
     
@@ -227,18 +230,21 @@
         }
         strdata += '<td>' + btn + '</td></tr>';
         line = $(strdata);
-        line.data('info', {t_id: history[0], type: type});
+        line.data('data', {type: type, t_id: history[0], name: history[1], time: history[2], price: history[3]});
         $('#trans_list').find('tbody').append(line);
     }
     
-    function submitPay(info) {
-        $('#pay_t_id').val(info.t_id);
-        $('#pay_type').val(info.type);
+    function submitPay(data) {
+        $('#pay_t_id').val(data.t_id);
+        $('#pay_type').val(data.type);
+        $('#pay_item_name').val((data.type == 'hotel' ? '酒店' : '航班') + data.name);
+        $('#pay_item_price').val(data.price);
+        $('#pay_item_date').val(data.time);
         $('#payForm').submit();
     }
-    function submitComment(info){
-        $('#comment_t_id').val(info.t_id);
-        $('#comment_type').val(info.type);
+    function submitComment(data){
+        $('#comment_t_id').val(data.t_id);
+        $('#comment_type').val(data.type);
         $("#commentForm").submit()
     }
     
@@ -263,9 +269,9 @@
         $(".choosed").removeClass("choosed")
         $(this).addClass("choosed")
         switch($(".choosed").val()){
-            case 0:$("#type").val('all');$("#transaction_type").html('全部&nbsp&nbsp;<span class="caret"></span>');break;
-            case 1:$("#type").val('flight');$("#transaction_type").html('机票预定&nbsp&nbsp;<span class="caret"></span>');break;
-            case 2:$("#type").val('hotel');$("#transaction_type").html('酒店预定&nbsp&nbsp;<span class="caret"></span>');break;
+            case 0:$("#search_type").val('all');$("#transaction_type").html('全部&nbsp&nbsp;<span class="caret"></span>');break;
+            case 1:$("#search_type").val('flight');$("#transaction_type").html('机票预定&nbsp&nbsp;<span class="caret"></span>');break;
+            case 2:$("#search_type").val('hotel');$("#transaction_type").html('酒店预定&nbsp&nbsp;<span class="caret"></span>');break;
         }
         console.log('clicked' + $('.choosed').val());
     })
@@ -274,9 +280,9 @@
         if(ele.prop('tagName') == 'BUTTON') {
             console.log(ele.val());
             if(ele.val() == 'pay') {
-                submitPay(ele.closest('tr').data('info'));
+                submitPay(ele.closest('tr').data('data'));
             } else if(ele.val() == 'comment') {
-                submitComment(ele.closest('tr').data('info'));
+                submitComment(ele.closest('tr').data('data'));
             } else {
                 alert('From where do you click this button?');
             }
@@ -313,7 +319,7 @@
             setSearchDate(0, formatDate(dateFromNow(1)));
         
         $('.booking-option[name=' + sparams.type + ']').trigger('click'); // this is ugly...
-        $('#t_id').val(sparams.t_id);
+        $('#search_t_id').val(sparams.t_id);
     }
     fillSearchParams();
     fetch_history();
