@@ -530,7 +530,7 @@ def auth():
                 uid = jdata['uid']
             else:
                 return "Authentication failed."
-        except None:
+        except:
             return "Error communicating with auth API by group 1"
             pass
     else:
