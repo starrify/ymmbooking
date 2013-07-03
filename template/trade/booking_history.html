@@ -124,11 +124,11 @@
    </footer>
 
 <form id="commentForm" method="get" action="/trade/comment">
-    <input type="hidden" name="tid" id="comment_tid">
+    <input type="hidden" name="t_id" id="comment_t_id">
     <input type="hidden" name="type" id="comment_type">
 </form>
 <form id="payForm" method="get" action="/pay">
-    <input type="hidden" name="tid" id="pay_tid">
+    <input type="hidden" name="t_id" id="pay_t_id">
     <input type="hidden" name="type" id="pay_type">
 </form>
 <!--jscode.-->
@@ -211,8 +211,8 @@
     function fill_list(history, type){
         var btn = '', line;
         strdata = '<tr><td>' + (type == 'hotel' ? iconhotel : iconflight) + '</td>';
-        // i think tid should not be presented to user
-        //strdata = "<tr><td id='_tid'>"+history[0]+"</td>" // 交易编号 history[0]=t_id
+        // i think t_id should not be presented to user
+        //strdata = "<tr><td id='_t_id'>"+history[0]+"</td>" // 交易编号 history[0]=t_id
         strdata = strdata+"<td>"+history[1]+"</td>" // 商品描述
         strdata = strdata+"<td>"+history[2]+"</td>" // 成交时间
         strdata = strdata+"<td>"+history[3]+"</td>" // 价格
@@ -225,17 +225,17 @@
         }
         strdata += '<td>' + btn + '</td></tr>';
         line = $(strdata);
-        line.data('info', {tid: history[0], type: type});
+        line.data('info', {t_id: history[0], type: type});
         $('#trans_list').find('tbody').append(line);
     }
     
     function submitPay(info) {
-        $('#pay_tid').val(info.tid);
+        $('#pay_t_id').val(info.t_id);
         $('#pay_type').val(info.type);
         $('#payForm').submit();
     }
     function submitComment(info){
-        $('#comment_tid').val(info.tid);
+        $('#comment_t_id').val(info.t_id);
         $('#comment_type').val(info.type);
         $("#commentForm").submit()
     }

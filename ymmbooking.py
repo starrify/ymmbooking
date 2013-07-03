@@ -3,8 +3,7 @@
 # COPYLEFT, ALL WRONGS RESERVED
 
 import bottle
-import urllib.request
-import urllib.parse
+import urllib
 import json
 import sqlite3
 import sys
@@ -419,28 +418,20 @@ def login():
 def auth():
     """Merely for testing for now"""
     uid = ''
-    param = list(map(bottle.request.forms.get, ['username', 'passwd', 'group']))
+    param = list(map(bottle.request.forms.get, ['username', 'passwd']))
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-    # poor compatibility layer....
-    if param[2] == 'user':
-        param[2] = '1'
-    elif param[2] == 'admin':
-        param[2] = '2'
-    elif param[2] == 'auditor':
-        param[2] = '3'
     if app.config.integration_test:
         """stupid API from group 1"""
-        postdata = urllib.parse.urlencode({'username': param[0], 'password': param[1], 'group': param[2]}).encode('utf8')
+        jdata = json.dumps({'uname': param[0], 'password': param[1], 'group': 0})
         try:
             auth_url = app.config.main_deploy + app.config.login_url
-            ret = urllib.request.urlopen(auth_url, postdata, app.config.main_timeout)
-            jdata = json.loads(json.loads(ret.read().decode('utf8')))
-            print(jdata)
+            ret = urllib.request.urlopen(auth_url, jdata, app.config.main_timeout)
+            jdata = json.loads(ret.read())
             if jdata['err'] == "100":
                 uid = jdata['uid']
             else:
                 return "Authentication failed."
-        except None:
+        except:
             return "Error communicating with auth API by group 1"
             pass
     else:
@@ -843,7 +834,7 @@ def flight_transaction_manage_json():
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success, pkey = db.add_item('flightTransaction', schema, param, [0], fillpkey_autoinc)
+        success, pkey = db.add_item('flightTransaction', schema, param, [0])
         if success:
             return {'status': 'succeeded', 't_id': pkey[0]}
     elif access_type == 'update':
@@ -1043,7 +1034,7 @@ def hotel_transaction_manage_json():
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success, pkey = db.add_item('hotelTransaction', schema, param, [0], fillpkey_autoinc)
+        success, pkey = db.add_item('hotelTransaction', schema, param, [0])
         if success:
             return {'status': 'succeeded', 't_id': pkey[0]}
     elif access_type == 'update':
