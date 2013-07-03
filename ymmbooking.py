@@ -404,10 +404,10 @@ class Misc(object):
     def post_new_order(uid, otype, onum, ourl, oprice):
         postdata = urllib.parse.urlencode({
             'buid': uid,
-            'type': 1,
-            'num': 1,
-            'url': 'http://aaa.com/',
-            'oprice': 1
+            'type': otype,
+            'num': onum,
+            'url': ourl,
+            'oprice': oprice
         }).encode('utf8')
         order_url = app.config.main_deploy + app.config.order_url
         ret = urllib.request.urlopen(order_url, postdata, app.config.main_timeout)
