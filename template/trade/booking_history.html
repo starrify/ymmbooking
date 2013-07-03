@@ -66,19 +66,19 @@
             </div>
             <div class="span3">
                 <div class="control-group">
-                    <div data-link-field="start_date" class="controls input-append date form_datetime1">
-                        <input type="text" style="width: 80%;" value="" readonly>
+                    <div data-link-field="begin_date" class="controls input-append date form_datetime1">
+                        <input type="text" style="width: 80%;" id="begin_date_view" value="" readonly>
                             <span class="add-on"><i class="icon-remove"></i></span>
                             <span class="add-on"><i class="icon-th"></i></span>
                             </div>
-                    <input type="hidden" value="" id="start_date"><br>
+                    <input type="hidden" value="" id="begin_date"><br>
                         </div>
             </div>
             <div class="span1">&nbsp&nbsp;至</div>
             <div class="span3">
                 <div class="control-group">
-                    <div data-link-field="end_date" class="controls input-append date form_datetime1">
-                        <input type="text" style="width: 80%;" value="" readonly>
+                    <div data-link-field="end_date" class="controls input-append date form_datetime2">
+                        <input type="text" style="width: 80%;" id="end_date_view" value="" readonly>
                             <span class="add-on"><i class="icon-remove"></i></span>
                             <span class="add-on"><i class="icon-th"></i></span>
                     </div>
@@ -91,9 +91,9 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" value="">
-                    <li class="booking-option" value="0"><a>全部</a></li>
-                    <li class="booking-option" value="1"><a>机票预定</a></li>
-                    <li class="booking-option" value="2"><a>酒店预定</a></li>
+                    <li class="booking-option" value="0" name="all"><a>全部</a></li>
+                    <li class="booking-option" value="1" name="flight"><a>机票预定</a></li>
+                    <li class="booking-option" value="2" name="hotel"><a>酒店预定</a></li>
                 </ul>
                 <input type="hidden" id="type" value="flight">
             </div>
@@ -122,10 +122,123 @@
         <a href="../other/map.html">网站地图</a>
         <span>© 2013 Black.com 版权所有</span>
    </footer>
-      
-<form id="orderquery" method="get" action="/trade/comment"></form>
+
+<form id="commentForm" method="get" action="/trade/comment">
+    <input type="hidden" name="tid" id="comment_tid">
+    <input type="hidden" name="type" id="comment_type">
+</form>
+<form id="payForm" method="get" action="/pay">
+    <input type="hidden" name="tid" id="pay_tid">
+    <input type="hidden" name="type" id="pay_type">
+</form>
 <!--jscode.-->
 <script>
+    function formatDate(dd) {
+        var y = 1900+dd.getYear();
+        var m = dd.getMonth()+1;//获取当前月份的日期
+        if (m<10) m = "0"+m;
+        var d = dd.getDate();
+        if (d<10) d = "0"+d;
+        /*var h = dd.getHours();
+        if (h<10) h = "0"+h;
+        var mm = dd.getMinutes();
+        if (mm<10) mm = "0"+mm;
+        var s = dd.getSeconds();
+        if (s<10) s = "0"+s;*/
+        return y+"-"+m+"-"+d;//+" "+h+":"+mm+":"+s;
+    }
+    function getURLParams() {
+        var param = {}, res;
+        var regex =  new RegExp('[/?&#]([^&#]*?)=([^&#]*)', 'g');
+        var url = decodeURIComponent(window.location.search);
+        while((res = regex.exec(url)) != null) {
+            param[res[1]] = res[2];
+        }
+        return param;
+    }
+    function fetch_history(){
+        $("#display_history_panel").show()
+        $("#trans_list").html('查询中，请稍候...')
+        console.log($("#begin_date").val(), $("#end_date").val(), $("#type").val());
+        $.getJSON(
+            "/trade/booking_history/async",
+            {
+                begin_date: $("#begin_date").val(),
+                end_date:   $("#end_date").val(),
+                type:       $("#type").val(),
+            },
+            function(data){
+                console.log(data);
+                if(data.length== 0){
+                    $('#trans_list').html('未查询到满足条件的记录')
+                } else {
+                    $("#trans_list").html('')
+                    strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>交易状态</strong></td>"+"<td class=info_td><strong>评价</strong></td>"
+                    $("#trans_list").append($("<tr>",{html:strdata}))
+                    for(var i in data.flights){
+                        fill_list (data.flights[i], 'flight')
+                    }
+                    for(var i in data.hotels) {
+                        fill_list(data.hotels[i], 'hotel');
+                    }
+                }
+                
+            }
+        );
+    }
+    
+    function formatStatus(status) {
+        if(status == 'paid')
+            return '已支付';
+        else
+            return '未支付';
+    }
+    
+    function setSearchDate(begin, datestr) {
+        if(begin) {
+            $('#begin_date_view').val(datestr);
+            $('#begin_date').val(datestr);
+        } else {
+            $('#end_date_view').val(datestr);
+            $('#end_date').val(datestr);
+        }
+    }
+    
+    var cmtbtnstr = '<button class="btn", value="comment">评价</button>';
+    var paybtnstr = '<button class="btn", value="pay">支付</button>';
+    var iconhotel = '<i class="icon-home"></i>';
+    var iconflight = '<i class="icon-plane"></i>';
+    function fill_list(history, type){
+        var btn = '', line;
+        strdata = '<tr><td>' + (type == 'hotel' ? iconhotel : iconflight) + '</td>';
+        // i think tid should not be presented to user
+        //strdata = "<tr><td id='_tid'>"+history[0]+"</td>" // 交易编号 history[0]=t_id
+        strdata = strdata+"<td>"+history[1]+"</td>" // 商品描述
+        strdata = strdata+"<td>"+history[2]+"</td>" // 成交时间
+        strdata = strdata+"<td>"+history[3]+"</td>" // 价格
+        strdata = strdata+"<td>"+formatStatus(history[4])+"</td>" // 状态
+        switch(history[4]) {
+        case 'not_paid': btn = paybtnstr; break;
+        case 'not_commented': btn = cmtbtnstr; break;
+        case 'commented': btn = ''; break;
+        default: btn = paybtnstr;
+        }
+        strdata += '<td>' + btn + '</td></tr>';
+        line = $(strdata);
+        line.data('info', {tid: history[0], type: type});
+        $('#trans_list').find('tbody').append(line);
+    }
+    
+    function submitPay(info) {
+        $('#pay_tid').val(info.tid);
+        $('#pay_type').val(info.type);
+        $('#payForm').submit();
+    }
+    function submitComment(info){
+        $('#comment_tid').val(info.tid);
+        $('#comment_type').val(info.type);
+        $("#commentForm").submit()
+    }
     
     $(".dropdown-toggle").click(function(){
         $("#display_history_panel").hide();
@@ -144,7 +257,7 @@
         minView: 2,
         pickerPosition: "bottom-left",
     });
-    $("#start_date").val(function(){
+    /*$("#start_date").val(function(){
                         var dd = new Date();
                         var y = 1900+dd.getYear();
                         var m = dd.getMonth();//获取当前月份-1的日期
@@ -159,79 +272,64 @@
                         if (s<10) s = "0"+s;
                         return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
                          })
-    $("#end_date").val(function(){
-                        var dd = new Date();
-                        var y = 1900+dd.getYear();
-                        var m = dd.getMonth()+1;//获取当前月份的日期
-                        if (m<10) m = "0"+m;
-                        var d = dd.getDate();
-                        if (d<10) d = "0"+d;
-                        var h = dd.getHours();
-                        if (h<10) h = "0"+h;
-                        var mm = dd.getMinutes();
-                        if (mm<10) mm = "0"+mm;
-                        var s = dd.getSeconds();
-                        if (s<10) s = "0"+s;
-                        return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
-                       })
+    $("#end_date").val(formatDate(new Date()));*/
     $(".booking-option").click(function(){
         $(".choosed").removeClass("choosed")
         $(this).addClass("choosed")
         switch($(".choosed").val()){
-                               case 0:$("#type").val('all');$("#transaction_type").html('全部&nbsp&nbsp;<span class="caret"></span>');break;
-                               case 1:$("#type").val('flight');$("#transaction_type").html('机票预定&nbsp&nbsp;<span class="caret"></span>');break;
-                               case 2:$("#type").val('hotel');$("#transaction_type").html('酒店预定&nbsp&nbsp;<span class="caret"></span>');break;
+            case 0:$("#type").val('all');$("#transaction_type").html('全部&nbsp&nbsp;<span class="caret"></span>');break;
+            case 1:$("#type").val('flight');$("#transaction_type").html('机票预定&nbsp&nbsp;<span class="caret"></span>');break;
+            case 2:$("#type").val('hotel');$("#transaction_type").html('酒店预定&nbsp&nbsp;<span class="caret"></span>');break;
         }
-    })         
-    function fetch_history(){
-        $("#display_history_panel").show()
-        console.log(type);
-        $("#trans_list").html('查询中，请稍候...')
-        $.getJSON(
-            "/trade/booking_history/async",
-            {
-                start_date: $("#start_date").val(),
-                end_date:   $("#end_date").val(),
-                type:       $("#type").val(),
-            },
-            function(data){
-                console.log(data);
-                if(data.length== 0){
-                    $('#booing_item').html('未查询到满足条件的记录')
-                } else {
-                    $("#trans_list").html('')
-                    strdata="<td class=info_td></td><td class=info_td><strong>商品</strong></td>"+"<td class=info_td><strong>成交时间</strong></td>"+"<td class=info_td><strong>价格</strong></td>"+"<td class=info_td><strong>交易状态</strong></td>"+"<td class=info_td><strong>评价</strong></td>"
-                    $("#trans_list").append($("<tr>",{html:strdata}))
-                    var dataToFill = data.flights ? data.flights : data.hotels;
-                    for(var i in dataToFill){
-                            fill_list (dataToFill[i])
-                    }
-                }
-                
+        console.log('clicked' + $('.choosed').val());
+    })
+    $('#trans_list').click(function(e) {
+        var ele = $(e.target);
+        if(ele.prop('tagName') == 'BUTTON') {
+            console.log(ele.val());
+            if(ele.val() == 'pay') {
+                submitPay(ele.closest('tr').data('info'));
+            } else if(ele.val() == 'comment') {
+                submitComment(ele.closest('tr').data('info'));
+            } else {
+                alert('From where do you click this button?');
             }
-        );
-    }
-              
-    function fill_list(history){
-        console.log(history);
-        strdata = "<tr><td id='_tid'>"+history[0]+"</td>" // 交易编号 history[0]=t_id
-        strdata = strdata+"<td>"+history[1]+"</td>" // 商品描述
-        strdata = strdata+"<td>"+history[2]+"</td>" // 成交时间
-        strdata = strdata+"<td>"+history[3]+"</td>" // 价格
-        strdata = strdata+"<td>"+history[4]+"</td>" // 状态
-        strdata = strdata+"<td><button class=\"btn\" value=\"comment\" onclick=\"submit_comment($(this).parent().parent().children('#_tid').html())\">评价</button></td></tr>" 
-        $("#trans_list").append($("<tbody>",{html:strdata}))
-    }
+        }
+    });
     
-    $("#orderquery").hide()
-    function submit_comment(transaction_id){
-        $("#orderquery").html('')
-        strdata = "<input type='text' name='tid' value='"+transaction_id+"'>"
-        strdata = strdata + "<input type='text' name='type' value='flight'>"
-        $("#orderquery").append(strdata)
-        $("#orderquery").submit()
+    function dateFromNow(dd) {
+        var date = new Date();
+        date.setTime(date.getTime() + dd * 24 * 3600 * 1000);
+        return date;
     }
-    
+    function fillSearchParams() {
+        var urlparams = getURLParams(), sparams;
+        console.log(urlparams);
+        if(!urlparams.type)
+            sparams = { type: 'all', };
+        else
+            sparams = {
+                type: urlparams.type,
+                begin_date: urlparams.begin_date,
+                end_date: urlparams.end_date,
+            };
+        
+        console.log(sparams);
+        if(sparams.begin_date)
+            setSearchDate(1, sparams.begin_date);
+        else 
+            setSearchDate(1, formatDate(dateFromNow(-30)));
+        
+        if(sparams.end_date)
+            setSearchDate(0, sparams.end_date);
+        else
+            setSearchDate(0, formatDate(dateFromNow(1)));
+        
+        console.log(sparams.type);
+        $('.booking-option[name=' + sparams.type + ']').trigger('click'); // this is ugly...
+    }
+    //$("#commentForm").hide()
+    fillSearchParams();
     
     fetch_history();
     
