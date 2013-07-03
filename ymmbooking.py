@@ -294,6 +294,45 @@ class Database(object):
         except:
             return []
     
+    def set_flight_transaction_status(self, tid = "", new_stat = "errstat"):
+        try:
+            cursor = slef._conn.cursor()
+            cursor.execute(
+                "UPDATE flightTransaction SET status=?"
+                "WHERE t_id=?",
+                [new_stat, tid])
+            cursor.close()
+            return True
+        except:
+            return False
+   
+    def get_hotel_transaction(self, uid="", tid=""):
+        try:
+            cursor = self._conn.cursor()
+            cursor.execute(
+                "SELECT * FROM hotelTransaction "
+                "WHERE u_id=? AND t_id=?",
+                [uid, tid])
+            ret = cursor.fetchall()
+            cursor.close()
+            return ret[0]
+        except:
+            return []
+    
+    def set_hotel_transaction_status(self, tid = "", new_stat = "errstat"):
+        #try:
+            cursor = self._conn.cursor()
+            cursor.execute(
+                "UPDATE hotelTransaction SET status=?"
+                "WHERE t_id=?",
+                [new_stat, tid])
+            print(new_stat, tid)
+            cursor.close()
+            return True
+        #except:
+            
+            #return False
+
     # unlike the method for admin, user id must be provided here
     def get_user_flight_comment(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
@@ -366,6 +405,17 @@ class Database(object):
                 "NULL," # auto increment
                 "?,?,?,?)",
             [flight_number, uid, message, rate])
+        cursor.close()
+        return
+    
+    def add_hotel_comment(self, uid='', h_id='', message='', rate=''):
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "INSERT INTO hotelComment "
+            "VALUES("
+                "NULL," # auto increment
+                "?,?,?,?)",
+            [h_id, uid, message, rate])
         cursor.close()
         return
 
@@ -693,7 +743,7 @@ def create_transaction():
         #    return "Error commmunicating with group 2"
         db = Database(app.config)
         db.create_transaction_flight(tid, param[0], uid, param[1], param[2], param[3:])
-        bottle.redirect('/trade/booking_history?type=flight')
+        bottle.redirect('/trade/booking_history?type=flight&t_id=' + tid)
     elif ct_type == 'hotel':
         param = list(map(bottle.request.query.get,
             ['_item_id', '_item_date', '_item_price']))
@@ -703,6 +753,8 @@ def create_transaction():
         if not all(param[:3]):
             bottle.redirect('/trade/booking_history?type=hotel')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
+        tid = 1
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         try:
             err, tid = Misc.post_new_order(uid, 2, 1, app.config.localhost + '/trade/booking_history?type=hotel', param[2])
@@ -711,8 +763,8 @@ def create_transaction():
         except:
             return "Error commmunicating with group 2"
         db = Database(app.config)
-        db.create_transaction_hotel(tid, param[0], uid, param[1], param[2])
-        bottle.redirect('/trade/booking_history')
+        db.create_transaction_hotel(tid, param[0], u_id, param[1], param[2])
+        bottle.redirect('/trade/booking_history?type=hotel&t_id=' + tid)
     else:
         pass
     return {}
@@ -730,45 +782,49 @@ def booking_history_async():
     if search_type == 'flight':
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
-            ['begin_date', 'end_date']))
+            ['begin_date', 'end_date', 't_id']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         hist = db.get_user_flight_transaction_history(uid, param[0], param[1])
         ret = []
         for h in hist:
-            ret.append([
-                h['t_id'], h['flightNumber'], h['time'], h['price'],
-                h['status']])
+            if not param[2] or str(h['t_id']) == param[2]: # t_id matches
+                ret.append([
+                    h['t_id'], h['flightNumber'], h['time'], h['price'],
+                    h['status']])
         return {'flights': ret}
     elif search_type == 'hotel':
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
-            ['begin_date', 'end_date']))
+            ['begin_date', 'end_date', 't_id']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         hist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
         ret = []
         for h in hist:
-            ret.append([
-                h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
+            if not param[2] or str(h['t_id']) == param[2]: # t_id matches
+                ret.append([
+                    h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
         return {'hotels': ret}
     elif search_type == 'all':
         # well, the code is duplicated, but it is not the issue to be considered now
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
-            ['begin_date', 'end_date']))
+            ['begin_date', 'end_date', 't_id']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         flighthist = db.get_user_flight_transaction_history(uid, param[0], param[1])
         hotelhist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
         flights, hotels = [], []
         for h in flighthist:
-            flights.append([
-                h['t_id'], h['flightNumber'], h['time'], h['price'],
-                h['status']])
-        for h in  hotelhist:
-            hotels.append([
-                h['t_id'], h['h_id'], h['time'], h['price']])
+            if not param[2] or str(h['t_id']) == param[2]:
+                flights.append([
+                    h['t_id'], h['flightNumber'], h['time'], h['price'],
+                    h['status']])
+        for h in hotelhist:
+            if not param[2] or str(h['t_id']) == param[2]:
+                hotels.append([
+                    h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
         return {'flights': flights, 'hotels': hotels}
     else:
         pass
@@ -789,12 +845,23 @@ def trade_comment():
             bottle.redirect('/trade/booking_history')
         #if not trans['status'] == 'paid':
         #    bottle.redirect('/trade/booking_history')
-        return {'_tid': tid, '_item_id': trans['flightNumber'], 
+        return {'type': 'flight', '_tid': tid, '_item_id': trans['flightNumber'], 
             'item_id': trans['flightNumber'], 'user_name': trans['user_name'],
             'time': trans['time'], 'price': trans['price']}
         
     elif comment_type == "hotel":
-        bottle.redirect("/trade/booking_history")
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        tid = bottle.request.query.get('tid')
+        tid = Misc.unicodify(tid, 'utf8')
+        db = Database(app.config)
+        trans = db.get_hotel_transaction(uid, tid)
+        if not trans: # error accessing database
+            bottle.redirect('/trade/booking_history')
+        #if not trans['status'] == 'paid':
+        #    bottle.redirect('/trade/booking_history')
+        return {'type': 'hotel', '_tid': tid, '_item_id': trans['h_id'], 
+            'item_id': trans['h_id'], 'user_name': 'cpy',
+            'time': trans['time'], 'price': trans['price']}
     else:
         #bottle.redirect('/trade/booking_history')
         pass
@@ -809,14 +876,24 @@ def comment_submit():
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
             ['_tid', '_item_id', 'message', 'rate']))
-        if not param[1]:
+        db = Database(app.config)
+        if not param[1] or db.get_flight_transaction(uid, param[0])['status'] != 'not_commented':
             bottle.redirect("/trade/booking_history")
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        db = Database(app.config)
         db.add_flight_comment(uid, param[1], param[2], param[3])
+        db.set_flight_transaction_status(param[0], 'commented')
         bottle.redirect("/trade/comment_history")
     elif comment_type == "hotel":
-        pass
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['_tid', '_item_id', 'message', 'rate']))
+        db = Database(app.config)
+        if not param[1] or db.get_hotel_transaction(uid, param[0])['status'] != 'not_commented':
+            bottle.redirect("/trade/booking_history")
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db.add_hotel_comment(uid, param[1], param[2], param[3])
+        db.set_hotel_transaction_status(param[0], 'commented')
+        bottle.redirect("/trade/comment_history")
     else:
         #bottle.redirect('/trade/booking_history')
         pass
@@ -841,11 +918,20 @@ def comment_history_asycn():
         db = Database(app.config)
         raw_comments = db.get_user_flight_comment(uid, param[0], param[1])
         comments = [[
-            comment['c_id'], comment['flightNumber'], comment['u_id'], 
+            comment['c_id'], comment['t_id'], comment['u_id'], 
             comment['message'], comment['rate']] for comment in raw_comments]
         return {'comments': comments}
     elif comment_type == "hotel":
-        pass
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        raw_comments = db.get_user_hotel_comment(uid, param[0], param[1])
+        comments = [[
+            comment['c_id'], comment['t_id'], comment['u_id'], 
+            comment['message'], comment['rate']] for comment in raw_comments]
+        return {'comments': comments}
     else:
         pass
     
@@ -939,7 +1025,7 @@ def flight_transaction_manage_json():
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success, pkey = db.add_item('flightTransaction', schema, param, [0], fillpkey_autoinc)
+        success, pkey = db.add_item('flightTransaction', schema, param, [0])
         if success:
             return {'status': 'succeeded', 't_id': pkey[0]}
     elif access_type == 'update':
@@ -982,7 +1068,7 @@ def manage_flight_comment():
 @bottle_app.get('/manage/flight/comment/async')
 @Misc.auth_validate
 def flight_comment_manage_json():
-    schema = ['c_id', 'flightNumber', 'u_id', 'message', 'rate']
+    schema = ['c_id', 't_id', 'u_id', 'message', 'rate']
     access_type = bottle.request.query.get('type')
     if access_type == 'add':
         param = list(map(bottle.request.query.get, schema))
@@ -1139,7 +1225,7 @@ def hotel_transaction_manage_json():
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
-        success, pkey = db.add_item('hotelTransaction', schema, param, [0], fillpkey_autoinc)
+        success, pkey = db.add_item('hotelTransaction', schema, param, [0])
         if success:
             return {'status': 'succeeded', 't_id': pkey[0]}
     elif access_type == 'update':
@@ -1182,7 +1268,7 @@ def manage_hotel_comment():
 @bottle_app.get('/manage/hotel/comment/async')
 @Misc.auth_validate
 def hotel_comment_manage_json():
-    schema = ['c_id', 'h_id', 'u_id', 'message', 'rate']
+    schema = ['c_id', 't_id', 'u_id', 'message', 'rate']
     access_type = bottle.request.query.get('type')
     if access_type == 'add':
         param = list(map(bottle.request.query.get, schema))
