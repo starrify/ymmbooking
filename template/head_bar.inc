@@ -21,7 +21,7 @@
             <a class="brand" href="#">Online Payment</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#login"  data-toggle="modal" class="navbar-link" id="Username">Username</a>
+              Logged in as <a href="#Login"  data-toggle="modal" class="navbar-link" id="Username">Username</a>
                 <a href="/manage/hotel/info">| Admin</a>
 
                 </p>
@@ -59,7 +59,7 @@
 </div>
 <script type="text/javascript">
 		var buid;//全局变量
-		buid = getCookie("uid");
+		buid = getCookie(" uid");
 		function getCookie(objName) {
 		    var arrStr = document.cookie.split(";");
 		    for (var i = 0; i < arrStr.length; i++) {
@@ -67,7 +67,6 @@
 		        if (temp[0] == objName) return unescape(temp[1]);
 		    }
 		}
-		console.log(buid);
 		function notification() {
 		    var url = "../../../api/General/Notification";
 		    $.ajax({
@@ -98,7 +97,7 @@
 //		        window.location = loginurl;//跳转到登陆页面
 		    }
 		    else {
-		        var username = getCookie(" username");
+		        var username = getCookie("username");
 		        var usernamenode = document.getElementById("Username");
 		        usernamenode.innerHTML = username;
 		        usernamenode.setAttribute('href', '#LoginOut');
