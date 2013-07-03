@@ -186,7 +186,7 @@
                         function(data){
                         console.log(data)
                         $("#comment_list").html('')
-                        strdata="<td class=info_td>商品编号</td><td class=info_td><strong>商品描述</strong></td>"+"<td class=info_td><strong>商品评价</strong></td>"+"<td class=info_td><strong>商品评分</strong></td>"
+                        strdata="<td class=info_td>评价编号</td><td class=info_td><strong>订单编号</strong></td>"+"<td class=info_td><strong>商品评价</strong></td>"+"<td class=info_td><strong>商品评分</strong></td>"
                         $("#comment_list").append($("<tr>",{html:strdata}))
                         for(var i in data.comments){
                             fill_list (data.comments[i],i)
