@@ -257,22 +257,6 @@
         minView: 2,
         pickerPosition: "bottom-left",
     });
-    /*$("#start_date").val(function(){
-                        var dd = new Date();
-                        var y = 1900+dd.getYear();
-                        var m = dd.getMonth();//获取当前月份-1的日期
-                        if (m<10) m = "0"+m;
-                        var d = dd.getDate();
-                        if (d<10) d = "0"+d;
-                        var h = dd.getHours();
-                        if (h<10) h = "0"+h;
-                        var mm = dd.getMinutes();
-                        if (mm<10) mm = "0"+mm;
-                        var s = dd.getSeconds();
-                        if (s<10) s = "0"+s;
-                        return y+"-"+m+"-"+d+" "+h+":"+mm+":"+s;
-                         })
-    $("#end_date").val(formatDate(new Date()));*/
     $(".booking-option").click(function(){
         $(".choosed").removeClass("choosed")
         $(this).addClass("choosed")
@@ -328,9 +312,7 @@
         console.log(sparams.type);
         $('.booking-option[name=' + sparams.type + ']').trigger('click'); // this is ugly...
     }
-    //$("#commentForm").hide()
     fillSearchParams();
-    
     fetch_history();
     
 </script>

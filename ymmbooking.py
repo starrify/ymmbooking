@@ -594,15 +594,15 @@ def create_transaction():
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         db = Database(app.config)
         db.create_transaction_flight(param[0], uid, param[1], param[2], param[3:])
-        bottle.redirect('/trade/booking_history')
+        bottle.redirect('/trade/booking_history?type=flight')
     elif ct_type == 'hotel':
         param = list(map(bottle.request.query.get,
             ['_item_id', '_item_date', '_item_price']))
-# it's a pity but our db schema does not support these in hotel
-#                'is_child', 'user_name', 'ID_type', 'ID_number', 
-#                'contact_name', 'contact_tel', 'contact_email']))
+        # it's a pity but our db schema does not support these in hotel
+        #                'is_child', 'user_name', 'ID_type', 'ID_number', 
+        #                'contact_name', 'contact_tel', 'contact_email']))
         if not all(param[:3]):
-            bottle.redirect('/trade/booking_history')
+            bottle.redirect('/trade/booking_history?type=hotel')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
         db = Database(app.config)
