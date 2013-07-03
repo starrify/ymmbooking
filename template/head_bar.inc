@@ -21,7 +21,7 @@
             <a class="brand" href="#">Online Payment</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#login"  data-toggle="modal" class="navbar-link" id="Username">Username</a>
+              <a href="/login"  data-toggle="modal" class="navbar-link" id="Username">Log in</a>
                 <a href="/manage/hotel/info">| Admin</a>
 
                 </p>
