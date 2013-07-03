@@ -3,7 +3,8 @@
 # COPYLEFT, ALL WRONGS RESERVED
 
 import bottle
-import urllib
+import urllib.request
+import urllib.parse
 import json
 import sqlite3
 import sys
@@ -97,6 +98,20 @@ class Database(object):
         flights = cursor.fetchall()
         cursor.close()
         return flights
+    
+    # this is exhausting, we may need a cache or a new hotel table attribute?
+    def get_hotel_min_price(self, h_id):
+        cursor = self._conn.cursor()
+        print("qstr in get_hotel_min_price", "SELECT MIN(price) FROM ROOM WHERE h_id = ?", h_id)
+
+        cursor.execute(
+            "SELECT MIN(price) FROM ROOM "
+            "WHERE h_id = ?",
+            [h_id])
+
+        minprice = cursor.fetchall()[0]['MIN(price)']
+        cursor.close()
+        return minprice
 
     def get_hotels(self, name="", description="", location="", h_id=None):
         if h_id:
@@ -113,6 +128,9 @@ class Database(object):
         cursor.close()
         if h_id:
             hotels = [hotel for hotel in hotels if hotel['h_id'] == h_id]
+
+        for hotel in hotels:
+            hotel['minprice'] = self.get_hotel_min_price(hotel['h_id'])
         return hotels
     
     def get_hotel_rooms(self, h_id=None, roomType=""):
@@ -206,9 +224,24 @@ class Database(object):
             [flight_number, uid, date, price] + user_info)
         cursor.close()
         return
+    
+    def create_transaction_hotel(self, 
+        h_id="", uid="", date="", price="", user_info=None):
+        
+        cursor = self._conn.cursor()
+        cursor.execute(
+            "INSERT INTO hotelTransaction "
+            "VALUES("
+                "NULL," # auto increment
+                "?,?,?,?,'not_paid')",
+                #"?,?,?,?,?,?,?)",
+            [h_id, uid, date, price]) # + user_info)
+        cursor.close()
+        return
+
 
     # unlike the method for admin, uid must be provided
-    def get_user_flight_transaction_history(self, uid="", start_date="", end_end="2999-12-31"):
+    def get_user_flight_transaction_history(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
         cursor.execute(
             "SELECT * FROM flightTransaction "
@@ -230,6 +263,8 @@ class Database(object):
             if not end_date: end_date = "2999-12-31"
             cond.append("time BETWEEN ? AND ?")
             data += [start_date, end_date]
+        print("SELECT * FROM flightTransaction "
+            "WHERE " + " AND ".join(cond), data)
 
         cursor.execute(
             "SELECT * FROM flightTransaction "
@@ -264,8 +299,9 @@ class Database(object):
         return ret
     
     # unlike the method for admin, uid must be provided
-    def get_user_hotel_transaction_history(self, uid="", start_date="", end_end="2999-12-31"):
+    def get_user_hotel_transaction_history(self, uid="", start_date="", end_date="2999-12-31"):
         cursor = self._conn.cursor()
+        print(uid, start_date, end_date)
         cursor.execute(
             "SELECT * FROM hotelTransaction "
             "WHERE u_id = ? AND time BETWEEN ? AND ?",
@@ -383,20 +419,28 @@ def login():
 def auth():
     """Merely for testing for now"""
     uid = ''
-    param = list(map(bottle.request.forms.get, ['username', 'passwd']))
+    param = list(map(bottle.request.forms.get, ['username', 'passwd', 'group']))
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+    # poor compatibility layer....
+    if param[2] == 'user':
+        param[2] = '1'
+    elif param[2] == 'admin':
+        param[2] = '2'
+    elif param[2] == 'auditor':
+        param[2] = '3'
     if app.config.integration_test:
         """stupid API from group 1"""
-        jdata = json.dumps({'uname': param[0], 'password': param[1], 'group': 0})
+        postdata = urllib.parse.urlencode({'username': param[0], 'password': param[1], 'group': param[2]}).encode('utf8')
         try:
             auth_url = app.config.main_deploy + app.config.login_url
-            ret = urllib.request.urlopen(auth_url, jdata, app.config.main_timeout)
-            jdata = json.loads(ret.read())
+            ret = urllib.request.urlopen(auth_url, postdata, app.config.main_timeout)
+            jdata = json.loads(json.loads(ret.read().decode('utf8')))
+            print(jdata)
             if jdata['err'] == "100":
                 uid = jdata['uid']
             else:
                 return "Authentication failed."
-        except:
+        except None:
             return "Error communicating with auth API by group 1"
             pass
     else:
@@ -468,13 +512,38 @@ def hotel_search_json():
     param = list(map(bottle.request.query.get, 
         ['name', 'description', 'location', 'h_id']))
     if not any(param):
-        return {'hotel': []}
+        return {'status': 'failed'}
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
 
     db = Database(app.config)
     hotels = db.get_hotels(param[0], param[1], param[2], param[3])
-    return {'hotel': [list(map(lambda x: hotel[x], 
-        ('h_id', 'name', 'description', 'location'))) for hotel in hotels]}
+    return {'status': 'succeeded', 'hotel': [list(map(lambda x: hotel[x], 
+        ('h_id', 'name', 'description', 'location', 'minprice'))) for hotel in hotels]}
+
+@bottle_app.get('/hotel/room/search/async')
+def hotel_room_search_json():
+    param = list(map(bottle.request.query.get,
+        ['h_id', 'roomType'])) # support for these two is enough
+    if not any(param):
+        return {'status': 'failed'}
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+
+    db = Database(app.config)
+    rooms = db.get_hotel_rooms(param[0], param[1])
+    return {'status': 'succeeded', 'room': rooms} 
+
+@bottle_app.get('/hotel/hotel_info')
+@bottle.view(app.config.template_path + 'hotel/hotel_info.html')
+def hotel_info():
+    param = list(map(bottle.request.query.get,
+        ['h_id']))
+    if not param[0]:
+        bottle.redirect('/')
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+
+    return {
+        'h_id': param[0],
+    }
 
 @bottle_app.get('/order')
 @bottle.view(app.config.template_path + 'order.html')
@@ -497,11 +566,20 @@ def order():
             '_item_price': param[2]}
     elif o_type == 'hotel':
         param = list(map(bottle.request.query.get, 
-            ['name', 'description', 'location', 'h_id']))
+            ['h_id', 'roomType', 'date', 'price']))
+        print(param)
         if not any(param):
-            return {'hotel': []}
+            bottle.redirect('/')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
-        bottle.redirect('/')
+        return {
+            'item_name': '酒店' + param[0] + ': ' + param[1], 
+            'item_price': param[3],
+            'total_price': param[3], 
+            'order_type': 'hotel',
+            '_item_id': param[0],
+            '_item_date': param[2],
+            '_item_price': param[3]}
+
     else:   # invalid type or no type.
         #bottle.redirect('/')
         pass
@@ -525,9 +603,20 @@ def create_transaction():
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         db = Database(app.config)
         db.create_transaction_flight(param[0], uid, param[1], param[2], param[3:])
-        bottle.redirect('/trade/booking_history')
+        bottle.redirect('/trade/booking_history?type=flight')
     elif ct_type == 'hotel':
-        pass
+        param = list(map(bottle.request.query.get,
+            ['_item_id', '_item_date', '_item_price']))
+        # it's a pity but our db schema does not support these in hotel
+        #                'is_child', 'user_name', 'ID_type', 'ID_number', 
+        #                'contact_name', 'contact_tel', 'contact_email']))
+        if not all(param[:3]):
+            bottle.redirect('/trade/booking_history?type=hotel')
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
+        db = Database(app.config)
+        db.create_transaction_hotel(param[0], u_id, param[1], param[2])
+        bottle.redirect('/trade/booking_history')
     else:
         pass
     return {}
@@ -556,7 +645,35 @@ def booking_history_async():
                 h['status']])
         return {'flights': ret}
     elif search_type == 'hotel':
-        return {'hotels': []}
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        hist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
+        ret = []
+        for h in hist:
+            ret.append([
+                h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
+        return {'hotels': ret}
+    elif search_type == 'all':
+        # well, the code is duplicated, but it is not the issue to be considered now
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        flighthist = db.get_user_flight_transaction_history(uid, param[0], param[1])
+        hotelhist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
+        flights, hotels = [], []
+        for h in flighthist:
+            flights.append([
+                h['t_id'], h['flightNumber'], h['time'], h['price'],
+                h['status']])
+        for h in  hotelhist:
+            hotels.append([
+                h['t_id'], h['h_id'], h['time'], h['price']])
+        return {'flights': flights, 'hotels': hotels}
     else:
         pass
     return {}
@@ -689,7 +806,6 @@ def flight_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['departureCity', 'arrivalCity']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
@@ -751,7 +867,6 @@ def flight_transaction_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['u_id', 'beginDate', 'endDate']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
@@ -803,7 +918,6 @@ def flight_comment_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['u_id', 'beginDate', 'endDate']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
@@ -953,7 +1067,6 @@ def hotel_transaction_manage_json():
     elif access_type == 'search':
         param = list(map(bottle.request.query.get, 
             ['u_id', 'beginDate', 'endDate']))
-        print(param)
         if not any(param):
             return {'status': 'failed'}
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))

@@ -82,7 +82,7 @@
                         <li class="booking-option" value="1"><a>机票预定</a></li>
                         <li class="booking-option" value="2"><a>酒店预定</a></li>
                     </ul>
-                    <input type="hidden" id="type" value="all">
+                    <input type="hidden" id="type" value="flight">
                 </div>
             </div>
             <div>
@@ -117,7 +117,6 @@
    </footer>
       
       <script>
-          $("#display_history_panel").hide()
           $(".dropdown-toggle").click(function(){
                                       $("#display_history_panel").hide();
                                       })
@@ -208,6 +207,7 @@
               strdata = strdata+"<td>"+comment[4]+"</td></tr>" // 评分
               $("#comment_list").append($("<tbody>",{html:strdata}))
           }
+          fetch_history();
           </script>
 
   </body>
