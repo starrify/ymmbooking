@@ -97,6 +97,7 @@
                 </ul>
                 <input type="hidden" id="type" value="flight">
             </div>
+            <input type="hidden" id="t_id">
             </div>
             <div class="row-fluid">
                  <div class="span6"></div>
@@ -163,6 +164,7 @@
         $.getJSON(
             "/trade/booking_history/async",
             {
+                t_id:       $('#t_id').val(),
                 begin_date: $("#begin_date").val(),
                 end_date:   $("#end_date").val(),
                 type:       $("#type").val(),
@@ -294,6 +296,7 @@
         else
             sparams = {
                 type: urlparams.type,
+                t_id: urlparams.t_id,
                 begin_date: urlparams.begin_date,
                 end_date: urlparams.end_date,
             };
@@ -309,8 +312,8 @@
         else
             setSearchDate(0, formatDate(dateFromNow(1)));
         
-        console.log(sparams.type);
         $('.booking-option[name=' + sparams.type + ']').trigger('click'); // this is ugly...
+        $('#t_id').val(sparams.t_id);
     }
     fillSearchParams();
     fetch_history();

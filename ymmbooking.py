@@ -625,45 +625,49 @@ def booking_history_async():
     if search_type == 'flight':
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
-            ['begin_date', 'end_date']))
+            ['begin_date', 'end_date', 't_id']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         hist = db.get_user_flight_transaction_history(uid, param[0], param[1])
         ret = []
         for h in hist:
-            ret.append([
-                h['t_id'], h['flightNumber'], h['time'], h['price'],
-                h['status']])
+            if not param[2] or str(h['t_id']) == param[2]: # t_id matches
+                ret.append([
+                    h['t_id'], h['flightNumber'], h['time'], h['price'],
+                    h['status']])
         return {'flights': ret}
     elif search_type == 'hotel':
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
-            ['begin_date', 'end_date']))
+            ['begin_date', 'end_date', 't_id']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         hist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
         ret = []
         for h in hist:
-            ret.append([
-                h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
+            if not param[2] or str(h['t_id']) == param[2]: # t_id matches
+                ret.append([
+                    h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
         return {'hotels': ret}
     elif search_type == 'all':
         # well, the code is duplicated, but it is not the issue to be considered now
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
-            ['begin_date', 'end_date']))
+            ['begin_date', 'end_date', 't_id']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         db = Database(app.config)
         flighthist = db.get_user_flight_transaction_history(uid, param[0], param[1])
         hotelhist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
         flights, hotels = [], []
         for h in flighthist:
-            flights.append([
-                h['t_id'], h['flightNumber'], h['time'], h['price'],
-                h['status']])
-        for h in  hotelhist:
-            hotels.append([
-                h['t_id'], h['h_id'], h['time'], h['price']])
+            if not param[2] or str(h['t_id']) == param[2]:
+                flights.append([
+                    h['t_id'], h['flightNumber'], h['time'], h['price'],
+                    h['status']])
+        for h in hotelhist:
+            if not param[2] or str(h['t_id']) == param[2]:
+                hotels.append([
+                    h['t_id'], h['h_id'], h['time'], h['price']])
         return {'flights': flights, 'hotels': hotels}
     else:
         pass
