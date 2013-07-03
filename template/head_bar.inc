@@ -59,9 +59,7 @@
 </div>
 <script type="text/javascript">
 		var buid;//全局变量
-        var uid;
 		buid = getCookie("uid");
-        uid = getCookie("uid");
 		function getCookie(objName) {
 		    var arrStr = document.cookie.split(";");
 		    for (var i = 0; i < arrStr.length; i++) {
@@ -69,35 +67,32 @@
 		        if (temp[0] == objName) return unescape(temp[1]);
 		    }
 		}
+		console.log(buid);
+		function notification() {
+		    var url = "../../../api/General/Notification";
+		    $.ajax({
+		        url: url,
+		        type: "post",
+		        data: { "uid": buid },
+		        success: function (result) {
+		            var data;
+		            eval("data=" + result);
+		            var num = data.NotificationNum;
 
-
-
-	    function notification() {
-	        var url = "../../../api/General/Notification";
-	        $.ajax({
-	            url: url,
-	            type: "post",
-	            data: { "uid": uid },
-	            success: function (result) {
-	                var data;
-	                eval("data=" + result);
-	                var num = data.NotificationNum;
-
-	                console.log("num:" + num);
-	                var node = document.getElementById("notify");
-	                node.disabled
-	                node.innerHTML = "消息:" + num;
-	                node.style.display = "inherit";
-	            }
-	        })
-	    }
-	    var set = setInterval("notification()", 10000);
-
+		            console.log("num:" + num);
+		            var node = document.getElementById("notify");
+		            node.disabled
+		            node.innerHTML = "消息:" + num;
+		            node.style.display = "inherit";
+		        }
+		    })
+		}
+		var set = setInterval("notification()", 10000);
 		$(document).ready(function (e) {
 		    //获取个人信息buid
 
 
-		    if (uid == null) {
+		    if (buid == null) {
 		        //没有uid时需要登陆
 		        var loginurl = "../index.html";
 //		        window.location = loginurl;//跳转到登陆页面
@@ -129,29 +124,31 @@
 		    notification();
 		})
 
-	    function viewNotification() {
-	        var url = "../../../api/General/ViewNotification";
-	        var TEMPL = "<h5>*date</h5><p>*message</p>"
-	        $.ajax({
-	            url: url,
-	            type: "post",
-	            data: { "uid": uid },
-	            success: function (result) {
-	                var node = document.getElementById('notify');
-	                node.innerHTML = "消息:0";
-	                console.log(result);
-	                var data;
-	                eval("data=" + result);
-	                var notis = data.Notis;
-	                //	var node=document.getElementById('unread');
-	                var newhtml = "";
-	                for (var i = 0; i < notis.length; i++) {
-	                    var newmessage = TEMPL.replace(/\*date/, notis[i].GeneratedTime);
-	                    newmessage = newmessage.replace(/\*message/, notis[i].Message);
-	                    newhtml += newmessage;
-	                }
-	                $("#unread").html(newhtml);
-	            }
+		function viewNotification() {
+		    var url = "../../../api/General/ViewNotification";
+		    //var url = "./2.txt";
+		    var uid = buid;
+		    var TEMPL = "<h5>*date</h5><p>*message</p>"
+		    $.ajax({
+		        url: url,
+		        type: "post",
+		        data: { "uid": uid },
+		        success: function (result) {
+		            var node = document.getElementById('notify');
+		            node.innerHTML = "消息:0";
+		            console.log(result);
+		            var data;
+		            eval("data=" + result);
+		            var notis = data.Notis;
+		            //	var node=document.getElementById('unread');
+		            var newhtml = "";
+		            for (var i = 0; i < notis.length; i++) {
+		                var newmessage = TEMPL.replace(/\*date/, notis[i].GeneratedTime);
+		                newmessage = newmessage.replace(/\*message/, notis[i].Message);
+		                newhtml += newmessage;
+		            }
+		            $("#unread").html(newhtml);
+		        }
 
 		    })
 		}
@@ -160,6 +157,3 @@
 
 
 </script>
-
-
-
