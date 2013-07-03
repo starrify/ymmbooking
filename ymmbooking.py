@@ -208,6 +208,7 @@ class Database(object):
             return False
 
     def create_transaction_flight(self, 
+        tid="",
         flight_number="", uid="", date="", price="", user_info=None):
         if not user_info:
             user_info = [""] * 7
@@ -217,24 +218,27 @@ class Database(object):
         cursor.execute(
             "INSERT INTO flightTransaction "
             "VALUES("
-                "NULL," # auto increment
+                #"NULL," # auto increment
+                "?,"
                 "?,?,?,?,'not_paid',"
                 "?,?,?,?,?,?,?)",
-            [flight_number, uid, date, price] + user_info)
+            [tid, flight_number, uid, date, price] + user_info)
         cursor.close()
         return
     
     def create_transaction_hotel(self, 
+        tid="",
         h_id="", uid="", date="", price="", user_info=None):
         
         cursor = self._conn.cursor()
         cursor.execute(
             "INSERT INTO hotelTransaction "
             "VALUES("
-                "NULL," # auto increment
+                #"NULL," # auto increment
+                "?,"
                 "?,?,?,?,'not_paid')",
                 #"?,?,?,?,?,?,?)",
-            [h_id, uid, date, price]) # + user_info)
+            [tid, h_id, uid, date, price]) # + user_info)
         cursor.close()
         return
 
@@ -439,6 +443,7 @@ def auth():
         uid = param[0]
         pass
     bottle.response.set_cookie('uid', uid, secret=app.config.secret, max_age=app.config.cookie_age)
+    bottle.response.set_cookie('username', param[0], max_age=app.config.cookie_age)
     redirect_url = bottle.request.forms.get('redirect')
     if not redirect_url:
         redirect_url = '/'
@@ -579,6 +584,23 @@ def order():
         'item_name': '', 'item_price': '', 'total_price': '', 
         'order_type': '', '_item_id':  '', '_item_date': '', '_item_price': ''}
 
+@bottle_app.get('/pay')
+@Misc.auth_validate
+@bottle.view(app.config.template_path + 'pay.html')
+def pay():
+    param = list(map(bottle.request.query.get,
+        ['t_id', 'item_name', 'item_date', 'item_price']))
+    param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+
+    return {'_tid': param[0], 'item_name': param[1], 'item_time': param[2], 'item_price': param[3]}
+
+@bottle_app.post('/pay')
+@Misc.auth_validate
+def pay_post():
+    tid = bottle.request.query.get('_tid')
+    bottle.redirect('/trade/booking_history')
+    return
+
 @bottle_app.get('/create_transaction')
 @Misc.auth_validate
 def create_transaction():
@@ -592,9 +614,10 @@ def create_transaction():
            bottle.redirect('/trade/booking_history')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        tid = 1
         db = Database(app.config)
-        db.create_transaction_flight(param[0], uid, param[1], param[2], param[3:])
-        bottle.redirect('/trade/booking_history?type=flight&t_id=' + '')
+        db.create_transaction_flight(tid, param[0], uid, param[1], param[2], param[3:])
+        bottle.redirect('/trade/booking_history?type=flight&t_id=' + tid)
     elif ct_type == 'hotel':
         param = list(map(bottle.request.query.get,
             ['_item_id', '_item_date', '_item_price']))
@@ -605,9 +628,10 @@ def create_transaction():
             bottle.redirect('/trade/booking_history')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
+        tid = 1
         db = Database(app.config)
-        db.create_transaction_hotel(param[0], u_id, param[1], param[2])
-        bottle.redirect('/trade/booking_history?type=hotel&t_id=' + '')
+        db.create_transaction_hotel(tid, param[0], u_id, param[1], param[2])
+        bottle.redirect('/trade/booking_history?type=hotel&t_id=' + tid)
     else:
         pass
     return {}
