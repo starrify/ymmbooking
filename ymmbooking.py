@@ -291,16 +291,16 @@ class Database(object):
             return []
     
     def set_flight_transaction_status(self, tid = "", new_stat = "errstat"):
-        try:
-            cursor = slef._conn.cursor()
+        #try:
+            cursor = self._conn.cursor()
             cursor.execute(
                 "UPDATE flightTransaction SET status=?"
                 "WHERE t_id=?",
                 [new_stat, tid])
             cursor.close()
             return True
-        except:
-            return False
+        #except:
+            #return False
    
     def get_hotel_transaction(self, uid="", tid=""):
         try:
@@ -322,7 +322,6 @@ class Database(object):
                 "UPDATE hotelTransaction SET status=?"
                 "WHERE t_id=?",
                 [new_stat, tid])
-            print(new_stat, tid)
             cursor.close()
             return True
         #except:
