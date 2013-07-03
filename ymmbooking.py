@@ -625,6 +625,24 @@ def pay():
 @Misc.auth_validate
 def pay_post():
     tid = bottle.request.query.get('_tid')
+    uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+    
+    try:
+        postdata = urllib.parse.urlencode({
+            'buid': uid,
+            'type': otype,
+            'num': onum,
+            'url': ourl,
+            'oprice': oprice
+        }).encode('utf8')
+        order_url = app.config.main_deploy + app.config.order_url
+        ret = urllib.request.urlopen(order_url, postdata, app.config.main_timeout)
+        jdata = json.loads(json.loads(ret.read().decode('utf8')))
+        print(jdata)
+    except:
+        pass
+    
+ 
     bottle.redirect('/trade/booking_history')
     return
 
