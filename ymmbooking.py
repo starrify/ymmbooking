@@ -602,12 +602,12 @@ def create_transaction():
         #                'is_child', 'user_name', 'ID_type', 'ID_number', 
         #                'contact_name', 'contact_tel', 'contact_email']))
         if not all(param[:3]):
-            bottle.redirect('/trade/booking_history?type=hotel')
+            bottle.redirect('/trade/booking_history')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
         db = Database(app.config)
         db.create_transaction_hotel(param[0], u_id, param[1], param[2])
-        bottle.redirect('/trade/booking_history')
+        bottle.redirect('/trade/booking_history?type=hotel')
     else:
         pass
     return {}
