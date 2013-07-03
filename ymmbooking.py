@@ -3,7 +3,8 @@
 # COPYLEFT, ALL WRONGS RESERVED
 
 import bottle
-import urllib
+import urllib.request
+import urllib.parse
 import json
 import sqlite3
 import sys
@@ -40,6 +41,9 @@ class Config():
         self.main_deploy    = parser.get('Integration', 'main_deploy')
         self.main_timeout   = parser.getint('Integration', 'main_timeout')
         self.login_url      = parser.get('Integration', 'login_url')
+        self.order_url      = parser.get('Integration', 'order_url')
+        self.pay_url        = parser.get('Integration', 'pay_url')
+        self.localhost      = parser.get('Integration', 'localhost')
         #self.integration_test = parser.getboolean('Integration', 'integration_test')
 
 class Database(object):
@@ -446,6 +450,21 @@ class Misc(object):
             return ""
         return bytes(map(ord, string)).decode(code)
 
+    @staticmethod
+    def post_new_order(uid, otype, onum, ourl, oprice):
+        postdata = urllib.parse.urlencode({
+            'buid': uid,
+            'type': otype,
+            'num': onum,
+            'url': ourl,
+            'oprice': oprice
+        }).encode('utf8')
+        order_url = app.config.main_deploy + app.config.order_url
+        ret = urllib.request.urlopen(order_url, postdata, app.config.main_timeout)
+        jdata = json.loads(json.loads(ret.read().decode('utf8')))
+        print(jdata)
+        return jdata['err'], jdata['oid']
+
 app = App('./config.cfg')
 bottle_app = bottle.Bottle()
 
@@ -472,20 +491,28 @@ def login():
 def auth():
     """Merely for testing for now"""
     uid = ''
-    param = list(map(bottle.request.forms.get, ['username', 'passwd']))
+    param = list(map(bottle.request.forms.get, ['username', 'passwd', 'group']))
     param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+    # poor compatibility layer....
+    if param[2] == 'user':
+        param[2] = '1'
+    elif param[2] == 'admin':
+        param[2] = '2'
+    elif param[2] == 'auditor':
+        param[2] = '3'
     if app.config.integration_test:
         """stupid API from group 1"""
-        jdata = json.dumps({'uname': param[0], 'password': param[1], 'group': 0})
+        postdata = urllib.parse.urlencode({'username': param[0], 'password': param[1], 'group': param[2]}).encode('utf8')
         try:
             auth_url = app.config.main_deploy + app.config.login_url
-            ret = urllib.request.urlopen(auth_url, jdata, app.config.main_timeout)
-            jdata = json.loads(ret.read())
+            ret = urllib.request.urlopen(auth_url, postdata, app.config.main_timeout)
+            jdata = json.loads(json.loads(ret.read().decode('utf8')))
+            print(jdata)
             if jdata['err'] == "100":
                 uid = jdata['uid']
             else:
                 return "Authentication failed."
-        except:
+        except None:
             return "Error communicating with auth API by group 1"
             pass
     else:
@@ -682,7 +709,14 @@ def create_transaction():
            bottle.redirect('/trade/booking_history')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
-        tid = 1
+        #try:
+        if True:
+            err, tid = Misc.post_new_order(uid, 1, 1, app.config.localhost + '/trade/booking_history?type=flight', param[2])
+            print(tid)
+            if err != '300':
+                return "Error creating order"
+        #except:
+        #    return "Error commmunicating with group 2"
         db = Database(app.config)
         db.create_transaction_flight(tid, param[0], uid, param[1], param[2], param[3:])
         bottle.redirect('/trade/booking_history?type=flight&t_id=' + tid)
@@ -693,10 +727,17 @@ def create_transaction():
         #                'is_child', 'user_name', 'ID_type', 'ID_number', 
         #                'contact_name', 'contact_tel', 'contact_email']))
         if not all(param[:3]):
-            bottle.redirect('/trade/booking_history')
+            bottle.redirect('/trade/booking_history?type=hotel')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
         tid = 1
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        try:
+            err, tid = Misc.post_new_order(uid, 2, 1, app.config.localhost + '/trade/booking_history?type=hotel', param[2])
+            if err != '300':
+                return "Error creating order"
+        except:
+            return "Error commmunicating with group 2"
         db = Database(app.config)
         db.create_transaction_hotel(tid, param[0], u_id, param[1], param[2])
         bottle.redirect('/trade/booking_history?type=hotel&t_id=' + tid)
