@@ -130,7 +130,7 @@
     <input type="hidden" name="item_date" id="pay_item_date">
 </form>
 <form id="commentForm" method="get" action="/trade/comment">
-    <input type="hidden" name="t_id" id="comment_t_id">
+    <input type="hidden" name="tid" id="comment_t_id">
     <input type="hidden" name="type" id="comment_type">
 </form>
 <!--jscode.-->
@@ -191,10 +191,14 @@
     }
     
     function formatStatus(status) {
-        if(status == 'paid')
-            return '已支付';
-        else
+        if(status == 'commented')
+            return '已评论';
+        else if(status == 'not_commented')
+            return '未评论';
+        else if(status == 'not_paid')
             return '未支付';
+        else
+            return '未知状态';
     }
     
     function setSearchDate(begin, datestr) {

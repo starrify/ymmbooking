@@ -73,7 +73,7 @@
                             </colgroup>
                             <tr> <!-- header -->
                                 <th class="text-cropped">评论编号</th>
-                                <th class="text-cropped">航班编号</th>
+                                <th class="text-cropped">订单编号</th>
                                 <th class="text-cropped">用户标识</th>
                                 <th class="text-cropped">用户评论</th>
                                 <th class="text-cropped">用户评分</th>
@@ -92,7 +92,7 @@
                             </colgroup>
                             <tr>
                                 <td class="text-cropped">新的航班评论</td>
-                                <td class="cell"><input class="cell-content input" id="at_flightNumber" type="text" placeholder="航班编号"></td>
+                                <td class="cell"><input class="cell-content input" id="at_t_id" type="text" placeholder="订单编号"></td>
                                 <td class="cell"><input class="cell-content input" id="at_u_id" type="text" placeholder="用户标识"></td>
                                 <td class="cell"><input class="cell-content input" id="at_message" type="text" placeholder="用户评论"></td>
                                 <td class="cell"><input class="cell-content input" id="at_rate" type="text" placeholder="用户评分"></td>
@@ -156,9 +156,9 @@ function parseObject(obj) {
     return ret;
 }
 
-var dbschema = ['c_id', 'flightNumber', 'u_id', 'message', 'rate'];
+var dbschema = ['c_id', 't_id', 'u_id', 'message', 'rate'];
 var schema = [{id:'c_id', name:'评价编号', type: 'int', primaryKey: true}, 
-                {id:'flightNumber', name:'航班编号', type: 'string', not_null: true},
+                {id:'t_id', name:'订单编号', type: 'string', not_null: true},
                 {id:'u_id', name:'用户标识', type: 'string', not_null: true},
                 {id: 'message', name: '用户评价', type: 'string', popover: true}, 
                 {id: 'rate', name: '用户评分', type: 'string', popover: true},
