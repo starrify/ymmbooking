@@ -20,10 +20,9 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">酒店</li>
-              <li><a href="/hotel/search">酒店预定</a></li>
-              <li><a href="/hotel/search">旅馆预定</a></li>			
+              <li><a href="/hotel/search">酒店预定</a></li>			
               <li class="nav-header">航班</li>
-              <li class="active"><a href="/flight/search" onclick="hide_inter()">国内航班</a></li>
+              <li class="active"><a href="/flight/search" onclick="hide_inter()">航班预订</a></li>
               <li class="nav-header">订单管理</li>
               <li ><a href="/trade/booking_history">订单历史</a></li>
               <li ><a href="/trade/comment_history">评价历史</a></li>
@@ -37,7 +36,7 @@
         <ul class="breadcrumb">
             <li><a href="/hotel/search">预定系统</a><span class="divider">/</span></li>
             <li><a href="#">机票预定</a><span class="divider">/</span></li>
-            <li class="active">国内航班搜索</a></li>
+            <li class="active">航班搜索</a></li>
         </ul>
 	  <div class="order_list">
 		<div class="flightbook">
@@ -217,8 +216,8 @@
     function hide_inter(){
         $(".nav-list li:eq(5)").removeClass('active')
         $(".nav-list li:eq(4)").addClass('active')
-        $(".breadcrumb li:eq(2)").html('国内航班搜索')
-        $("title").html('国内航班搜索')
+        $(".breadcrumb li:eq(2)").html('航班搜索')
+        $("title").html('航班搜索')
         $("#optionsRadios1")[0].checked=true
         $("#return").hide()
     }
