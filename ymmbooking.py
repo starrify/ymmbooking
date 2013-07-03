@@ -708,6 +708,7 @@ def pay_post():
         ret = urllib.request.urlopen(pay_url, postdata, app.config.main_timeout)
         jdata = json.loads(json.loads(ret.read().decode('utf8')))
         print(jdata)
+        
         if jdata['err'] != '300':
             return "Error paying: %s" %jdata['err']
     except:
@@ -733,14 +734,13 @@ def create_transaction():
            bottle.redirect('/trade/booking_history')
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
-        #try:
-        if True:
+        try:
             err, tid = Misc.post_new_order(uid, 1, 1, app.config.localhost + '/trade/booking_history?type=flight', param[2])
             print(tid)
             if err != '300':
                 return "Error creating order"
-        #except:
-        #    return "Error commmunicating with group 2"
+        except:
+            return "Error commmunicating with group 2"
         db = Database(app.config)
         db.create_transaction_flight(tid, param[0], uid, param[1], param[2], param[3:])
         bottle.redirect('/trade/booking_history?type=flight&t_id=' + tid)
