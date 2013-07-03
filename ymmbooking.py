@@ -647,6 +647,24 @@ def booking_history_async():
             ret.append([
                 h['t_id'], h['h_id'], h['time'], h['price'], h['status']])
         return {'hotels': ret}
+    elif search_type == 'all':
+        # well, the code is duplicated, but it is not the issue to be considered now
+        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        param = list(map(bottle.request.query.get,
+            ['begin_date', 'end_date']))
+        param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
+        db = Database(app.config)
+        flighthist = db.get_user_flight_transaction_history(uid, param[0], param[1])
+        hotelhist = db.get_user_hotel_transaction_history(uid, param[0], param[1])
+        flights, hotels = [], []
+        for h in flighthist:
+            flights.append([
+                h['t_id'], h['flightNumber'], h['time'], h['price'],
+                h['status']])
+        for h in  hotelhist:
+            hotels.append([
+                h['t_id'], h['h_id'], h['time'], h['price']])
+        return {'flights': flights, 'hotels': hotels}
     else:
         pass
     return {}
