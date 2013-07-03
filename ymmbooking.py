@@ -594,7 +594,7 @@ def create_transaction():
         uid = bottle.request.get_cookie('uid', secret=app.config.secret)
         db = Database(app.config)
         db.create_transaction_flight(param[0], uid, param[1], param[2], param[3:])
-        bottle.redirect('/trade/booking_history?type=flight')
+        bottle.redirect('/trade/booking_history?type=flight&t_id=' + '')
     elif ct_type == 'hotel':
         param = list(map(bottle.request.query.get,
             ['_item_id', '_item_date', '_item_price']))
@@ -607,7 +607,7 @@ def create_transaction():
         u_id = bottle.request.get_cookie('uid', secret=app.config.secret)
         db = Database(app.config)
         db.create_transaction_hotel(param[0], u_id, param[1], param[2])
-        bottle.redirect('/trade/booking_history?type=hotel')
+        bottle.redirect('/trade/booking_history?type=hotel&t_id=' + '')
     else:
         pass
     return {}
@@ -651,7 +651,7 @@ def booking_history_async():
         return {'hotels': ret}
     elif search_type == 'all':
         # well, the code is duplicated, but it is not the issue to be considered now
-        uid = bottle.request.get_cookie('uid', secret=app.config.secret)
+        eid = bottle.request.get_cookie('uid', secret=app.config.secret)
         param = list(map(bottle.request.query.get,
             ['begin_date', 'end_date', 't_id']))
         param = list(map(lambda x: Misc.unicodify(x, 'utf8'), param))
